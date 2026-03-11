@@ -163,140 +163,140 @@
   {
     "objectID": "slides/lecture-02/index.html#το-περιβάλλον-rstudio",
     "href": "slides/lecture-02/index.html#το-περιβάλλον-rstudio",
-    "title": "Στατισιτκά Προγράμματα II",
+    "title": "Στατιστικά Προγράμματα II",
     "section": "Το περιβάλλον: RStudio",
     "text": "Το περιβάλλον: RStudio\nΤο RStudio είναι το κυρίαρχο IDE (Integrated Development Environment) για την R (αντίστοιχο του Jupyter ή του VS Code).\n\n\nSource (Πάνω Αριστερά) Εδώ γράφετε και αποθηκεύετε τα scripts σας (όπως ένα αρχείο .py).\n\n\nEnvironment (Πάνω Δεξιά) Δείχνει τις ενεργές μεταβλητές (objects) και τα datasets που βρίσκονται στη μνήμη RAM.\n\n\n\n\nConsole (Κάτω Αριστερά) Εδώ η R εκτελεί τις εντολές και τυπώνει τα αποτελέσματα (σαν το Python terminal).\n\n\nFiles/Plots/Help (Κάτω Δεξιά) Διαχείριση αρχείων, εμφάνιση γραφημάτων και πρόσβαση στο Help."
   },
   {
     "objectID": "slides/lecture-02/index.html#μεταβλητές-και-ανάθεση--",
     "href": "slides/lecture-02/index.html#μεταβλητές-και-ανάθεση--",
-    "title": "Στατισιτκά Προγράμματα II",
+    "title": "Στατιστικά Προγράμματα II",
     "section": "Μεταβλητές και ανάθεση (<-)",
     "text": "Μεταβλητές και ανάθεση (&lt;-)\n\nΣτην Python χρησιμοποιούμε το =.\nΣτην R, το τυπικό σύμβολο εκχώρησης είναι το αριστερό βελάκι &lt;-.\n\nΗ R κατανοεί δυναμικά τους τύπους δεδομένων (numeric, character, logical).\n\nx &lt;- 10\nmy_string &lt;- \"Hello Stats\"\nis_true &lt;- TRUE # Προσοχή: Όλα κεφαλαία, σε αντίθεση με το True της Python\n\nx * 2\n\n[1] 20"
   },
   {
     "objectID": "slides/lecture-02/index.html#διανύσματα-vectors",
     "href": "slides/lecture-02/index.html#διανύσματα-vectors",
-    "title": "Στατισιτκά Προγράμματα II",
+    "title": "Στατιστικά Προγράμματα II",
     "section": "Διανύσματα (Vectors)",
     "text": "Διανύσματα (Vectors)\nΈνα διάνυσμα (vector) είναι μια μονοδιάστατη δομή δεδομένων που περιέχει στοιχεία του ίδιου τύπου.\nΔημιουργούνται με τη συνάρτηση c() (από το combine ή concatenate).\n\n\n\n# Δημιουργία διανύσματος\nscores &lt;- c(85, 92, 78, 90)\n\n# Επιλογή στοιχείου (Subsetting)\nscores[2]\n\n[1] 92\n\n# Δημιουργία ακολουθίας (Προσοχή: Το 5 συμπεριλαμβάνεται!)\n1:5\n\n[1] 1 2 3 4 5"
   },
   {
     "objectID": "slides/lecture-02/index.html#αρίθμηση",
     "href": "slides/lecture-02/index.html#αρίθμηση",
-    "title": "Στατισιτκά Προγράμματα II",
+    "title": "Στατιστικά Προγράμματα II",
     "section": "Αρίθμηση",
     "text": "Αρίθμηση\n\nΠροσοχή: Η R ξεκινάει την αρίθμηση (indexing) από το 1!\n\nΣτην Python, το πρώτο στοιχείο μιας λίστας βρίσκεται στη θέση 0.\nΣτην R, βρίσκεται στη θέση 1.\nΑυτή είναι η πιο συνηθισμένη πηγή σφαλμάτων όταν μεταβαίνετε από την Python στην R.\n\n\n\nmy_numbers &lt;- c(10, 20, 30, 40)\nmy_numbers[1]\n\n[1] 10"
   },
   {
     "objectID": "slides/lecture-02/index.html#διανυσματοποίησης-vectorization",
     "href": "slides/lecture-02/index.html#διανυσματοποίησης-vectorization",
-    "title": "Στατισιτκά Προγράμματα II",
+    "title": "Στατιστικά Προγράμματα II",
     "section": "Διανυσματοποίησης (vectorization)",
     "text": "Διανυσματοποίησης (vectorization)\n\nprices &lt;- c(10, 20, 30)\n\n# Εφαρμόζεται παντού αυτόματα!\nprices * 1.2\n\n[1] 12 24 36"
   },
   {
     "objectID": "slides/lecture-02/index.html#επιλογή-υποσυνόλου",
     "href": "slides/lecture-02/index.html#επιλογή-υποσυνόλου",
-    "title": "Στατισιτκά Προγράμματα II",
+    "title": "Στατιστικά Προγράμματα II",
     "section": "Επιλογή υποσυνόλου",
-    "text": "Επιλογή υποσυνόλου\n\n# Επιλογή 10 τυχαίων τιμών από την N(0, 1)\nvalues &lt;- rnorm(10)\nvalues\n\n [1]  0.38323229  0.92114434  0.23803813 -1.53345715 -0.50478820 -0.51657015\n [7]  0.07071854  1.02029114  0.47180492 -1.52703416\n\n\nΜπορούμε να διαλέξουμε τις πρώτες 3 τιμές της μεταβλητής values:\n\nvalues[1:3]\n\n[1] 0.3832323 0.9211443 0.2380381\n\n\nΜπορούμε να διαλέξουμε την 3η τιμές και την 5η τιμή της μεταβλητής values:\n\nvalues[c(3, 5)]\n\n[1]  0.2380381 -0.5047882"
+    "text": "Επιλογή υποσυνόλου\n\n# Επιλογή 10 τυχαίων τιμών από την N(0, 1)\nvalues &lt;- rnorm(10)\nvalues\n\n [1] -0.7404056 -1.3601892  0.8671591  0.2601721  0.5564329  0.6106552\n [7]  1.2328158  1.5016496 -1.5672920  0.2164040\n\n\nΜπορούμε να διαλέξουμε τις πρώτες 3 τιμές της μεταβλητής values:\n\nvalues[1:3]\n\n[1] -0.7404056 -1.3601892  0.8671591\n\n\nΜπορούμε να διαλέξουμε την 3η τιμές και την 5η τιμή της μεταβλητής values:\n\nvalues[c(3, 5)]\n\n[1] 0.8671591 0.5564329"
   },
   {
     "objectID": "slides/lecture-02/index.html#επιλογή-υποσυνόλου-1",
     "href": "slides/lecture-02/index.html#επιλογή-υποσυνόλου-1",
-    "title": "Στατισιτκά Προγράμματα II",
+    "title": "Στατιστικά Προγράμματα II",
     "section": "Επιλογή υποσυνόλου",
     "text": "Επιλογή υποσυνόλου\n\nΆσκηση\nΝα διαλέξετε τις πρώτες 3 και την 5η τιμή της μεταβλητής values."
   },
   {
     "objectID": "slides/lecture-02/index.html#επιλογή-υποσυνόλου-2",
     "href": "slides/lecture-02/index.html#επιλογή-υποσυνόλου-2",
-    "title": "Στατισιτκά Προγράμματα II",
+    "title": "Στατιστικά Προγράμματα II",
     "section": "Επιλογή υποσυνόλου",
     "text": "Επιλογή υποσυνόλου\n\nΆσκηση\nΝα διαλέξετε τις θετικές τιμές της μεταβλητής values.\n\n\n\nΛύση\nvalues[values &gt; 0]"
   },
   {
     "objectID": "slides/lecture-02/index.html#απουσία-τιμών",
     "href": "slides/lecture-02/index.html#απουσία-τιμών",
-    "title": "Στατισιτκά Προγράμματα II",
+    "title": "Στατιστικά Προγράμματα II",
     "section": "Απουσία τιμών",
     "text": "Απουσία τιμών\n\nΣτην Python χρησιμοποιούμε None ή np.nan.\nΗ R χρησιμοποιεί το NA (Not Available).\n\nΑν κάνετε πράξεις με NA, το αποτέλεσμα είναι NA.\n\n\n\ndata &lt;- c(5, 10, NA, 20)\n\nmean(data)\n\n[1] NA\n\n\n\n\nΧρησιμοποιήστε την επιλογή na.rm = TRUE για να τα αγνοήσετε.\n\n\n\nmean(data, na.rm = TRUE)\n\n[1] 11.66667"
   },
   {
     "objectID": "slides/lecture-02/index.html#data-frames",
     "href": "slides/lecture-02/index.html#data-frames",
-    "title": "Στατισιτκά Προγράμματα II",
+    "title": "Στατιστικά Προγράμματα II",
     "section": "Data frames",
     "text": "Data frames\n\nΤο data frame είναι ένας δισδιάστατος πίνακας.\nΕίναι το αντίστοιχο των Pandas της R.\nΔεν χρειάζεται import βιβλιοθήκης.\nΚάθε στήλη ενός data frame είναι στην ουσία ένα διάνυσμα (vector).\n\n\n# Χρήση του ενσωματωμένου dataset mtcars\nhead(mtcars, n = 3) # Οι πρώτες 3 γραμμές\n\n               mpg cyl disp  hp drat    wt  qsec vs am gear carb\nMazda RX4     21.0   6  160 110 3.90 2.620 16.46  0  1    4    4\nMazda RX4 Wag 21.0   6  160 110 3.90 2.875 17.02  0  1    4    4\nDatsun 710    22.8   4  108  93 3.85 2.320 18.61  1  1    4    1"
   },
   {
     "objectID": "slides/lecture-02/index.html#data-frames-1",
     "href": "slides/lecture-02/index.html#data-frames-1",
-    "title": "Στατισιτκά Προγράμματα II",
+    "title": "Στατιστικά Προγράμματα II",
     "section": "Data frames",
     "text": "Data frames\nΧρησιμοποιούμε το $ για να απομονώσουμε μια στήλη.\n\n\n\n# Απομόνωση στήλης\nmtcars$mpg[1:5]\n\n[1] 21.0 21.0 22.8 21.4 18.7"
   },
   {
     "objectID": "slides/lecture-02/index.html#βασικά-στατιστικά-μεγέθη",
     "href": "slides/lecture-02/index.html#βασικά-στατιστικά-μεγέθη",
-    "title": "Στατισιτκά Προγράμματα II",
+    "title": "Στατιστικά Προγράμματα II",
     "section": "Βασικά στατιστικά μεγέθη",
     "text": "Βασικά στατιστικά μεγέθη\nΗ R έχει ενσωματωμένες τις περισσότερες στατιστικές συναρτήσεις (mean(), median(), sd(), var(), cor()).\n\n# Συσχέτιση μεταξύ κατανάλωσης (mpg) και βάρους (wt)\ncor(mtcars$mpg, mtcars$wt)\n\n[1] -0.8676594\n\n\n\n\nΗ συνάρτηση summary() παρέχει άμεσα περιγραφικά στατιστικά (min, max, τεταρτημόρια, μέσο) για ένα vector ή ένα ολόκληρο data frame.\n\n# Περιγραφικά στατιστικά για τη στήλη Ιπποδύναμης (hp)\nsummary(mtcars$hp)\n\n   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. \n   52.0    96.5   123.0   146.7   180.0   335.0"
   },
   {
     "objectID": "slides/lecture-02/index.html#έλεγχοι-if-else",
     "href": "slides/lecture-02/index.html#έλεγχοι-if-else",
-    "title": "Στατισιτκά Προγράμματα II",
+    "title": "Στατιστικά Προγράμματα II",
     "section": "Έλεγχοι If / Else",
     "text": "Έλεγχοι If / Else\nΗ λογική είναι ίδια με την Python, αλλά η σύνταξη διαφέρει:\n\nΧρησιμοποιούμε παρενθέσεις () για τη συνθήκη.\nΧρησιμοποιούμε άγκιστρα {} για το μπλοκ κώδικα.\n\n\nx &lt;- 15\n\nif (x &gt; 10) {\n  print(\"Υψηλή τιμή\")\n} else {\n  print(\"Χαμηλή τιμή\")\n}\n\n[1] \"Υψηλή τιμή\""
   },
   {
     "objectID": "slides/lecture-02/index.html#έλεγχοι-if-else-1",
     "href": "slides/lecture-02/index.html#έλεγχοι-if-else-1",
-    "title": "Στατισιτκά Προγράμματα II",
+    "title": "Στατιστικά Προγράμματα II",
     "section": "Έλεγχοι If / Else",
     "text": "Έλεγχοι If / Else\nΤο elif της Python γράφεται ως else if στην R.\n\n\n\nΆσκηση\nΑν γράψετε τον κώδικα που να τυπώνει το αντίστοιχο μήνυμα αν το x είναι κάτω από 10. Να κάνει το ίδιο αν το x είναι κάτω από 15. Αλλιώς να τυπώνει ότι το x είναι μεγαλύτερο του 15.\n\n\n\nΛύση\nif (x &lt; 10) {\n  print(\"Το x είναι μικρότερο του 10\")\n} else if (x &lt; 15) {\n  print(\"Το x είναι μικρότερο του 15\")\n} else {\n  print(\"Το x είναι μεγαλύτερο ή ίσο του 15\")\n}"
   },
   {
     "objectID": "slides/lecture-02/index.html#δομές-επανάληψης",
     "href": "slides/lecture-02/index.html#δομές-επανάληψης",
-    "title": "Στατισιτκά Προγράμματα II",
+    "title": "Στατιστικά Προγράμματα II",
     "section": "Δομές επανάληψης",
     "text": "Δομές επανάληψης\nΗ σύνταξη χρησιμοποιεί το πρότυπο for (μεταβλητή in ακολουθία) { … }.\n\n# Επανάληψη πάνω σε ακολουθία\nfor (i in 1:3) {\n  print(paste(\"Επανάληψη νούμερο:\", i))\n}\n\n[1] \"Επανάληψη νούμερο: 1\"\n[1] \"Επανάληψη νούμερο: 2\"\n[1] \"Επανάληψη νούμερο: 3\""
   },
   {
     "objectID": "slides/lecture-02/index.html#δομές-επανάληψης-1",
     "href": "slides/lecture-02/index.html#δομές-επανάληψης-1",
-    "title": "Στατισιτκά Προγράμματα II",
+    "title": "Στατιστικά Προγράμματα II",
     "section": "Δομές επανάληψης",
     "text": "Δομές επανάληψης\n\n\n\nΆσκηση\nΝα δημιουργήσετε ένα διάνυσμα x με τιμές από 10 έως 20. Μετά να γράψετε μία επανάληψη όπου κάθε στοιχείο του x θα αυξάνεται κατά 1. Υπάρχει πιο σωστός τρόπος;\n\n\n\nΛύση\nx &lt;- 10:20\n\nfor (i in 1:11) {\n  x[i] &lt;- x[i] + 1\n}\n\n# Σωστός τρόπος\nx &lt;- x + 1"
   },
   {
     "objectID": "slides/lecture-02/index.html#δομές-επανάληψης-2",
     "href": "slides/lecture-02/index.html#δομές-επανάληψης-2",
-    "title": "Στατισιτκά Προγράμματα II",
+    "title": "Στατιστικά Προγράμματα II",
     "section": "Δομές επανάληψης",
     "text": "Δομές επανάληψης\nΤι κάνουμε αν δεν είναι εύκολο να υπολογίσουμε το πλήθος των στοιχείων της x;\nΜπορούμε να χρησιμοποιήσουμε την εντολή seq_along()\n\nz1 &lt;- 50:54\n\nseq_along(z1)\n\n[1] 1 2 3 4 5\n\n\n\nz2 &lt;- c(\"Κώστας\", \"Ευγενία\", \"Βασίλης\", \"Καλλιόπη\")\n\nseq_along(z2)\n\n[1] 1 2 3 4\n\n\nΆρα, στην προηγούμενη άσκηση μία άλλη λύση θα ήταν:\n\nx &lt;- 10:20\nfor (i in seq_along(x)) {\n  x[i] &lt;- x[i] + 1\n}"
   },
   {
     "objectID": "slides/lecture-02/index.html#συναρτήσεις",
     "href": "slides/lecture-02/index.html#συναρτήσεις",
-    "title": "Στατισιτκά Προγράμματα II",
+    "title": "Στατιστικά Προγράμματα II",
     "section": "Συναρτήσεις",
     "text": "Συναρτήσεις\n\nΣτην Python ορίζουμε συναρτήσεις με τη λέξη def.\nΣτην R, δημιουργούμε μια συνάρτηση με την εντολή function() και την εκχωρούμε σε ένα αντικείμενο (object).\n\n\n# Συνάρτηση ύψωσης στο τετράγωνο\nsquare &lt;- function(x) {\n  result &lt;- x^2\n  \n  result\n}\n\nsquare(c(10, 15, 20))\n\n[1] 100 225 400"
   },
   {
     "objectID": "slides/lecture-02/index.html#συναρτήσεις-1",
     "href": "slides/lecture-02/index.html#συναρτήσεις-1",
-    "title": "Στατισιτκά Προγράμματα II",
+    "title": "Στατιστικά Προγράμματα II",
     "section": "Συναρτήσεις",
     "text": "Συναρτήσεις\n\n\n\nΆσκηση\nΓράψτε μία συνάρτηση που υπολογίζει τα z-score ενός δείγματος.\n\n\n\nΛύση\nz_score &lt;- function(x) {\n  sd_x &lt;- sd(x, na.rm = TRUE)\n  mean_x &lt;- mean(x, na.rm = TRUE)\n  if (sd_x &gt; 0) {\n    result &lt;- (x - mean_x) / sd_x\n  } else {\n    result &lt;- \"The standard deviation is 0!\"\n  }\n  \n  result\n}\n\n# !!!!\n# Τι κάνουμε αν το x έχει μόνο ένα στοιχείο;"
   },
   {
     "objectID": "slides/lecture-02/index.html#εγκατάσταση-και-χρήση-πακέτων",
     "href": "slides/lecture-02/index.html#εγκατάσταση-και-χρήση-πακέτων",
-    "title": "Στατισιτκά Προγράμματα II",
+    "title": "Στατιστικά Προγράμματα II",
     "section": "Εγκατάσταση και χρήση πακέτων",
     "text": "Εγκατάσταση και χρήση πακέτων\n\ninstall.packages(\"ggplot2\")\nlibrary(ggplot2)"
   },
