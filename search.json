@@ -49,46 +49,74 @@
     "text": "Συγγραφέας: Αλέξανδρος Ρέκκας\nΜάθημα: XXXXX\nΟι σημειώσεις αυτές έχουν σχεδιαστεί ώστε να συμπληρώνουν τις παρουσιάσεις των διαλέξεων και να αποτελούν μια ολοκληρωμένη αναφορά για το υλικό του μαθήματος."
   },
   {
-    "objectID": "slides/lecture-01/index.html#στόχοι-του-μαθήματος",
-    "href": "slides/lecture-01/index.html#στόχοι-του-μαθήματος",
-    "title": "Στατισιτκά Προγράμματα II",
-    "section": "Στόχοι του Μαθήματος",
-    "text": "Στόχοι του Μαθήματος\nΘα εστιάσουμε σε:\n\nΔυνατότητα αναπαραγωγής των αποτελεσμάτων (Reproducibility): Ο κώδικας να τρέχει παντού, όχι μόνο στο δικό μας μηχάνημα.\nΡοές εργασίας (Workflows): Αποδοτική διαχείριση projects.\nΜοντέρνες τεχνικές: tidyverse, purrr, ggplot2\nΠαρουσίαση: Δημιουργία αναφορών και παρουσιάσεων υψηλής ποιότητας."
+    "objectID": "slides/lecture-04/index.html#τα-δεδομένα",
+    "href": "slides/lecture-04/index.html#τα-δεδομένα",
+    "title": "Στατιστικά Προγράμματα II",
+    "section": "Τα δεδομένα",
+    "text": "Τα δεδομένα\nΔοκιμάζουμε ένα νέο φάρμακο για την υπέρταση (Μείωση Αρτηριακής Πίεσης).\n\n\nΑντιγράψτε και τρέξτε τον παρακάτω κώδικα:\n\ntrial_data &lt;- data.frame(\n  id = 1:10,\n  age = c(45, 62, 38, NA, 55, 71, 29, 48, NA, 65),\n  group = c(\"Drug\", \"Control\", \"Drug\", \"Drug\", \"Control\", \"Control\", \"Drug\", \"Control\", \"Drug\", \"Control\"),\n  bp_start = c(160, 155, 145, 170, 150, NA, 135, 148, 165, 158),\n  bp_end = c(120, 150, 130, 140, 145, 155, 125, 148, NA, 140),\n  adverse_event = c(FALSE, TRUE, FALSE, TRUE, FALSE, FALSE, FALSE, NA, TRUE, FALSE)\n)"
   },
   {
-    "objectID": "slides/lecture-01/index.html#έλεγχος-προγραμματιστικού-περιβάλλοντος",
-    "href": "slides/lecture-01/index.html#έλεγχος-προγραμματιστικού-περιβάλλοντος",
-    "title": "Στατισιτκά Προγράμματα II",
-    "section": "Έλεγχος προγραμματιστικού περιβάλλοντος",
-    "text": "Έλεγχος προγραμματιστικού περιβάλλοντος\nΘα χρησιμοποιήσουμε το πακέτο renv το οποίο:\n\nΔημιουργεί μια απομονωμένη βιβλιοθήκη για κάθε project.\nΚαταγράφει τις ακριβείς εκδόσεις στο renv.lock.\n\n\n\n# Ενεργοποίηση στο project\nrenv::init()\n\n# Εγκατάσταση πακέτων\n\nrenv::install()\n\n# Αποθήκευση κατάστασης βιβλιοθηκών\nrenv::snapshot()\n\n# Ανάκτηση περιβάλλοντος (σε άλλο υπολογιστή)\nrenv::restore()"
+    "objectID": "slides/lecture-03/index.html#τα-δεδομένα",
+    "href": "slides/lecture-03/index.html#τα-δεδομένα",
+    "title": "Στατιστικά Προγράμματα II",
+    "section": "Τα Δεδομένα",
+    "text": "Τα Δεδομένα\nΈχετε συλλέξει τα δεδομένα 8 φοιτητών για τα μαθήματα “Μαθηματικά” και “Στατιστική”, καθώς και τον αριθμό των απουσιών τους. Ορισμένοι φοιτητές δεν προσήλθαν στις εξετάσεις, άρα έχουν την τιμή NA.\n\n\n\n\n\n\n\n\n\nΑριθμός Μητρώου (student_id)\nΜαθηματικά (math_grades)\nΣτατιστική (stat_grades)\nΑπουσίες (absences)\n\n\n\n\nAM01\n4.5\n5.0\n2\n\n\nAM02\n8.0\n7.5\n0\n\n\nAM03\n3.5\n4.0\n5\n\n\nAM04\nNA\n6.5\n1\n\n\nAM05\n9.5\n10.0\n0\n\n\nAM06\n6.0\nNA\n3\n\n\nAM07\n2.0\n3.5\n6\n\n\nAM08\nNA\n8.0\n2"
   },
   {
-    "objectID": "slides/lecture-01/index.html#καθαρισμός-και-επεξεργασία-των-δεδομέων",
-    "href": "slides/lecture-01/index.html#καθαρισμός-και-επεξεργασία-των-δεδομέων",
-    "title": "Στατισιτκά Προγράμματα II",
-    "section": "Καθαρισμός και επεξεργασία των δεδομέων",
-    "text": "Καθαρισμός και επεξεργασία των δεδομέων\nΘα χρησιμοποιήσουμε τη συλλογή βιβλιοθηκών tidyverse που μοιράζονται κοινή φιλοσοφία σχεδιασμού:\n\ndplyr: Γραμματική επεξεργασίας δεδομένων.\ntidyr: Αναδιάταξη για “καθαρά” (tidy) δεδομένα.\nstringr: Διαχείριση κειμένου.\n\n\n\n\n\n\n\nΣημείωση\n\n\nΘα χρησιμοποιούμε εκτενώς τον pipe operator |&gt; (και όχι τον %&gt;%) για να γράφουμε ευανάγνωστο κώδικα."
+    "objectID": "slides/lecture-03/index.html#μέρος-1-εισαγωγή-δεδομένων-και-περιγραφή",
+    "href": "slides/lecture-03/index.html#μέρος-1-εισαγωγή-δεδομένων-και-περιγραφή",
+    "title": "Στατιστικά Προγράμματα II",
+    "section": "Μέρος 1: Εισαγωγή δεδομένων και περιγραφή",
+    "text": "Μέρος 1: Εισαγωγή δεδομένων και περιγραφή\n\nΝα εισάγετε τα δεδομένα σε ξεχωριστά διανύσματα.\nΕλέγξτε αν τα διανύσματα που δημιουργήσατε έχουν το ίδιο μήκος.\nΕνώστε τα 4 διανύσματα σε ένα Data Frame με το όνομα performance.\nΔείξτε τα βασικά περιγραφικά στατιστικά όλου του Data Frame.\nΒρείτε τη μέγιστη βαθμολογία στα μαθηματικά."
   },
   {
-    "objectID": "slides/lecture-01/index.html#δημιουργία-γραφημάτων",
-    "href": "slides/lecture-01/index.html#δημιουργία-γραφημάτων",
-    "title": "Στατισιτκά Προγράμματα II",
-    "section": "Δημιουργία γραφημάτων",
-    "text": "Δημιουργία γραφημάτων\nggplot2: The Grammar of Graphics\nΒασικά Συστατικά:\n\nData: Τα δεδομένα μας.\nAesthetics (aes): Τι βλέπουμε (x, y, color).\nGeoms: Το είδος (points, bars).\n\n\ndata |&gt; \n  ggplot2::ggplot(ggplot2::aes(x = displ, y = hwy)) +\n  ggplot2::geom_point(ggplot2::aes(color = class)) +\n  ggplot2::geom_smooth() +\n  ggplot2::theme_minimal()"
+    "objectID": "slides/lecture-03/index.html#λύση",
+    "href": "slides/lecture-03/index.html#λύση",
+    "title": "Στατιστικά Προγράμματα II",
+    "section": "Λύση",
+    "text": "Λύση\n\nstudent_id &lt;- c(\"AM01\", \"AM02\", \"AM03\", \"AM04\", \"AM05\", \"AM06\", \"AM07\", \"AM08\")\nmath_grades &lt;- c(4.5, 8.0, 3.5, NA, 9.5, 6.0, 2.0, NA)\nstat_grades &lt;- c(5.0, 7.5, 4.0, 6.5, 10.0, NA, 3.5, 8.0)\nabsences &lt;- c(2, 0, 5, 1, 0, 3, 6, 2)\n\n# 1. Έλεγχος μήκους\nlength(math_grades) \n\n# 2. Δημιουργία Data Frame\nperformance &lt;- data.frame(\n  aem = student_id,\n  math = math_grades,\n  stat = stat_grades,\n  absences = absences\n)\n\n# 3. Περιγραφικά στατιστικά (Βλέπουμε πόσα NA έχει κάθε στήλη)\nsummary(performance)\n\n# 4. Μέγιστη βαθμολογία στα μαθηματικά αγνοώντας τα NA\nmax(performance$math, na.rm = TRUE)"
   },
   {
-    "objectID": "slides/lecture-01/index.html#συναρτησιακός-προγραμματισμός",
-    "href": "slides/lecture-01/index.html#συναρτησιακός-προγραμματισμός",
-    "title": "Στατισιτκά Προγράμματα II",
-    "section": "Συναρτησιακός προγραμματισμός",
-    "text": "Συναρτησιακός προγραμματισμός\n\nΤο πακέτο purrr για συναρτησιακό προγραμματισμό\nΗ R είναι μια συναρτησιακή γλώσσα. Στόχος μας είναι να αποφύγουμε τα περίπλοκα:\n\nfinal_data &lt;- data.frame()\n\nfor (i in seq_along(files)) {\n  temp &lt;- read_csv(files[i])\n  final_data &lt;- rbind(final_data, temp) \n}\n\n\nfinal_data &lt;- files |&gt; \n  purrr::map(readr::read_csv) |&gt; \n  purrr::list_rbind()\nΗ λογική του Map: Αντί να γράφουμε λούπες, “χαρτογραφούμε” μια συνάρτηση πάνω σε μια λίστα δεδομένων."
+    "objectID": "slides/lecture-03/index.html#τροποποίηση-βαθμολογιών",
+    "href": "slides/lecture-03/index.html#τροποποίηση-βαθμολογιών",
+    "title": "Στατιστικά Προγράμματα II",
+    "section": "Τροποποίηση βαθμολογιών",
+    "text": "Τροποποίηση βαθμολογιών\nΟ καθηγητής Στατιστικής αποφάσισε να δώσει 0.5 βαθμό bonus σε όλους:\n\nΔημιουργήστε μια νέα στήλη στο performance με όνομα stat_final που θα περιέχει τον νέο βαθμό.\nΒρείτε τους φοιτητές που πέρασαν το κάθε μάθημα.\nΒρείτε τον μέσο όρο των απουσιών των φοιτητών που πέρασαν τα Μαθηματικά."
   },
   {
-    "objectID": "slides/lecture-01/index.html#δημιουργία-αναφορών",
-    "href": "slides/lecture-01/index.html#δημιουργία-αναφορών",
-    "title": "Στατισιτκά Προγράμματα II",
-    "section": "Δημιουργία αναφορών",
-    "text": "Δημιουργία αναφορών\n\nΤο Quarto είναι η εξέλιξη του Rmarkdown:\nΕνοποιεί κείμενο, κώδικα και αποτελέσματα.\nΠαράγει: HTML, PDF, Word, e-books και παρουσιάσεις.\nΟ κώδικας και η ανάλυση πρέπει να ζουν μαζί σε ένα ζωντανό έγγραφο."
+    "objectID": "slides/lecture-03/index.html#λύση-1",
+    "href": "slides/lecture-03/index.html#λύση-1",
+    "title": "Στατιστικά Προγράμματα II",
+    "section": "Λύση",
+    "text": "Λύση\n\nperformance$stat_final &lt;- performance$Stat + 0.5\n\n# Διόρθωση βαθμών άνω του 10\nperformance$stat_final[performance$stat_final &gt; 10] &lt;- 10\n\n# Λογικό διάνυσμα για επιτυχία στα Μαθηματικά\npassed_math &lt;- performance_df$math &gt;= 5.0\n\n# Μέσος όρος απουσιών όσων πέρασαν\n# Βάζουμε na.rm = TRUE γιατί το passed_math περιέχει NAs.\nmean(performance$absences[passed_math], na.rm = TRUE)"
+  },
+  {
+    "objectID": "slides/lecture-03/index.html#βαθμοί-στη-σταστιστική-για-κάθε-φοιτητή",
+    "href": "slides/lecture-03/index.html#βαθμοί-στη-σταστιστική-για-κάθε-φοιτητή",
+    "title": "Στατιστικά Προγράμματα II",
+    "section": "Βαθμοί στη σταστιστική για κάθε φοιτητή",
+    "text": "Βαθμοί στη σταστιστική για κάθε φοιτητή\nΓια κάθε φοιτητή των δεδομένων σας γράψτε τον κώδικα που θα κάνει τα παρακάτω:\n\nΑν ο βαθμός είναι NA, τύπωσε: “Ο φοιτητής με ΑΕΜ { aem } απουσίαζε.”\nΑν ο βαθμός είναι πάνω από 5, τύπωσε: “Ο φοιτητής με ΑΕΜ { aem } πέρασε με βαθμό { stat_final }.”\nΑλλιώς, τύπωσε: “Ο φοιτητής ΑΕΜ { aem } κόπηκε με βαθμό { stat_final }.”"
+  },
+  {
+    "objectID": "slides/lecture-03/index.html#λύση-2",
+    "href": "slides/lecture-03/index.html#λύση-2",
+    "title": "Στατιστικά Προγράμματα II",
+    "section": "Λύση",
+    "text": "Λύση\n\nfor (i in 1:nrow(performance_df)) {\n  \n  # Αποθήκευση του τρέχοντος βαθμού και του ΑΕΜ για ευκολία\n  current_grade &lt;- performance$stat_final[i]\n  current_aem &lt;- performance_df$aem[i]\n  \n  # Το is.na() πρέπει να είναι το πρώτο statement!\n  if (is.na(current_grade)) {\n    print(paste(\"Ο φοιτητής\", current_aem, \"απουσίαζε.\"))\n    \n  } else if (current_grade &gt;= 5) {\n    print(paste(\"Ο φοιτητής\", current_aem, \"πέρασε με\", current_grade))\n    \n  } else {\n    print(paste(\"Ο φοιτητής\", current_aem, \"κόπηκε με\", current_grade))\n  }\n  \n}"
+  },
+  {
+    "objectID": "slides/lecture-03/index.html#αντικατάσταση-na",
+    "href": "slides/lecture-03/index.html#αντικατάσταση-na",
+    "title": "Στατιστικά Προγράμματα II",
+    "section": "Αντικατάσταση NA",
+    "text": "Αντικατάσταση NA\n\nΓράψτε τη συνάρτηση impute_mean, η οποία θα αντικαθιστά τα NA ενός διανύσματος με τον μέσο όρο των τιμών του.\nΕφαρμόστε τη συνάρτηση σας στις στήλες math και stat του Data Frame performance και αποθηκεύστε τα αποτελέσματα σε δύο νέες στήλες (math_imp και stat_imp).\nΤυπώστε τις αρχικές και τις νέες στήλες των Μαθηματικών για να επιβεβαιώσετε."
+  },
+  {
+    "objectID": "slides/lecture-03/index.html#λύση-3",
+    "href": "slides/lecture-03/index.html#λύση-3",
+    "title": "Στατιστικά Προγράμματα II",
+    "section": "Λύση",
+    "text": "Λύση\n\nimpute_mean &lt;- function(x) {\n  \n  mean_val &lt;- mean(x, na.rm = TRUE)\n  \n  x[is.na(x)] &lt;- mean_val\n  \n  return(x)\n}\n\nperformance$math_imp &lt;- impute_mean(performance$math)\nperformance$stat_imp &lt;- impute_mean(performance$stat)\n\n# 6. Προβολή των αποτελεσμάτων (για τα Μαθηματικά)\ndata.frame(\n  aem = performance$aem,\n  original_math = performance$math,\n  imputed_math = performance$math_imp\n)"
   },
   {
     "objectID": "notes-index.html",
@@ -200,7 +228,7 @@
     "href": "slides/lecture-02/index.html#επιλογή-υποσυνόλου",
     "title": "Στατιστικά Προγράμματα II",
     "section": "Επιλογή υποσυνόλου",
-    "text": "Επιλογή υποσυνόλου\n\n# Επιλογή 10 τυχαίων τιμών από την N(0, 1)\nvalues &lt;- rnorm(10)\nvalues\n\n [1] -0.7404056 -1.3601892  0.8671591  0.2601721  0.5564329  0.6106552\n [7]  1.2328158  1.5016496 -1.5672920  0.2164040\n\n\nΜπορούμε να διαλέξουμε τις πρώτες 3 τιμές της μεταβλητής values:\n\nvalues[1:3]\n\n[1] -0.7404056 -1.3601892  0.8671591\n\n\nΜπορούμε να διαλέξουμε την 3η τιμές και την 5η τιμή της μεταβλητής values:\n\nvalues[c(3, 5)]\n\n[1] 0.8671591 0.5564329"
+    "text": "Επιλογή υποσυνόλου\n\n# Επιλογή 10 τυχαίων τιμών από την N(0, 1)\nvalues &lt;- rnorm(10)\nvalues\n\n [1]  0.46626442  0.14617967  0.96974619  0.74752091  0.04504907 -0.21639777\n [7] -0.37619329  0.08903117  1.00087928  0.48509765\n\n\nΜπορούμε να διαλέξουμε τις πρώτες 3 τιμές της μεταβλητής values:\n\nvalues[1:3]\n\n[1] 0.4662644 0.1461797 0.9697462\n\n\nΜπορούμε να διαλέξουμε την 3η τιμές και την 5η τιμή της μεταβλητής values:\n\nvalues[c(3, 5)]\n\n[1] 0.96974619 0.04504907"
   },
   {
     "objectID": "slides/lecture-02/index.html#επιλογή-υποσυνόλου-1",
@@ -301,10 +329,52 @@
     "text": "Εγκατάσταση και χρήση πακέτων\n\ninstall.packages(\"ggplot2\")\nlibrary(ggplot2)"
   },
   {
+    "objectID": "slides/lecture-01/index.html#στόχοι-του-μαθήματος",
+    "href": "slides/lecture-01/index.html#στόχοι-του-μαθήματος",
+    "title": "Στατισιτκά Προγράμματα II",
+    "section": "Στόχοι του Μαθήματος",
+    "text": "Στόχοι του Μαθήματος\nΘα εστιάσουμε σε:\n\nΔυνατότητα αναπαραγωγής των αποτελεσμάτων (Reproducibility): Ο κώδικας να τρέχει παντού, όχι μόνο στο δικό μας μηχάνημα.\nΡοές εργασίας (Workflows): Αποδοτική διαχείριση projects.\nΜοντέρνες τεχνικές: tidyverse, purrr, ggplot2\nΠαρουσίαση: Δημιουργία αναφορών και παρουσιάσεων υψηλής ποιότητας."
+  },
+  {
+    "objectID": "slides/lecture-01/index.html#έλεγχος-προγραμματιστικού-περιβάλλοντος",
+    "href": "slides/lecture-01/index.html#έλεγχος-προγραμματιστικού-περιβάλλοντος",
+    "title": "Στατισιτκά Προγράμματα II",
+    "section": "Έλεγχος προγραμματιστικού περιβάλλοντος",
+    "text": "Έλεγχος προγραμματιστικού περιβάλλοντος\nΘα χρησιμοποιήσουμε το πακέτο renv το οποίο:\n\nΔημιουργεί μια απομονωμένη βιβλιοθήκη για κάθε project.\nΚαταγράφει τις ακριβείς εκδόσεις στο renv.lock.\n\n\n\n# Ενεργοποίηση στο project\nrenv::init()\n\n# Εγκατάσταση πακέτων\n\nrenv::install()\n\n# Αποθήκευση κατάστασης βιβλιοθηκών\nrenv::snapshot()\n\n# Ανάκτηση περιβάλλοντος (σε άλλο υπολογιστή)\nrenv::restore()"
+  },
+  {
+    "objectID": "slides/lecture-01/index.html#καθαρισμός-και-επεξεργασία-των-δεδομέων",
+    "href": "slides/lecture-01/index.html#καθαρισμός-και-επεξεργασία-των-δεδομέων",
+    "title": "Στατισιτκά Προγράμματα II",
+    "section": "Καθαρισμός και επεξεργασία των δεδομέων",
+    "text": "Καθαρισμός και επεξεργασία των δεδομέων\nΘα χρησιμοποιήσουμε τη συλλογή βιβλιοθηκών tidyverse που μοιράζονται κοινή φιλοσοφία σχεδιασμού:\n\ndplyr: Γραμματική επεξεργασίας δεδομένων.\ntidyr: Αναδιάταξη για “καθαρά” (tidy) δεδομένα.\nstringr: Διαχείριση κειμένου.\n\n\n\n\n\n\n\nΣημείωση\n\n\nΘα χρησιμοποιούμε εκτενώς τον pipe operator |&gt; (και όχι τον %&gt;%) για να γράφουμε ευανάγνωστο κώδικα."
+  },
+  {
+    "objectID": "slides/lecture-01/index.html#δημιουργία-γραφημάτων",
+    "href": "slides/lecture-01/index.html#δημιουργία-γραφημάτων",
+    "title": "Στατισιτκά Προγράμματα II",
+    "section": "Δημιουργία γραφημάτων",
+    "text": "Δημιουργία γραφημάτων\nggplot2: The Grammar of Graphics\nΒασικά Συστατικά:\n\nData: Τα δεδομένα μας.\nAesthetics (aes): Τι βλέπουμε (x, y, color).\nGeoms: Το είδος (points, bars).\n\n\ndata |&gt; \n  ggplot2::ggplot(ggplot2::aes(x = displ, y = hwy)) +\n  ggplot2::geom_point(ggplot2::aes(color = class)) +\n  ggplot2::geom_smooth() +\n  ggplot2::theme_minimal()"
+  },
+  {
+    "objectID": "slides/lecture-01/index.html#συναρτησιακός-προγραμματισμός",
+    "href": "slides/lecture-01/index.html#συναρτησιακός-προγραμματισμός",
+    "title": "Στατισιτκά Προγράμματα II",
+    "section": "Συναρτησιακός προγραμματισμός",
+    "text": "Συναρτησιακός προγραμματισμός\n\nΤο πακέτο purrr για συναρτησιακό προγραμματισμό\nΗ R είναι μια συναρτησιακή γλώσσα. Στόχος μας είναι να αποφύγουμε τα περίπλοκα:\n\nfinal_data &lt;- data.frame()\n\nfor (i in seq_along(files)) {\n  temp &lt;- read_csv(files[i])\n  final_data &lt;- rbind(final_data, temp) \n}\n\n\nfinal_data &lt;- files |&gt; \n  purrr::map(readr::read_csv) |&gt; \n  purrr::list_rbind()\nΗ λογική του Map: Αντί να γράφουμε λούπες, “χαρτογραφούμε” μια συνάρτηση πάνω σε μια λίστα δεδομένων."
+  },
+  {
+    "objectID": "slides/lecture-01/index.html#δημιουργία-αναφορών",
+    "href": "slides/lecture-01/index.html#δημιουργία-αναφορών",
+    "title": "Στατισιτκά Προγράμματα II",
+    "section": "Δημιουργία αναφορών",
+    "text": "Δημιουργία αναφορών\n\nΤο Quarto είναι η εξέλιξη του Rmarkdown:\nΕνοποιεί κείμενο, κώδικα και αποτελέσματα.\nΠαράγει: HTML, PDF, Word, e-books και παρουσιάσεις.\nΟ κώδικας και η ανάλυση πρέπει να ζουν μαζί σε ένα ζωντανό έγγραφο."
+  },
+  {
     "objectID": "slides-index.html",
     "href": "slides-index.html",
     "title": "Παρουσιάσεις των μαθημάτων",
     "section": "",
-    "text": "Διάλεξη 1\nΔιάλεξη 2"
+    "text": "Διάλεξη 1\nΔιάλεξη 2\nΔιάλεξη 3\nΔιάλεξη 4"
   }
 ]

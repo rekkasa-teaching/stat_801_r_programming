@@ -10,8 +10,8 @@
   <meta name="generator" content="quarto-1.8.27">
 
   <meta name="author" content="Αλέξανδρος Ρέκκας">
-  <meta name="dcterms.date" content="2026-03-17">
-  <title>Στατισιτκά Προγράμματα II</title>
+  <meta name="dcterms.date" content="2026-03-18">
+  <title>Στατιστικά Προγράμματα II</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
@@ -96,7 +96,7 @@
     code span.vs { color: #032f62; } /* VerbatimString */
     code span.wa { color: #ff5555; } /* Warning */
   </style>
-  <link rel="stylesheet" href="../../site_libs/revealjs/dist/theme/quarto-8a50cece4eda8c6ac7eee316eb292064.css">
+  <link rel="stylesheet" href="../../site_libs/revealjs/dist/theme/quarto-4c10e6d816e0498c595c61d93f110a07.css">
   <link href="../../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="../../site_libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
   <link href="../../site_libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
@@ -194,8 +194,8 @@
     <div class="slides">
 
 <section id="title-slide" class="quarto-title-block center">
-  <h1 class="title">Στατισιτκά Προγράμματα II</h1>
-  <p class="subtitle"><strong>Μάθημα 1:</strong> Εισαγωγή</p>
+  <h1 class="title">Στατιστικά Προγράμματα II</h1>
+  <p class="subtitle"><strong>Μάθημα 3:</strong> Κλινική δοκιμή</p>
 
 <div class="quarto-title-authors">
 <div class="quarto-title-author">
@@ -205,105 +205,24 @@
 </div>
 </div>
 
-  <p class="date">2026-03-17</p>
+  <p class="date">2026-03-18</p>
 </section>
-<section id="στόχοι-του-μαθήματος" class="slide level2">
-<h2>Στόχοι του Μαθήματος</h2>
-<p>Θα εστιάσουμε σε:</p>
-<ol type="1">
-<li><strong>Δυνατότητα αναπαραγωγής των αποτελεσμάτων (Reproducibility):</strong> Ο κώδικας να τρέχει παντού, όχι μόνο στο δικό μας μηχάνημα.</li>
-<li><strong>Ροές εργασίας (Workflows):</strong> Αποδοτική διαχείριση projects.</li>
-<li><strong>Μοντέρνες τεχνικές:</strong> <code>tidyverse</code>, <code>purrr</code>, <code>ggplot2</code></li>
-<li><strong>Παρουσίαση:</strong> Δημιουργία αναφορών και παρουσιάσεων υψηλής ποιότητας.</li>
-</ol>
-</section>
-<section id="έλεγχος-προγραμματιστικού-περιβάλλοντος" class="slide level2">
-<h2>Έλεγχος προγραμματιστικού περιβάλλοντος</h2>
-<p>Θα χρησιμοποιήσουμε το πακέτο <code>renv</code> το οποίο:</p>
-<ol type="1">
-<li>Δημιουργεί μια <strong>απομονωμένη βιβλιοθήκη</strong> για κάθε project.</li>
-<li>Καταγράφει τις ακριβείς εκδόσεις στο <code>renv.lock</code>.</li>
-</ol>
+<section id="τα-δεδομένα" class="slide level2">
+<h2>Τα δεδομένα</h2>
+<p>Δοκιμάζουμε ένα νέο φάρμακο για την υπέρταση (Μείωση Αρτηριακής Πίεσης).</p>
 <p><br>
 </p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a></a><span class="co"># Ενεργοποίηση στο project</span></span>
-<span id="cb1-2"><a></a>renv<span class="sc">::</span><span class="fu">init</span>()</span>
-<span id="cb1-3"><a></a></span>
-<span id="cb1-4"><a></a><span class="co"># Εγκατάσταση πακέτων</span></span>
-<span id="cb1-5"><a></a></span>
-<span id="cb1-6"><a></a>renv<span class="sc">::</span><span class="fu">install</span>()</span>
-<span id="cb1-7"><a></a></span>
-<span id="cb1-8"><a></a><span class="co"># Αποθήκευση κατάστασης βιβλιοθηκών</span></span>
-<span id="cb1-9"><a></a>renv<span class="sc">::</span><span class="fu">snapshot</span>()</span>
-<span id="cb1-10"><a></a></span>
-<span id="cb1-11"><a></a><span class="co"># Ανάκτηση περιβάλλοντος (σε άλλο υπολογιστή)</span></span>
-<span id="cb1-12"><a></a>renv<span class="sc">::</span><span class="fu">restore</span>()</span></code></pre></div><button title="Αντιγραφή στο πρόχειρο" class="code-copy-button"><i class="bi"></i></button></div>
-</section>
-<section id="καθαρισμός-και-επεξεργασία-των-δεδομέων" class="slide level2">
-<h2>Καθαρισμός και επεξεργασία των δεδομέων</h2>
-<p>Θα χρησιμοποιήσουμε τη συλλογή βιβλιοθηκών <code>tidyverse</code> που μοιράζονται κοινή φιλοσοφία σχεδιασμού:</p>
-<ul>
-<li><code>dplyr</code>: Γραμματική επεξεργασίας δεδομένων.</li>
-<li><code>tidyr</code>: Αναδιάταξη για “καθαρά” (tidy) δεδομένα.</li>
-<li><code>stringr</code>: Διαχείριση κειμένου.</li>
-</ul>
-<div class="callout callout-note callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
+<p><em>Αντιγράψτε και τρέξτε τον παρακάτω κώδικα:</em></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a></a>trial_data <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb1-2"><a></a>  <span class="at">id =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>,</span>
+<span id="cb1-3"><a></a>  <span class="at">age =</span> <span class="fu">c</span>(<span class="dv">45</span>, <span class="dv">62</span>, <span class="dv">38</span>, <span class="cn">NA</span>, <span class="dv">55</span>, <span class="dv">71</span>, <span class="dv">29</span>, <span class="dv">48</span>, <span class="cn">NA</span>, <span class="dv">65</span>),</span>
+<span id="cb1-4"><a></a>  <span class="at">group =</span> <span class="fu">c</span>(<span class="st">"Drug"</span>, <span class="st">"Control"</span>, <span class="st">"Drug"</span>, <span class="st">"Drug"</span>, <span class="st">"Control"</span>, <span class="st">"Control"</span>, <span class="st">"Drug"</span>, <span class="st">"Control"</span>, <span class="st">"Drug"</span>, <span class="st">"Control"</span>),</span>
+<span id="cb1-5"><a></a>  <span class="at">bp_start =</span> <span class="fu">c</span>(<span class="dv">160</span>, <span class="dv">155</span>, <span class="dv">145</span>, <span class="dv">170</span>, <span class="dv">150</span>, <span class="cn">NA</span>, <span class="dv">135</span>, <span class="dv">148</span>, <span class="dv">165</span>, <span class="dv">158</span>),</span>
+<span id="cb1-6"><a></a>  <span class="at">bp_end =</span> <span class="fu">c</span>(<span class="dv">120</span>, <span class="dv">150</span>, <span class="dv">130</span>, <span class="dv">140</span>, <span class="dv">145</span>, <span class="dv">155</span>, <span class="dv">125</span>, <span class="dv">148</span>, <span class="cn">NA</span>, <span class="dv">140</span>),</span>
+<span id="cb1-7"><a></a>  <span class="at">adverse_event =</span> <span class="fu">c</span>(<span class="cn">FALSE</span>, <span class="cn">TRUE</span>, <span class="cn">FALSE</span>, <span class="cn">TRUE</span>, <span class="cn">FALSE</span>, <span class="cn">FALSE</span>, <span class="cn">FALSE</span>, <span class="cn">NA</span>, <span class="cn">TRUE</span>, <span class="cn">FALSE</span>)</span>
+<span id="cb1-8"><a></a>)</span></code></pre></div><button title="Αντιγραφή στο πρόχειρο" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<p><strong>Σημείωση</strong></p>
-</div>
-<div class="callout-content">
-<p>Θα χρησιμοποιούμε εκτενώς τον pipe operator |&gt; (και όχι τον %&gt;%) για να γράφουμε ευανάγνωστο κώδικα.</p>
-</div>
-</div>
-</div>
-</section>
-<section id="δημιουργία-γραφημάτων" class="slide level2">
-<h2>Δημιουργία γραφημάτων</h2>
-<p><code>ggplot2</code>: The Grammar of Graphics</p>
-<p>Βασικά Συστατικά:</p>
-<ul>
-<li><code>Data</code>: Τα δεδομένα μας.</li>
-<li><code>Aesthetics</code> (aes): Τι βλέπουμε (x, y, color).</li>
-<li><code>Geoms</code>: Το είδος (points, bars).</li>
-</ul>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a></a></span>
-<span id="cb2-2"><a></a>data <span class="sc">|&gt;</span> </span>
-<span id="cb2-3"><a></a>  ggplot2<span class="sc">::</span><span class="fu">ggplot</span>(ggplot2<span class="sc">::</span><span class="fu">aes</span>(<span class="at">x =</span> displ, <span class="at">y =</span> hwy)) <span class="sc">+</span></span>
-<span id="cb2-4"><a></a>  ggplot2<span class="sc">::</span><span class="fu">geom_point</span>(ggplot2<span class="sc">::</span><span class="fu">aes</span>(<span class="at">color =</span> class)) <span class="sc">+</span></span>
-<span id="cb2-5"><a></a>  ggplot2<span class="sc">::</span><span class="fu">geom_smooth</span>() <span class="sc">+</span></span>
-<span id="cb2-6"><a></a>  ggplot2<span class="sc">::</span><span class="fu">theme_minimal</span>()</span></code></pre></div><button title="Αντιγραφή στο πρόχειρο" class="code-copy-button"><i class="bi"></i></button></div>
-</section>
-<section id="συναρτησιακός-προγραμματισμός" class="slide level2">
-<h2>Συναρτησιακός προγραμματισμός</h2>
-<ul>
-<li>Το πακέτο <code>purrr</code> για συναρτησιακό προγραμματισμό</li>
-<li>Η R είναι μια συναρτησιακή γλώσσα. Στόχος μας είναι να αποφύγουμε τα περίπλοκα:</li>
-</ul>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a></a>final_data <span class="ot">&lt;-</span> <span class="fu">data.frame</span>()</span>
-<span id="cb3-2"><a></a></span>
-<span id="cb3-3"><a></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="fu">seq_along</span>(files)) {</span>
-<span id="cb3-4"><a></a>  temp <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(files[i])</span>
-<span id="cb3-5"><a></a>  final_data <span class="ot">&lt;-</span> <span class="fu">rbind</span>(final_data, temp) </span>
-<span id="cb3-6"><a></a>}</span></code></pre></div><button title="Αντιγραφή στο πρόχειρο" class="code-copy-button"><i class="bi"></i></button></div>
-<p><br>
-</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a></a>final_data <span class="ot">&lt;-</span> files <span class="sc">|&gt;</span> </span>
-<span id="cb4-2"><a></a>  purrr<span class="sc">::</span><span class="fu">map</span>(readr<span class="sc">::</span>read_csv) <span class="sc">|&gt;</span> </span>
-<span id="cb4-3"><a></a>  purrr<span class="sc">::</span><span class="fu">list_rbind</span>()</span></code></pre></div><button title="Αντιγραφή στο πρόχειρο" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Η λογική του Map: Αντί να γράφουμε λούπες, “χαρτογραφούμε” μια συνάρτηση πάνω σε μια λίστα δεδομένων.</p>
-</section>
-<section id="δημιουργία-αναφορών" class="slide level2">
-<h2>Δημιουργία αναφορών</h2>
-<ul>
-<li>Το <code>Quarto</code> είναι η εξέλιξη του <code>Rmarkdown</code>:</li>
-<li>Ενοποιεί κείμενο, κώδικα και αποτελέσματα.</li>
-<li>Παράγει: HTML, PDF, Word, e-books και παρουσιάσεις.</li>
-<li>Ο κώδικας και η ανάλυση πρέπει να ζουν μαζί σε ένα ζωντανό έγγραφο.</li>
-</ul>
 
 
 </section>
@@ -311,7 +230,7 @@
   <div class="quarto-auto-generated-content" style="display: none;">
 <p><img src="logo.png" class="slide-logo"></p>
 <div class="footer footer-default">
-
+<p>Στατιστικά Προγράμματα II - Μάθημα 3</p>
 </div>
 </div></div>
 
@@ -523,6 +442,44 @@
         ]
       });
     </script>
+    
+    <script>
+      // htmlwidgets need to know to resize themselves when slides are shown/hidden.
+      // Fire the "slideenter" event (handled by htmlwidgets.js) when the current
+      // slide changes (different for each slide format).
+      (function () {
+        // dispatch for htmlwidgets
+        function fireSlideEnter() {
+          const event = window.document.createEvent("Event");
+          event.initEvent("slideenter", true, true);
+          window.document.dispatchEvent(event);
+        }
+
+        function fireSlideChanged(previousSlide, currentSlide) {
+          fireSlideEnter();
+
+          // dispatch for shiny
+          if (window.jQuery) {
+            if (previousSlide) {
+              window.jQuery(previousSlide).trigger("hidden");
+            }
+            if (currentSlide) {
+              window.jQuery(currentSlide).trigger("shown");
+            }
+          }
+        }
+
+        // hookup for slidy
+        if (window.w3c_slidy) {
+          window.w3c_slidy.add_observer(function (slide_num) {
+            // slide_num starts at position 1
+            fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);
+          });
+        }
+
+      })();
+    </script>
+
     <script id="quarto-html-after-body" type="application/javascript">
       window.document.addEventListener("DOMContentLoaded", function (event) {
         const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")

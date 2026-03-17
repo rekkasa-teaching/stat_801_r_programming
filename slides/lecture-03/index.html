@@ -10,8 +10,8 @@
   <meta name="generator" content="quarto-1.8.27">
 
   <meta name="author" content="Αλέξανδρος Ρέκκας">
-  <meta name="dcterms.date" content="2026-03-17">
-  <title>Στατισιτκά Προγράμματα II</title>
+  <meta name="dcterms.date" content="2026-03-04">
+  <title>Στατιστικά Προγράμματα II</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
@@ -96,7 +96,7 @@
     code span.vs { color: #032f62; } /* VerbatimString */
     code span.wa { color: #ff5555; } /* Warning */
   </style>
-  <link rel="stylesheet" href="../../site_libs/revealjs/dist/theme/quarto-8a50cece4eda8c6ac7eee316eb292064.css">
+  <link rel="stylesheet" href="../../site_libs/revealjs/dist/theme/quarto-ba0390287e67c6538fd8326fcfe64e38.css">
   <link href="../../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="../../site_libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
   <link href="../../site_libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
@@ -194,8 +194,8 @@
     <div class="slides">
 
 <section id="title-slide" class="quarto-title-block center">
-  <h1 class="title">Στατισιτκά Προγράμματα II</h1>
-  <p class="subtitle"><strong>Μάθημα 1:</strong> Εισαγωγή</p>
+  <h1 class="title">Στατιστικά Προγράμματα II</h1>
+  <p class="subtitle"><strong>Μάθημα 3</strong></p>
 
 <div class="quarto-title-authors">
 <div class="quarto-title-author">
@@ -205,105 +205,201 @@
 </div>
 </div>
 
-  <p class="date">2026-03-17</p>
+  <p class="date">2026-03-04</p>
 </section>
-<section id="στόχοι-του-μαθήματος" class="slide level2">
-<h2>Στόχοι του Μαθήματος</h2>
-<p>Θα εστιάσουμε σε:</p>
+<section id="τα-δεδομένα" class="slide level2">
+<h2>Τα Δεδομένα</h2>
+<p>Έχετε συλλέξει τα δεδομένα 8 φοιτητών για τα μαθήματα “Μαθηματικά” και “Στατιστική”, καθώς και τον αριθμό των απουσιών τους. Ορισμένοι φοιτητές δεν προσήλθαν στις εξετάσεις, άρα έχουν την τιμή <code>NA</code>.</p>
+<table class="caption-top">
+<colgroup>
+<col style="width: 28%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 20%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Αριθμός Μητρώου (<code>student_id</code>)</th>
+<th style="text-align: center;">Μαθηματικά (<code>math_grades</code>)</th>
+<th style="text-align: center;">Στατιστική (<code>stat_grades</code>)</th>
+<th style="text-align: center;">Απουσίες (<code>absences</code>)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">AM01</td>
+<td style="text-align: center;">4.5</td>
+<td style="text-align: center;">5.0</td>
+<td style="text-align: center;">2</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">AM02</td>
+<td style="text-align: center;">8.0</td>
+<td style="text-align: center;">7.5</td>
+<td style="text-align: center;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">AM03</td>
+<td style="text-align: center;">3.5</td>
+<td style="text-align: center;">4.0</td>
+<td style="text-align: center;">5</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">AM04</td>
+<td style="text-align: center;">NA</td>
+<td style="text-align: center;">6.5</td>
+<td style="text-align: center;">1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">AM05</td>
+<td style="text-align: center;">9.5</td>
+<td style="text-align: center;">10.0</td>
+<td style="text-align: center;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">AM06</td>
+<td style="text-align: center;">6.0</td>
+<td style="text-align: center;">NA</td>
+<td style="text-align: center;">3</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">AM07</td>
+<td style="text-align: center;">2.0</td>
+<td style="text-align: center;">3.5</td>
+<td style="text-align: center;">6</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">AM08</td>
+<td style="text-align: center;">NA</td>
+<td style="text-align: center;">8.0</td>
+<td style="text-align: center;">2</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="μέρος-1-εισαγωγή-δεδομένων-και-περιγραφή" class="slide level2">
+<h2>Μέρος 1: Εισαγωγή δεδομένων και περιγραφή</h2>
 <ol type="1">
-<li><strong>Δυνατότητα αναπαραγωγής των αποτελεσμάτων (Reproducibility):</strong> Ο κώδικας να τρέχει παντού, όχι μόνο στο δικό μας μηχάνημα.</li>
-<li><strong>Ροές εργασίας (Workflows):</strong> Αποδοτική διαχείριση projects.</li>
-<li><strong>Μοντέρνες τεχνικές:</strong> <code>tidyverse</code>, <code>purrr</code>, <code>ggplot2</code></li>
-<li><strong>Παρουσίαση:</strong> Δημιουργία αναφορών και παρουσιάσεων υψηλής ποιότητας.</li>
+<li>Να εισάγετε τα δεδομένα σε ξεχωριστά διανύσματα.</li>
+<li>Ελέγξτε αν τα διανύσματα που δημιουργήσατε έχουν το ίδιο μήκος.</li>
+<li>Ενώστε τα 4 διανύσματα σε ένα Data Frame με το όνομα <code>performance</code>.</li>
+<li>Δείξτε τα βασικά περιγραφικά στατιστικά όλου του Data Frame.</li>
+<li>Βρείτε τη μέγιστη βαθμολογία στα μαθηματικά.</li>
 </ol>
 </section>
-<section id="έλεγχος-προγραμματιστικού-περιβάλλοντος" class="slide level2">
-<h2>Έλεγχος προγραμματιστικού περιβάλλοντος</h2>
-<p>Θα χρησιμοποιήσουμε το πακέτο <code>renv</code> το οποίο:</p>
-<ol type="1">
-<li>Δημιουργεί μια <strong>απομονωμένη βιβλιοθήκη</strong> για κάθε project.</li>
-<li>Καταγράφει τις ακριβείς εκδόσεις στο <code>renv.lock</code>.</li>
-</ol>
-<p><br>
-</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a></a><span class="co"># Ενεργοποίηση στο project</span></span>
-<span id="cb1-2"><a></a>renv<span class="sc">::</span><span class="fu">init</span>()</span>
-<span id="cb1-3"><a></a></span>
-<span id="cb1-4"><a></a><span class="co"># Εγκατάσταση πακέτων</span></span>
+<section id="λύση" class="slide level2">
+<h2>Λύση</h2>
+<div class="cell" data-code-eval="false">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a></a>student_id <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"AM01"</span>, <span class="st">"AM02"</span>, <span class="st">"AM03"</span>, <span class="st">"AM04"</span>, <span class="st">"AM05"</span>, <span class="st">"AM06"</span>, <span class="st">"AM07"</span>, <span class="st">"AM08"</span>)</span>
+<span id="cb1-2"><a></a>math_grades <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">4.5</span>, <span class="fl">8.0</span>, <span class="fl">3.5</span>, <span class="cn">NA</span>, <span class="fl">9.5</span>, <span class="fl">6.0</span>, <span class="fl">2.0</span>, <span class="cn">NA</span>)</span>
+<span id="cb1-3"><a></a>stat_grades <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">5.0</span>, <span class="fl">7.5</span>, <span class="fl">4.0</span>, <span class="fl">6.5</span>, <span class="fl">10.0</span>, <span class="cn">NA</span>, <span class="fl">3.5</span>, <span class="fl">8.0</span>)</span>
+<span id="cb1-4"><a></a>absences <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">0</span>, <span class="dv">5</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">3</span>, <span class="dv">6</span>, <span class="dv">2</span>)</span>
 <span id="cb1-5"><a></a></span>
-<span id="cb1-6"><a></a>renv<span class="sc">::</span><span class="fu">install</span>()</span>
-<span id="cb1-7"><a></a></span>
-<span id="cb1-8"><a></a><span class="co"># Αποθήκευση κατάστασης βιβλιοθηκών</span></span>
-<span id="cb1-9"><a></a>renv<span class="sc">::</span><span class="fu">snapshot</span>()</span>
-<span id="cb1-10"><a></a></span>
-<span id="cb1-11"><a></a><span class="co"># Ανάκτηση περιβάλλοντος (σε άλλο υπολογιστή)</span></span>
-<span id="cb1-12"><a></a>renv<span class="sc">::</span><span class="fu">restore</span>()</span></code></pre></div><button title="Αντιγραφή στο πρόχειρο" class="code-copy-button"><i class="bi"></i></button></div>
-</section>
-<section id="καθαρισμός-και-επεξεργασία-των-δεδομέων" class="slide level2">
-<h2>Καθαρισμός και επεξεργασία των δεδομέων</h2>
-<p>Θα χρησιμοποιήσουμε τη συλλογή βιβλιοθηκών <code>tidyverse</code> που μοιράζονται κοινή φιλοσοφία σχεδιασμού:</p>
-<ul>
-<li><code>dplyr</code>: Γραμματική επεξεργασίας δεδομένων.</li>
-<li><code>tidyr</code>: Αναδιάταξη για “καθαρά” (tidy) δεδομένα.</li>
-<li><code>stringr</code>: Διαχείριση κειμένου.</li>
-</ul>
-<div class="callout callout-note callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<p><strong>Σημείωση</strong></p>
-</div>
-<div class="callout-content">
-<p>Θα χρησιμοποιούμε εκτενώς τον pipe operator |&gt; (και όχι τον %&gt;%) για να γράφουμε ευανάγνωστο κώδικα.</p>
-</div>
-</div>
+<span id="cb1-6"><a></a><span class="co"># 1. Έλεγχος μήκους</span></span>
+<span id="cb1-7"><a></a><span class="fu">length</span>(math_grades) </span>
+<span id="cb1-8"><a></a></span>
+<span id="cb1-9"><a></a><span class="co"># 2. Δημιουργία Data Frame</span></span>
+<span id="cb1-10"><a></a>performance <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb1-11"><a></a>  <span class="at">aem =</span> student_id,</span>
+<span id="cb1-12"><a></a>  <span class="at">math =</span> math_grades,</span>
+<span id="cb1-13"><a></a>  <span class="at">stat =</span> stat_grades,</span>
+<span id="cb1-14"><a></a>  <span class="at">absences =</span> absences</span>
+<span id="cb1-15"><a></a>)</span>
+<span id="cb1-16"><a></a></span>
+<span id="cb1-17"><a></a><span class="co"># 3. Περιγραφικά στατιστικά (Βλέπουμε πόσα NA έχει κάθε στήλη)</span></span>
+<span id="cb1-18"><a></a><span class="fu">summary</span>(performance)</span>
+<span id="cb1-19"><a></a></span>
+<span id="cb1-20"><a></a><span class="co"># 4. Μέγιστη βαθμολογία στα μαθηματικά αγνοώντας τα NA</span></span>
+<span id="cb1-21"><a></a><span class="fu">max</span>(performance<span class="sc">$</span>math, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Αντιγραφή στο πρόχειρο" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
-<section id="δημιουργία-γραφημάτων" class="slide level2">
-<h2>Δημιουργία γραφημάτων</h2>
-<p><code>ggplot2</code>: The Grammar of Graphics</p>
-<p>Βασικά Συστατικά:</p>
-<ul>
-<li><code>Data</code>: Τα δεδομένα μας.</li>
-<li><code>Aesthetics</code> (aes): Τι βλέπουμε (x, y, color).</li>
-<li><code>Geoms</code>: Το είδος (points, bars).</li>
-</ul>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a></a></span>
-<span id="cb2-2"><a></a>data <span class="sc">|&gt;</span> </span>
-<span id="cb2-3"><a></a>  ggplot2<span class="sc">::</span><span class="fu">ggplot</span>(ggplot2<span class="sc">::</span><span class="fu">aes</span>(<span class="at">x =</span> displ, <span class="at">y =</span> hwy)) <span class="sc">+</span></span>
-<span id="cb2-4"><a></a>  ggplot2<span class="sc">::</span><span class="fu">geom_point</span>(ggplot2<span class="sc">::</span><span class="fu">aes</span>(<span class="at">color =</span> class)) <span class="sc">+</span></span>
-<span id="cb2-5"><a></a>  ggplot2<span class="sc">::</span><span class="fu">geom_smooth</span>() <span class="sc">+</span></span>
-<span id="cb2-6"><a></a>  ggplot2<span class="sc">::</span><span class="fu">theme_minimal</span>()</span></code></pre></div><button title="Αντιγραφή στο πρόχειρο" class="code-copy-button"><i class="bi"></i></button></div>
+<section id="τροποποίηση-βαθμολογιών" class="slide level2">
+<h2>Τροποποίηση βαθμολογιών</h2>
+<p>Ο καθηγητής Στατιστικής αποφάσισε να δώσει <strong>0.5 βαθμό bonus</strong> σε όλους:</p>
+<ol type="1">
+<li>Δημιουργήστε μια <strong>νέα στήλη</strong> στο <code>performance</code> με όνομα <code>stat_final</code> που θα περιέχει τον νέο βαθμό.</li>
+<li>Βρείτε τους φοιτητές που πέρασαν το κάθε μάθημα.</li>
+<li>Βρείτε τον μέσο όρο των απουσιών των φοιτητών που πέρασαν τα Μαθηματικά.</li>
+</ol>
 </section>
-<section id="συναρτησιακός-προγραμματισμός" class="slide level2">
-<h2>Συναρτησιακός προγραμματισμός</h2>
-<ul>
-<li>Το πακέτο <code>purrr</code> για συναρτησιακό προγραμματισμό</li>
-<li>Η R είναι μια συναρτησιακή γλώσσα. Στόχος μας είναι να αποφύγουμε τα περίπλοκα:</li>
-</ul>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a></a>final_data <span class="ot">&lt;-</span> <span class="fu">data.frame</span>()</span>
-<span id="cb3-2"><a></a></span>
-<span id="cb3-3"><a></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="fu">seq_along</span>(files)) {</span>
-<span id="cb3-4"><a></a>  temp <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(files[i])</span>
-<span id="cb3-5"><a></a>  final_data <span class="ot">&lt;-</span> <span class="fu">rbind</span>(final_data, temp) </span>
-<span id="cb3-6"><a></a>}</span></code></pre></div><button title="Αντιγραφή στο πρόχειρο" class="code-copy-button"><i class="bi"></i></button></div>
-<p><br>
-</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a></a>final_data <span class="ot">&lt;-</span> files <span class="sc">|&gt;</span> </span>
-<span id="cb4-2"><a></a>  purrr<span class="sc">::</span><span class="fu">map</span>(readr<span class="sc">::</span>read_csv) <span class="sc">|&gt;</span> </span>
-<span id="cb4-3"><a></a>  purrr<span class="sc">::</span><span class="fu">list_rbind</span>()</span></code></pre></div><button title="Αντιγραφή στο πρόχειρο" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Η λογική του Map: Αντί να γράφουμε λούπες, “χαρτογραφούμε” μια συνάρτηση πάνω σε μια λίστα δεδομένων.</p>
+<section id="λύση-1" class="slide level2">
+<h2>Λύση</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a></a>performance<span class="sc">$</span>stat_final <span class="ot">&lt;-</span> performance<span class="sc">$</span>Stat <span class="sc">+</span> <span class="fl">0.5</span></span>
+<span id="cb2-2"><a></a></span>
+<span id="cb2-3"><a></a><span class="co"># Διόρθωση βαθμών άνω του 10</span></span>
+<span id="cb2-4"><a></a>performance<span class="sc">$</span>stat_final[performance<span class="sc">$</span>stat_final <span class="sc">&gt;</span> <span class="dv">10</span>] <span class="ot">&lt;-</span> <span class="dv">10</span></span>
+<span id="cb2-5"><a></a></span>
+<span id="cb2-6"><a></a><span class="co"># Λογικό διάνυσμα για επιτυχία στα Μαθηματικά</span></span>
+<span id="cb2-7"><a></a>passed_math <span class="ot">&lt;-</span> performance_df<span class="sc">$</span>math <span class="sc">&gt;=</span> <span class="fl">5.0</span></span>
+<span id="cb2-8"><a></a></span>
+<span id="cb2-9"><a></a><span class="co"># Μέσος όρος απουσιών όσων πέρασαν</span></span>
+<span id="cb2-10"><a></a><span class="co"># Βάζουμε na.rm = TRUE γιατί το passed_math περιέχει NAs.</span></span>
+<span id="cb2-11"><a></a><span class="fu">mean</span>(performance<span class="sc">$</span>absences[passed_math], <span class="at">na.rm =</span> <span class="cn">TRUE</span>) </span></code></pre></div><button title="Αντιγραφή στο πρόχειρο" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
 </section>
-<section id="δημιουργία-αναφορών" class="slide level2">
-<h2>Δημιουργία αναφορών</h2>
+<section id="βαθμοί-στη-σταστιστική-για-κάθε-φοιτητή" class="slide level2">
+<h2>Βαθμοί στη σταστιστική για κάθε φοιτητή</h2>
+<p>Για κάθε φοιτητή των δεδομένων σας γράψτε τον κώδικα που θα κάνει τα παρακάτω:</p>
 <ul>
-<li>Το <code>Quarto</code> είναι η εξέλιξη του <code>Rmarkdown</code>:</li>
-<li>Ενοποιεί κείμενο, κώδικα και αποτελέσματα.</li>
-<li>Παράγει: HTML, PDF, Word, e-books και παρουσιάσεις.</li>
-<li>Ο κώδικας και η ανάλυση πρέπει να ζουν μαζί σε ένα ζωντανό έγγραφο.</li>
+<li>Αν ο βαθμός είναι <code>NA</code>, τύπωσε: <em>“Ο φοιτητής με ΑΕΜ { <code>aem</code> } απουσίαζε.”</em></li>
+<li>Αν ο βαθμός είναι πάνω από 5, τύπωσε: <em>“Ο φοιτητής με ΑΕΜ { <code>aem</code> } πέρασε με βαθμό { <code>stat_final</code> }.”</em></li>
+<li>Αλλιώς, τύπωσε: <em>“Ο φοιτητής ΑΕΜ { <code>aem</code> } κόπηκε με βαθμό { <code>stat_final</code> }.”</em></li>
 </ul>
+</section>
+<section id="λύση-2" class="slide level2">
+<h2>Λύση</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(performance_df)) {</span>
+<span id="cb3-2"><a></a>  </span>
+<span id="cb3-3"><a></a>  <span class="co"># Αποθήκευση του τρέχοντος βαθμού και του ΑΕΜ για ευκολία</span></span>
+<span id="cb3-4"><a></a>  current_grade <span class="ot">&lt;-</span> performance<span class="sc">$</span>stat_final[i]</span>
+<span id="cb3-5"><a></a>  current_aem <span class="ot">&lt;-</span> performance_df<span class="sc">$</span>aem[i]</span>
+<span id="cb3-6"><a></a>  </span>
+<span id="cb3-7"><a></a>  <span class="co"># Το is.na() πρέπει να είναι το πρώτο statement!</span></span>
+<span id="cb3-8"><a></a>  <span class="cf">if</span> (<span class="fu">is.na</span>(current_grade)) {</span>
+<span id="cb3-9"><a></a>    <span class="fu">print</span>(<span class="fu">paste</span>(<span class="st">"Ο φοιτητής"</span>, current_aem, <span class="st">"απουσίαζε."</span>))</span>
+<span id="cb3-10"><a></a>    </span>
+<span id="cb3-11"><a></a>  } <span class="cf">else</span> <span class="cf">if</span> (current_grade <span class="sc">&gt;=</span> <span class="dv">5</span>) {</span>
+<span id="cb3-12"><a></a>    <span class="fu">print</span>(<span class="fu">paste</span>(<span class="st">"Ο φοιτητής"</span>, current_aem, <span class="st">"πέρασε με"</span>, current_grade))</span>
+<span id="cb3-13"><a></a>    </span>
+<span id="cb3-14"><a></a>  } <span class="cf">else</span> {</span>
+<span id="cb3-15"><a></a>    <span class="fu">print</span>(<span class="fu">paste</span>(<span class="st">"Ο φοιτητής"</span>, current_aem, <span class="st">"κόπηκε με"</span>, current_grade))</span>
+<span id="cb3-16"><a></a>  }</span>
+<span id="cb3-17"><a></a>  </span>
+<span id="cb3-18"><a></a>}</span></code></pre></div><button title="Αντιγραφή στο πρόχειρο" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="αντικατάσταση-na" class="slide level2">
+<h2>Αντικατάσταση <code>NA</code></h2>
+<ol type="1">
+<li>Γράψτε τη συνάρτηση <code>impute_mean</code>, η οποία θα αντικαθιστά τα <code>NA</code> ενός διανύσματος με τον μέσο όρο των τιμών του.</li>
+<li>Εφαρμόστε τη συνάρτηση σας στις στήλες <code>math</code> και <code>stat</code> του Data Frame <code>performance</code> και αποθηκεύστε τα αποτελέσματα σε δύο <strong>νέες στήλες</strong> (<code>math_imp</code> και <code>stat_imp</code>).</li>
+<li>Τυπώστε τις αρχικές και τις νέες στήλες των Μαθηματικών για να επιβεβαιώσετε.</li>
+</ol>
+</section>
+<section id="λύση-3" class="slide level2">
+<h2>Λύση</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a></a>impute_mean <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
+<span id="cb4-2"><a></a>  </span>
+<span id="cb4-3"><a></a>  mean_val <span class="ot">&lt;-</span> <span class="fu">mean</span>(x, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb4-4"><a></a>  </span>
+<span id="cb4-5"><a></a>  x[<span class="fu">is.na</span>(x)] <span class="ot">&lt;-</span> mean_val</span>
+<span id="cb4-6"><a></a>  </span>
+<span id="cb4-7"><a></a>  <span class="fu">return</span>(x)</span>
+<span id="cb4-8"><a></a>}</span>
+<span id="cb4-9"><a></a></span>
+<span id="cb4-10"><a></a>performance<span class="sc">$</span>math_imp <span class="ot">&lt;-</span> <span class="fu">impute_mean</span>(performance<span class="sc">$</span>math)</span>
+<span id="cb4-11"><a></a>performance<span class="sc">$</span>stat_imp <span class="ot">&lt;-</span> <span class="fu">impute_mean</span>(performance<span class="sc">$</span>stat)</span>
+<span id="cb4-12"><a></a></span>
+<span id="cb4-13"><a></a><span class="co"># 6. Προβολή των αποτελεσμάτων (για τα Μαθηματικά)</span></span>
+<span id="cb4-14"><a></a><span class="fu">data.frame</span>(</span>
+<span id="cb4-15"><a></a>  <span class="at">aem =</span> performance<span class="sc">$</span>aem,</span>
+<span id="cb4-16"><a></a>  <span class="at">original_math =</span> performance<span class="sc">$</span>math,</span>
+<span id="cb4-17"><a></a>  <span class="at">imputed_math =</span> performance<span class="sc">$</span>math_imp</span>
+<span id="cb4-18"><a></a>)</span></code></pre></div><button title="Αντιγραφή στο πρόχειρο" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
 
 
 </section>
@@ -523,6 +619,44 @@
         ]
       });
     </script>
+    
+    <script>
+      // htmlwidgets need to know to resize themselves when slides are shown/hidden.
+      // Fire the "slideenter" event (handled by htmlwidgets.js) when the current
+      // slide changes (different for each slide format).
+      (function () {
+        // dispatch for htmlwidgets
+        function fireSlideEnter() {
+          const event = window.document.createEvent("Event");
+          event.initEvent("slideenter", true, true);
+          window.document.dispatchEvent(event);
+        }
+
+        function fireSlideChanged(previousSlide, currentSlide) {
+          fireSlideEnter();
+
+          // dispatch for shiny
+          if (window.jQuery) {
+            if (previousSlide) {
+              window.jQuery(previousSlide).trigger("hidden");
+            }
+            if (currentSlide) {
+              window.jQuery(currentSlide).trigger("shown");
+            }
+          }
+        }
+
+        // hookup for slidy
+        if (window.w3c_slidy) {
+          window.w3c_slidy.add_observer(function (slide_num) {
+            // slide_num starts at position 1
+            fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);
+          });
+        }
+
+      })();
+    </script>
+
     <script id="quarto-html-after-body" type="application/javascript">
       window.document.addEventListener("DOMContentLoaded", function (event) {
         const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
