@@ -1,0 +1,160 @@
+---
+title: "Στατιστικά Προγράμματα II"
+subtitle: "**Μάθημα 3**"
+author: "Αλέξανδρος Ρέκκας"
+date: 2026-03-04
+format:
+  revealjs:
+    theme: [default, custom.scss]
+    slide-number: true
+    logo: logo.png
+    footer: ""
+    lang: el
+    incremental: false
+    code-overflow: wrap
+execute:
+  echo: true
+  eval: false
+  warning: false
+  message: false
+---
+
+
+## Τα Δεδομένα
+
+Έχετε συλλέξει τα δεδομένα 8 φοιτητών για τα μαθήματα "Μαθηματικά" και "Στατιστική", καθώς και τον αριθμό των απουσιών τους. Ορισμένοι φοιτητές δεν προσήλθαν στις εξετάσεις, άρα έχουν την τιμή `NA`.
+
+| Αριθμός Μητρώου (`student_id`) | Μαθηματικά (`math_grades`) | Στατιστική (`stat_grades`) | Απουσίες (`absences`) |
+|:-------------------------------|:--------------------------:|:--------------------------:|:---------------------:|
+| AM01                           |            4.5             |            5.0             |           2           |
+| AM02                           |            8.0             |            7.5             |           0           |
+| AM03                           |            3.5             |            4.0             |           5           |
+| AM04                           |             NA             |            6.5             |           1           |
+| AM05                           |            9.5             |            10.0            |           0           |
+| AM06                           |            6.0             |             NA             |           3           |
+| AM07                           |            2.0             |            3.5             |           6           |
+| AM08                           |             NA             |            8.0             |           2           |
+
+
+## Μέρος 1: Εισαγωγή δεδομένων και περιγραφή
+
+1. Να εισάγετε τα δεδομένα σε ξεχωριστά διανύσματα.
+1. Ελέγξτε αν τα διανύσματα που δημιουργήσατε έχουν το ίδιο μήκος.
+2. Ενώστε τα 4 διανύσματα σε ένα Data Frame με το όνομα `performance`.
+3. Δείξτε τα βασικά περιγραφικά στατιστικά όλου του Data Frame.
+4. Βρείτε τη μέγιστη βαθμολογία στα μαθηματικά.
+
+## Λύση
+
+```{r}
+#| code-fold: false
+#| code-eval: false
+
+student_id <- c("AM01", "AM02", "AM03", "AM04", "AM05", "AM06", "AM07", "AM08")
+math_grades <- c(4.5, 8.0, 3.5, NA, 9.5, 6.0, 2.0, NA)
+stat_grades <- c(5.0, 7.5, 4.0, 6.5, 10.0, NA, 3.5, 8.0)
+absences <- c(2, 0, 5, 1, 0, 3, 6, 2)
+
+# 1. Έλεγχος μήκους
+length(math_grades) 
+
+# 2. Δημιουργία Data Frame
+performance <- data.frame(
+  aem = student_id,
+  math = math_grades,
+  stat = stat_grades,
+  absences = absences
+)
+
+# 3. Περιγραφικά στατιστικά (Βλέπουμε πόσα NA έχει κάθε στήλη)
+summary(performance)
+
+# 4. Μέγιστη βαθμολογία στα μαθηματικά αγνοώντας τα NA
+max(performance$math, na.rm = TRUE)
+```
+
+## Τροποποίηση βαθμολογιών
+
+Ο καθηγητής Στατιστικής αποφάσισε να δώσει **0.5 βαθμό bonus** σε όλους:
+
+1. Δημιουργήστε μια **νέα στήλη** στο `performance` με όνομα `stat_final` που θα περιέχει τον νέο βαθμό.
+2. Βρείτε τους φοιτητές που πέρασαν το κάθε μάθημα.
+3. Βρείτε τον μέσο όρο των απουσιών των φοιτητών που πέρασαν τα Μαθηματικά.
+
+
+## Λύση
+
+```{r}
+performance$stat_final <- performance$Stat + 0.5
+
+# Διόρθωση βαθμών άνω του 10
+performance$stat_final[performance$stat_final > 10] <- 10
+
+# Λογικό διάνυσμα για επιτυχία στα Μαθηματικά
+passed_math <- performance_df$math >= 5.0
+
+# Μέσος όρος απουσιών όσων πέρασαν
+# Βάζουμε na.rm = TRUE γιατί το passed_math περιέχει NAs.
+mean(performance$absences[passed_math], na.rm = TRUE) 
+```
+
+## Βαθμοί στη σταστιστική για κάθε φοιτητή
+
+Για κάθε φοιτητή των δεδομένων σας γράψτε τον κώδικα που θα κάνει τα παρακάτω:
+
+- Αν ο βαθμός είναι `NA`, τύπωσε: *"Ο φοιτητής με ΑΕΜ { `aem` } απουσίαζε."* 
+- Αν ο βαθμός είναι πάνω από 5, τύπωσε: *"Ο φοιτητής  με ΑΕΜ { `aem` } πέρασε με βαθμό { `stat_final` }."*
+- Αλλιώς, τύπωσε: *"Ο φοιτητής ΑΕΜ { `aem` } κόπηκε με βαθμό { `stat_final` }."*
+
+## Λύση
+
+```{r}
+for (i in 1:nrow(performance_df)) {
+  
+  # Αποθήκευση του τρέχοντος βαθμού και του ΑΕΜ για ευκολία
+  current_grade <- performance$stat_final[i]
+  current_aem <- performance_df$aem[i]
+  
+  # Το is.na() πρέπει να είναι το πρώτο statement!
+  if (is.na(current_grade)) {
+    print(paste("Ο φοιτητής", current_aem, "απουσίαζε."))
+    
+  } else if (current_grade >= 5) {
+    print(paste("Ο φοιτητής", current_aem, "πέρασε με", current_grade))
+    
+  } else {
+    print(paste("Ο φοιτητής", current_aem, "κόπηκε με", current_grade))
+  }
+  
+}
+```
+
+## Αντικατάσταση `NA`
+
+1. Γράψτε τη συνάρτηση `impute_mean`, η οποία θα αντικαθιστά τα `NA` ενός διανύσματος με τον μέσο όρο των τιμών του.
+5. Εφαρμόστε τη συνάρτηση σας στις στήλες `math` και `stat` του Data Frame `performance` και αποθηκεύστε τα αποτελέσματα σε δύο **νέες στήλες** (`math_imp` και `stat_imp`).
+6. Τυπώστε τις αρχικές και τις νέες στήλες των Μαθηματικών για να επιβεβαιώσετε.
+
+## Λύση
+
+```{r}
+
+impute_mean <- function(x) {
+  
+  mean_val <- mean(x, na.rm = TRUE)
+  
+  x[is.na(x)] <- mean_val
+  
+  return(x)
+}
+
+performance$math_imp <- impute_mean(performance$math)
+performance$stat_imp <- impute_mean(performance$stat)
+
+# 6. Προβολή των αποτελεσμάτων (για τα Μαθηματικά)
+data.frame(
+  aem = performance$aem,
+  original_math = performance$math,
+  imputed_math = performance$math_imp
+)
+```

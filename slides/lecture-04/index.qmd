@@ -1,0 +1,37 @@
+---
+title: "Στατιστικά Προγράμματα II"
+subtitle: "**Μάθημα 3:** Κλινική δοκιμή"
+author: "Αλέξανδρος Ρέκκας"
+date: "2026-03-18"
+format:
+  revealjs:
+    theme: [default, custom.scss]
+    slide-number: true
+    logo: logo.png
+    footer: "Στατιστικά Προγράμματα II - Μάθημα 3"
+    lang: el
+    incremental: false
+execute:
+  echo: true
+  eval: false
+---
+
+## Τα δεδομένα
+
+Δοκιμάζουμε ένα νέο φάρμακο για την υπέρταση (Μείωση Αρτηριακής Πίεσης).
+
+\
+
+*Αντιγράψτε και τρέξτε τον παρακάτω κώδικα:*
+
+```{r}
+trial_data <- data.frame(
+  id = 1:10,
+  age = c(45, 62, 38, NA, 55, 71, 29, 48, NA, 65),
+  group = c("Drug", "Control", "Drug", "Drug", "Control", "Control", "Drug", "Control", "Drug", "Control"),
+  bp_start = c(160, 155, 145, 170, 150, NA, 135, 148, 165, 158),
+  bp_end = c(120, 150, 130, 140, 145, 155, 125, 148, NA, 140),
+  adverse_event = c(FALSE, TRUE, FALSE, TRUE, FALSE, FALSE, FALSE, NA, TRUE, FALSE)
+)
+```
+
