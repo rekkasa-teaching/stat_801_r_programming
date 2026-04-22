@@ -1,0 +1,180 @@
+---
+title: "Eπεξεργασία δεδομένων με τη βιβλιοθήκη dplyr"
+subtitle: "Καθαρισμός και Προετοιμασία Δεδομένων"
+author: "Αλέξανδρος Ρέκκας"
+date: 2026-04-21
+format:
+  revealjs:
+    theme: [default, custom.scss]
+    slide-number: true
+    logo: logo.png
+    footer: "Στατιστικά Προγράμματα II - Μάθημα 6"
+    lang: el
+    incremental: false
+execute:
+  echo: true
+  eval: false
+---
+
+
+## Τα νέα δεδομένα: msleep
+
+Το dataset `msleep` περιέχει δεδομένα για τις συνήθειες ύπνου διαφόρων θηλαστικών, καθώς και τα βιολογικά τους χαρακτηριστικά. Έχει αρκετές ελλιπείς τιμές (`NA`), γεγονός που το κάνει ιδανικό για εξάσκηση.
+
+```{r}
+library(dplyr)
+library(ggplot2) # Το msleep περιλαμβάνεται εδώ
+
+# Επισκόπηση δεδομένων
+glimpse(msleep)
+```
+
+## Μέρος 1ο: Σύνθετο φιλτράρισμα
+
+Συχνά πρέπει να συνδυάσουμε πολλές λογικές συνθήκες χρησιμοποιώντας το `&` (ΚΑΙ) και το `|` (Ή). Επίσης, πρέπει να αφαιρούμε τις ελλιπείς τιμές μόνο από τις στήλες που μας ενδιαφέρουν.
+
+```{r}
+# Παράδειγμα: Θέλουμε σαρκοφάγα ή φυτοφάγα που έχουν καταγεγραμμένο βάρος εγκεφάλου
+msleep |> 
+  filter(
+    (vore == "carni" | vore == "herbi"), 
+    !is.na(brainwt)
+  ) |> 
+  select(name, vore, brainwt)
+```
+
+## Άσκηση: Καθαρισμός δεδομένων
+
+Θέλουμε να προετοιμάσουμε ένα δείγμα για να συγκρίνουμε τον ύπνο REM.
+Δημιουργήστε ένα νέο dataset `clean_sleep` που να ικανοποιεί τα εξής:
+
+1. Κρατήστε **μόνο** τα ζώα που είναι "carni" ή "herbi".
+2. Αφαιρέστε **όλα** τα ζώα που έχουν `NA` στον ύπνο REM (`sleep_rem`).
+3. Επιλέξτε τις στήλες: `name`, `vore`, `sleep_total`, `sleep_rem`, `bodywt`.
+4. Ταξινομήστε τα δεδομένα ώστε τα ζώα με τον περισσότερο ύπνο REM να είναι στην κορυφή.
+
+## Λύση
+
+```{r}
+clean_sleep <- msleep |> 
+  filter(
+    vore == "carni" | vore == "herbi",
+    !is.na(sleep_rem)
+  ) |> 
+  select(name, vore, sleep_total, sleep_rem, bodywt) |> 
+  arrange(desc(sleep_rem))
+
+head(clean_sleep)
+```
+
+## Τροποποίηση μεταβλητών (Feature Engineering)
+
+Στις στατιστικές αναλύσεις σπάνια χρησιμοποιούμε τις αρχικές μεταβλητές ως
+έχουν. Συνήθως δημιουργούμε:
+
+- **Αναλογίες (Ratios):** π.χ. ποσοστό REM στον συνολικό ύπνο.
+- **Μετασχηματισμούς:** π.χ. λογαριθμικός (`log()`) για έντονα ασύμμετρες κατανομές (όπως το βάρος).
+- **Κατηγορίες:** Χρήση της `if_else()` για μετατροπή ποσοτικών μεταβλητών σε ποιοτικές.
+
+## Παράδειγμα: Μετασχηματισμοί
+
+```{r}
+# Μετασχηματισμός ασύμμετρων δεδομένων βάρους και κατηγοριοποίηση
+msleep |> 
+  filter(!is.na(bodywt)) |> 
+  mutate(
+    log_bodywt = log(bodywt),
+    size_category = if_else(bodywt > 50, "Large Animal", "Small Animal")
+  ) |> 
+  select(name, bodywt, log_bodywt, size_category)
+```
+
+## Άσκηση
+
+Ένας βιολόγος θέλει να εξετάσει τον λόγο βάρους εγκεφάλου προς σώμα.
+Ξεκινώντας από το `msleep`:
+
+1. Κρατήστε όσα ζώα **ΔΕΝ** έχουν `NA` σε `brainwt` και `bodywt`.
+2. Υπολογίστε μια νέα στήλη `brain_ratio` (βάρος εγκεφάλου / βάρος σώματος).
+3. Φτιάξτε μια στήλη `smart_guess`: Αν το `brain_ratio` είναι μεγαλύτερο από 0.01, ονομάστε το "High", αλλιώς "Normal".
+4. Κρατήστε μόνο όσα ζώα είναι "High".
+
+## Λύση 2
+
+```{r}
+msleep |> 
+  filter(!is.na(brainwt), !is.na(bodywt)) |> 
+  mutate(
+    brain_ratio = brainwt / bodywt,
+    smart_guess = if_else(brain_ratio > 0.01, "High", "Normal")
+  ) |> 
+  filter(smart_guess == "High") |> 
+  select(name, brain_ratio, smart_guess)
+```
+
+## Σύνθετες ομαδοποιήσεις
+
+Πολλές φορές θέλουμε στατιστικά όχι για μία κατηγορία, αλλά για τον **συνδυασμό** κατηγοριών.
+
+```{r}
+# Στατιστικά ανά είδος διατροφής (vore) και κατηγορία κινδύνου (conservation)
+msleep |> 
+  filter(!is.na(vore), !is.na(conservation)) |> 
+  group_by(vore, conservation) |> 
+  summarise(
+    animal_count = n(),
+    avg_sleep = mean(sleep_total),
+    .groups = "drop"
+  )
+```
+
+## Εργασία
+
+Είστε αναλυτής δεδομένων σε ένα ινστιτούτο βιολογίας. Πρέπει να ετοιμάσετε έναν
+πίνακα που συγκρίνει την **αποδοτικότητα ύπνου** διαφορετικών κατηγοριών ζώων,
+λαμβάνοντας υπόψη το μέγεθός τους.
+
+**Δημιουργήστε ΕΝΑ (1) ενιαίο block κώδικα με pipes (`|>`) που:**
+
+*(Οι οδηγίες στην επόμενη διαφάνεια)*
+
+## Εργασία
+
+1. Αφαιρέστε γραμμές με `NA` στις στήλες `vore`, `sleep_rem`, `sleep_total`, και `bodywt`.
+2. Δημιουργήστε τις εξής στήλες:
+   - `sleep_efficiency`: Ο λόγος του ύπνου REM προς τον συνολικό ύπνο.
+   - `size`: "Big" αν το `bodywt` > 10, αλλιώς "Small".
+
+## Εργασία
+
+3. Ομαδοποιήστε τα δεδομένα ανά `vore` ΚΑΙ `size`.
+
+4. Υπολογίστε:
+   - Πλήθος ζώων ανά ομάδα (`count`).
+   - Τη μέση αποδοτικότητα ύπνου (`avg_efficiency`).
+   - Τον μέγιστο συνολικό ύπνο (`max_sleep`).
+5. Κρατήστε **μόνο** τις ομάδες που έχουν τουλάχιστον 3 ζώα (`count >= 3`).
+6. Ταξινομήστε τον τελικό πίνακα με βάση τη μέση αποδοτικότητα ύπνου (φθίνουσα).
+
+## Λύση
+
+```{r}
+final_analysis_table <- msleep |> 
+  filter(!is.na(vore), !is.na(sleep_rem), !is.na(sleep_total), !is.na(bodywt)) |> 
+  mutate(
+    sleep_efficiency = sleep_rem / sleep_total,
+    size = if_else(bodywt > 10, "Big", "Small")
+  ) |> 
+  group_by(vore, size) |> 
+  summarise(
+    count = n(),
+    avg_efficiency = mean(sleep_efficiency),
+    max_sleep = max(sleep_total),
+    .groups = "drop"
+  ) |> 
+  filter(count >= 3) |> 
+  arrange(desc(avg_efficiency))
+  
+filter_analysis_table
+
+```
