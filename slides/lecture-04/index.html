@@ -6,11 +6,11 @@
 <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
 <link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="../../site_libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-8b4baf804e461d9b72633f0de59a0cac.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.8.27">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-acf12a64177840b8d86f2d4f01b2e9fb.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.9.37">
 
   <meta name="author" content="Αλέξανδρος Ρέκκας">
-  <meta name="dcterms.date" content="2026-03-18">
+  <meta name="dcterms.date" content="2026-04-22">
   <title>Στατιστικά Προγράμματα II</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -18,6 +18,9 @@
   <link rel="stylesheet" href="../../site_libs/revealjs/dist/reset.css">
   <link rel="stylesheet" href="../../site_libs/revealjs/dist/reveal.css">
   <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
     div.columns{display: flex; gap: min(4vw, 1.5em);}
@@ -96,7 +99,7 @@
     code span.vs { color: #032f62; } /* VerbatimString */
     code span.wa { color: #ff5555; } /* Warning */
   </style>
-  <link rel="stylesheet" href="../../site_libs/revealjs/dist/theme/quarto-4c10e6d816e0498c595c61d93f110a07.css">
+  <link rel="stylesheet" href="../../site_libs/revealjs/dist/theme/quarto-979d135448e747ebe9359a4a95390fcc.css">
   <link href="../../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="../../site_libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
   <link href="../../site_libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
@@ -195,7 +198,6 @@
 
 <section id="title-slide" class="quarto-title-block center">
   <h1 class="title">Στατιστικά Προγράμματα II</h1>
-  <p class="subtitle"><strong>Μάθημα 3:</strong> Κλινική δοκιμή</p>
 
 <div class="quarto-title-authors">
 <div class="quarto-title-author">
@@ -205,14 +207,14 @@
 </div>
 </div>
 
-  <p class="date">2026-03-18</p>
+  <p class="date">2026-04-22</p>
 </section>
-<section id="τα-δεδομένα" class="slide level2">
-<h2>Τα δεδομένα</h2>
+<section id="το-dataset-κλινική-δοκιμή-trial-data" class="slide level2">
+<h2>Το Dataset: Κλινική Δοκιμή (Trial Data)</h2>
 <p>Δοκιμάζουμε ένα νέο φάρμακο για την υπέρταση (Μείωση Αρτηριακής Πίεσης).</p>
 <p><br>
 </p>
-<p><em>Αντιγράψτε και τρέξτε τον παρακάτω κώδικα:</em></p>
+<p><em>Αντιγράψτε και τρέξτε τον παρακάτω κώδικα στο script σας:</em></p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a></a>trial_data <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
 <span id="cb1-2"><a></a>  <span class="at">id =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>,</span>
@@ -220,8 +222,148 @@
 <span id="cb1-4"><a></a>  <span class="at">group =</span> <span class="fu">c</span>(<span class="st">"Drug"</span>, <span class="st">"Control"</span>, <span class="st">"Drug"</span>, <span class="st">"Drug"</span>, <span class="st">"Control"</span>, <span class="st">"Control"</span>, <span class="st">"Drug"</span>, <span class="st">"Control"</span>, <span class="st">"Drug"</span>, <span class="st">"Control"</span>),</span>
 <span id="cb1-5"><a></a>  <span class="at">bp_start =</span> <span class="fu">c</span>(<span class="dv">160</span>, <span class="dv">155</span>, <span class="dv">145</span>, <span class="dv">170</span>, <span class="dv">150</span>, <span class="cn">NA</span>, <span class="dv">135</span>, <span class="dv">148</span>, <span class="dv">165</span>, <span class="dv">158</span>),</span>
 <span id="cb1-6"><a></a>  <span class="at">bp_end =</span> <span class="fu">c</span>(<span class="dv">120</span>, <span class="dv">150</span>, <span class="dv">130</span>, <span class="dv">140</span>, <span class="dv">145</span>, <span class="dv">155</span>, <span class="dv">125</span>, <span class="dv">148</span>, <span class="cn">NA</span>, <span class="dv">140</span>),</span>
-<span id="cb1-7"><a></a>  <span class="at">adverse_event =</span> <span class="fu">c</span>(<span class="cn">FALSE</span>, <span class="cn">TRUE</span>, <span class="cn">FALSE</span>, <span class="cn">TRUE</span>, <span class="cn">FALSE</span>, <span class="cn">FALSE</span>, <span class="cn">FALSE</span>, <span class="cn">NA</span>, <span class="cn">TRUE</span>, <span class="cn">FALSE</span>)</span>
+<span id="cb1-7"><a></a>  <span class="at">adverse_event =</span> <span class="fu">c</span>(<span class="cn">FALSE</span>, <span class="cn">TRUE</span>, <span class="cn">FALSE</span>, <span class="cn">TRUE</span>, <span class="cn">FALSE</span>, <span class="cn">FALSE</span>, <span class="cn">FALSE</span>, <span class="cn">NA</span>, <span class="cn">TRUE</span>, <span class="cn">FALSE</span>) <span class="co"># Παρενέργειες</span></span>
 <span id="cb1-8"><a></a>)</span></code></pre></div><button title="Αντιγραφή στο πρόχειρο" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="επεξεργασία" class="slide level2">
+<h2>Επεξεργασία</h2>
+<p>Πριν αναλύσουμε τα δεδομένα, πρέπει να δημιουργήσουμε νέες μεταβλητές που εκφράζουν την αποτελεσματικότητα.</p>
+<ol type="1">
+<li>Δημιουργήστε μια νέα στήλη στο <code>trial_data</code> με όνομα <code>bp_drop</code> (Πτώση Πίεσης), η οποία θα ονομάζεται <code>bp_start - bp_end</code>:
+<ul>
+<li>Εάν η πτώση πίεσης (<code>bp_drop</code>) είναι <strong>μεγαλύτερη ή ίση του 15</strong>, η τιμή να είναι <code>"High"</code>.</li>
+<li>Διαφορετικά, να είναι <code>"Low/None"</code>.</li>
+</ul></li>
+<li>Τυπώστε τις στήλες <code>id</code>, <code>bp_drop</code> και <code>effectiveness</code>.</li>
+</ol>
+</section>
+<section id="λύση" class="slide level2">
+<h2>Λύση</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a></a>trial_data<span class="sc">$</span>bp_drop <span class="ot">&lt;-</span> trial_data<span class="sc">$</span>bp_start <span class="sc">-</span> trial_data<span class="sc">$</span>bp_end</span>
+<span id="cb2-2"><a></a></span>
+<span id="cb2-3"><a></a>trial_data<span class="sc">$</span>effectiveness <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(trial_data<span class="sc">$</span>bp_drop <span class="sc">&gt;=</span> <span class="dv">15</span>, <span class="st">"High"</span>, <span class="st">"Low/None"</span>)</span>
+<span id="cb2-4"><a></a></span>
+<span id="cb2-5"><a></a>trial_data[, <span class="fu">c</span>(<span class="st">"id"</span>, <span class="st">"bp_drop"</span>, <span class="st">"effectiveness"</span>)]</span></code></pre></div><button title="Αντιγραφή στο πρόχειρο" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="υποομάδες" class="slide level2">
+<h2>Υποομάδες</h2>
+<p>Θέλουμε να απομονώσουμε τους ασθενείς στους οποίους το φάρμακο δούλεψε καλά, χωρίς παρενέργειες.</p>
+<ol type="1">
+<li>Χρησιμοποιώντας τους τελεστές <code>&amp;</code> και <code>!</code> , δημιουργήστε ένα νέο data frame με όνομα <code>success_cases</code> που να περιέχει τους ασθενείς οι οποίοι:
+<ul>
+<li>Ανήκουν στο γκρουπ: <code>group == "Drug"</code> <strong>ΚΑΙ</strong></li>
+<li>Έχουν αποτελεσματικότητα: <code>effectiveness == "High"</code> <strong>ΚΑΙ</strong></li>
+<li><strong>ΔΕΝ</strong> εμφάνισαν παρενέργειες (<code>adverse_event == FALSE</code> ή <code>!adverse_event</code>).</li>
+</ul></li>
+<li>Πόσοι είναι αυτοί οι ασθενείς; <em>(Χρησιμοποιήστε την <code>nrow()</code>)</em>.</li>
+</ol>
+<p><em>Προσοχή: Χρησιμοποιήστε τη συνάρτηση <code>which()</code> μέσα στις αγκύλες <code>[]</code> για να αποφύγετε προβλήματα με τις γραμμές που έχουν <code>NA</code>.</em></p>
+</section>
+<section id="λύση-1" class="slide level2">
+<h2>Λύση</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a></a>conditions <span class="ot">&lt;-</span> (trial_data<span class="sc">$</span>group <span class="sc">==</span> <span class="st">"Drug"</span>) <span class="sc">&amp;</span> </span>
+<span id="cb3-2"><a></a>              (trial_data<span class="sc">$</span>effectiveness <span class="sc">==</span> <span class="st">"High"</span>) <span class="sc">&amp;</span> </span>
+<span id="cb3-3"><a></a>              (trial_data<span class="sc">$</span>adverse_event <span class="sc">==</span> <span class="cn">FALSE</span>)</span>
+<span id="cb3-4"><a></a></span>
+<span id="cb3-5"><a></a>success_cases <span class="ot">&lt;-</span> trial_data[<span class="fu">which</span>(conditions), ]</span>
+<span id="cb3-6"><a></a></span>
+<span id="cb3-7"><a></a>success_cases</span></code></pre></div><button title="Αντιγραφή στο πρόχειρο" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="η-δική-σας-συνάρτηση" class="slide level2">
+<h2>Η δική σας συνάρτηση</h2>
+<p>Πρέπει να γράψουμε μια συνάρτηση που να αξιολογεί οποιαδήποτε αριθμητική μεταβλητή (π.χ. Ηλικία, Πτώση Πίεσης), με ενσωματωμένο έλεγχο ποιότητας (πόσα NAs υπάρχουν).</p>
+<ol type="1">
+<li>Δημιουργήστε τη συνάρτηση <code>eval_metric(x, remove_na = TRUE)</code>.</li>
+<li>Μέσα στη συνάρτηση:
+<ul>
+<li>Υπολογίστε τον μέσο όρο (<code>mean_val</code>) και την τυπική απόκλιση (<code>sd_val</code>), περνώντας το όρισμα <code>na.rm = remove_na</code>.</li>
+<li>Υπολογίστε πόσα NAs υπάρχουν στο διάνυσμα <code>x</code> <em>(Hint: <code>sum(is.na(x))</code>)</em>.</li>
+</ul></li>
+<li>Η συνάρτηση να επιστρέφει ένα <strong>named vector</strong> (με πεζά γράμματα) της μορφής: <code>c(mean = ..., sd = ..., missing_count = ...)</code></li>
+<li>Δοκιμάστε τη συνάρτηση σας στη στήλη <code>bp_drop</code> του συνόλου <code>trial_data</code>.</li>
+</ol>
+</section>
+<section id="λύση-2" class="slide level2">
+<h2>Λύση</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a></a>eval_metric <span class="ot">&lt;-</span> <span class="cf">function</span>(x, <span class="at">remove_na =</span> <span class="cn">TRUE</span>) {</span>
+<span id="cb4-2"><a></a>  </span>
+<span id="cb4-3"><a></a>  mean_val <span class="ot">&lt;-</span> <span class="fu">mean</span>(x, <span class="at">na.rm =</span> remove_na)</span>
+<span id="cb4-4"><a></a>  sd_val <span class="ot">&lt;-</span> <span class="fu">sd</span>(x, <span class="at">na.rm =</span> remove_na)</span>
+<span id="cb4-5"><a></a>  </span>
+<span id="cb4-6"><a></a>  na_count <span class="ot">&lt;-</span> <span class="fu">sum</span>(<span class="fu">is.na</span>(x))</span>
+<span id="cb4-7"><a></a>  </span>
+<span id="cb4-8"><a></a>  result <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="at">mean =</span> mean_val, <span class="at">sd =</span> sd_val, <span class="at">missing_count =</span> na_count)</span>
+<span id="cb4-9"><a></a>  </span>
+<span id="cb4-10"><a></a>  <span class="fu">return</span>(result)</span>
+<span id="cb4-11"><a></a>}</span>
+<span id="cb4-12"><a></a></span>
+<span id="cb4-13"><a></a><span class="fu">eval_metric</span>(trial_data<span class="sc">$</span>bp_drop)</span></code></pre></div><button title="Αντιγραφή στο πρόχειρο" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="επανάληψη" class="slide level2">
+<h2>Επανάληψη</h2>
+<p>Δε θέλουμε να τρέχουμε την <code>eval_metric</code> χειροκίνητα για κάθε στήλη, οπότε Θα βάλουμε τον υπολογιστή να το κάνει:</p>
+<ol type="1">
+<li>Φτιάξτε ένα <code>for</code> loop που διατρέχει όλες τις στήλες: <code>for (i in 1:ncol(trial_data))</code>.</li>
+<li>Αποθηκεύστε την τρέχουσα στήλη σε μια μεταβλητή (π.χ. <code>col_data &lt;- trial_data[[i]]</code>).</li>
+<li>Με ένα <code>if / else if / else</code> ελέγξτε:
+<ul>
+<li><strong>Αν η στήλη είναι αριθμητική (<code>is.numeric()</code>):</strong> Τυπώστε το όνομά της και εφαρμόστε την <code>eval_metric(col_data)</code>.</li>
+<li><strong>Αν είναι λογική (<code>is.logical()</code>):</strong> Τυπώστε <em>“Κατηγορία: Λογική (True/False)”</em> και υπολογίστε το άθροισμα των <code>TRUE</code> (με <code>na.rm = TRUE</code>).</li>
+<li><strong>Διαφορετικά:</strong> Τυπώστε <em>“Κατηγορία: Κείμενο - Αγνόηση”</em>.</li>
+</ul></li>
+</ol>
+</section>
+<section id="λύση-3" class="slide level2">
+<h2>Λύση</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">ncol</span>(trial_data)) {</span>
+<span id="cb5-2"><a></a>  </span>
+<span id="cb5-3"><a></a>  col_name <span class="ot">&lt;-</span> <span class="fu">names</span>(trial_data)[i]</span>
+<span id="cb5-4"><a></a>  col_data <span class="ot">&lt;-</span> trial_data[[i]]</span>
+<span id="cb5-5"><a></a>  </span>
+<span id="cb5-6"><a></a>  <span class="fu">print</span>(<span class="fu">paste</span>(<span class="st">"---- Εξερεύνηση Στήλης:"</span>, col_name, <span class="st">"----"</span>))</span>
+<span id="cb5-7"><a></a>  </span>
+<span id="cb5-8"><a></a>  <span class="cf">if</span> (<span class="fu">is.numeric</span>(col_data)) {</span>
+<span id="cb5-9"><a></a>    res <span class="ot">&lt;-</span> <span class="fu">eval_metric</span>(col_data)</span>
+<span id="cb5-10"><a></a>    <span class="fu">print</span>(res)</span>
+<span id="cb5-11"><a></a>    </span>
+<span id="cb5-12"><a></a>  } <span class="cf">else</span> <span class="cf">if</span> (<span class="fu">is.logical</span>(col_data)) {</span>
+<span id="cb5-13"><a></a>    trues <span class="ot">&lt;-</span> <span class="fu">sum</span>(col_data, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb5-14"><a></a>    <span class="fu">print</span>(<span class="fu">paste</span>(<span class="st">"Λογική Μεταβλητή. Πλήθος TRUE:"</span>, trues))</span>
+<span id="cb5-15"><a></a>    </span>
+<span id="cb5-16"><a></a>  } <span class="cf">else</span> {</span>
+<span id="cb5-17"><a></a>    <span class="fu">print</span>(<span class="st">"Κατηγορία: Κείμενο - Αγνόηση"</span>)</span>
+<span id="cb5-18"><a></a>  }</span>
+<span id="cb5-19"><a></a>}</span></code></pre></div><button title="Αντιγραφή στο πρόχειρο" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="σύνθεση" class="slide level2">
+<h2>Σύνθεση</h2>
+<p>Τελικά, δούλεψε το φάρμακο καλύτερα από το Control (Placebo);</p>
+<ol type="1">
+<li>Απομονώστε τη στήλη <code>bp_drop</code> ΜΟΝΟ για όσους ανήκουν στο <code>group == "Drug"</code>. Αποθηκεύστε το ως <code>drug_drop</code>.</li>
+<li>Κάντε το ίδιο για όσους ανήκουν στο <code>group == "Control"</code> (<code>control_drop</code>).</li>
+<li>Χρησιμοποιήστε την <code>eval_metric()</code> και στα δύο διανύσματα και συγκρίνετε τους μέσους όρους πτώσης πίεσης.</li>
+</ol>
+</section>
+<section id="λύση-4" class="slide level2">
+<h2>Λύση</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a></a>drug_drop <span class="ot">&lt;-</span> trial_data<span class="sc">$</span>bp_drop[trial_data<span class="sc">$</span>group <span class="sc">==</span> <span class="st">"Drug"</span>]</span>
+<span id="cb6-2"><a></a>control_drop <span class="ot">&lt;-</span> trial_data<span class="sc">$</span>bp_drop[trial_data<span class="sc">$</span>group <span class="sc">==</span> <span class="st">"Control"</span>]</span>
+<span id="cb6-3"><a></a></span>
+<span id="cb6-4"><a></a>stats_drug <span class="ot">&lt;-</span> <span class="fu">eval_metric</span>(drug_drop)</span>
+<span id="cb6-5"><a></a>stats_control <span class="ot">&lt;-</span> <span class="fu">eval_metric</span>(control_drop)</span>
+<span id="cb6-6"><a></a></span>
+<span id="cb6-7"><a></a><span class="fu">print</span>(<span class="st">"Αποτελέσματα Φαρμάκου:"</span>); <span class="fu">print</span>(stats_drug[<span class="st">"mean"</span>])</span>
+<span id="cb6-8"><a></a><span class="fu">print</span>(<span class="st">"Αποτελέσματα Control:"</span>); <span class="fu">print</span>(stats_control[<span class="st">"mean"</span>])</span></code></pre></div><button title="Αντιγραφή στο πρόχειρο" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 
 
@@ -230,7 +372,7 @@
   <div class="quarto-auto-generated-content" style="display: none;">
 <p><img src="logo.png" class="slide-logo"></p>
 <div class="footer footer-default">
-<p>Στατιστικά Προγράμματα II - Μάθημα 3</p>
+<p>Στατιστικά Προγράμματα II - Μάθημα 4</p>
 </div>
 </div></div>
 

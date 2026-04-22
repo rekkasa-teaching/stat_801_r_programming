@@ -10,8 +10,8 @@
   <meta name="generator" content="quarto-1.9.37">
 
   <meta name="author" content="Αλέξανδρος Ρέκκας">
-  <meta name="dcterms.date" content="2026-04-22">
-  <title>Στατισιτκά Προγράμματα II</title>
+  <meta name="dcterms.date" content="2026-04-01">
+  <title>Εισαγωγή στον στην επεξεργασία δεδομένων με τη βιβλιοθήκη dplyr</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
@@ -99,7 +99,7 @@
     code span.vs { color: #032f62; } /* VerbatimString */
     code span.wa { color: #ff5555; } /* Warning */
   </style>
-  <link rel="stylesheet" href="../../site_libs/revealjs/dist/theme/quarto-46ffb5e91d00f3df52df4e1ec249e04e.css">
+  <link rel="stylesheet" href="../../site_libs/revealjs/dist/theme/quarto-5be979c32fe944fa9e32aa912702b0be.css">
   <link href="../../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="../../site_libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
   <link href="../../site_libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
@@ -197,8 +197,7 @@
     <div class="slides">
 
 <section id="title-slide" class="quarto-title-block center">
-  <h1 class="title">Στατισιτκά Προγράμματα II</h1>
-  <p class="subtitle"><strong>Μάθημα 1:</strong> Εισαγωγή</p>
+  <h1 class="title">Εισαγωγή στον στην επεξεργασία δεδομένων με τη βιβλιοθήκη dplyr</h1>
 
 <div class="quarto-title-authors">
 <div class="quarto-title-author">
@@ -208,105 +207,199 @@
 </div>
 </div>
 
-  <p class="date">2026-04-22</p>
+  <p class="date">2026-04-01</p>
 </section>
-<section id="στόχοι-του-μαθήματος" class="slide level2">
-<h2>Στόχοι του Μαθήματος</h2>
-<p>Θα εστιάσουμε σε:</p>
+<section id="η-βιβλιοθήκη-dplyr" class="slide level2">
+<h2>Η βιβλιοθήκη <code>dplyr</code></h2>
+<ul>
+<li>Είναι η “γραμματική” του χειρισμού δεδομένων.</li>
+<li>Διευκολύνει σε μεγάλο βαθμό τον καθαρισμό και την προετοιμασία των δεδομένων.</li>
+<li>Κάνει τον κώδικα ευανάγνωστο και εύκολο στη συντήρηση.</li>
+</ul>
+<aside class="notes">
+<p>Μοιράστε στους φοιτητές το Cheat Sheet του dplyr. Εξηγήστε ότι το Tidyverse είναι μια οικογένεια πακέτων που συνεργάζονται άψογα.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="ο-τελεστής-pipe" class="slide level2">
+<h2>Ο τελεστής Pipe (<code>|&gt;</code>)</h2>
+<p>Το Pipe παίρνει το αποτέλεσμα της αριστερής πλευράς και το “διοχετεύει” ως πρώτη μεταβλητή στη συνάρτηση της δεξιάς πλευράς.</p>
+<ul>
+<li><p>Αντί για: <code>h(g(f(x)))</code></p></li>
+<li><p>Γράφουμε:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a></a>x <span class="sc">|&gt;</span> </span>
+<span id="cb1-2"><a></a>  <span class="fu">f</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb1-3"><a></a>  <span class="fu">g</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb1-4"><a></a>  <span class="fu">h</span>()</span></code></pre></div><button title="Αντιγραφή στο πρόχειρο" class="code-copy-button"><i class="bi"></i></button></div>
+<p><em>(Διαβάζεται ως: “Και μετά…”)</em></p></li>
+</ul>
+</section>
+<section id="τα-δεδομένα-palmerpenguins" class="slide level2">
+<h2>Τα δεδομένα: palmerpenguins</h2>
+<p>Περιέχει μετρήσεις για 3 είδη πιγκουίνων στο αρχιπέλαγος Palmer της Ανταρκτικής.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a></a><span class="co"># Εγκατάσταση και φόρτωση</span></span>
+<span id="cb2-2"><a></a><span class="co"># install.packages(c("dplyr", "palmerpenguins"))</span></span>
+<span id="cb2-3"><a></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb2-4"><a></a><span class="fu">library</span>(palmerpenguins)</span>
+<span id="cb2-5"><a></a></span>
+<span id="cb2-6"><a></a><span class="co"># Επισκόπηση δεδομένων</span></span>
+<span id="cb2-7"><a></a><span class="fu">glimpse</span>(penguins)</span></code></pre></div><button title="Αντιγραφή στο πρόχειρο" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="οι-συναρτήσεις-select-και-filter" class="slide level2">
+<h2>Οι συναρτήσεις <code>select()</code> και <code>filter()</code></h2>
+<ul>
+<li><strong><code>select()</code></strong>: Επιλέγει <strong>μεταβλητές</strong> (στήλες).
+<ul>
+<li><code>select(species, island)</code></li>
+</ul></li>
+<li><strong><code>filter()</code></strong>: Επιλέγει <strong>παρατηρήσεις</strong> (γραμμές) βάσει συνθηκών.
+<ul>
+<li>Χρησιμοποιεί λογικούς τελεστές: <code>==</code> (ισότητα), <code>!=</code> (ανισότητα), <code>&gt;</code> , <code>&lt;</code>, <code>is.na()</code>.</li>
+</ul></li>
+</ul>
+</section>
+<section id="χρήση" class="slide level2">
+<h2>Χρήση</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a></a>penguins <span class="sc">|&gt;</span> </span>
+<span id="cb3-2"><a></a>  <span class="fu">select</span>(species, bill_length_mm, body_mass_g) <span class="sc">|&gt;</span> </span>
+<span id="cb3-3"><a></a>  <span class="fu">filter</span>(species <span class="sc">==</span> <span class="st">"Adelie"</span>, body_mass_g <span class="sc">&gt;</span> <span class="dv">4000</span>)</span></code></pre></div><button title="Αντιγραφή στο πρόχειρο" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="άσκηση" class="slide level2">
+<h2>Άσκηση</h2>
+<p>Δημιουργήστε ένα νέο dataset με όνομα <code>gentoo_data</code> το οποίο να περιέχει:</p>
 <ol type="1">
-<li><strong>Δυνατότητα αναπαραγωγής των αποτελεσμάτων (Reproducibility):</strong> Ο κώδικας να τρέχει παντού, όχι μόνο στο δικό μας μηχάνημα.</li>
-<li><strong>Ροές εργασίας (Workflows):</strong> Αποδοτική διαχείριση projects.</li>
-<li><strong>Μοντέρνες τεχνικές:</strong> <code>tidyverse</code>, <code>purrr</code>, <code>ggplot2</code></li>
-<li><strong>Παρουσίαση:</strong> Δημιουργία αναφορών και παρουσιάσεων υψηλής ποιότητας.</li>
+<li><strong>Μόνο</strong> τους πιγκουίνους του είδους “Gentoo”.</li>
+<li><strong>Μόνο</strong> αυτούς για τους οποίους έχουμε καταγραφή του φύλου τους.</li>
+<li>Κρατήστε <strong>μόνο</strong> τις στήλες: <code>species</code>, <code>island</code>, <code>flipper_length_mm</code> και <code>sex</code>.</li>
 </ol>
 </section>
-<section id="έλεγχος-προγραμματιστικού-περιβάλλοντος" class="slide level2">
-<h2>Έλεγχος προγραμματιστικού περιβάλλοντος</h2>
-<p>Θα χρησιμοποιήσουμε το πακέτο <code>renv</code> το οποίο:</p>
+<section id="λύση" class="slide level2">
+<h2>Λύση</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a></a><span class="co"># Λύση με τον native pipe |&gt;</span></span>
+<span id="cb4-2"><a></a>gentoo_data <span class="ot">&lt;-</span> penguins <span class="sc">|&gt;</span> </span>
+<span id="cb4-3"><a></a>  <span class="fu">filter</span>(species <span class="sc">==</span> <span class="st">"Gentoo"</span>, <span class="sc">!</span><span class="fu">is.na</span>(sex)) <span class="sc">|&gt;</span> </span>
+<span id="cb4-4"><a></a>  <span class="fu">select</span>(species, island, flipper_length_mm, sex)</span>
+<span id="cb4-5"><a></a></span>
+<span id="cb4-6"><a></a><span class="co"># Έλεγχος</span></span>
+<span id="cb4-7"><a></a><span class="fu">head</span>(gentoo_data)</span></code></pre></div><button title="Αντιγραφή στο πρόχειρο" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="οι-συναρτήσεις-mutate-και-arrange" class="slide level2">
+<h2>Οι συναρτήσεις <code>mutate()</code> και <code>arrange()</code></h2>
+<ul>
+<li><strong><code>mutate()</code></strong>: Δημιουργεί νέες στήλες ή τροποποιεί υπάρχουσες.</li>
+<li><strong><code>arrange()</code></strong>: Ταξινομεί τις γραμμές.
+<ul>
+<li><code>arrange(variable)</code> -&gt; Αύξουσα</li>
+<li><code>arrange(desc(variable))</code> -&gt; Φθίνουσα</li>
+</ul></li>
+</ul>
+</section>
+<section id="χρήση-1" class="slide level2">
+<h2>Χρήση</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a></a><span class="co"># Υπολογισμός BMI (υποθετικά) και ταξινόμηση</span></span>
+<span id="cb5-2"><a></a>penguins <span class="sc">|&gt;</span></span>
+<span id="cb5-3"><a></a>  <span class="fu">mutate</span>(</span>
+<span id="cb5-4"><a></a>    <span class="at">body_mass_kg =</span> body_mass_g <span class="sc">/</span> <span class="dv">1000</span>,</span>
+<span id="cb5-5"><a></a>    <span class="at">bill_ratio =</span> bill_length_mm <span class="sc">/</span> bill_depth_mm</span>
+<span id="cb5-6"><a></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb5-7"><a></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(body_mass_kg)) </span></code></pre></div><button title="Αντιγραφή στο πρόχειρο" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="άσκηση-1" class="slide level2">
+<h2>Άσκηση</h2>
+<p>Βρείτε ποιος <strong>θηλυκός</strong> πιγκουίνος έχει το μεγαλύτερο μήκος πτερυγίου σε σχέση με το βάρος του.</p>
+</section>
+<section id="λύση-1" class="slide level2">
+<h2>Λύση</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a></a>penguins <span class="sc">|&gt;</span> </span>
+<span id="cb6-2"><a></a>  <span class="fu">filter</span>(sex <span class="sc">==</span> <span class="st">"female"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb6-3"><a></a>  <span class="fu">mutate</span>(<span class="at">flipper_weight_ratio =</span> flipper_length_mm <span class="sc">/</span> body_mass_g) <span class="sc">|&gt;</span> </span>
+<span id="cb6-4"><a></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(flipper_weight_ratio))</span></code></pre></div><button title="Αντιγραφή στο πρόχειρο" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="οι-συναρτήσεις-group_by-και-summarise" class="slide level2">
+<h2>Οι συναρτήσεις <code>group_by()</code> και <code>summarise()</code></h2>
+<ul>
+<li><strong><code>group_by()</code></strong>: “Σπάει” τα δεδομένα σε αόρατες ομάδες.</li>
+<li><strong><code>summarise()</code></strong>: Υπολογίζει στατιστικά μέτρα για κάθε ομάδα.</li>
+</ul>
+</section>
+<section id="χρήση-2" class="slide level2">
+<h2>Χρήση</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a></a><span class="co"># Στατιστικά βάρους ανά είδος</span></span>
+<span id="cb7-2"><a></a>penguins <span class="sc">|&gt;</span></span>
+<span id="cb7-3"><a></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(body_mass_g)) <span class="sc">|&gt;</span> </span>
+<span id="cb7-4"><a></a>  <span class="fu">group_by</span>(species) <span class="sc">|&gt;</span></span>
+<span id="cb7-5"><a></a>  <span class="fu">summarise</span>(</span>
+<span id="cb7-6"><a></a>    <span class="at">n =</span> <span class="fu">n</span>(),</span>
+<span id="cb7-7"><a></a>    <span class="at">avg_mass =</span> <span class="fu">mean</span>(body_mass_g),</span>
+<span id="cb7-8"><a></a>    <span class="at">sd_mass =</span> <span class="fu">sd</span>(body_mass_g)</span>
+<span id="cb7-9"><a></a>  )</span></code></pre></div><button title="Αντιγραφή στο πρόχειρο" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="άσκηση-2" class="slide level2">
+<h2>Άσκηση</h2>
+<p>Υπολογίστε τον <strong>μέσο όρο</strong> και τη <strong>διάμεσο</strong> του μήκους ράμφους (<code>bill_length_mm</code>) ανά <strong>νησί</strong> (<code>island</code>) και <strong>φύλο</strong> (<code>sex</code>).</p>
+<p><em>Προσοχή:</em> Θυμηθείτε να αφαιρέσετε τα <code>NA</code> (είτε με <code>filter</code> είτε με <code>na.rm = TRUE</code>).</p>
+</section>
+<section id="λύση-2" class="slide level2">
+<h2>Λύση</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a></a>penguins <span class="sc">|&gt;</span> </span>
+<span id="cb8-2"><a></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(sex), <span class="sc">!</span><span class="fu">is.na</span>(bill_length_mm)) <span class="sc">|&gt;</span> </span>
+<span id="cb8-3"><a></a>  <span class="fu">group_by</span>(island, sex) <span class="sc">|&gt;</span> </span>
+<span id="cb8-4"><a></a>  <span class="fu">summarise</span>(</span>
+<span id="cb8-5"><a></a>    <span class="at">mean_bill =</span> <span class="fu">mean</span>(bill_length_mm),</span>
+<span id="cb8-6"><a></a>    <span class="at">median_bill =</span> <span class="fu">median</span>(bill_length_mm),</span>
+<span id="cb8-7"><a></a>    <span class="at">.groups =</span> <span class="st">"drop"</span></span>
+<span id="cb8-8"><a></a>  )</span></code></pre></div><button title="Αντιγραφή στο πρόχειρο" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="άσκηση-3" class="slide level2">
+<h2>Άσκηση</h2>
+<p>Γράψτε <strong>ένα ενιαίο block κώδικα</strong> με <code>|&gt;</code> που:</p>
 <ol type="1">
-<li>Δημιουργεί μια <strong>απομονωμένη βιβλιοθήκη</strong> για κάθε project.</li>
-<li>Καταγράφει τις ακριβείς εκδόσεις στο <code>renv.lock</code>.</li>
+<li>Κρατάει μόνο τους πιγκουίνους από το νησί <strong>“Biscoe”</strong>.</li>
+<li>Δημιουργεί μια στήλη <code>mass_lb</code> (βάρος σε λίβρες = γραμμάρια * 0.0022).</li>
+<li>Φτιάχνει μια κατηγορία <code>heavy_penguin</code>: “Yes” αν <code>mass_lb &gt; 10</code>, αλλιώς “No”.</li>
+<li>Ομαδοποιεί ανά είδος και την κατηγορία <code>heavy_penguin</code>.</li>
+<li>Υπολογίζει τον μέσο όρο του <code>flipper_length_mm</code>.</li>
 </ol>
-<p><br>
-</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a></a><span class="co"># Ενεργοποίηση στο project</span></span>
-<span id="cb1-2"><a></a>renv<span class="sc">::</span><span class="fu">init</span>()</span>
-<span id="cb1-3"><a></a></span>
-<span id="cb1-4"><a></a><span class="co"># Εγκατάσταση πακέτων</span></span>
-<span id="cb1-5"><a></a></span>
-<span id="cb1-6"><a></a>renv<span class="sc">::</span><span class="fu">install</span>()</span>
-<span id="cb1-7"><a></a></span>
-<span id="cb1-8"><a></a><span class="co"># Αποθήκευση κατάστασης βιβλιοθηκών</span></span>
-<span id="cb1-9"><a></a>renv<span class="sc">::</span><span class="fu">snapshot</span>()</span>
-<span id="cb1-10"><a></a></span>
-<span id="cb1-11"><a></a><span class="co"># Ανάκτηση περιβάλλοντος (σε άλλο υπολογιστή)</span></span>
-<span id="cb1-12"><a></a>renv<span class="sc">::</span><span class="fu">restore</span>()</span></code></pre></div><button title="Αντιγραφή στο πρόχειρο" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
-<section id="καθαρισμός-και-επεξεργασία-των-δεδομέων" class="slide level2">
-<h2>Καθαρισμός και επεξεργασία των δεδομέων</h2>
-<p>Θα χρησιμοποιήσουμε τη συλλογή βιβλιοθηκών <code>tidyverse</code> που μοιράζονται κοινή φιλοσοφία σχεδιασμού:</p>
-<ul>
-<li><code>dplyr</code>: Γραμματική επεξεργασίας δεδομένων.</li>
-<li><code>tidyr</code>: Αναδιάταξη για “καθαρά” (tidy) δεδομένα.</li>
-<li><code>stringr</code>: Διαχείριση κειμένου.</li>
-</ul>
-<div class="callout callout-note callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
+<section id="λύση-case-study" class="slide level2">
+<h2>Λύση Case Study</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a></a>penguins <span class="sc">|&gt;</span> </span>
+<span id="cb9-2"><a></a>  <span class="fu">filter</span>(island <span class="sc">==</span> <span class="st">"Biscoe"</span>, <span class="sc">!</span><span class="fu">is.na</span>(body_mass_g)) <span class="sc">|&gt;</span> </span>
+<span id="cb9-3"><a></a>  <span class="fu">mutate</span>(</span>
+<span id="cb9-4"><a></a>    <span class="at">mass_lb =</span> body_mass_g <span class="sc">*</span> <span class="fl">0.0022</span>,</span>
+<span id="cb9-5"><a></a>    <span class="at">heavy_penguin =</span> <span class="fu">if_else</span>(mass_lb <span class="sc">&gt;</span> <span class="dv">10</span>, <span class="st">"Yes"</span>, <span class="st">"No"</span>)</span>
+<span id="cb9-6"><a></a>  ) <span class="sc">|&gt;</span> </span>
+<span id="cb9-7"><a></a>  <span class="fu">group_by</span>(species, heavy_penguin) <span class="sc">|&gt;</span> </span>
+<span id="cb9-8"><a></a>  <span class="fu">summarise</span>(</span>
+<span id="cb9-9"><a></a>    <span class="at">avg_flipper =</span> <span class="fu">mean</span>(flipper_length_mm, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb9-10"><a></a>    <span class="at">count =</span> <span class="fu">n</span>(),</span>
+<span id="cb9-11"><a></a>    <span class="at">.groups =</span> <span class="st">"drop"</span></span>
+<span id="cb9-12"><a></a>  )</span></code></pre></div><button title="Αντιγραφή στο πρόχειρο" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<p><strong>Σημείωση</strong></p>
-</div>
-<div class="callout-content">
-<p>Θα χρησιμοποιούμε εκτενώς τον pipe operator |&gt; (και όχι τον %&gt;%) για να γράφουμε ευανάγνωστο κώδικα.</p>
-</div>
-</div>
-</div>
-</section>
-<section id="δημιουργία-γραφημάτων" class="slide level2">
-<h2>Δημιουργία γραφημάτων</h2>
-<p><code>ggplot2</code>: The Grammar of Graphics</p>
-<p>Βασικά Συστατικά:</p>
-<ul>
-<li><code>Data</code>: Τα δεδομένα μας.</li>
-<li><code>Aesthetics</code> (aes): Τι βλέπουμε (x, y, color).</li>
-<li><code>Geoms</code>: Το είδος (points, bars).</li>
-</ul>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a></a></span>
-<span id="cb2-2"><a></a>data <span class="sc">|&gt;</span> </span>
-<span id="cb2-3"><a></a>  ggplot2<span class="sc">::</span><span class="fu">ggplot</span>(ggplot2<span class="sc">::</span><span class="fu">aes</span>(<span class="at">x =</span> displ, <span class="at">y =</span> hwy)) <span class="sc">+</span></span>
-<span id="cb2-4"><a></a>  ggplot2<span class="sc">::</span><span class="fu">geom_point</span>(ggplot2<span class="sc">::</span><span class="fu">aes</span>(<span class="at">color =</span> class)) <span class="sc">+</span></span>
-<span id="cb2-5"><a></a>  ggplot2<span class="sc">::</span><span class="fu">geom_smooth</span>() <span class="sc">+</span></span>
-<span id="cb2-6"><a></a>  ggplot2<span class="sc">::</span><span class="fu">theme_minimal</span>()</span></code></pre></div><button title="Αντιγραφή στο πρόχειρο" class="code-copy-button"><i class="bi"></i></button></div>
-</section>
-<section id="συναρτησιακός-προγραμματισμός" class="slide level2">
-<h2>Συναρτησιακός προγραμματισμός</h2>
-<ul>
-<li>Το πακέτο <code>purrr</code> για συναρτησιακό προγραμματισμό</li>
-<li>Η R είναι μια συναρτησιακή γλώσσα. Στόχος μας είναι να αποφύγουμε τα περίπλοκα:</li>
-</ul>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a></a>final_data <span class="ot">&lt;-</span> <span class="fu">data.frame</span>()</span>
-<span id="cb3-2"><a></a></span>
-<span id="cb3-3"><a></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="fu">seq_along</span>(files)) {</span>
-<span id="cb3-4"><a></a>  temp <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(files[i])</span>
-<span id="cb3-5"><a></a>  final_data <span class="ot">&lt;-</span> <span class="fu">rbind</span>(final_data, temp) </span>
-<span id="cb3-6"><a></a>}</span></code></pre></div><button title="Αντιγραφή στο πρόχειρο" class="code-copy-button"><i class="bi"></i></button></div>
-<p><br>
-</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a></a>final_data <span class="ot">&lt;-</span> files <span class="sc">|&gt;</span> </span>
-<span id="cb4-2"><a></a>  purrr<span class="sc">::</span><span class="fu">map</span>(readr<span class="sc">::</span>read_csv) <span class="sc">|&gt;</span> </span>
-<span id="cb4-3"><a></a>  purrr<span class="sc">::</span><span class="fu">list_rbind</span>()</span></code></pre></div><button title="Αντιγραφή στο πρόχειρο" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Η λογική του Map: Αντί να γράφουμε λούπες, “χαρτογραφούμε” μια συνάρτηση πάνω σε μια λίστα δεδομένων.</p>
-</section>
-<section id="δημιουργία-αναφορών" class="slide level2">
-<h2>Δημιουργία αναφορών</h2>
-<ul>
-<li>Το <code>Quarto</code> είναι η εξέλιξη του <code>Rmarkdown</code>:</li>
-<li>Ενοποιεί κείμενο, κώδικα και αποτελέσματα.</li>
-<li>Παράγει: HTML, PDF, Word, e-books και παρουσιάσεις.</li>
-<li>Ο κώδικας και η ανάλυση πρέπει να ζουν μαζί σε ένα ζωντανό έγγραφο.</li>
-</ul>
 
 
 </section>
@@ -314,7 +407,7 @@
   <div class="quarto-auto-generated-content" style="display: none;">
 <p><img src="logo.png" class="slide-logo"></p>
 <div class="footer footer-default">
-
+<p>Στατιστικά Προγράμματα II - Μάθημα 5</p>
 </div>
 </div></div>
 
@@ -526,6 +619,44 @@
         ]
       });
     </script>
+    
+    <script>
+      // htmlwidgets need to know to resize themselves when slides are shown/hidden.
+      // Fire the "slideenter" event (handled by htmlwidgets.js) when the current
+      // slide changes (different for each slide format).
+      (function () {
+        // dispatch for htmlwidgets
+        function fireSlideEnter() {
+          const event = window.document.createEvent("Event");
+          event.initEvent("slideenter", true, true);
+          window.document.dispatchEvent(event);
+        }
+
+        function fireSlideChanged(previousSlide, currentSlide) {
+          fireSlideEnter();
+
+          // dispatch for shiny
+          if (window.jQuery) {
+            if (previousSlide) {
+              window.jQuery(previousSlide).trigger("hidden");
+            }
+            if (currentSlide) {
+              window.jQuery(currentSlide).trigger("shown");
+            }
+          }
+        }
+
+        // hookup for slidy
+        if (window.w3c_slidy) {
+          window.w3c_slidy.add_observer(function (slide_num) {
+            // slide_num starts at position 1
+            fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);
+          });
+        }
+
+      })();
+    </script>
+
     <script id="quarto-html-after-body" type="application/javascript">
       window.document.addEventListener("DOMContentLoaded", function (event) {
         const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")

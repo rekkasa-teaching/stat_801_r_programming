@@ -1,145 +1,5 @@
 [
   {
-    "objectID": "notes/print.html",
-    "href": "notes/print.html",
-    "title": "Σημειώσεις του μαθήματος",
-    "section": "",
-    "text": "Επιλογές:\n\nΔιαβάστε online (βρίσκεστε εδώ)\n📄 Download PDF\n\n\n\nΟι σημειώσεις οργανώνονται στα ακόλουθα κεφάλαια:\n\nΚεφάλαιο 1: Εισαγωγή\n\n\n\n\nΣυγγραφέας: Αλέξανδρος Ρέκκας\nΜάθημα: XXXXX\nΟι σημειώσεις αυτές έχουν σχεδιαστεί ώστε να συμπληρώνουν τις παρουσιάσεις των διαλέξεων και να αποτελούν μια ολοκληρωμένη αναφορά για το υλικό του μαθήματος."
-  },
-  {
-    "objectID": "notes/print.html#περιεχόμενα",
-    "href": "notes/print.html#περιεχόμενα",
-    "title": "Σημειώσεις του μαθήματος",
-    "section": "",
-    "text": "Οι σημειώσεις οργανώνονται στα ακόλουθα κεφάλαια:\n\nΚεφάλαιο 1: Εισαγωγή"
-  },
-  {
-    "objectID": "notes/print.html#σχετικά",
-    "href": "notes/print.html#σχετικά",
-    "title": "Σημειώσεις του μαθήματος",
-    "section": "",
-    "text": "Συγγραφέας: Αλέξανδρος Ρέκκας\nΜάθημα: XXXXX\nΟι σημειώσεις αυτές έχουν σχεδιαστεί ώστε να συμπληρώνουν τις παρουσιάσεις των διαλέξεων και να αποτελούν μια ολοκληρωμένη αναφορά για το υλικό του μαθήματος."
-  },
-  {
-    "objectID": "notes/print.html#τίτλος-2",
-    "href": "notes/print.html#τίτλος-2",
-    "title": "Σημειώσεις του μαθήματος",
-    "section": "Τίτλος 2",
-    "text": "Τίτλος 2"
-  },
-  {
-    "objectID": "notes/index.html",
-    "href": "notes/index.html",
-    "title": "Σημειώσεις του μαθήματος",
-    "section": "",
-    "text": "Επιλογές:\n\nΔιαβάστε online (βρίσκεστε εδώ)\n📄 Download PDF\n\n\n\nΟι σημειώσεις οργανώνονται στα ακόλουθα κεφάλαια:\n\nΚεφάλαιο 1: Εισαγωγή\n\n\n\n\nΣυγγραφέας: Αλέξανδρος Ρέκκας\nΜάθημα: XXXXX\nΟι σημειώσεις αυτές έχουν σχεδιαστεί ώστε να συμπληρώνουν τις παρουσιάσεις των διαλέξεων και να αποτελούν μια ολοκληρωμένη αναφορά για το υλικό του μαθήματος."
-  },
-  {
-    "objectID": "notes/index.html#περιεχόμενα",
-    "href": "notes/index.html#περιεχόμενα",
-    "title": "Σημειώσεις του μαθήματος",
-    "section": "",
-    "text": "Οι σημειώσεις οργανώνονται στα ακόλουθα κεφάλαια:\n\nΚεφάλαιο 1: Εισαγωγή"
-  },
-  {
-    "objectID": "notes/index.html#σχετικά",
-    "href": "notes/index.html#σχετικά",
-    "title": "Σημειώσεις του μαθήματος",
-    "section": "",
-    "text": "Συγγραφέας: Αλέξανδρος Ρέκκας\nΜάθημα: XXXXX\nΟι σημειώσεις αυτές έχουν σχεδιαστεί ώστε να συμπληρώνουν τις παρουσιάσεις των διαλέξεων και να αποτελούν μια ολοκληρωμένη αναφορά για το υλικό του μαθήματος."
-  },
-  {
-    "objectID": "slides/lecture-04/index.html#τα-δεδομένα",
-    "href": "slides/lecture-04/index.html#τα-δεδομένα",
-    "title": "Στατιστικά Προγράμματα II",
-    "section": "Τα δεδομένα",
-    "text": "Τα δεδομένα\nΔοκιμάζουμε ένα νέο φάρμακο για την υπέρταση (Μείωση Αρτηριακής Πίεσης).\n\n\nΑντιγράψτε και τρέξτε τον παρακάτω κώδικα:\n\ntrial_data &lt;- data.frame(\n  id = 1:10,\n  age = c(45, 62, 38, NA, 55, 71, 29, 48, NA, 65),\n  group = c(\"Drug\", \"Control\", \"Drug\", \"Drug\", \"Control\", \"Control\", \"Drug\", \"Control\", \"Drug\", \"Control\"),\n  bp_start = c(160, 155, 145, 170, 150, NA, 135, 148, 165, 158),\n  bp_end = c(120, 150, 130, 140, 145, 155, 125, 148, NA, 140),\n  adverse_event = c(FALSE, TRUE, FALSE, TRUE, FALSE, FALSE, FALSE, NA, TRUE, FALSE)\n)"
-  },
-  {
-    "objectID": "slides/lecture-03/index.html#τα-δεδομένα",
-    "href": "slides/lecture-03/index.html#τα-δεδομένα",
-    "title": "Στατιστικά Προγράμματα II",
-    "section": "Τα Δεδομένα",
-    "text": "Τα Δεδομένα\nΈχετε συλλέξει τα δεδομένα 8 φοιτητών για τα μαθήματα “Μαθηματικά” και “Στατιστική”, καθώς και τον αριθμό των απουσιών τους. Ορισμένοι φοιτητές δεν προσήλθαν στις εξετάσεις, άρα έχουν την τιμή NA.\n\n\n\n\n\n\n\n\n\nΑριθμός Μητρώου (student_id)\nΜαθηματικά (math_grades)\nΣτατιστική (stat_grades)\nΑπουσίες (absences)\n\n\n\n\nAM01\n4.5\n5.0\n2\n\n\nAM02\n8.0\n7.5\n0\n\n\nAM03\n3.5\n4.0\n5\n\n\nAM04\nNA\n6.5\n1\n\n\nAM05\n9.5\n10.0\n0\n\n\nAM06\n6.0\nNA\n3\n\n\nAM07\n2.0\n3.5\n6\n\n\nAM08\nNA\n8.0\n2"
-  },
-  {
-    "objectID": "slides/lecture-03/index.html#μέρος-1-εισαγωγή-δεδομένων-και-περιγραφή",
-    "href": "slides/lecture-03/index.html#μέρος-1-εισαγωγή-δεδομένων-και-περιγραφή",
-    "title": "Στατιστικά Προγράμματα II",
-    "section": "Μέρος 1: Εισαγωγή δεδομένων και περιγραφή",
-    "text": "Μέρος 1: Εισαγωγή δεδομένων και περιγραφή\n\nΝα εισάγετε τα δεδομένα σε ξεχωριστά διανύσματα.\nΕλέγξτε αν τα διανύσματα που δημιουργήσατε έχουν το ίδιο μήκος.\nΕνώστε τα 4 διανύσματα σε ένα Data Frame με το όνομα performance.\nΔείξτε τα βασικά περιγραφικά στατιστικά όλου του Data Frame.\nΒρείτε τη μέγιστη βαθμολογία στα μαθηματικά."
-  },
-  {
-    "objectID": "slides/lecture-03/index.html#λύση",
-    "href": "slides/lecture-03/index.html#λύση",
-    "title": "Στατιστικά Προγράμματα II",
-    "section": "Λύση",
-    "text": "Λύση\n\nstudent_id &lt;- c(\"AM01\", \"AM02\", \"AM03\", \"AM04\", \"AM05\", \"AM06\", \"AM07\", \"AM08\")\nmath_grades &lt;- c(4.5, 8.0, 3.5, NA, 9.5, 6.0, 2.0, NA)\nstat_grades &lt;- c(5.0, 7.5, 4.0, 6.5, 10.0, NA, 3.5, 8.0)\nabsences &lt;- c(2, 0, 5, 1, 0, 3, 6, 2)\n\n# 1. Έλεγχος μήκους\nlength(math_grades) \n\n# 2. Δημιουργία Data Frame\nperformance &lt;- data.frame(\n  aem = student_id,\n  math = math_grades,\n  stat = stat_grades,\n  absences = absences\n)\n\n# 3. Περιγραφικά στατιστικά (Βλέπουμε πόσα NA έχει κάθε στήλη)\nsummary(performance)\n\n# 4. Μέγιστη βαθμολογία στα μαθηματικά αγνοώντας τα NA\nmax(performance$math, na.rm = TRUE)"
-  },
-  {
-    "objectID": "slides/lecture-03/index.html#τροποποίηση-βαθμολογιών",
-    "href": "slides/lecture-03/index.html#τροποποίηση-βαθμολογιών",
-    "title": "Στατιστικά Προγράμματα II",
-    "section": "Τροποποίηση βαθμολογιών",
-    "text": "Τροποποίηση βαθμολογιών\nΟ καθηγητής Στατιστικής αποφάσισε να δώσει 0.5 βαθμό bonus σε όλους:\n\nΔημιουργήστε μια νέα στήλη στο performance με όνομα stat_final που θα περιέχει τον νέο βαθμό.\nΒρείτε τους φοιτητές που πέρασαν το κάθε μάθημα.\nΒρείτε τον μέσο όρο των απουσιών των φοιτητών που πέρασαν τα Μαθηματικά."
-  },
-  {
-    "objectID": "slides/lecture-03/index.html#λύση-1",
-    "href": "slides/lecture-03/index.html#λύση-1",
-    "title": "Στατιστικά Προγράμματα II",
-    "section": "Λύση",
-    "text": "Λύση\n\nperformance$stat_final &lt;- performance$Stat + 0.5\n\n# Διόρθωση βαθμών άνω του 10\nperformance$stat_final[performance$stat_final &gt; 10] &lt;- 10\n\n# Λογικό διάνυσμα για επιτυχία στα Μαθηματικά\npassed_math &lt;- performance_df$math &gt;= 5.0\n\n# Μέσος όρος απουσιών όσων πέρασαν\n# Βάζουμε na.rm = TRUE γιατί το passed_math περιέχει NAs.\nmean(performance$absences[passed_math], na.rm = TRUE)"
-  },
-  {
-    "objectID": "slides/lecture-03/index.html#βαθμοί-στη-σταστιστική-για-κάθε-φοιτητή",
-    "href": "slides/lecture-03/index.html#βαθμοί-στη-σταστιστική-για-κάθε-φοιτητή",
-    "title": "Στατιστικά Προγράμματα II",
-    "section": "Βαθμοί στη σταστιστική για κάθε φοιτητή",
-    "text": "Βαθμοί στη σταστιστική για κάθε φοιτητή\nΓια κάθε φοιτητή των δεδομένων σας γράψτε τον κώδικα που θα κάνει τα παρακάτω:\n\nΑν ο βαθμός είναι NA, τύπωσε: “Ο φοιτητής με ΑΕΜ { aem } απουσίαζε.”\nΑν ο βαθμός είναι πάνω από 5, τύπωσε: “Ο φοιτητής με ΑΕΜ { aem } πέρασε με βαθμό { stat_final }.”\nΑλλιώς, τύπωσε: “Ο φοιτητής ΑΕΜ { aem } κόπηκε με βαθμό { stat_final }.”"
-  },
-  {
-    "objectID": "slides/lecture-03/index.html#λύση-2",
-    "href": "slides/lecture-03/index.html#λύση-2",
-    "title": "Στατιστικά Προγράμματα II",
-    "section": "Λύση",
-    "text": "Λύση\n\nfor (i in 1:nrow(performance_df)) {\n  \n  # Αποθήκευση του τρέχοντος βαθμού και του ΑΕΜ για ευκολία\n  current_grade &lt;- performance$stat_final[i]\n  current_aem &lt;- performance_df$aem[i]\n  \n  # Το is.na() πρέπει να είναι το πρώτο statement!\n  if (is.na(current_grade)) {\n    print(paste(\"Ο φοιτητής\", current_aem, \"απουσίαζε.\"))\n    \n  } else if (current_grade &gt;= 5) {\n    print(paste(\"Ο φοιτητής\", current_aem, \"πέρασε με\", current_grade))\n    \n  } else {\n    print(paste(\"Ο φοιτητής\", current_aem, \"κόπηκε με\", current_grade))\n  }\n  \n}"
-  },
-  {
-    "objectID": "slides/lecture-03/index.html#αντικατάσταση-na",
-    "href": "slides/lecture-03/index.html#αντικατάσταση-na",
-    "title": "Στατιστικά Προγράμματα II",
-    "section": "Αντικατάσταση NA",
-    "text": "Αντικατάσταση NA\n\nΓράψτε τη συνάρτηση impute_mean, η οποία θα αντικαθιστά τα NA ενός διανύσματος με τον μέσο όρο των τιμών του.\nΕφαρμόστε τη συνάρτηση σας στις στήλες math και stat του Data Frame performance και αποθηκεύστε τα αποτελέσματα σε δύο νέες στήλες (math_imp και stat_imp).\nΤυπώστε τις αρχικές και τις νέες στήλες των Μαθηματικών για να επιβεβαιώσετε."
-  },
-  {
-    "objectID": "slides/lecture-03/index.html#λύση-3",
-    "href": "slides/lecture-03/index.html#λύση-3",
-    "title": "Στατιστικά Προγράμματα II",
-    "section": "Λύση",
-    "text": "Λύση\n\nimpute_mean &lt;- function(x) {\n  \n  mean_val &lt;- mean(x, na.rm = TRUE)\n  \n  x[is.na(x)] &lt;- mean_val\n  \n  return(x)\n}\n\nperformance$math_imp &lt;- impute_mean(performance$math)\nperformance$stat_imp &lt;- impute_mean(performance$stat)\n\n# 6. Προβολή των αποτελεσμάτων (για τα Μαθηματικά)\ndata.frame(\n  aem = performance$aem,\n  original_math = performance$math,\n  imputed_math = performance$math_imp\n)"
-  },
-  {
-    "objectID": "notes-index.html",
-    "href": "notes-index.html",
-    "title": "Στατιστική στην εκπαιδευτική έρευνα",
-    "section": "",
-    "text": "Εδώ θα βρείτε μία λίστα με όλες τις σημειώσεις που θα χρησιμοποιηθούν για την διδασκαλία του μαθήματος το χειμερινό εξάμνηνο 2025-2026.\nΕπιλογές:\n\n📖 Διαβάστε online (βρίσκεστε εδώ!)\n📄 Κατεβάστε το pdf\n\n\n\nΟι σημειώσεις του μαθήματος οργανώνονται στα ακόλουθα κεφάλαια:\n\nΚεφάλαιο 1: Εισαγωγή\n\n\n\n\nΣυγγραφέας: Αλέξανδρος Ρέκκας\nΜάθημα: XXXXXX"
-  },
-  {
-    "objectID": "notes-index.html#περιεχόμενα",
-    "href": "notes-index.html#περιεχόμενα",
-    "title": "Στατιστική στην εκπαιδευτική έρευνα",
-    "section": "",
-    "text": "Οι σημειώσεις του μαθήματος οργανώνονται στα ακόλουθα κεφάλαια:\n\nΚεφάλαιο 1: Εισαγωγή"
-  },
-  {
-    "objectID": "notes-index.html#σχετικά",
-    "href": "notes-index.html#σχετικά",
-    "title": "Στατιστική στην εκπαιδευτική έρευνα",
-    "section": "",
-    "text": "Συγγραφέας: Αλέξανδρος Ρέκκας\nΜάθημα: XXXXXX"
-  },
-  {
     "objectID": "LICENSE.html",
     "href": "LICENSE.html",
     "title": "",
@@ -168,25 +28,123 @@
     "text": "Διδάσκων: Αλέξανδρος Ρέκκας"
   },
   {
-    "objectID": "exercises-index.html",
-    "href": "exercises-index.html",
-    "title": "Στατιστική στην εκπαιδευτική έρευνα",
+    "objectID": "notes/index.html",
+    "href": "notes/index.html",
+    "title": "Σημειώσεις του μαθήματος",
     "section": "",
-    "text": "Εδώ θα βρείτε μία λίστα με όλες τις ασκήσεις που θα ανατεθούν κατά τη διδασκαλία του μαθήματος το χειμερινό εξάμνηνο 2025-2026.\n\n\nΜπορείτε να κατεβάσετε τις ασκήσεις από:\n\nΆσκηση 1\n\n\n\n\nΣυγγραφέας: Δρ. Αλέξανδρος Ρέκκας\nΜάθημα: (0111Υ) Στατιστική στην εκπαιδευτική έρευνα"
+    "text": "Επιλογές:\n\nΔιαβάστε online (βρίσκεστε εδώ)\n📄 Download PDF\n\n\n\nΟι σημειώσεις οργανώνονται στα ακόλουθα κεφάλαια:\n\nΚεφάλαιο 1: Εισαγωγή\n\n\n\n\nΣυγγραφέας: Αλέξανδρος Ρέκκας\nΜάθημα: XXXXX\nΟι σημειώσεις αυτές έχουν σχεδιαστεί ώστε να συμπληρώνουν τις παρουσιάσεις των διαλέξεων και να αποτελούν μια ολοκληρωμένη αναφορά για το υλικό του μαθήματος."
   },
   {
-    "objectID": "exercises-index.html#περιεχόμενα",
-    "href": "exercises-index.html#περιεχόμενα",
-    "title": "Στατιστική στην εκπαιδευτική έρευνα",
+    "objectID": "notes/index.html#περιεχόμενα",
+    "href": "notes/index.html#περιεχόμενα",
+    "title": "Σημειώσεις του μαθήματος",
     "section": "",
-    "text": "Μπορείτε να κατεβάσετε τις ασκήσεις από:\n\nΆσκηση 1"
+    "text": "Οι σημειώσεις οργανώνονται στα ακόλουθα κεφάλαια:\n\nΚεφάλαιο 1: Εισαγωγή"
   },
   {
-    "objectID": "exercises-index.html#σχετικά",
-    "href": "exercises-index.html#σχετικά",
+    "objectID": "notes/index.html#σχετικά",
+    "href": "notes/index.html#σχετικά",
+    "title": "Σημειώσεις του μαθήματος",
+    "section": "",
+    "text": "Συγγραφέας: Αλέξανδρος Ρέκκας\nΜάθημα: XXXXX\nΟι σημειώσεις αυτές έχουν σχεδιαστεί ώστε να συμπληρώνουν τις παρουσιάσεις των διαλέξεων και να αποτελούν μια ολοκληρωμένη αναφορά για το υλικό του μαθήματος."
+  },
+  {
+    "objectID": "notes-index.html",
+    "href": "notes-index.html",
     "title": "Στατιστική στην εκπαιδευτική έρευνα",
     "section": "",
-    "text": "Συγγραφέας: Δρ. Αλέξανδρος Ρέκκας\nΜάθημα: (0111Υ) Στατιστική στην εκπαιδευτική έρευνα"
+    "text": "Εδώ θα βρείτε μία λίστα με όλες τις σημειώσεις που θα χρησιμοποιηθούν για την διδασκαλία του μαθήματος το χειμερινό εξάμνηνο 2025-2026.\nΕπιλογές:\n\n📖 Διαβάστε online (βρίσκεστε εδώ!)\n📄 Κατεβάστε το pdf\n\n\n\nΟι σημειώσεις του μαθήματος οργανώνονται στα ακόλουθα κεφάλαια:\n\nΚεφάλαιο 1: Εισαγωγή\n\n\n\n\nΣυγγραφέας: Αλέξανδρος Ρέκκας\nΜάθημα: XXXXXX"
+  },
+  {
+    "objectID": "notes-index.html#περιεχόμενα",
+    "href": "notes-index.html#περιεχόμενα",
+    "title": "Στατιστική στην εκπαιδευτική έρευνα",
+    "section": "",
+    "text": "Οι σημειώσεις του μαθήματος οργανώνονται στα ακόλουθα κεφάλαια:\n\nΚεφάλαιο 1: Εισαγωγή"
+  },
+  {
+    "objectID": "notes-index.html#σχετικά",
+    "href": "notes-index.html#σχετικά",
+    "title": "Στατιστική στην εκπαιδευτική έρευνα",
+    "section": "",
+    "text": "Συγγραφέας: Αλέξανδρος Ρέκκας\nΜάθημα: XXXXXX"
+  },
+  {
+    "objectID": "slides/lecture-04/index.html#το-dataset-κλινική-δοκιμή-trial-data",
+    "href": "slides/lecture-04/index.html#το-dataset-κλινική-δοκιμή-trial-data",
+    "title": "Στατιστικά Προγράμματα II",
+    "section": "Το Dataset: Κλινική Δοκιμή (Trial Data)",
+    "text": "Το Dataset: Κλινική Δοκιμή (Trial Data)\nΔοκιμάζουμε ένα νέο φάρμακο για την υπέρταση (Μείωση Αρτηριακής Πίεσης).\n\n\nΑντιγράψτε και τρέξτε τον παρακάτω κώδικα στο script σας:\n\ntrial_data &lt;- data.frame(\n  id = 1:10,\n  age = c(45, 62, 38, NA, 55, 71, 29, 48, NA, 65),\n  group = c(\"Drug\", \"Control\", \"Drug\", \"Drug\", \"Control\", \"Control\", \"Drug\", \"Control\", \"Drug\", \"Control\"),\n  bp_start = c(160, 155, 145, 170, 150, NA, 135, 148, 165, 158),\n  bp_end = c(120, 150, 130, 140, 145, 155, 125, 148, NA, 140),\n  adverse_event = c(FALSE, TRUE, FALSE, TRUE, FALSE, FALSE, FALSE, NA, TRUE, FALSE) # Παρενέργειες\n)"
+  },
+  {
+    "objectID": "slides/lecture-04/index.html#επεξεργασία",
+    "href": "slides/lecture-04/index.html#επεξεργασία",
+    "title": "Στατιστικά Προγράμματα II",
+    "section": "Επεξεργασία",
+    "text": "Επεξεργασία\nΠριν αναλύσουμε τα δεδομένα, πρέπει να δημιουργήσουμε νέες μεταβλητές που εκφράζουν την αποτελεσματικότητα.\n\nΔημιουργήστε μια νέα στήλη στο trial_data με όνομα bp_drop (Πτώση Πίεσης), η οποία θα ονομάζεται bp_start - bp_end:\n\nΕάν η πτώση πίεσης (bp_drop) είναι μεγαλύτερη ή ίση του 15, η τιμή να είναι \"High\".\nΔιαφορετικά, να είναι \"Low/None\".\n\nΤυπώστε τις στήλες id, bp_drop και effectiveness."
+  },
+  {
+    "objectID": "slides/lecture-04/index.html#λύση",
+    "href": "slides/lecture-04/index.html#λύση",
+    "title": "Στατιστικά Προγράμματα II",
+    "section": "Λύση",
+    "text": "Λύση\n\ntrial_data$bp_drop &lt;- trial_data$bp_start - trial_data$bp_end\n\ntrial_data$effectiveness &lt;- ifelse(trial_data$bp_drop &gt;= 15, \"High\", \"Low/None\")\n\ntrial_data[, c(\"id\", \"bp_drop\", \"effectiveness\")]"
+  },
+  {
+    "objectID": "slides/lecture-04/index.html#υποομάδες",
+    "href": "slides/lecture-04/index.html#υποομάδες",
+    "title": "Στατιστικά Προγράμματα II",
+    "section": "Υποομάδες",
+    "text": "Υποομάδες\nΘέλουμε να απομονώσουμε τους ασθενείς στους οποίους το φάρμακο δούλεψε καλά, χωρίς παρενέργειες.\n\nΧρησιμοποιώντας τους τελεστές & και ! , δημιουργήστε ένα νέο data frame με όνομα success_cases που να περιέχει τους ασθενείς οι οποίοι:\n\nΑνήκουν στο γκρουπ: group == \"Drug\" ΚΑΙ\nΈχουν αποτελεσματικότητα: effectiveness == \"High\" ΚΑΙ\nΔΕΝ εμφάνισαν παρενέργειες (adverse_event == FALSE ή !adverse_event).\n\nΠόσοι είναι αυτοί οι ασθενείς; (Χρησιμοποιήστε την nrow()).\n\nΠροσοχή: Χρησιμοποιήστε τη συνάρτηση which() μέσα στις αγκύλες [] για να αποφύγετε προβλήματα με τις γραμμές που έχουν NA."
+  },
+  {
+    "objectID": "slides/lecture-04/index.html#λύση-1",
+    "href": "slides/lecture-04/index.html#λύση-1",
+    "title": "Στατιστικά Προγράμματα II",
+    "section": "Λύση",
+    "text": "Λύση\n\nconditions &lt;- (trial_data$group == \"Drug\") & \n              (trial_data$effectiveness == \"High\") & \n              (trial_data$adverse_event == FALSE)\n\nsuccess_cases &lt;- trial_data[which(conditions), ]\n\nsuccess_cases"
+  },
+  {
+    "objectID": "slides/lecture-04/index.html#η-δική-σας-συνάρτηση",
+    "href": "slides/lecture-04/index.html#η-δική-σας-συνάρτηση",
+    "title": "Στατιστικά Προγράμματα II",
+    "section": "Η δική σας συνάρτηση",
+    "text": "Η δική σας συνάρτηση\nΠρέπει να γράψουμε μια συνάρτηση που να αξιολογεί οποιαδήποτε αριθμητική μεταβλητή (π.χ. Ηλικία, Πτώση Πίεσης), με ενσωματωμένο έλεγχο ποιότητας (πόσα NAs υπάρχουν).\n\nΔημιουργήστε τη συνάρτηση eval_metric(x, remove_na = TRUE).\nΜέσα στη συνάρτηση:\n\nΥπολογίστε τον μέσο όρο (mean_val) και την τυπική απόκλιση (sd_val), περνώντας το όρισμα na.rm = remove_na.\nΥπολογίστε πόσα NAs υπάρχουν στο διάνυσμα x (Hint: sum(is.na(x))).\n\nΗ συνάρτηση να επιστρέφει ένα named vector (με πεζά γράμματα) της μορφής: c(mean = ..., sd = ..., missing_count = ...)\nΔοκιμάστε τη συνάρτηση σας στη στήλη bp_drop του συνόλου trial_data."
+  },
+  {
+    "objectID": "slides/lecture-04/index.html#λύση-2",
+    "href": "slides/lecture-04/index.html#λύση-2",
+    "title": "Στατιστικά Προγράμματα II",
+    "section": "Λύση",
+    "text": "Λύση\n\neval_metric &lt;- function(x, remove_na = TRUE) {\n  \n  mean_val &lt;- mean(x, na.rm = remove_na)\n  sd_val &lt;- sd(x, na.rm = remove_na)\n  \n  na_count &lt;- sum(is.na(x))\n  \n  result &lt;- c(mean = mean_val, sd = sd_val, missing_count = na_count)\n  \n  return(result)\n}\n\neval_metric(trial_data$bp_drop)"
+  },
+  {
+    "objectID": "slides/lecture-04/index.html#επανάληψη",
+    "href": "slides/lecture-04/index.html#επανάληψη",
+    "title": "Στατιστικά Προγράμματα II",
+    "section": "Επανάληψη",
+    "text": "Επανάληψη\nΔε θέλουμε να τρέχουμε την eval_metric χειροκίνητα για κάθε στήλη, οπότε Θα βάλουμε τον υπολογιστή να το κάνει:\n\nΦτιάξτε ένα for loop που διατρέχει όλες τις στήλες: for (i in 1:ncol(trial_data)).\nΑποθηκεύστε την τρέχουσα στήλη σε μια μεταβλητή (π.χ. col_data &lt;- trial_data[[i]]).\nΜε ένα if / else if / else ελέγξτε:\n\nΑν η στήλη είναι αριθμητική (is.numeric()): Τυπώστε το όνομά της και εφαρμόστε την eval_metric(col_data).\nΑν είναι λογική (is.logical()): Τυπώστε “Κατηγορία: Λογική (True/False)” και υπολογίστε το άθροισμα των TRUE (με na.rm = TRUE).\nΔιαφορετικά: Τυπώστε “Κατηγορία: Κείμενο - Αγνόηση”."
+  },
+  {
+    "objectID": "slides/lecture-04/index.html#λύση-3",
+    "href": "slides/lecture-04/index.html#λύση-3",
+    "title": "Στατιστικά Προγράμματα II",
+    "section": "Λύση",
+    "text": "Λύση\n\nfor (i in 1:ncol(trial_data)) {\n  \n  col_name &lt;- names(trial_data)[i]\n  col_data &lt;- trial_data[[i]]\n  \n  print(paste(\"---- Εξερεύνηση Στήλης:\", col_name, \"----\"))\n  \n  if (is.numeric(col_data)) {\n    res &lt;- eval_metric(col_data)\n    print(res)\n    \n  } else if (is.logical(col_data)) {\n    trues &lt;- sum(col_data, na.rm = TRUE)\n    print(paste(\"Λογική Μεταβλητή. Πλήθος TRUE:\", trues))\n    \n  } else {\n    print(\"Κατηγορία: Κείμενο - Αγνόηση\")\n  }\n}"
+  },
+  {
+    "objectID": "slides/lecture-04/index.html#σύνθεση",
+    "href": "slides/lecture-04/index.html#σύνθεση",
+    "title": "Στατιστικά Προγράμματα II",
+    "section": "Σύνθεση",
+    "text": "Σύνθεση\nΤελικά, δούλεψε το φάρμακο καλύτερα από το Control (Placebo);\n\nΑπομονώστε τη στήλη bp_drop ΜΟΝΟ για όσους ανήκουν στο group == \"Drug\". Αποθηκεύστε το ως drug_drop.\nΚάντε το ίδιο για όσους ανήκουν στο group == \"Control\" (control_drop).\nΧρησιμοποιήστε την eval_metric() και στα δύο διανύσματα και συγκρίνετε τους μέσους όρους πτώσης πίεσης."
+  },
+  {
+    "objectID": "slides/lecture-04/index.html#λύση-4",
+    "href": "slides/lecture-04/index.html#λύση-4",
+    "title": "Στατιστικά Προγράμματα II",
+    "section": "Λύση",
+    "text": "Λύση\n\ndrug_drop &lt;- trial_data$bp_drop[trial_data$group == \"Drug\"]\ncontrol_drop &lt;- trial_data$bp_drop[trial_data$group == \"Control\"]\n\nstats_drug &lt;- eval_metric(drug_drop)\nstats_control &lt;- eval_metric(control_drop)\n\nprint(\"Αποτελέσματα Φαρμάκου:\"); print(stats_drug[\"mean\"])\nprint(\"Αποτελέσματα Control:\"); print(stats_control[\"mean\"])"
   },
   {
     "objectID": "slides/lecture-02/index.html#το-περιβάλλον-rstudio",
@@ -228,7 +186,7 @@
     "href": "slides/lecture-02/index.html#επιλογή-υποσυνόλου",
     "title": "Στατιστικά Προγράμματα II",
     "section": "Επιλογή υποσυνόλου",
-    "text": "Επιλογή υποσυνόλου\n\n# Επιλογή 10 τυχαίων τιμών από την N(0, 1)\nvalues &lt;- rnorm(10)\nvalues\n\n [1]  0.3912114  0.9213983 -1.2659750 -0.6281914  0.1543779  0.4487731\n [7]  0.7813155 -1.3644493 -0.9371209  0.8552818\n\n\nΜπορούμε να διαλέξουμε τις πρώτες 3 τιμές της μεταβλητής values:\n\nvalues[1:3]\n\n[1]  0.3912114  0.9213983 -1.2659750\n\n\nΜπορούμε να διαλέξουμε την 3η τιμές και την 5η τιμή της μεταβλητής values:\n\nvalues[c(3, 5)]\n\n[1] -1.2659750  0.1543779"
+    "text": "Επιλογή υποσυνόλου\n\n# Επιλογή 10 τυχαίων τιμών από την N(0, 1)\nvalues &lt;- rnorm(10)\nvalues\n\n [1] -0.45787063 -0.07738022 -0.74462643  0.40687624  0.21552305 -1.59604085\n [7] -0.65092452 -0.56718205 -0.20884469 -0.23677854\n\n\nΜπορούμε να διαλέξουμε τις πρώτες 3 τιμές της μεταβλητής values:\n\nvalues[1:3]\n\n[1] -0.45787063 -0.07738022 -0.74462643\n\n\nΜπορούμε να διαλέξουμε την 3η τιμές και την 5η τιμή της μεταβλητής values:\n\nvalues[c(3, 5)]\n\n[1] -0.7446264  0.2155230"
   },
   {
     "objectID": "slides/lecture-02/index.html#επιλογή-υποσυνόλου-1",
@@ -329,6 +287,76 @@
     "text": "Εγκατάσταση και χρήση πακέτων\n\ninstall.packages(\"ggplot2\")\nlibrary(ggplot2)"
   },
   {
+    "objectID": "slides-index.html",
+    "href": "slides-index.html",
+    "title": "Παρουσιάσεις των μαθημάτων",
+    "section": "",
+    "text": "Διάλεξη 1\nΔιάλεξη 2\nΔιάλεξη 3\nΔιάλεξη 4\nΔιάλεξη 5\nΔιάλεξη 6"
+  },
+  {
+    "objectID": "slides/lecture-03/index.html#τα-δεδομένα",
+    "href": "slides/lecture-03/index.html#τα-δεδομένα",
+    "title": "Στατιστικά Προγράμματα II",
+    "section": "Τα Δεδομένα",
+    "text": "Τα Δεδομένα\nΈχετε συλλέξει τα δεδομένα 8 φοιτητών για τα μαθήματα “Μαθηματικά” και “Στατιστική”, καθώς και τον αριθμό των απουσιών τους. Ορισμένοι φοιτητές δεν προσήλθαν στις εξετάσεις, άρα έχουν την τιμή NA.\n\n\n\n\n\n\n\n\n\nΑριθμός Μητρώου (student_id)\nΜαθηματικά (math_grades)\nΣτατιστική (stat_grades)\nΑπουσίες (absences)\n\n\n\n\nAM01\n4.5\n5.0\n2\n\n\nAM02\n8.0\n7.5\n0\n\n\nAM03\n3.5\n4.0\n5\n\n\nAM04\nNA\n6.5\n1\n\n\nAM05\n9.5\n10.0\n0\n\n\nAM06\n6.0\nNA\n3\n\n\nAM07\n2.0\n3.5\n6\n\n\nAM08\nNA\n8.0\n2"
+  },
+  {
+    "objectID": "slides/lecture-03/index.html#μέρος-1-εισαγωγή-δεδομένων-και-περιγραφή",
+    "href": "slides/lecture-03/index.html#μέρος-1-εισαγωγή-δεδομένων-και-περιγραφή",
+    "title": "Στατιστικά Προγράμματα II",
+    "section": "Μέρος 1: Εισαγωγή δεδομένων και περιγραφή",
+    "text": "Μέρος 1: Εισαγωγή δεδομένων και περιγραφή\n\nΝα εισάγετε τα δεδομένα σε ξεχωριστά διανύσματα.\nΕλέγξτε αν τα διανύσματα που δημιουργήσατε έχουν το ίδιο μήκος.\nΕνώστε τα 4 διανύσματα σε ένα Data Frame με το όνομα performance.\nΔείξτε τα βασικά περιγραφικά στατιστικά όλου του Data Frame.\nΒρείτε τη μέγιστη βαθμολογία στα μαθηματικά."
+  },
+  {
+    "objectID": "slides/lecture-03/index.html#λύση",
+    "href": "slides/lecture-03/index.html#λύση",
+    "title": "Στατιστικά Προγράμματα II",
+    "section": "Λύση",
+    "text": "Λύση\n\nstudent_id &lt;- c(\"AM01\", \"AM02\", \"AM03\", \"AM04\", \"AM05\", \"AM06\", \"AM07\", \"AM08\")\nmath_grades &lt;- c(4.5, 8.0, 3.5, NA, 9.5, 6.0, 2.0, NA)\nstat_grades &lt;- c(5.0, 7.5, 4.0, 6.5, 10.0, NA, 3.5, 8.0)\nabsences &lt;- c(2, 0, 5, 1, 0, 3, 6, 2)\n\n# 1. Έλεγχος μήκους\nlength(math_grades) \n\n# 2. Δημιουργία Data Frame\nperformance &lt;- data.frame(\n  aem = student_id,\n  math = math_grades,\n  stat = stat_grades,\n  absences = absences\n)\n\n# 3. Περιγραφικά στατιστικά (Βλέπουμε πόσα NA έχει κάθε στήλη)\nsummary(performance)\n\n# 4. Μέγιστη βαθμολογία στα μαθηματικά αγνοώντας τα NA\nmax(performance$math, na.rm = TRUE)"
+  },
+  {
+    "objectID": "slides/lecture-03/index.html#τροποποίηση-βαθμολογιών",
+    "href": "slides/lecture-03/index.html#τροποποίηση-βαθμολογιών",
+    "title": "Στατιστικά Προγράμματα II",
+    "section": "Τροποποίηση βαθμολογιών",
+    "text": "Τροποποίηση βαθμολογιών\nΟ καθηγητής Στατιστικής αποφάσισε να δώσει 0.5 βαθμό bonus σε όλους:\n\nΔημιουργήστε μια νέα στήλη στο performance με όνομα stat_final που θα περιέχει τον νέο βαθμό.\nΒρείτε τους φοιτητές που πέρασαν το κάθε μάθημα.\nΒρείτε τον μέσο όρο των απουσιών των φοιτητών που πέρασαν τα Μαθηματικά."
+  },
+  {
+    "objectID": "slides/lecture-03/index.html#λύση-1",
+    "href": "slides/lecture-03/index.html#λύση-1",
+    "title": "Στατιστικά Προγράμματα II",
+    "section": "Λύση",
+    "text": "Λύση\n\nperformance$stat_final &lt;- performance$Stat + 0.5\n\n# Διόρθωση βαθμών άνω του 10\nperformance$stat_final[performance$stat_final &gt; 10] &lt;- 10\n\n# Λογικό διάνυσμα για επιτυχία στα Μαθηματικά\npassed_math &lt;- performance_df$math &gt;= 5.0\n\n# Μέσος όρος απουσιών όσων πέρασαν\n# Βάζουμε na.rm = TRUE γιατί το passed_math περιέχει NAs.\nmean(performance$absences[passed_math], na.rm = TRUE)"
+  },
+  {
+    "objectID": "slides/lecture-03/index.html#βαθμοί-στη-σταστιστική-για-κάθε-φοιτητή",
+    "href": "slides/lecture-03/index.html#βαθμοί-στη-σταστιστική-για-κάθε-φοιτητή",
+    "title": "Στατιστικά Προγράμματα II",
+    "section": "Βαθμοί στη σταστιστική για κάθε φοιτητή",
+    "text": "Βαθμοί στη σταστιστική για κάθε φοιτητή\nΓια κάθε φοιτητή των δεδομένων σας γράψτε τον κώδικα που θα κάνει τα παρακάτω:\n\nΑν ο βαθμός είναι NA, τύπωσε: “Ο φοιτητής με ΑΕΜ { aem } απουσίαζε.”\nΑν ο βαθμός είναι πάνω από 5, τύπωσε: “Ο φοιτητής με ΑΕΜ { aem } πέρασε με βαθμό { stat_final }.”\nΑλλιώς, τύπωσε: “Ο φοιτητής ΑΕΜ { aem } κόπηκε με βαθμό { stat_final }.”"
+  },
+  {
+    "objectID": "slides/lecture-03/index.html#λύση-2",
+    "href": "slides/lecture-03/index.html#λύση-2",
+    "title": "Στατιστικά Προγράμματα II",
+    "section": "Λύση",
+    "text": "Λύση\n\nfor (i in 1:nrow(performance_df)) {\n  \n  # Αποθήκευση του τρέχοντος βαθμού και του ΑΕΜ για ευκολία\n  current_grade &lt;- performance$stat_final[i]\n  current_aem &lt;- performance_df$aem[i]\n  \n  # Το is.na() πρέπει να είναι το πρώτο statement!\n  if (is.na(current_grade)) {\n    print(paste(\"Ο φοιτητής\", current_aem, \"απουσίαζε.\"))\n    \n  } else if (current_grade &gt;= 5) {\n    print(paste(\"Ο φοιτητής\", current_aem, \"πέρασε με\", current_grade))\n    \n  } else {\n    print(paste(\"Ο φοιτητής\", current_aem, \"κόπηκε με\", current_grade))\n  }\n  \n}"
+  },
+  {
+    "objectID": "slides/lecture-03/index.html#αντικατάσταση-na",
+    "href": "slides/lecture-03/index.html#αντικατάσταση-na",
+    "title": "Στατιστικά Προγράμματα II",
+    "section": "Αντικατάσταση NA",
+    "text": "Αντικατάσταση NA\n\nΓράψτε τη συνάρτηση impute_mean, η οποία θα αντικαθιστά τα NA ενός διανύσματος με τον μέσο όρο των τιμών του.\nΕφαρμόστε τη συνάρτηση σας στις στήλες math και stat του Data Frame performance και αποθηκεύστε τα αποτελέσματα σε δύο νέες στήλες (math_imp και stat_imp).\nΤυπώστε τις αρχικές και τις νέες στήλες των Μαθηματικών για να επιβεβαιώσετε."
+  },
+  {
+    "objectID": "slides/lecture-03/index.html#λύση-3",
+    "href": "slides/lecture-03/index.html#λύση-3",
+    "title": "Στατιστικά Προγράμματα II",
+    "section": "Λύση",
+    "text": "Λύση\n\nimpute_mean &lt;- function(x) {\n  \n  mean_val &lt;- mean(x, na.rm = TRUE)\n  \n  x[is.na(x)] &lt;- mean_val\n  \n  return(x)\n}\n\nperformance$math_imp &lt;- impute_mean(performance$math)\nperformance$stat_imp &lt;- impute_mean(performance$stat)\n\n# 6. Προβολή των αποτελεσμάτων (για τα Μαθηματικά)\ndata.frame(\n  aem = performance$aem,\n  original_math = performance$math,\n  imputed_math = performance$math_imp\n)"
+  },
+  {
     "objectID": "slides/lecture-01/index.html#στόχοι-του-μαθήματος",
     "href": "slides/lecture-01/index.html#στόχοι-του-μαθήματος",
     "title": "Στατισιτκά Προγράμματα II",
@@ -371,10 +399,171 @@
     "text": "Δημιουργία αναφορών\n\nΤο Quarto είναι η εξέλιξη του Rmarkdown:\nΕνοποιεί κείμενο, κώδικα και αποτελέσματα.\nΠαράγει: HTML, PDF, Word, e-books και παρουσιάσεις.\nΟ κώδικας και η ανάλυση πρέπει να ζουν μαζί σε ένα ζωντανό έγγραφο."
   },
   {
-    "objectID": "slides-index.html",
-    "href": "slides-index.html",
-    "title": "Παρουσιάσεις των μαθημάτων",
+    "objectID": "slides/lecture-05/index.html#η-βιβλιοθήκη-dplyr",
+    "href": "slides/lecture-05/index.html#η-βιβλιοθήκη-dplyr",
+    "title": "Εισαγωγή στον στην επεξεργασία δεδομένων με τη βιβλιοθήκη dplyr",
+    "section": "Η βιβλιοθήκη dplyr",
+    "text": "Η βιβλιοθήκη dplyr\n\nΕίναι η “γραμματική” του χειρισμού δεδομένων.\nΔιευκολύνει σε μεγάλο βαθμό τον καθαρισμό και την προετοιμασία των δεδομένων.\nΚάνει τον κώδικα ευανάγνωστο και εύκολο στη συντήρηση.\n\n\nΜοιράστε στους φοιτητές το Cheat Sheet του dplyr. Εξηγήστε ότι το Tidyverse είναι μια οικογένεια πακέτων που συνεργάζονται άψογα."
+  },
+  {
+    "objectID": "slides/lecture-05/index.html#ο-τελεστής-pipe",
+    "href": "slides/lecture-05/index.html#ο-τελεστής-pipe",
+    "title": "Εισαγωγή στον στην επεξεργασία δεδομένων με τη βιβλιοθήκη dplyr",
+    "section": "Ο τελεστής Pipe (|>)",
+    "text": "Ο τελεστής Pipe (|&gt;)\nΤο Pipe παίρνει το αποτέλεσμα της αριστερής πλευράς και το “διοχετεύει” ως πρώτη μεταβλητή στη συνάρτηση της δεξιάς πλευράς.\n\nΑντί για: h(g(f(x)))\nΓράφουμε:\nx |&gt; \n  f() |&gt; \n  g() |&gt; \n  h()\n(Διαβάζεται ως: “Και μετά…”)"
+  },
+  {
+    "objectID": "slides/lecture-05/index.html#τα-δεδομένα-palmerpenguins",
+    "href": "slides/lecture-05/index.html#τα-δεδομένα-palmerpenguins",
+    "title": "Εισαγωγή στον στην επεξεργασία δεδομένων με τη βιβλιοθήκη dplyr",
+    "section": "Τα δεδομένα: palmerpenguins",
+    "text": "Τα δεδομένα: palmerpenguins\nΠεριέχει μετρήσεις για 3 είδη πιγκουίνων στο αρχιπέλαγος Palmer της Ανταρκτικής.\n\n# Εγκατάσταση και φόρτωση\n# install.packages(c(\"dplyr\", \"palmerpenguins\"))\nlibrary(dplyr)\nlibrary(palmerpenguins)\n\n# Επισκόπηση δεδομένων\nglimpse(penguins)"
+  },
+  {
+    "objectID": "slides/lecture-05/index.html#οι-συναρτήσεις-select-και-filter",
+    "href": "slides/lecture-05/index.html#οι-συναρτήσεις-select-και-filter",
+    "title": "Εισαγωγή στον στην επεξεργασία δεδομένων με τη βιβλιοθήκη dplyr",
+    "section": "Οι συναρτήσεις select() και filter()",
+    "text": "Οι συναρτήσεις select() και filter()\n\nselect(): Επιλέγει μεταβλητές (στήλες).\n\nselect(species, island)\n\nfilter(): Επιλέγει παρατηρήσεις (γραμμές) βάσει συνθηκών.\n\nΧρησιμοποιεί λογικούς τελεστές: == (ισότητα), != (ανισότητα), &gt; , &lt;, is.na()."
+  },
+  {
+    "objectID": "slides/lecture-05/index.html#χρήση",
+    "href": "slides/lecture-05/index.html#χρήση",
+    "title": "Εισαγωγή στον στην επεξεργασία δεδομένων με τη βιβλιοθήκη dplyr",
+    "section": "Χρήση",
+    "text": "Χρήση\n\npenguins |&gt; \n  select(species, bill_length_mm, body_mass_g) |&gt; \n  filter(species == \"Adelie\", body_mass_g &gt; 4000)"
+  },
+  {
+    "objectID": "slides/lecture-05/index.html#άσκηση",
+    "href": "slides/lecture-05/index.html#άσκηση",
+    "title": "Εισαγωγή στον στην επεξεργασία δεδομένων με τη βιβλιοθήκη dplyr",
+    "section": "Άσκηση",
+    "text": "Άσκηση\nΔημιουργήστε ένα νέο dataset με όνομα gentoo_data το οποίο να περιέχει:\n\nΜόνο τους πιγκουίνους του είδους “Gentoo”.\nΜόνο αυτούς για τους οποίους έχουμε καταγραφή του φύλου τους.\nΚρατήστε μόνο τις στήλες: species, island, flipper_length_mm και sex."
+  },
+  {
+    "objectID": "slides/lecture-05/index.html#λύση",
+    "href": "slides/lecture-05/index.html#λύση",
+    "title": "Εισαγωγή στον στην επεξεργασία δεδομένων με τη βιβλιοθήκη dplyr",
+    "section": "Λύση",
+    "text": "Λύση\n\n# Λύση με τον native pipe |&gt;\ngentoo_data &lt;- penguins |&gt; \n  filter(species == \"Gentoo\", !is.na(sex)) |&gt; \n  select(species, island, flipper_length_mm, sex)\n\n# Έλεγχος\nhead(gentoo_data)"
+  },
+  {
+    "objectID": "slides/lecture-05/index.html#οι-συναρτήσεις-mutate-και-arrange",
+    "href": "slides/lecture-05/index.html#οι-συναρτήσεις-mutate-και-arrange",
+    "title": "Εισαγωγή στον στην επεξεργασία δεδομένων με τη βιβλιοθήκη dplyr",
+    "section": "Οι συναρτήσεις mutate() και arrange()",
+    "text": "Οι συναρτήσεις mutate() και arrange()\n\nmutate(): Δημιουργεί νέες στήλες ή τροποποιεί υπάρχουσες.\narrange(): Ταξινομεί τις γραμμές.\n\narrange(variable) -&gt; Αύξουσα\narrange(desc(variable)) -&gt; Φθίνουσα"
+  },
+  {
+    "objectID": "slides/lecture-05/index.html#χρήση-1",
+    "href": "slides/lecture-05/index.html#χρήση-1",
+    "title": "Εισαγωγή στον στην επεξεργασία δεδομένων με τη βιβλιοθήκη dplyr",
+    "section": "Χρήση",
+    "text": "Χρήση\n\n# Υπολογισμός BMI (υποθετικά) και ταξινόμηση\npenguins |&gt;\n  mutate(\n    body_mass_kg = body_mass_g / 1000,\n    bill_ratio = bill_length_mm / bill_depth_mm\n  ) |&gt;\n  arrange(desc(body_mass_kg))"
+  },
+  {
+    "objectID": "slides/lecture-05/index.html#άσκηση-1",
+    "href": "slides/lecture-05/index.html#άσκηση-1",
+    "title": "Εισαγωγή στον στην επεξεργασία δεδομένων με τη βιβλιοθήκη dplyr",
+    "section": "Άσκηση",
+    "text": "Άσκηση\nΒρείτε ποιος θηλυκός πιγκουίνος έχει το μεγαλύτερο μήκος πτερυγίου σε σχέση με το βάρος του."
+  },
+  {
+    "objectID": "slides/lecture-05/index.html#λύση-1",
+    "href": "slides/lecture-05/index.html#λύση-1",
+    "title": "Εισαγωγή στον στην επεξεργασία δεδομένων με τη βιβλιοθήκη dplyr",
+    "section": "Λύση",
+    "text": "Λύση\n\npenguins |&gt; \n  filter(sex == \"female\") |&gt; \n  mutate(flipper_weight_ratio = flipper_length_mm / body_mass_g) |&gt; \n  arrange(desc(flipper_weight_ratio))"
+  },
+  {
+    "objectID": "slides/lecture-05/index.html#οι-συναρτήσεις-group_by-και-summarise",
+    "href": "slides/lecture-05/index.html#οι-συναρτήσεις-group_by-και-summarise",
+    "title": "Εισαγωγή στον στην επεξεργασία δεδομένων με τη βιβλιοθήκη dplyr",
+    "section": "Οι συναρτήσεις group_by() και summarise()",
+    "text": "Οι συναρτήσεις group_by() και summarise()\n\ngroup_by(): “Σπάει” τα δεδομένα σε αόρατες ομάδες.\nsummarise(): Υπολογίζει στατιστικά μέτρα για κάθε ομάδα."
+  },
+  {
+    "objectID": "slides/lecture-05/index.html#χρήση-2",
+    "href": "slides/lecture-05/index.html#χρήση-2",
+    "title": "Εισαγωγή στον στην επεξεργασία δεδομένων με τη βιβλιοθήκη dplyr",
+    "section": "Χρήση",
+    "text": "Χρήση\n\n# Στατιστικά βάρους ανά είδος\npenguins |&gt;\n  filter(!is.na(body_mass_g)) |&gt; \n  group_by(species) |&gt;\n  summarise(\n    n = n(),\n    avg_mass = mean(body_mass_g),\n    sd_mass = sd(body_mass_g)\n  )"
+  },
+  {
+    "objectID": "slides/lecture-05/index.html#άσκηση-2",
+    "href": "slides/lecture-05/index.html#άσκηση-2",
+    "title": "Εισαγωγή στον στην επεξεργασία δεδομένων με τη βιβλιοθήκη dplyr",
+    "section": "Άσκηση",
+    "text": "Άσκηση\nΥπολογίστε τον μέσο όρο και τη διάμεσο του μήκους ράμφους (bill_length_mm) ανά νησί (island) και φύλο (sex).\nΠροσοχή: Θυμηθείτε να αφαιρέσετε τα NA (είτε με filter είτε με na.rm = TRUE)."
+  },
+  {
+    "objectID": "slides/lecture-05/index.html#λύση-2",
+    "href": "slides/lecture-05/index.html#λύση-2",
+    "title": "Εισαγωγή στον στην επεξεργασία δεδομένων με τη βιβλιοθήκη dplyr",
+    "section": "Λύση",
+    "text": "Λύση\n\npenguins |&gt; \n  filter(!is.na(sex), !is.na(bill_length_mm)) |&gt; \n  group_by(island, sex) |&gt; \n  summarise(\n    mean_bill = mean(bill_length_mm),\n    median_bill = median(bill_length_mm),\n    .groups = \"drop\"\n  )"
+  },
+  {
+    "objectID": "slides/lecture-05/index.html#άσκηση-3",
+    "href": "slides/lecture-05/index.html#άσκηση-3",
+    "title": "Εισαγωγή στον στην επεξεργασία δεδομένων με τη βιβλιοθήκη dplyr",
+    "section": "Άσκηση",
+    "text": "Άσκηση\nΓράψτε ένα ενιαίο block κώδικα με |&gt; που:\n\nΚρατάει μόνο τους πιγκουίνους από το νησί “Biscoe”.\nΔημιουργεί μια στήλη mass_lb (βάρος σε λίβρες = γραμμάρια * 0.0022).\nΦτιάχνει μια κατηγορία heavy_penguin: “Yes” αν mass_lb &gt; 10, αλλιώς “No”.\nΟμαδοποιεί ανά είδος και την κατηγορία heavy_penguin.\nΥπολογίζει τον μέσο όρο του flipper_length_mm."
+  },
+  {
+    "objectID": "slides/lecture-05/index.html#λύση-case-study",
+    "href": "slides/lecture-05/index.html#λύση-case-study",
+    "title": "Εισαγωγή στον στην επεξεργασία δεδομένων με τη βιβλιοθήκη dplyr",
+    "section": "Λύση Case Study",
+    "text": "Λύση Case Study\n\npenguins |&gt; \n  filter(island == \"Biscoe\", !is.na(body_mass_g)) |&gt; \n  mutate(\n    mass_lb = body_mass_g * 0.0022,\n    heavy_penguin = if_else(mass_lb &gt; 10, \"Yes\", \"No\")\n  ) |&gt; \n  group_by(species, heavy_penguin) |&gt; \n  summarise(\n    avg_flipper = mean(flipper_length_mm, na.rm = TRUE),\n    count = n(),\n    .groups = \"drop\"\n  )"
+  },
+  {
+    "objectID": "notes/print.html",
+    "href": "notes/print.html",
+    "title": "Σημειώσεις του μαθήματος",
     "section": "",
-    "text": "Διάλεξη 1\nΔιάλεξη 2\nΔιάλεξη 3\nΔιάλεξη 4"
+    "text": "Επιλογές:\n\nΔιαβάστε online (βρίσκεστε εδώ)\n📄 Download PDF\n\n\n\nΟι σημειώσεις οργανώνονται στα ακόλουθα κεφάλαια:\n\nΚεφάλαιο 1: Εισαγωγή\n\n\n\n\nΣυγγραφέας: Αλέξανδρος Ρέκκας\nΜάθημα: XXXXX\nΟι σημειώσεις αυτές έχουν σχεδιαστεί ώστε να συμπληρώνουν τις παρουσιάσεις των διαλέξεων και να αποτελούν μια ολοκληρωμένη αναφορά για το υλικό του μαθήματος."
+  },
+  {
+    "objectID": "notes/print.html#περιεχόμενα",
+    "href": "notes/print.html#περιεχόμενα",
+    "title": "Σημειώσεις του μαθήματος",
+    "section": "",
+    "text": "Οι σημειώσεις οργανώνονται στα ακόλουθα κεφάλαια:\n\nΚεφάλαιο 1: Εισαγωγή"
+  },
+  {
+    "objectID": "notes/print.html#σχετικά",
+    "href": "notes/print.html#σχετικά",
+    "title": "Σημειώσεις του μαθήματος",
+    "section": "",
+    "text": "Συγγραφέας: Αλέξανδρος Ρέκκας\nΜάθημα: XXXXX\nΟι σημειώσεις αυτές έχουν σχεδιαστεί ώστε να συμπληρώνουν τις παρουσιάσεις των διαλέξεων και να αποτελούν μια ολοκληρωμένη αναφορά για το υλικό του μαθήματος."
+  },
+  {
+    "objectID": "notes/print.html#τίτλος-2",
+    "href": "notes/print.html#τίτλος-2",
+    "title": "Σημειώσεις του μαθήματος",
+    "section": "Τίτλος 2",
+    "text": "Τίτλος 2"
+  },
+  {
+    "objectID": "exercises-index.html",
+    "href": "exercises-index.html",
+    "title": "Στατιστική στην εκπαιδευτική έρευνα",
+    "section": "",
+    "text": "Εδώ θα βρείτε μία λίστα με όλες τις ασκήσεις που θα ανατεθούν κατά τη διδασκαλία του μαθήματος το χειμερινό εξάμνηνο 2025-2026.\n\n\nΜπορείτε να κατεβάσετε τις ασκήσεις από:\n\nΆσκηση 1\n\n\n\n\nΣυγγραφέας: Δρ. Αλέξανδρος Ρέκκας\nΜάθημα: (0111Υ) Στατιστική στην εκπαιδευτική έρευνα"
+  },
+  {
+    "objectID": "exercises-index.html#περιεχόμενα",
+    "href": "exercises-index.html#περιεχόμενα",
+    "title": "Στατιστική στην εκπαιδευτική έρευνα",
+    "section": "",
+    "text": "Μπορείτε να κατεβάσετε τις ασκήσεις από:\n\nΆσκηση 1"
+  },
+  {
+    "objectID": "exercises-index.html#σχετικά",
+    "href": "exercises-index.html#σχετικά",
+    "title": "Στατιστική στην εκπαιδευτική έρευνα",
+    "section": "",
+    "text": "Συγγραφέας: Δρ. Αλέξανδρος Ρέκκας\nΜάθημα: (0111Υ) Στατιστική στην εκπαιδευτική έρευνα"
   }
 ]
