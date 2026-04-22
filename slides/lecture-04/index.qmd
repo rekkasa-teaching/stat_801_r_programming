@@ -1,14 +1,13 @@
 ---
 title: "Στατιστικά Προγράμματα II"
-subtitle: "**Μάθημα 3:** Κλινική δοκιμή"
 author: "Αλέξανδρος Ρέκκας"
-date: "2026-03-18"
+date: today
 format:
   revealjs:
     theme: [default, custom.scss]
     slide-number: true
     logo: logo.png
-    footer: "Στατιστικά Προγράμματα II - Μάθημα 3"
+    footer: "Στατιστικά Προγράμματα II - Μάθημα 4"
     lang: el
     incremental: false
 execute:
@@ -16,13 +15,14 @@ execute:
   eval: false
 ---
 
-## Τα δεδομένα
+
+## Το Dataset: Κλινική Δοκιμή (Trial Data)
 
 Δοκιμάζουμε ένα νέο φάρμακο για την υπέρταση (Μείωση Αρτηριακής Πίεσης).
 
 \
 
-*Αντιγράψτε και τρέξτε τον παρακάτω κώδικα:*
+*Αντιγράψτε και τρέξτε τον παρακάτω κώδικα στο script σας:*
 
 ```{r}
 trial_data <- data.frame(
@@ -31,7 +31,138 @@ trial_data <- data.frame(
   group = c("Drug", "Control", "Drug", "Drug", "Control", "Control", "Drug", "Control", "Drug", "Control"),
   bp_start = c(160, 155, 145, 170, 150, NA, 135, 148, 165, 158),
   bp_end = c(120, 150, 130, 140, 145, 155, 125, 148, NA, 140),
-  adverse_event = c(FALSE, TRUE, FALSE, TRUE, FALSE, FALSE, FALSE, NA, TRUE, FALSE)
+  adverse_event = c(FALSE, TRUE, FALSE, TRUE, FALSE, FALSE, FALSE, NA, TRUE, FALSE) # Παρενέργειες
 )
 ```
 
+## Επεξεργασία
+
+Πριν αναλύσουμε τα δεδομένα, πρέπει να δημιουργήσουμε νέες μεταβλητές που εκφράζουν την αποτελεσματικότητα.
+
+1. Δημιουργήστε μια νέα στήλη στο `trial_data` με όνομα `bp_drop` (Πτώση Πίεσης), η οποία θα ονομάζεται `bp_start - bp_end`:
+   - Εάν η πτώση πίεσης (`bp_drop`) είναι **μεγαλύτερη ή ίση του 15**, η τιμή να είναι `"High"`.
+   - Διαφορετικά, να είναι `"Low/None"`.
+3. Τυπώστε τις στήλες `id`, `bp_drop` και `effectiveness`.
+
+## Λύση
+
+```{r}
+trial_data$bp_drop <- trial_data$bp_start - trial_data$bp_end
+
+trial_data$effectiveness <- ifelse(trial_data$bp_drop >= 15, "High", "Low/None")
+
+trial_data[, c("id", "bp_drop", "effectiveness")]
+```
+
+## Υποομάδες
+
+Θέλουμε να απομονώσουμε τους ασθενείς στους οποίους το φάρμακο δούλεψε καλά, χωρίς παρενέργειες.
+
+1. Χρησιμοποιώντας τους τελεστές `&` και `!` , δημιουργήστε ένα νέο data frame με όνομα `success_cases` που να περιέχει τους ασθενείς οι οποίοι:
+   - Ανήκουν στο γκρουπ: `group == "Drug"` **ΚΑΙ**
+   - Έχουν αποτελεσματικότητα: `effectiveness == "High"` **ΚΑΙ**
+   - **ΔΕΝ** εμφάνισαν παρενέργειες (`adverse_event == FALSE` ή `!adverse_event`).
+2. Πόσοι είναι αυτοί οι ασθενείς; *(Χρησιμοποιήστε την `nrow()`)*.
+
+*Προσοχή: Χρησιμοποιήστε τη συνάρτηση `which()` μέσα στις αγκύλες `[]` για να αποφύγετε προβλήματα με τις γραμμές που έχουν `NA`.*
+
+## Λύση
+
+
+```{r}
+conditions <- (trial_data$group == "Drug") & 
+              (trial_data$effectiveness == "High") & 
+              (trial_data$adverse_event == FALSE)
+
+success_cases <- trial_data[which(conditions), ]
+
+success_cases
+```
+
+
+## Η δική σας συνάρτηση
+
+Πρέπει να γράψουμε μια συνάρτηση που να αξιολογεί οποιαδήποτε αριθμητική μεταβλητή (π.χ. Ηλικία, Πτώση Πίεσης), με ενσωματωμένο έλεγχο ποιότητας (πόσα NAs υπάρχουν).
+
+1. Δημιουργήστε τη συνάρτηση `eval_metric(x, remove_na = TRUE)`.
+2. Μέσα στη συνάρτηση:
+   - Υπολογίστε τον μέσο όρο (`mean_val`) και την τυπική απόκλιση (`sd_val`), περνώντας το όρισμα `na.rm = remove_na`.
+   - Υπολογίστε πόσα NAs υπάρχουν στο διάνυσμα `x` *(Hint: `sum(is.na(x))`)*.
+3. Η συνάρτηση να επιστρέφει ένα **named vector** (με πεζά γράμματα) της μορφής:
+   `c(mean = ..., sd = ..., missing_count = ...)`
+4. Δοκιμάστε τη συνάρτηση σας στη στήλη `bp_drop` του συνόλου `trial_data`.
+
+## Λύση
+
+
+```{r}
+eval_metric <- function(x, remove_na = TRUE) {
+  
+  mean_val <- mean(x, na.rm = remove_na)
+  sd_val <- sd(x, na.rm = remove_na)
+  
+  na_count <- sum(is.na(x))
+  
+  result <- c(mean = mean_val, sd = sd_val, missing_count = na_count)
+  
+  return(result)
+}
+
+eval_metric(trial_data$bp_drop)
+```
+
+## Επανάληψη
+
+Δε θέλουμε να τρέχουμε την `eval_metric` χειροκίνητα για κάθε στήλη, οπότε Θα βάλουμε τον υπολογιστή να το κάνει:
+
+1. Φτιάξτε ένα `for` loop που διατρέχει όλες τις στήλες: `for (i in 1:ncol(trial_data))`.
+2. Αποθηκεύστε την τρέχουσα στήλη σε μια μεταβλητή (π.χ. `col_data <- trial_data[[i]]`).
+3. Με ένα `if / else if / else` ελέγξτε:
+   - **Αν η στήλη είναι αριθμητική (`is.numeric()`):** Τυπώστε το όνομά της και εφαρμόστε την `eval_metric(col_data)`.
+   - **Αν είναι λογική (`is.logical()`):** Τυπώστε *"Κατηγορία: Λογική (True/False)"* και υπολογίστε το άθροισμα των `TRUE` (με `na.rm = TRUE`).
+   - **Διαφορετικά:** Τυπώστε *"Κατηγορία: Κείμενο - Αγνόηση"*.
+
+## Λύση
+
+```{r, eval=FALSE}
+for (i in 1:ncol(trial_data)) {
+  
+  col_name <- names(trial_data)[i]
+  col_data <- trial_data[[i]]
+  
+  print(paste("---- Εξερεύνηση Στήλης:", col_name, "----"))
+  
+  if (is.numeric(col_data)) {
+    res <- eval_metric(col_data)
+    print(res)
+    
+  } else if (is.logical(col_data)) {
+    trues <- sum(col_data, na.rm = TRUE)
+    print(paste("Λογική Μεταβλητή. Πλήθος TRUE:", trues))
+    
+  } else {
+    print("Κατηγορία: Κείμενο - Αγνόηση")
+  }
+}
+```
+
+## Σύνθεση
+
+Τελικά, δούλεψε το φάρμακο καλύτερα από το Control (Placebo);
+
+1. Απομονώστε τη στήλη `bp_drop` ΜΟΝΟ για όσους ανήκουν στο `group == "Drug"`. Αποθηκεύστε το ως `drug_drop`.
+2. Κάντε το ίδιο για όσους ανήκουν στο `group == "Control"` (`control_drop`).
+3. Χρησιμοποιήστε την `eval_metric()` και στα δύο διανύσματα και συγκρίνετε τους μέσους όρους πτώσης πίεσης.
+
+## Λύση
+
+```{r}
+drug_drop <- trial_data$bp_drop[trial_data$group == "Drug"]
+control_drop <- trial_data$bp_drop[trial_data$group == "Control"]
+
+stats_drug <- eval_metric(drug_drop)
+stats_control <- eval_metric(control_drop)
+
+print("Αποτελέσματα Φαρμάκου:"); print(stats_drug["mean"])
+print("Αποτελέσματα Control:"); print(stats_control["mean"])
+```

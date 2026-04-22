@@ -1,0 +1,192 @@
+---
+title: "Εισαγωγή στον στην επεξεργασία δεδομένων με τη βιβλιοθήκη dplyr"
+author: "Αλέξανδρος Ρέκκας"
+date: 2026-04-01
+format:
+  revealjs:
+    theme: [default, custom.scss]
+    slide-number: true
+    logo: logo.png
+    footer: "Στατιστικά Προγράμματα II - Μάθημα 5"
+    lang: el
+    incremental: false
+execute:
+  echo: true
+  eval: false
+---
+
+## Η βιβλιοθήκη `dplyr`
+
+- Είναι η "γραμματική" του χειρισμού δεδομένων.
+- Διευκολύνει σε μεγάλο βαθμό τον καθαρισμό και την προετοιμασία των δεδομένων.
+- Κάνει τον κώδικα ευανάγνωστο και εύκολο στη συντήρηση.
+
+::: {.notes}
+Μοιράστε στους φοιτητές το Cheat Sheet του dplyr. Εξηγήστε ότι το Tidyverse είναι μια οικογένεια πακέτων που συνεργάζονται άψογα.
+:::
+
+## Ο τελεστής Pipe (`|>`)
+
+Το Pipe παίρνει το αποτέλεσμα της αριστερής πλευράς και το "διοχετεύει" ως πρώτη
+μεταβλητή στη συνάρτηση της δεξιάς πλευράς.
+
+- Αντί για: `h(g(f(x)))`
+- Γράφουμε: 
+  ```r
+  x |> 
+    f() |> 
+    g() |> 
+    h()
+  ```
+*(Διαβάζεται ως: "Και μετά...")*
+
+## Τα δεδομένα: palmerpenguins
+
+Περιέχει μετρήσεις για 3 είδη πιγκουίνων στο αρχιπέλαγος Palmer της Ανταρκτικής.
+
+```{r}
+# Εγκατάσταση και φόρτωση
+# install.packages(c("dplyr", "palmerpenguins"))
+library(dplyr)
+library(palmerpenguins)
+
+# Επισκόπηση δεδομένων
+glimpse(penguins)
+```
+
+## Οι συναρτήσεις `select()` και `filter()`
+
+- **`select()`**: Επιλέγει **μεταβλητές** (στήλες). 
+  - `select(species, island)`
+- **`filter()`**: Επιλέγει **παρατηρήσεις** (γραμμές) βάσει συνθηκών.
+  - Χρησιμοποιεί λογικούς τελεστές: `==` (ισότητα), `!=` (ανισότητα), `>` , `<`, `is.na()`.
+
+## Χρήση
+
+```{r}
+penguins |> 
+  select(species, bill_length_mm, body_mass_g) |> 
+  filter(species == "Adelie", body_mass_g > 4000)
+```
+
+
+## Άσκηση
+
+Δημιουργήστε ένα νέο dataset με όνομα `gentoo_data` το οποίο να περιέχει:
+
+1. **Μόνο** τους πιγκουίνους του είδους "Gentoo".
+2. **Μόνο** αυτούς για τους οποίους έχουμε καταγραφή του φύλου τους.
+3. Κρατήστε **μόνο** τις στήλες: `species`, `island`, `flipper_length_mm` και `sex`.
+
+
+## Λύση
+
+```{r}
+# Λύση με τον native pipe |>
+gentoo_data <- penguins |> 
+  filter(species == "Gentoo", !is.na(sex)) |> 
+  select(species, island, flipper_length_mm, sex)
+
+# Έλεγχος
+head(gentoo_data)
+```
+
+
+## Οι συναρτήσεις `mutate()` και `arrange()`
+
+- **`mutate()`**: Δημιουργεί νέες στήλες ή τροποποιεί υπάρχουσες. 
+- **`arrange()`**: Ταξινομεί τις γραμμές.
+  - `arrange(variable)` -> Αύξουσα
+  - `arrange(desc(variable))` -> Φθίνουσα
+
+## Χρήση
+
+```{r}
+# Υπολογισμός BMI (υποθετικά) και ταξινόμηση
+penguins |>
+  mutate(
+    body_mass_kg = body_mass_g / 1000,
+    bill_ratio = bill_length_mm / bill_depth_mm
+  ) |>
+  arrange(desc(body_mass_kg)) 
+```
+
+## Άσκηση
+
+Βρείτε ποιος **θηλυκός** πιγκουίνος έχει το μεγαλύτερο μήκος πτερυγίου σε σχέση με το βάρος του.
+
+## Λύση
+
+```{r}
+penguins |> 
+  filter(sex == "female") |> 
+  mutate(flipper_weight_ratio = flipper_length_mm / body_mass_g) |> 
+  arrange(desc(flipper_weight_ratio))
+```
+
+## Οι συναρτήσεις `group_by()` και `summarise()`
+
+- **`group_by()`**: "Σπάει" τα δεδομένα σε αόρατες ομάδες.
+- **`summarise()`**: Υπολογίζει στατιστικά μέτρα για κάθε ομάδα.
+
+## Χρήση
+
+```{r}
+# Στατιστικά βάρους ανά είδος
+penguins |>
+  filter(!is.na(body_mass_g)) |> 
+  group_by(species) |>
+  summarise(
+    n = n(),
+    avg_mass = mean(body_mass_g),
+    sd_mass = sd(body_mass_g)
+  )
+```
+
+## Άσκηση
+
+Υπολογίστε τον **μέσο όρο** και τη **διάμεσο** του μήκους ράμφους (`bill_length_mm`) ανά **νησί** (`island`) και **φύλο** (`sex`).
+
+*Προσοχή:* Θυμηθείτε να αφαιρέσετε τα `NA` (είτε με `filter` είτε με `na.rm = TRUE`).
+
+## Λύση
+
+```{r}
+penguins |> 
+  filter(!is.na(sex), !is.na(bill_length_mm)) |> 
+  group_by(island, sex) |> 
+  summarise(
+    mean_bill = mean(bill_length_mm),
+    median_bill = median(bill_length_mm),
+    .groups = "drop"
+  )
+```
+
+## Άσκηση
+
+Γράψτε **ένα ενιαίο block κώδικα** με `|>` που:
+
+1. Κρατάει μόνο τους πιγκουίνους από το νησί **"Biscoe"**.
+2. Δημιουργεί μια στήλη `mass_lb` (βάρος σε λίβρες = γραμμάρια * 0.0022).
+3. Φτιάχνει μια κατηγορία `heavy_penguin`: "Yes" αν `mass_lb > 10`, αλλιώς "No".
+4. Ομαδοποιεί ανά είδος και την κατηγορία `heavy_penguin`.
+5. Υπολογίζει τον μέσο όρο του `flipper_length_mm`.
+
+## Λύση Case Study
+
+```{r}
+penguins |> 
+  filter(island == "Biscoe", !is.na(body_mass_g)) |> 
+  mutate(
+    mass_lb = body_mass_g * 0.0022,
+    heavy_penguin = if_else(mass_lb > 10, "Yes", "No")
+  ) |> 
+  group_by(species, heavy_penguin) |> 
+  summarise(
+    avg_flipper = mean(flipper_length_mm, na.rm = TRUE),
+    count = n(),
+    .groups = "drop"
+  )
+```
+
+    
