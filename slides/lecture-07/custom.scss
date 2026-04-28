@@ -1,0 +1,337 @@
+/*-- scss:defaults --*/
+
+// Color palette
+$primary-color: #1e3a5f;
+$secondary-color: #4a6fa5;
+$accent-color: #c74440;
+$text-color: #2d2d2d;
+$light-gray: #f5f6f8;
+$border-gray: #dde1e7;
+$code-bg: #f7f9fc;
+$code-border: #dbe3f0;
+$code-text: #2d3748;
+
+// Typography
+$font-family-sans-serif: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+$presentation-heading-font: "Inter", "Helvetica Neue", Helvetica, Arial, sans-serif;
+$presentation-font-size-root: 26px;
+
+/*-- scss:rules --*/
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Source+Code+Pro:wght@400;500&display=swap');
+
+// General
+.reveal {
+  font-family: $font-family-sans-serif;
+  color: $text-color;
+  .slides { text-align: left; }
+}
+
+// Headings
+.reveal h1, .reveal h2, .reveal h3 {
+  color: $primary-color;
+  font-weight: 700;
+  text-transform: none;
+  letter-spacing: -0.01em;
+  margin-bottom: 0.5em;
+}
+.reveal h1 { font-size: 1.8em; }
+.reveal h2 {
+  font-size: 1.35em;
+  padding-bottom: 0.35em;
+  margin-bottom: 0.75em;
+  border-bottom: none;
+  position: relative;
+  &::after {
+    content: '';
+    display: block;
+    position: absolute;
+    bottom: 0; left: 0;
+    width: 100%; height: 2px;
+    background: linear-gradient(90deg, $primary-color 0%, $secondary-color 55%, transparent 100%);
+    border-radius: 2px;
+  }
+}
+.reveal h3 { font-size: 1.15em; }
+
+// Logo
+.reveal .slide-logo {
+  position: fixed;
+  bottom: 14px; right: 14px;
+  max-height: 48px;
+  opacity: 0.65;
+  transition: opacity 0.2s;
+  &:hover { opacity: 1; }
+}
+
+// Footer
+.reveal .footer { font-size: 0.5em; color: #aaa; padding: 8px; }
+
+// Slide number
+.reveal .slide-number {
+  background: $primary-color;
+  color: white;
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 0.75em;
+  font-weight: 500;
+  letter-spacing: 0.03em;
+}
+
+// ── CODE BLOCKS ─────────────────────────────────────────────────────────────
+
+// Wrapper div Quarto generates
+.reveal div.sourceCode {
+  overflow: hidden !important;
+  max-height: none !important;
+  height: auto !important;
+  background: $code-bg !important;
+  border: 1px solid $code-border !important;
+  border-top: 3px solid $secondary-color !important;
+  border-radius: 8px !important;
+  box-shadow: 0 2px 12px rgba(30, 58, 95, 0.08), 0 1px 3px rgba(0,0,0,0.06) !important;
+  margin: 0.6em 0 !important;
+}
+
+.reveal pre {
+  overflow: hidden !important;
+  max-height: none !important;
+  height: auto !important;
+  background: transparent !important;
+  border: none !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.reveal pre code {
+  overflow: hidden !important;
+  max-height: none !important;
+  height: auto !important;
+  font-family: "Source Code Pro", "Fira Code", "Consolas", monospace !important;
+  font-size: 0.88em !important;
+  line-height: 1.7 !important;
+  color: $code-text !important;
+  background: transparent !important;
+  padding: 0.9em 1.2em 1em !important;
+  display: block !important;
+}
+
+// Remove ALL borders/lines from row-number tables inside code blocks
+.reveal pre table,
+.reveal pre table tbody,
+.reveal pre table thead,
+.reveal pre table tr,
+.reveal pre table th,
+.reveal pre table td,
+.reveal .sourceCode table,
+.reveal .sourceCode table tbody,
+.reveal .sourceCode table tr,
+.reveal .sourceCode table td,
+.reveal div.sourceCode table,
+.reveal div.sourceCode table tbody,
+.reveal div.sourceCode table tr,
+.reveal div.sourceCode table td {
+  overflow: hidden !important;
+  border: none !important;
+  border-top: none !important;
+  border-bottom: none !important;
+  border-left: none !important;
+  border-right: none !important;
+  border-collapse: collapse !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  outline: none !important;
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+  line-height: inherit !important;
+}
+
+// Reveal default table styles that cause the dashed row lines
+.reveal pre table tbody tr:last-child td,
+.reveal pre table tbody tr:last-child th,
+.reveal pre table tbody tr td,
+.reveal pre table tbody tr th {
+  border-bottom: none !important;
+}
+
+// The specific element that holds line numbers
+.reveal .code-with-filename .code-with-filename-file,
+.reveal span.co, .reveal .sourceCode .co { border: none !important; }
+
+// Nuclear option: kill border-bottom on every tr inside pre
+.reveal pre tr { border-bottom: 0 !important; }
+.reveal pre td { border-bottom: 0 !important; border-top: 0 !important; }
+
+// reveal.js default theme applies border-bottom: 1px dashed to table tr
+// This overrides that rule specifically for code blocks
+.reveal section pre table tr,
+.reveal section pre table tbody tr,
+.reveal .slides section pre table tr {
+  border-bottom: none !important;
+  border-bottom-style: none !important;
+  border-bottom-width: 0 !important;
+}
+
+// Syntax colours — light theme (Material Light / GitHub style)
+.reveal pre code .hljs-comment,
+.reveal pre code .hljs-quote        { color: #6a8099; font-style: italic; }
+.reveal pre code .hljs-keyword,
+.reveal pre code .hljs-selector-tag { color: #7c3aed; font-weight: 600; }
+.reveal pre code .hljs-string,
+.reveal pre code .hljs-attr         { color: #16a34a; }
+.reveal pre code .hljs-number,
+.reveal pre code .hljs-literal      { color: #c2410c; }
+.reveal pre code .hljs-title,
+.reveal pre code .hljs-function     { color: #1d4ed8; }
+.reveal pre code .hljs-variable,
+.reveal pre code .hljs-name         { color: #b45309; }
+.reveal pre code .hljs-built_in     { color: #0369a1; }
+.reveal pre code .hljs-operator,
+.reveal pre code .hljs-punctuation  { color: #475569; }
+
+// Remove underlines from anchor links used as line-number targets inside code
+.reveal pre code a,
+.reveal pre code a:hover,
+.reveal div.sourceCode a,
+.reveal div.sourceCode a:hover {
+  border-bottom: none !important;
+  text-decoration: none !important;
+  color: inherit !important;
+}
+
+// Inline code
+.reveal code:not(pre code) {
+  font-family: "Source Code Pro", "Fira Code", monospace;
+  font-size: 0.82em;
+  background: #eef2ff;
+  color: #4338ca;
+  padding: 0.15em 0.45em;
+  border-radius: 4px;
+  font-weight: 500;
+  border: 1px solid #c7d2fe;
+}
+
+// ── INFO BOXES ───────────────────────────────────────────────────────────────
+
+.success-box {
+  background: #f0faf4; border-left: 4px solid #16a34a;
+  padding: 0.85em 1em 0.85em 1.1em; border-radius: 0 8px 8px 0;
+  margin: 0.8em 0; font-size: 0.88em; box-shadow: 0 1px 6px rgba(0,0,0,0.05);
+}
+.highlight-box {
+  background: #fffbeb; border-left: 4px solid #d97706;
+  padding: 0.85em 1em 0.85em 1.1em; border-radius: 0 8px 8px 0;
+  margin: 0.8em 0; font-size: 0.88em; box-shadow: 0 1px 6px rgba(0,0,0,0.05);
+}
+.alert-box {
+  background: #fff5f5; border-left: 4px solid $accent-color;
+  padding: 0.85em 1em 0.85em 1.1em; border-radius: 0 8px 8px 0;
+  margin: 0.8em 0; font-size: 0.88em; box-shadow: 0 1px 6px rgba(0,0,0,0.05);
+  strong { color: $accent-color; }
+}
+.reminder-box {
+  background: #f0f5ff; border-left: 4px solid $secondary-color;
+  padding: 0.85em 1em 0.85em 1.1em; border-radius: 0 8px 8px 0;
+  margin: 0.8em 0; font-size: 0.88em; font-style: italic;
+  box-shadow: 0 1px 6px rgba(0,0,0,0.05);
+}
+
+// ── CONCEPT BOXES ────────────────────────────────────────────────────────────
+
+.concept-boxes { display: flex; gap: 1em; margin: 0.8em 0; }
+.concept-box {
+  flex: 1; padding: 1em 1.1em; border-radius: 8px;
+  font-size: 0.82em; line-height: 1.55;
+  h3 { margin-top: 0; font-size: 1.05em; border-bottom: none; margin-bottom: 0.4em; }
+  &.blue {
+    background: #f0f5ff;
+    border: 1px solid #bdd0f5;
+    border-top: 3px solid $secondary-color;
+  }
+  &.green {
+    background: #f0faf4;
+    border: 1px solid #b8e8c8;
+    border-top: 3px solid #16a34a;
+  }
+}
+
+// ── OBJECTIVES ───────────────────────────────────────────────────────────────
+
+.objectives {
+  background: linear-gradient(135deg, #f8faff 0%, #eef3fc 100%);
+  border: 1px solid #d0ddf5;
+  border-left: 4px solid $secondary-color;
+  border-radius: 0 10px 10px 0;
+  padding: 0.9em 1.5em;
+  li { margin: 0.6em 0; font-size: 1em; }
+}
+
+// ── COMPARISON ───────────────────────────────────────────────────────────────
+
+.comparison {
+  .column h3 {
+    text-align: center; padding: 0.5em; border-radius: 6px;
+    margin-bottom: 0.8em; font-size: 1.05em; font-weight: 700;
+  }
+  .column:first-child h3 { background: #fff7ed; border: 1px solid #fed7aa; color: #9a3412; }
+  .column:last-child h3  { background: #eff6ff; border: 1px solid #bfdbfe; color: #1e40af; }
+}
+
+// ── MISC ─────────────────────────────────────────────────────────────────────
+
+.reveal ul, .reveal ol { line-height: 1.65; }
+.reveal li { margin: 0.35em 0; }
+.reveal strong { color: $primary-color; font-weight: 700; }
+.reveal a {
+  color: $secondary-color; text-decoration: none;
+  border-bottom: 1px dotted $secondary-color; transition: opacity 0.2s;
+  &:hover { opacity: 0.7; }
+}
+.reveal .columns { margin-top: 0.8em; }
+.reveal .slides section .fragment { opacity: 0.35; &.visible { opacity: 1; } }
+
+.example-box {
+  background: #faf8ff; padding: 1em; border-radius: 8px; text-align: center;
+  font-size: 1em; margin: 1em 0; border: 1px solid #e0d8f0;
+}
+.ethics-box { background: #f0f8f0; padding: 1em; border-radius: 8px; margin-top: 1em; border: 1px solid #d0e8d0; }
+.activity-box {
+  background: white; padding: 1.5em; border-radius: 8px; border: 2px solid #9c27b0; font-size: 0.85em;
+  h3 { color: #9c27b0; margin-top: 0; font-size: 1.2em; }
+  ol { font-size: 1em; line-height: 1.6; }
+}
+.synthesis {
+  background: #fffef0; padding: 1em; border-radius: 8px; margin-top: 1.5em;
+  text-align: center; font-weight: 500; border: 1px solid #f0e8c0;
+}
+.research-method {
+  background: white; padding: 1.5em; border-radius: 8px; border: 1px solid $border-gray; font-size: 0.9em;
+  h3 { color: $primary-color; margin-top: 1.2em; font-size: 1.1em; border-bottom: 1px solid $border-gray; padding-bottom: 0.3em; &:first-child { margin-top: 0; } }
+}
+.research-type {
+  background: white; padding: 1.2em; border-radius: 8px; border: 1px solid $border-gray; font-size: 0.85em;
+  h3 { color: $secondary-color; border-bottom: 1px solid $border-gray; padding-bottom: 0.3em; font-size: 1.1em; }
+}
+.steps { font-size: 0.9em; li { margin: 0.8em 0; } }
+.philosophical-approaches {
+  font-size: 0.95em;
+  p { margin: 1em 0; padding: 0.7em 0 0.7em 1.5em; border-left: 3px solid $secondary-color; background: $light-gray; border-radius: 3px; }
+}
+.summary-content {
+  color: white;
+  h3 { color: white; border-bottom: 1px solid rgba(255,255,255,0.3); padding-bottom: 0.3em; margin: 1em 0 0.5em 0; opacity: 0.9; }
+}
+.thank-you-slide {
+  text-align: center; color: white;
+  h1 { color: white; font-size: 3em; }
+  h3 { color: rgba(255,255,255,0.9); }
+}
+.mixed-approach { font-size: 0.9em; }
+.large-icons { font-size: 0.95em; line-height: 1.6; p { margin: 0.7em 0; } }
+.limitations { font-size: 1.05em; p { margin: 1em 0; padding-left: 1em; } }
+.critical-thinking {
+  background: white; padding: 1.5em; border-radius: 8px; border: 1px solid $border-gray; margin-top: 1.5em;
+  h3 { color: $accent-color; margin-top: 0; }
+}

@@ -1,0 +1,385 @@
+---
+title: "Εισαγωγή στη δημιουργία γραφημάτων με τη βιβλιοθήκη `ggplot2`"
+subtitle: "Καθαρισμός και Προετοιμασία Δεδομένων"
+author: "Αλέξανδρος Ρέκκας"
+date: 2026-04-29
+format:
+  revealjs:
+    theme: [default, custom.scss]
+    slide-number: true
+    logo: logo.png
+    footer: "Στατιστικά Προγράμματα II - Μάθημα 6"
+    lang: el
+    incremental: false
+execute:
+  echo: true
+  eval: false
+---
+
+## Προετοιμασία για Σήμερα
+
+Ανοίξτε το RStudio, δημιουργήστε ένα νέο R Script (αρχείο κώδικα), και φορτώστε τα πακέτα του σημερινού μαθήματος.
+
+```{r}
+
+# install.packages("ggplot2")
+# install.packages("dplyr")
+# install.packages("palmerpenguins")
+
+library(ggplot2)
+library(dplyr)
+library(palmerpenguins)
+```
+
+::: {.notes}
+Κάντε μια βόλτα στο εργαστήριο και βεβαιωθείτε ότι όλοι έχουν φορτώσει τα πακέτα χωρίς σφάλματα (errors).
+:::
+
+---
+
+## Τι είναι το ggplot2;
+
+Το `ggplot2` είναι βασισμένο στη **Γραμματική των Γραφικών** (Grammar of Graphics). 
+Κάθε γράφημα κατασκευάζεται από τρία βασικά συστατικά:
+
+1. **Δεδομένα (Data)**:  
+Το dataset που θέλετε να απεικονίσετε.
+2. **Αισθητική (Aesthetics - `aes`)**:  
+Αντιστοίχιση των μεταβλητών σε οπτικές ιδιότητες (άξονες x/y, χρώμα, μέγεθος, σχήμα).
+3. **Γεωμετρίες (Geometries - `geom`)**:  
+Η πραγματική οπτική αναπαράσταση (σημεία, γραμμές, μπάρες).
+
+## Τα δεδομένα
+
+Θα χρησιμοποιήσουμε το dataset `penguins`
+
+```{r}
+glimpse(penguins)
+```
+
+## Άσκηση
+
+1. Τρέξτε την εντολή `glimpse(penguins)` στην κονσόλα σας (Console).
+2. Απαντήστε στις παρακάτω ερωτήσεις:
+   - Πόσες γραμμές (παρατηρήσεις) υπάρχουν;
+   - Ποια είναι τα ονόματα των συνεχών (αριθμητικών) μεταβλητών;
+   - Ποια είναι τα ονόματα των κατηγορικών (character/factor) μεταβλητών;
+
+::: {.notes}
+**Λύση:**
+
+```r
+# 1.
+glimpse(penguins)
+
+# 2. 
+# Γραμμές: 344
+# Συνεχείς μεταβλητές: bill_length_mm, bill_depth_mm, flipper_length_mm, body_mass_g, year
+# Κατηγορικές μεταβλητές: species, island, sex
+```
+:::
+
+## Βήμα 1 (Δεδομένα)
+
+Ξεκινάμε περνώντας τα δεδομένα μας στη συνάρτηση `ggplot()`.
+
+```{r}
+ggplot(data = penguins)
+```
+
+
+## Βήμα 2 (Αισθητική)
+
+Ας πούμε στην R ποιες μεταβλητές ανήκουν στους άξονες X και Y χρησιμοποιώντας την `aes()`.
+
+```{r}
+ggplot(data = penguins, aes(x = flipper_length_mm, y = body_mass_g))
+```
+
+## Βήμα 3 (Γεωμετρίες)
+
+Προσθέτουμε μια γεωμετρία (geometry) χρησιμοποιώντας το σύμβολο `+`. Ας προσθέσουμε σημεία!
+
+```{r}
+ggplot(data = penguins, aes(x = flipper_length_mm, y = body_mass_g)) +
+  geom_point()
+```
+
+## Άσκηση
+
+1. Γράψτε τον κώδικα για να αναδημιουργήσετε το διάγραμμα διασποράς (scatterplot) από την προηγούμενη διαφάνεια.
+2. Τροποποιήστε τον κώδικά σας για να βάλετε το `bill_length_mm` στον άξονα X και το `bill_depth_mm` στον άξονα Y.
+
+::: {.notes}
+**Ρυθμός Καθηγητή (0:30 - 0:40)**
+Περπατήστε στο εργαστήριο. Βοηθήστε με τυχόν συντακτικά λάθη (typos). Τονίστε τον κανόνα για την τοποθέτηση του συμβόλου `+`.
+
+**Λύση:**
+
+```r
+# 1. 
+ggplot(data = penguins, aes(x = flipper_length_mm, y = body_mass_g)) +
+  geom_point()
+
+# 2.
+ggplot(data = penguins, aes(x = bill_length_mm, y = bill_depth_mm)) +
+  geom_point()
+```
+:::
+
+## Χρωματισμός του γραφήματος
+
+Μπορούμε να αλλάξουμε το χρώμα των σημείων μας.
+
+**Ορισμός** (Μέσα στο `geom`, έξω από την `aes`): εφαρμόζει ένα χρώμα σε ΟΛΑ.
+```{r}
+ggplot(data = penguins, aes(x = flipper_length_mm, y = body_mass_g)) +
+  geom_point(color = "blue")
+```
+
+**Αντιστοίχιση** (Μέσα στην `aes`): αναθέτει χρώματα με βάση μια μεταβλητή των δεδομένων.
+```{r}
+ggplot(data = penguins, aes(x = flipper_length_mm, y = body_mass_g)) +
+  geom_point(aes(color = species))
+```
+
+## Άσκηση
+
+1. Φτιάξτε ένα διάγραμμα διασποράς (scatterplot) με το `flipper_length_mm` (X) και `body_mass_g` (Y).
+2. Αντιστοιχίστε το **χρώμα (color)** των σημείων στη μεταβλητή `island`.
+3. Αντιστοιχίστε το **σχήμα (shape)** των σημείων στη μεταβλητή `species`.
+4. *Bonus:* Ορίστε το μέγεθος (`size`) όλων των σημείων ίσο με `3` (Hint: Το μέγεθος θα είναι mapping στα δεδομένα ή setting για όλα τα σημεία;).
+
+::: {.notes}
+**Ρυθμός Καθηγητή (0:40 - 0:50)**
+
+**Λύση:**
+
+```r
+ggplot(data = penguins, aes(x = flipper_length_mm, y = body_mass_g)) +
+  geom_point(aes(color = island, shape = species), size = 3)
+```
+:::
+
+## Ιστογράμματα
+
+```{r}
+ggplot(data = penguins, aes(x = body_mass_g)) +
+  geom_histogram(binwidth = 200)
+```
+
+*Δοκιμάστε να αλλάξετε τη μεταβλητή `binwidth` μέσα στη `geom_histogram()`.  
+Τι παρατηρείτε;*
+
+## Θηκογράμματα (Boxplots)
+
+```{r}
+ggplot(data = penguins, aes(x = species, y = body_mass_g)) +
+  geom_boxplot()
+```
+
+## Άσκηση
+
+**Χρόνος: 15 λεπτά**
+
+1. Φτιάξτε ένα ιστόγραμμα (histogram) για το `flipper_length_mm`. Δοκιμάστε `binwidth = 5` και `binwidth = 20`. Ποιο είναι καλύτερο;
+2. Φτιάξτε ένα θηκόγραμμα (boxplot) που να δείχνει το `bill_length_mm` διαχωρισμένο ανά `island`.
+3. Δοκιμάστε να προσθέσετε `color = species` στο θηκόγραμμά σας. Μετά δοκιμάστε `fill = species`. Ποια είναι η διαφορά μεταξύ τους;
+
+::: {.notes}
+**Ρυθμός Καθηγητή (1:15 - 1:30)**
+Εξηγήστε ότι η ιδιότητα `color` χρωματίζει το περίγραμμα της γεωμετρίας, ενώ η ιδιότητα `fill` γεμίζει το εσωτερικό της γεωμετρίας με χρώμα.
+
+**Λύση:**
+
+```r
+# 1. 
+ggplot(data = penguins, aes(x = flipper_length_mm)) +
+  geom_histogram(binwidth = 5) 
+
+# 2.
+ggplot(data = penguins, aes(x = island, y = bill_length_mm)) +
+  geom_boxplot()
+
+# 3. 
+# Με color:
+ggplot(data = penguins, aes(x = island, y = bill_length_mm)) +
+  geom_boxplot(aes(color = species))
+
+# Με fill:
+ggplot(data = penguins, aes(x = island, y = bill_length_mm)) +
+  geom_boxplot(aes(fill = species))
+```
+:::
+
+## Προσθήκη επιπέδων (layers)
+
+* Η πραγματική δύναμη της Γραμματικής των Γραφικών είναι η χρήση επιπέδων (layers).
+* Μπορείτε να προσθέσετε όσες συναρτήσεις `geom_` θέλετε!
+
+```{r}
+ggplot(data = penguins, aes(x = flipper_length_mm, y = body_mass_g)) +
+  geom_point() +
+  geom_smooth(method = "lm") # Προσθέτει μια γραμμική γραμμή τάσης (trend line)
+```
+
+
+\
+
+> Επειδή η `aes()` βρίσκεται μέσα στην κλήση της `ggplot()`, και οι δύο γεωμετρίες κληρονομούν τους αντίστοιχους άξονες X και Y.
+
+## Άσκηση
+
+1. Δημιουργήστε ένα διάγραμμα διασποράς (`flipper_length_mm` vs `body_mass_g`).
+2. Προσθέστε το επίπεδο `geom_smooth(method = "lm")`.
+3. Μετακινήστε το `aes(color = species)` μέσα στην αρχική συνάρτηση `ggplot()`. Τι συμβαίνει;
+4. Κατεβάστε το `aes(color = species)` ΜΟΝΟ μέσα στο `geom_point()`. Τι συμβαίνει με τις γραμμές τάσης τώρα;
+
+::: {.notes}
+**Ρυθμός Καθηγητή (1:35 - 1:50)**
+Κρίσιμη έννοια! Καθολική Αισθητική (στο ggplot) vs Τοπική Αισθητική (στο geom). Αν το χρώμα είναι καθολικό, το `geom_smooth` σχεδιάζει 3 γραμμές (μία για κάθε είδος). Αν είναι τοπικό στα σημεία, το `geom_smooth` σχεδιάζει 1 καθολική γραμμή. Αφήστε τους φοιτητές να πειραματιστούν για να δουν τη διαφορά.
+
+**Λύση:**
+
+```r
+# 1 & 2.
+ggplot(data = penguins, aes(x = flipper_length_mm, y = body_mass_g)) +
+  geom_point() +
+  geom_smooth(method = "lm")
+
+# 3. Η αισθητική χρώματος εφαρμόζεται ΚΑΙ στα σημεία ΚΑΙ στις γραμμές τάσης (3 γραμμές)
+ggplot(data = penguins, aes(x = flipper_length_mm, y = body_mass_g, color = species)) +
+  geom_point() +
+  geom_smooth(method = "lm")
+
+# 4. Η αισθητική χρώματος εφαρμόζεται ΜΟΝΟ στα σημεία. Η γραμμή τάσης είναι 1 και ενιαία.
+ggplot(data = penguins, aes(x = flipper_length_mm, y = body_mass_g)) +
+  geom_point(aes(color = species)) +
+  geom_smooth(method = "lm")
+```
+:::
+
+## Διαχωρισμός (faceting)
+
+* Μερικές φορές το να βάζουμε τα πάντα σε ένα γράφημα δημιουργεί ακαταστασία.
+* Η συνάρτηση `facet_wrap()` χωρίζει το γράφημά σας σε πολλαπλά μικρότερα γραφήματα με βάση μια κατηγορική μεταβλητή.
+
+```{r}
+ggplot(data = penguins, aes(x = flipper_length_mm, y = body_mass_g)) +
+  geom_point(aes(color = species)) +
+  facet_wrap(~ island)
+```
+
+## Άσκηση
+
+1. Φτιάξτε ένα ιστόγραμμα για το `body_mass_g` με `fill = species`.
+2. Προσθέστε ένα `facet_wrap()` για να διαχωρίσετε τα ιστογράμματα ανά `species`.
+3. Δοκιμάστε το `facet_grid(sex ~ species)`. Πώς διαφέρει το `facet_grid` από το `facet_wrap`;
+
+::: {.notes}
+**Ρυθμός Καθηγητή (2:05 - 2:15)**
+Εξηγήστε ότι το `facet_wrap` "τυλίγει" μια μονοδιάστατη ακολουθία πλαισίων στις δύο διαστάσεις, ενώ το `facet_grid` σχηματίζει έναν πίνακα με γραμμές ~ στήλες.
+
+**Λύση:**
+
+```r
+# 1 & 2.
+ggplot(data = penguins, aes(x = body_mass_g, fill = species)) +
+  geom_histogram() +
+  facet_wrap(~ species)
+
+# 3. 
+ggplot(data = penguins, aes(x = body_mass_g, fill = species)) +
+  geom_histogram() +
+  facet_grid(sex ~ species)
+```
+:::
+
+## Οι άξονες του γραφήματος
+
+Χρησιμοποιήστε τη συνάρτηση `labs()` για να προσθέσετε τίτλους και να "καθαρίσετε" τα ονόματα των αξόνων.
+
+```{r}
+ggplot(data = penguins, aes(x = flipper_length_mm, y = body_mass_g)) +
+  geom_point(aes(color = species)) +
+  labs(
+    title = "Το Μέγεθος των Πιγκουίνων",
+    subtitle = "Μήκος πτερυγίου vs Βάρος σώματος",
+    x = "Μήκος Πτερυγίου (mm)",
+    y = "Βάρος Σώματος (g)",
+    color = "Είδος Πιγκουίνου"
+  )
+```
+
+## Θέματα (themes)
+
+Το `ggplot2` διαθέτει ενσωματωμένα θέματα (themes) για να αλλάξετε τη συνολική εμφάνιση (φόντο, γραμμές πλέγματος, γραμματοσειρές).
+
+```{r}
+ggplot(data = penguins, aes(x = flipper_length_mm, y = body_mass_g)) +
+  geom_point() +
+  theme_minimal() # Καθαρό, λευκό φόντο
+```
+
+Άλλες επιλογές: `theme_bw()`, `theme_classic()`, `theme_dark()`.
+
+## Αποθήκευση των γραφημάτων σας
+
+
+```{r}
+# 1. Δημιουργήστε το γράφημά σας
+ggplot(penguins, aes(x = flipper_length_mm, y = body_mass_g)) +
+  geom_point()
+
+# 2. Αποθηκεύστε το
+ggsave("my_penguin_plot.png", width = 8, height = 6, dpi = 300)
+```
+
+Από προεπιλογή, το `ggsave()` αποθηκεύει το **τελευταίο γράφημα που εμφανίστηκε**.
+
+## Άσκηση
+
+
+Δημιουργήστε ένα πλήρες γράφημα:
+
+1. Άξονας X: `bill_length_mm`, Άξονας Y: `bill_depth_mm`.
+2. Γεωμετρία (Geometry): Σημεία.
+3. Αντιστοιχίστε το χρώμα (`color`) και το σχήμα (`shape`) στη μεταβλητή `species`.
+4. Κάντε διαχωρισμό (facet) του γραφήματος ανά `island`.
+5. Προσθέστε μια γραμμική γραμμή τάσης χωρίς το γκρι διάστημα εμπιστοσύνης (`geom_smooth(method="lm", se=FALSE)`).
+6. Δώστε έναν περιγραφικό Τίτλο, Υπότιτλο, και καθαρές ετικέτες Αξόνων (στα Ελληνικά).
+7. Εφαρμόστε το θέμα `theme_bw()`.
+8. Αποθηκεύστε το ως αρχείο `.pdf` στον υπολογιστή σας χρησιμοποιώντας το `ggsave()`.
+
+::: {.notes}
+**Ρυθμός Καθηγητή (2:30 - 2:50)**
+Κάντε βόλτες στην αίθουσα, βοηθήστε με την τελική σύνθεση όλων των εννοιών. Ζητήστε από τους φοιτητές να σας δείξουν τα αποθηκευμένα αρχεία PDF τους πριν το τέλος του μαθήματος.
+
+**2:50 - 3:00** Σύνοψη, ανακεφαλαίωση της Γραμματικής των Γραφικών, απαντήσεις σε τελικές απορίες.
+
+**Λύση:**
+
+```r
+
+# Δημιουργία γραφήματος
+my_plot <- ggplot(data = penguins, aes(x = bill_length_mm, y = bill_depth_mm)) +
+  geom_point(aes(color = species, shape = species)) +
+  facet_wrap(~ island) +
+  geom_smooth(method = "lm", se = FALSE) +
+  labs(
+    title = "Σχέση Μήκους και Βάθους Ράμφους",
+    subtitle = "Σύγκριση ανά Είδος και Νησί",
+    x = "Μήκος Ράμφους (mm)",
+    y = "Βάθος Ράμφους (mm)",
+    color = "Είδος Πιγκουίνου",
+    shape = "Είδος Πιγκουίνου"
+  ) +
+  theme_bw()
+
+# Αποθήκευση γραφήματος
+ggsave("final_penguin_plot.pdf", plot = my_plot, width = 10, height = 6)
+
+```
+
+:::
+```
