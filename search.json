@@ -147,146 +147,6 @@
     "text": "Δημιουργία αναφορών\n\nΤο Quarto είναι η εξέλιξη του Rmarkdown:\nΕνοποιεί κείμενο, κώδικα και αποτελέσματα.\nΠαράγει: HTML, PDF, Word, e-books και παρουσιάσεις.\nΟ κώδικας και η ανάλυση πρέπει να ζουν μαζί σε ένα ζωντανό έγγραφο."
   },
   {
-    "objectID": "slides/lecture-03/index.html#τα-δεδομένα",
-    "href": "slides/lecture-03/index.html#τα-δεδομένα",
-    "title": "Στατιστικά Προγράμματα II",
-    "section": "Τα Δεδομένα",
-    "text": "Τα Δεδομένα\nΈχετε συλλέξει τα δεδομένα 8 φοιτητών για τα μαθήματα “Μαθηματικά” και “Στατιστική”, καθώς και τον αριθμό των απουσιών τους. Ορισμένοι φοιτητές δεν προσήλθαν στις εξετάσεις, άρα έχουν την τιμή NA.\n\n\n\n\n\n\n\n\n\nΑριθμός Μητρώου (student_id)\nΜαθηματικά (math_grades)\nΣτατιστική (stat_grades)\nΑπουσίες (absences)\n\n\n\n\nAM01\n4.5\n5.0\n2\n\n\nAM02\n8.0\n7.5\n0\n\n\nAM03\n3.5\n4.0\n5\n\n\nAM04\nNA\n6.5\n1\n\n\nAM05\n9.5\n10.0\n0\n\n\nAM06\n6.0\nNA\n3\n\n\nAM07\n2.0\n3.5\n6\n\n\nAM08\nNA\n8.0\n2"
-  },
-  {
-    "objectID": "slides/lecture-03/index.html#μέρος-1-εισαγωγή-δεδομένων-και-περιγραφή",
-    "href": "slides/lecture-03/index.html#μέρος-1-εισαγωγή-δεδομένων-και-περιγραφή",
-    "title": "Στατιστικά Προγράμματα II",
-    "section": "Μέρος 1: Εισαγωγή δεδομένων και περιγραφή",
-    "text": "Μέρος 1: Εισαγωγή δεδομένων και περιγραφή\n\nΝα εισάγετε τα δεδομένα σε ξεχωριστά διανύσματα.\nΕλέγξτε αν τα διανύσματα που δημιουργήσατε έχουν το ίδιο μήκος.\nΕνώστε τα 4 διανύσματα σε ένα Data Frame με το όνομα performance.\nΔείξτε τα βασικά περιγραφικά στατιστικά όλου του Data Frame.\nΒρείτε τη μέγιστη βαθμολογία στα μαθηματικά."
-  },
-  {
-    "objectID": "slides/lecture-03/index.html#λύση",
-    "href": "slides/lecture-03/index.html#λύση",
-    "title": "Στατιστικά Προγράμματα II",
-    "section": "Λύση",
-    "text": "Λύση\n\nstudent_id &lt;- c(\"AM01\", \"AM02\", \"AM03\", \"AM04\", \"AM05\", \"AM06\", \"AM07\", \"AM08\")\nmath_grades &lt;- c(4.5, 8.0, 3.5, NA, 9.5, 6.0, 2.0, NA)\nstat_grades &lt;- c(5.0, 7.5, 4.0, 6.5, 10.0, NA, 3.5, 8.0)\nabsences &lt;- c(2, 0, 5, 1, 0, 3, 6, 2)\n\n# 1. Έλεγχος μήκους\nlength(math_grades) \n\n# 2. Δημιουργία Data Frame\nperformance &lt;- data.frame(\n  aem = student_id,\n  math = math_grades,\n  stat = stat_grades,\n  absences = absences\n)\n\n# 3. Περιγραφικά στατιστικά (Βλέπουμε πόσα NA έχει κάθε στήλη)\nsummary(performance)\n\n# 4. Μέγιστη βαθμολογία στα μαθηματικά αγνοώντας τα NA\nmax(performance$math, na.rm = TRUE)"
-  },
-  {
-    "objectID": "slides/lecture-03/index.html#τροποποίηση-βαθμολογιών",
-    "href": "slides/lecture-03/index.html#τροποποίηση-βαθμολογιών",
-    "title": "Στατιστικά Προγράμματα II",
-    "section": "Τροποποίηση βαθμολογιών",
-    "text": "Τροποποίηση βαθμολογιών\nΟ καθηγητής Στατιστικής αποφάσισε να δώσει 0.5 βαθμό bonus σε όλους:\n\nΔημιουργήστε μια νέα στήλη στο performance με όνομα stat_final που θα περιέχει τον νέο βαθμό.\nΒρείτε τους φοιτητές που πέρασαν το κάθε μάθημα.\nΒρείτε τον μέσο όρο των απουσιών των φοιτητών που πέρασαν τα Μαθηματικά."
-  },
-  {
-    "objectID": "slides/lecture-03/index.html#λύση-1",
-    "href": "slides/lecture-03/index.html#λύση-1",
-    "title": "Στατιστικά Προγράμματα II",
-    "section": "Λύση",
-    "text": "Λύση\n\nperformance$stat_final &lt;- performance$Stat + 0.5\n\n# Διόρθωση βαθμών άνω του 10\nperformance$stat_final[performance$stat_final &gt; 10] &lt;- 10\n\n# Λογικό διάνυσμα για επιτυχία στα Μαθηματικά\npassed_math &lt;- performance_df$math &gt;= 5.0\n\n# Μέσος όρος απουσιών όσων πέρασαν\n# Βάζουμε na.rm = TRUE γιατί το passed_math περιέχει NAs.\nmean(performance$absences[passed_math], na.rm = TRUE)"
-  },
-  {
-    "objectID": "slides/lecture-03/index.html#βαθμοί-στη-σταστιστική-για-κάθε-φοιτητή",
-    "href": "slides/lecture-03/index.html#βαθμοί-στη-σταστιστική-για-κάθε-φοιτητή",
-    "title": "Στατιστικά Προγράμματα II",
-    "section": "Βαθμοί στη σταστιστική για κάθε φοιτητή",
-    "text": "Βαθμοί στη σταστιστική για κάθε φοιτητή\nΓια κάθε φοιτητή των δεδομένων σας γράψτε τον κώδικα που θα κάνει τα παρακάτω:\n\nΑν ο βαθμός είναι NA, τύπωσε: “Ο φοιτητής με ΑΕΜ { aem } απουσίαζε.”\nΑν ο βαθμός είναι πάνω από 5, τύπωσε: “Ο φοιτητής με ΑΕΜ { aem } πέρασε με βαθμό { stat_final }.”\nΑλλιώς, τύπωσε: “Ο φοιτητής ΑΕΜ { aem } κόπηκε με βαθμό { stat_final }.”"
-  },
-  {
-    "objectID": "slides/lecture-03/index.html#λύση-2",
-    "href": "slides/lecture-03/index.html#λύση-2",
-    "title": "Στατιστικά Προγράμματα II",
-    "section": "Λύση",
-    "text": "Λύση\n\nfor (i in 1:nrow(performance_df)) {\n  \n  # Αποθήκευση του τρέχοντος βαθμού και του ΑΕΜ για ευκολία\n  current_grade &lt;- performance$stat_final[i]\n  current_aem &lt;- performance_df$aem[i]\n  \n  # Το is.na() πρέπει να είναι το πρώτο statement!\n  if (is.na(current_grade)) {\n    print(paste(\"Ο φοιτητής\", current_aem, \"απουσίαζε.\"))\n    \n  } else if (current_grade &gt;= 5) {\n    print(paste(\"Ο φοιτητής\", current_aem, \"πέρασε με\", current_grade))\n    \n  } else {\n    print(paste(\"Ο φοιτητής\", current_aem, \"κόπηκε με\", current_grade))\n  }\n  \n}"
-  },
-  {
-    "objectID": "slides/lecture-03/index.html#αντικατάσταση-na",
-    "href": "slides/lecture-03/index.html#αντικατάσταση-na",
-    "title": "Στατιστικά Προγράμματα II",
-    "section": "Αντικατάσταση NA",
-    "text": "Αντικατάσταση NA\n\nΓράψτε τη συνάρτηση impute_mean, η οποία θα αντικαθιστά τα NA ενός διανύσματος με τον μέσο όρο των τιμών του.\nΕφαρμόστε τη συνάρτηση σας στις στήλες math και stat του Data Frame performance και αποθηκεύστε τα αποτελέσματα σε δύο νέες στήλες (math_imp και stat_imp).\nΤυπώστε τις αρχικές και τις νέες στήλες των Μαθηματικών για να επιβεβαιώσετε."
-  },
-  {
-    "objectID": "slides/lecture-03/index.html#λύση-3",
-    "href": "slides/lecture-03/index.html#λύση-3",
-    "title": "Στατιστικά Προγράμματα II",
-    "section": "Λύση",
-    "text": "Λύση\n\nimpute_mean &lt;- function(x) {\n  \n  mean_val &lt;- mean(x, na.rm = TRUE)\n  \n  x[is.na(x)] &lt;- mean_val\n  \n  return(x)\n}\n\nperformance$math_imp &lt;- impute_mean(performance$math)\nperformance$stat_imp &lt;- impute_mean(performance$stat)\n\n# 6. Προβολή των αποτελεσμάτων (για τα Μαθηματικά)\ndata.frame(\n  aem = performance$aem,\n  original_math = performance$math,\n  imputed_math = performance$math_imp\n)"
-  },
-  {
-    "objectID": "notes-index.html",
-    "href": "notes-index.html",
-    "title": "Στατιστική στην εκπαιδευτική έρευνα",
-    "section": "",
-    "text": "Εδώ θα βρείτε μία λίστα με όλες τις σημειώσεις που θα χρησιμοποιηθούν για την διδασκαλία του μαθήματος το χειμερινό εξάμνηνο 2025-2026.\nΕπιλογές:\n\n📖 Διαβάστε online (βρίσκεστε εδώ!)\n📄 Κατεβάστε το pdf\n\n\n\nΟι σημειώσεις του μαθήματος οργανώνονται στα ακόλουθα κεφάλαια:\n\nΚεφάλαιο 1: Εισαγωγή\n\n\n\n\nΣυγγραφέας: Αλέξανδρος Ρέκκας\nΜάθημα: XXXXXX"
-  },
-  {
-    "objectID": "notes-index.html#περιεχόμενα",
-    "href": "notes-index.html#περιεχόμενα",
-    "title": "Στατιστική στην εκπαιδευτική έρευνα",
-    "section": "",
-    "text": "Οι σημειώσεις του μαθήματος οργανώνονται στα ακόλουθα κεφάλαια:\n\nΚεφάλαιο 1: Εισαγωγή"
-  },
-  {
-    "objectID": "notes-index.html#σχετικά",
-    "href": "notes-index.html#σχετικά",
-    "title": "Στατιστική στην εκπαιδευτική έρευνα",
-    "section": "",
-    "text": "Συγγραφέας: Αλέξανδρος Ρέκκας\nΜάθημα: XXXXXX"
-  },
-  {
-    "objectID": "notes/print.html",
-    "href": "notes/print.html",
-    "title": "Σημειώσεις του μαθήματος",
-    "section": "",
-    "text": "Επιλογές:\n\nΔιαβάστε online (βρίσκεστε εδώ)\n📄 Download PDF\n\n\n\nΟι σημειώσεις οργανώνονται στα ακόλουθα κεφάλαια:\n\nΚεφάλαιο 1: Εισαγωγή\n\n\n\n\nΣυγγραφέας: Αλέξανδρος Ρέκκας\nΜάθημα: XXXXX\nΟι σημειώσεις αυτές έχουν σχεδιαστεί ώστε να συμπληρώνουν τις παρουσιάσεις των διαλέξεων και να αποτελούν μια ολοκληρωμένη αναφορά για το υλικό του μαθήματος."
-  },
-  {
-    "objectID": "notes/print.html#περιεχόμενα",
-    "href": "notes/print.html#περιεχόμενα",
-    "title": "Σημειώσεις του μαθήματος",
-    "section": "",
-    "text": "Οι σημειώσεις οργανώνονται στα ακόλουθα κεφάλαια:\n\nΚεφάλαιο 1: Εισαγωγή"
-  },
-  {
-    "objectID": "notes/print.html#σχετικά",
-    "href": "notes/print.html#σχετικά",
-    "title": "Σημειώσεις του μαθήματος",
-    "section": "",
-    "text": "Συγγραφέας: Αλέξανδρος Ρέκκας\nΜάθημα: XXXXX\nΟι σημειώσεις αυτές έχουν σχεδιαστεί ώστε να συμπληρώνουν τις παρουσιάσεις των διαλέξεων και να αποτελούν μια ολοκληρωμένη αναφορά για το υλικό του μαθήματος."
-  },
-  {
-    "objectID": "notes/print.html#τίτλος-2",
-    "href": "notes/print.html#τίτλος-2",
-    "title": "Σημειώσεις του μαθήματος",
-    "section": "Τίτλος 2",
-    "text": "Τίτλος 2"
-  },
-  {
-    "objectID": "notes/index.html",
-    "href": "notes/index.html",
-    "title": "Σημειώσεις του μαθήματος",
-    "section": "",
-    "text": "Επιλογές:\n\nΔιαβάστε online (βρίσκεστε εδώ)\n📄 Download PDF\n\n\n\nΟι σημειώσεις οργανώνονται στα ακόλουθα κεφάλαια:\n\nΚεφάλαιο 1: Εισαγωγή\n\n\n\n\nΣυγγραφέας: Αλέξανδρος Ρέκκας\nΜάθημα: XXXXX\nΟι σημειώσεις αυτές έχουν σχεδιαστεί ώστε να συμπληρώνουν τις παρουσιάσεις των διαλέξεων και να αποτελούν μια ολοκληρωμένη αναφορά για το υλικό του μαθήματος."
-  },
-  {
-    "objectID": "notes/index.html#περιεχόμενα",
-    "href": "notes/index.html#περιεχόμενα",
-    "title": "Σημειώσεις του μαθήματος",
-    "section": "",
-    "text": "Οι σημειώσεις οργανώνονται στα ακόλουθα κεφάλαια:\n\nΚεφάλαιο 1: Εισαγωγή"
-  },
-  {
-    "objectID": "notes/index.html#σχετικά",
-    "href": "notes/index.html#σχετικά",
-    "title": "Σημειώσεις του μαθήματος",
-    "section": "",
-    "text": "Συγγραφέας: Αλέξανδρος Ρέκκας\nΜάθημα: XXXXX\nΟι σημειώσεις αυτές έχουν σχεδιαστεί ώστε να συμπληρώνουν τις παρουσιάσεις των διαλέξεων και να αποτελούν μια ολοκληρωμένη αναφορά για το υλικό του μαθήματος."
-  },
-  {
-    "objectID": "slides-index.html",
-    "href": "slides-index.html",
-    "title": "Παρουσιάσεις των μαθημάτων",
-    "section": "",
-    "text": "Διάλεξη 1\nΔιάλεξη 2\nΔιάλεξη 3\nΔιάλεξη 4\nΔιάλεξη 5\nΔιάλεξη 6"
-  },
-  {
     "objectID": "slides/lecture-06/index.html#τα-νέα-δεδομένα-msleep",
     "href": "slides/lecture-06/index.html#τα-νέα-δεδομένα-msleep",
     "title": "Eπεξεργασία δεδομένων με τη βιβλιοθήκη dplyr",
@@ -376,6 +236,293 @@
     "title": "Eπεξεργασία δεδομένων με τη βιβλιοθήκη dplyr",
     "section": "Λύση",
     "text": "Λύση\n\nfinal_analysis_table &lt;- msleep |&gt; \n  filter(!is.na(vore), !is.na(sleep_rem), !is.na(sleep_total), !is.na(bodywt)) |&gt; \n  mutate(\n    sleep_efficiency = sleep_rem / sleep_total,\n    size = if_else(bodywt &gt; 10, \"Big\", \"Small\")\n  ) |&gt; \n  group_by(vore, size) |&gt; \n  summarise(\n    count = n(),\n    avg_efficiency = mean(sleep_efficiency),\n    max_sleep = max(sleep_total),\n    .groups = \"drop\"\n  ) |&gt; \n  filter(count &gt;= 3) |&gt; \n  arrange(desc(avg_efficiency))\n  \nfilter_analysis_table"
+  },
+  {
+    "objectID": "slides-index.html",
+    "href": "slides-index.html",
+    "title": "Παρουσιάσεις των μαθημάτων",
+    "section": "",
+    "text": "Διάλεξη 1\nΔιάλεξη 2\nΔιάλεξη 3\nΔιάλεξη 4\nΔιάλεξη 5\nΔιάλεξη 6\nΔιάλεξη 7"
+  },
+  {
+    "objectID": "notes/index.html",
+    "href": "notes/index.html",
+    "title": "Σημειώσεις του μαθήματος",
+    "section": "",
+    "text": "Επιλογές:\n\nΔιαβάστε online (βρίσκεστε εδώ)\n📄 Download PDF\n\n\n\nΟι σημειώσεις οργανώνονται στα ακόλουθα κεφάλαια:\n\nΚεφάλαιο 1: Εισαγωγή\n\n\n\n\nΣυγγραφέας: Αλέξανδρος Ρέκκας\nΜάθημα: XXXXX\nΟι σημειώσεις αυτές έχουν σχεδιαστεί ώστε να συμπληρώνουν τις παρουσιάσεις των διαλέξεων και να αποτελούν μια ολοκληρωμένη αναφορά για το υλικό του μαθήματος."
+  },
+  {
+    "objectID": "notes/index.html#περιεχόμενα",
+    "href": "notes/index.html#περιεχόμενα",
+    "title": "Σημειώσεις του μαθήματος",
+    "section": "",
+    "text": "Οι σημειώσεις οργανώνονται στα ακόλουθα κεφάλαια:\n\nΚεφάλαιο 1: Εισαγωγή"
+  },
+  {
+    "objectID": "notes/index.html#σχετικά",
+    "href": "notes/index.html#σχετικά",
+    "title": "Σημειώσεις του μαθήματος",
+    "section": "",
+    "text": "Συγγραφέας: Αλέξανδρος Ρέκκας\nΜάθημα: XXXXX\nΟι σημειώσεις αυτές έχουν σχεδιαστεί ώστε να συμπληρώνουν τις παρουσιάσεις των διαλέξεων και να αποτελούν μια ολοκληρωμένη αναφορά για το υλικό του μαθήματος."
+  },
+  {
+    "objectID": "notes/print.html",
+    "href": "notes/print.html",
+    "title": "Σημειώσεις του μαθήματος",
+    "section": "",
+    "text": "Επιλογές:\n\nΔιαβάστε online (βρίσκεστε εδώ)\n📄 Download PDF\n\n\n\nΟι σημειώσεις οργανώνονται στα ακόλουθα κεφάλαια:\n\nΚεφάλαιο 1: Εισαγωγή\n\n\n\n\nΣυγγραφέας: Αλέξανδρος Ρέκκας\nΜάθημα: XXXXX\nΟι σημειώσεις αυτές έχουν σχεδιαστεί ώστε να συμπληρώνουν τις παρουσιάσεις των διαλέξεων και να αποτελούν μια ολοκληρωμένη αναφορά για το υλικό του μαθήματος."
+  },
+  {
+    "objectID": "notes/print.html#περιεχόμενα",
+    "href": "notes/print.html#περιεχόμενα",
+    "title": "Σημειώσεις του μαθήματος",
+    "section": "",
+    "text": "Οι σημειώσεις οργανώνονται στα ακόλουθα κεφάλαια:\n\nΚεφάλαιο 1: Εισαγωγή"
+  },
+  {
+    "objectID": "notes/print.html#σχετικά",
+    "href": "notes/print.html#σχετικά",
+    "title": "Σημειώσεις του μαθήματος",
+    "section": "",
+    "text": "Συγγραφέας: Αλέξανδρος Ρέκκας\nΜάθημα: XXXXX\nΟι σημειώσεις αυτές έχουν σχεδιαστεί ώστε να συμπληρώνουν τις παρουσιάσεις των διαλέξεων και να αποτελούν μια ολοκληρωμένη αναφορά για το υλικό του μαθήματος."
+  },
+  {
+    "objectID": "notes/print.html#τίτλος-2",
+    "href": "notes/print.html#τίτλος-2",
+    "title": "Σημειώσεις του μαθήματος",
+    "section": "Τίτλος 2",
+    "text": "Τίτλος 2"
+  },
+  {
+    "objectID": "notes-index.html",
+    "href": "notes-index.html",
+    "title": "Στατιστική στην εκπαιδευτική έρευνα",
+    "section": "",
+    "text": "Εδώ θα βρείτε μία λίστα με όλες τις σημειώσεις που θα χρησιμοποιηθούν για την διδασκαλία του μαθήματος το χειμερινό εξάμνηνο 2025-2026.\nΕπιλογές:\n\n📖 Διαβάστε online (βρίσκεστε εδώ!)\n📄 Κατεβάστε το pdf\n\n\n\nΟι σημειώσεις του μαθήματος οργανώνονται στα ακόλουθα κεφάλαια:\n\nΚεφάλαιο 1: Εισαγωγή\n\n\n\n\nΣυγγραφέας: Αλέξανδρος Ρέκκας\nΜάθημα: XXXXXX"
+  },
+  {
+    "objectID": "notes-index.html#περιεχόμενα",
+    "href": "notes-index.html#περιεχόμενα",
+    "title": "Στατιστική στην εκπαιδευτική έρευνα",
+    "section": "",
+    "text": "Οι σημειώσεις του μαθήματος οργανώνονται στα ακόλουθα κεφάλαια:\n\nΚεφάλαιο 1: Εισαγωγή"
+  },
+  {
+    "objectID": "notes-index.html#σχετικά",
+    "href": "notes-index.html#σχετικά",
+    "title": "Στατιστική στην εκπαιδευτική έρευνα",
+    "section": "",
+    "text": "Συγγραφέας: Αλέξανδρος Ρέκκας\nΜάθημα: XXXXXX"
+  },
+  {
+    "objectID": "slides/lecture-03/index.html#τα-δεδομένα",
+    "href": "slides/lecture-03/index.html#τα-δεδομένα",
+    "title": "Στατιστικά Προγράμματα II",
+    "section": "Τα Δεδομένα",
+    "text": "Τα Δεδομένα\nΈχετε συλλέξει τα δεδομένα 8 φοιτητών για τα μαθήματα “Μαθηματικά” και “Στατιστική”, καθώς και τον αριθμό των απουσιών τους. Ορισμένοι φοιτητές δεν προσήλθαν στις εξετάσεις, άρα έχουν την τιμή NA.\n\n\n\n\n\n\n\n\n\nΑριθμός Μητρώου (student_id)\nΜαθηματικά (math_grades)\nΣτατιστική (stat_grades)\nΑπουσίες (absences)\n\n\n\n\nAM01\n4.5\n5.0\n2\n\n\nAM02\n8.0\n7.5\n0\n\n\nAM03\n3.5\n4.0\n5\n\n\nAM04\nNA\n6.5\n1\n\n\nAM05\n9.5\n10.0\n0\n\n\nAM06\n6.0\nNA\n3\n\n\nAM07\n2.0\n3.5\n6\n\n\nAM08\nNA\n8.0\n2"
+  },
+  {
+    "objectID": "slides/lecture-03/index.html#μέρος-1-εισαγωγή-δεδομένων-και-περιγραφή",
+    "href": "slides/lecture-03/index.html#μέρος-1-εισαγωγή-δεδομένων-και-περιγραφή",
+    "title": "Στατιστικά Προγράμματα II",
+    "section": "Μέρος 1: Εισαγωγή δεδομένων και περιγραφή",
+    "text": "Μέρος 1: Εισαγωγή δεδομένων και περιγραφή\n\nΝα εισάγετε τα δεδομένα σε ξεχωριστά διανύσματα.\nΕλέγξτε αν τα διανύσματα που δημιουργήσατε έχουν το ίδιο μήκος.\nΕνώστε τα 4 διανύσματα σε ένα Data Frame με το όνομα performance.\nΔείξτε τα βασικά περιγραφικά στατιστικά όλου του Data Frame.\nΒρείτε τη μέγιστη βαθμολογία στα μαθηματικά."
+  },
+  {
+    "objectID": "slides/lecture-03/index.html#λύση",
+    "href": "slides/lecture-03/index.html#λύση",
+    "title": "Στατιστικά Προγράμματα II",
+    "section": "Λύση",
+    "text": "Λύση\n\nstudent_id &lt;- c(\"AM01\", \"AM02\", \"AM03\", \"AM04\", \"AM05\", \"AM06\", \"AM07\", \"AM08\")\nmath_grades &lt;- c(4.5, 8.0, 3.5, NA, 9.5, 6.0, 2.0, NA)\nstat_grades &lt;- c(5.0, 7.5, 4.0, 6.5, 10.0, NA, 3.5, 8.0)\nabsences &lt;- c(2, 0, 5, 1, 0, 3, 6, 2)\n\n# 1. Έλεγχος μήκους\nlength(math_grades) \n\n# 2. Δημιουργία Data Frame\nperformance &lt;- data.frame(\n  aem = student_id,\n  math = math_grades,\n  stat = stat_grades,\n  absences = absences\n)\n\n# 3. Περιγραφικά στατιστικά (Βλέπουμε πόσα NA έχει κάθε στήλη)\nsummary(performance)\n\n# 4. Μέγιστη βαθμολογία στα μαθηματικά αγνοώντας τα NA\nmax(performance$math, na.rm = TRUE)"
+  },
+  {
+    "objectID": "slides/lecture-03/index.html#τροποποίηση-βαθμολογιών",
+    "href": "slides/lecture-03/index.html#τροποποίηση-βαθμολογιών",
+    "title": "Στατιστικά Προγράμματα II",
+    "section": "Τροποποίηση βαθμολογιών",
+    "text": "Τροποποίηση βαθμολογιών\nΟ καθηγητής Στατιστικής αποφάσισε να δώσει 0.5 βαθμό bonus σε όλους:\n\nΔημιουργήστε μια νέα στήλη στο performance με όνομα stat_final που θα περιέχει τον νέο βαθμό.\nΒρείτε τους φοιτητές που πέρασαν το κάθε μάθημα.\nΒρείτε τον μέσο όρο των απουσιών των φοιτητών που πέρασαν τα Μαθηματικά."
+  },
+  {
+    "objectID": "slides/lecture-03/index.html#λύση-1",
+    "href": "slides/lecture-03/index.html#λύση-1",
+    "title": "Στατιστικά Προγράμματα II",
+    "section": "Λύση",
+    "text": "Λύση\n\nperformance$stat_final &lt;- performance$Stat + 0.5\n\n# Διόρθωση βαθμών άνω του 10\nperformance$stat_final[performance$stat_final &gt; 10] &lt;- 10\n\n# Λογικό διάνυσμα για επιτυχία στα Μαθηματικά\npassed_math &lt;- performance_df$math &gt;= 5.0\n\n# Μέσος όρος απουσιών όσων πέρασαν\n# Βάζουμε na.rm = TRUE γιατί το passed_math περιέχει NAs.\nmean(performance$absences[passed_math], na.rm = TRUE)"
+  },
+  {
+    "objectID": "slides/lecture-03/index.html#βαθμοί-στη-σταστιστική-για-κάθε-φοιτητή",
+    "href": "slides/lecture-03/index.html#βαθμοί-στη-σταστιστική-για-κάθε-φοιτητή",
+    "title": "Στατιστικά Προγράμματα II",
+    "section": "Βαθμοί στη σταστιστική για κάθε φοιτητή",
+    "text": "Βαθμοί στη σταστιστική για κάθε φοιτητή\nΓια κάθε φοιτητή των δεδομένων σας γράψτε τον κώδικα που θα κάνει τα παρακάτω:\n\nΑν ο βαθμός είναι NA, τύπωσε: “Ο φοιτητής με ΑΕΜ { aem } απουσίαζε.”\nΑν ο βαθμός είναι πάνω από 5, τύπωσε: “Ο φοιτητής με ΑΕΜ { aem } πέρασε με βαθμό { stat_final }.”\nΑλλιώς, τύπωσε: “Ο φοιτητής ΑΕΜ { aem } κόπηκε με βαθμό { stat_final }.”"
+  },
+  {
+    "objectID": "slides/lecture-03/index.html#λύση-2",
+    "href": "slides/lecture-03/index.html#λύση-2",
+    "title": "Στατιστικά Προγράμματα II",
+    "section": "Λύση",
+    "text": "Λύση\n\nfor (i in 1:nrow(performance_df)) {\n  \n  # Αποθήκευση του τρέχοντος βαθμού και του ΑΕΜ για ευκολία\n  current_grade &lt;- performance$stat_final[i]\n  current_aem &lt;- performance_df$aem[i]\n  \n  # Το is.na() πρέπει να είναι το πρώτο statement!\n  if (is.na(current_grade)) {\n    print(paste(\"Ο φοιτητής\", current_aem, \"απουσίαζε.\"))\n    \n  } else if (current_grade &gt;= 5) {\n    print(paste(\"Ο φοιτητής\", current_aem, \"πέρασε με\", current_grade))\n    \n  } else {\n    print(paste(\"Ο φοιτητής\", current_aem, \"κόπηκε με\", current_grade))\n  }\n  \n}"
+  },
+  {
+    "objectID": "slides/lecture-03/index.html#αντικατάσταση-na",
+    "href": "slides/lecture-03/index.html#αντικατάσταση-na",
+    "title": "Στατιστικά Προγράμματα II",
+    "section": "Αντικατάσταση NA",
+    "text": "Αντικατάσταση NA\n\nΓράψτε τη συνάρτηση impute_mean, η οποία θα αντικαθιστά τα NA ενός διανύσματος με τον μέσο όρο των τιμών του.\nΕφαρμόστε τη συνάρτηση σας στις στήλες math και stat του Data Frame performance και αποθηκεύστε τα αποτελέσματα σε δύο νέες στήλες (math_imp και stat_imp).\nΤυπώστε τις αρχικές και τις νέες στήλες των Μαθηματικών για να επιβεβαιώσετε."
+  },
+  {
+    "objectID": "slides/lecture-03/index.html#λύση-3",
+    "href": "slides/lecture-03/index.html#λύση-3",
+    "title": "Στατιστικά Προγράμματα II",
+    "section": "Λύση",
+    "text": "Λύση\n\nimpute_mean &lt;- function(x) {\n  \n  mean_val &lt;- mean(x, na.rm = TRUE)\n  \n  x[is.na(x)] &lt;- mean_val\n  \n  return(x)\n}\n\nperformance$math_imp &lt;- impute_mean(performance$math)\nperformance$stat_imp &lt;- impute_mean(performance$stat)\n\n# 6. Προβολή των αποτελεσμάτων (για τα Μαθηματικά)\ndata.frame(\n  aem = performance$aem,\n  original_math = performance$math,\n  imputed_math = performance$math_imp\n)"
+  },
+  {
+    "objectID": "slides/lecture-07/index.html#προετοιμασία-για-σήμερα",
+    "href": "slides/lecture-07/index.html#προετοιμασία-για-σήμερα",
+    "title": "Εισαγωγή στη δημιουργία γραφημάτων με τη βιβλιοθήκη ggplot2",
+    "section": "Προετοιμασία για Σήμερα",
+    "text": "Προετοιμασία για Σήμερα\nΑνοίξτε το RStudio, δημιουργήστε ένα νέο R Script (αρχείο κώδικα), και φορτώστε τα πακέτα του σημερινού μαθήματος.\n\n# install.packages(\"ggplot2\")\n# install.packages(\"dplyr\")\n# install.packages(\"palmerpenguins\")\n\nlibrary(ggplot2)\nlibrary(dplyr)\nlibrary(palmerpenguins)\n\n\nΚάντε μια βόλτα στο εργαστήριο και βεβαιωθείτε ότι όλοι έχουν φορτώσει τα πακέτα χωρίς σφάλματα (errors)."
+  },
+  {
+    "objectID": "slides/lecture-07/index.html#τι-είναι-το-ggplot2",
+    "href": "slides/lecture-07/index.html#τι-είναι-το-ggplot2",
+    "title": "Εισαγωγή στη δημιουργία γραφημάτων με τη βιβλιοθήκη ggplot2",
+    "section": "Τι είναι το ggplot2;",
+    "text": "Τι είναι το ggplot2;\nΤο ggplot2 είναι βασισμένο στη Γραμματική των Γραφικών (Grammar of Graphics). Κάθε γράφημα κατασκευάζεται από τρία βασικά συστατικά:\n\nΔεδομένα (Data):\nΤο dataset που θέλετε να απεικονίσετε.\nΑισθητική (Aesthetics - aes):\nΑντιστοίχιση των μεταβλητών σε οπτικές ιδιότητες (άξονες x/y, χρώμα, μέγεθος, σχήμα).\nΓεωμετρίες (Geometries - geom):\nΗ πραγματική οπτική αναπαράσταση (σημεία, γραμμές, μπάρες)."
+  },
+  {
+    "objectID": "slides/lecture-07/index.html#τα-δεδομένα",
+    "href": "slides/lecture-07/index.html#τα-δεδομένα",
+    "title": "Εισαγωγή στη δημιουργία γραφημάτων με τη βιβλιοθήκη ggplot2",
+    "section": "Τα δεδομένα",
+    "text": "Τα δεδομένα\nΘα χρησιμοποιήσουμε το dataset penguins\n\nglimpse(penguins)"
+  },
+  {
+    "objectID": "slides/lecture-07/index.html#άσκηση",
+    "href": "slides/lecture-07/index.html#άσκηση",
+    "title": "Εισαγωγή στη δημιουργία γραφημάτων με τη βιβλιοθήκη ggplot2",
+    "section": "Άσκηση",
+    "text": "Άσκηση\n\nΤρέξτε την εντολή glimpse(penguins) στην κονσόλα σας (Console).\nΑπαντήστε στις παρακάτω ερωτήσεις:\n\nΠόσες γραμμές (παρατηρήσεις) υπάρχουν;\nΠοια είναι τα ονόματα των συνεχών (αριθμητικών) μεταβλητών;\nΠοια είναι τα ονόματα των κατηγορικών (character/factor) μεταβλητών;\n\n\n\nΛύση:\n# 1.\nglimpse(penguins)\n\n# 2. \n# Γραμμές: 344\n# Συνεχείς μεταβλητές: bill_length_mm, bill_depth_mm, flipper_length_mm, body_mass_g, year\n# Κατηγορικές μεταβλητές: species, island, sex"
+  },
+  {
+    "objectID": "slides/lecture-07/index.html#βήμα-1-δεδομένα",
+    "href": "slides/lecture-07/index.html#βήμα-1-δεδομένα",
+    "title": "Εισαγωγή στη δημιουργία γραφημάτων με τη βιβλιοθήκη ggplot2",
+    "section": "Βήμα 1 (Δεδομένα)",
+    "text": "Βήμα 1 (Δεδομένα)\nΞεκινάμε περνώντας τα δεδομένα μας στη συνάρτηση ggplot().\n\nggplot(data = penguins)"
+  },
+  {
+    "objectID": "slides/lecture-07/index.html#βήμα-2-αισθητική",
+    "href": "slides/lecture-07/index.html#βήμα-2-αισθητική",
+    "title": "Εισαγωγή στη δημιουργία γραφημάτων με τη βιβλιοθήκη ggplot2",
+    "section": "Βήμα 2 (Αισθητική)",
+    "text": "Βήμα 2 (Αισθητική)\nΑς πούμε στην R ποιες μεταβλητές ανήκουν στους άξονες X και Y χρησιμοποιώντας την aes().\n\nggplot(data = penguins, aes(x = flipper_length_mm, y = body_mass_g))"
+  },
+  {
+    "objectID": "slides/lecture-07/index.html#βήμα-3-γεωμετρίες",
+    "href": "slides/lecture-07/index.html#βήμα-3-γεωμετρίες",
+    "title": "Εισαγωγή στη δημιουργία γραφημάτων με τη βιβλιοθήκη ggplot2",
+    "section": "Βήμα 3 (Γεωμετρίες)",
+    "text": "Βήμα 3 (Γεωμετρίες)\nΠροσθέτουμε μια γεωμετρία (geometry) χρησιμοποιώντας το σύμβολο +. Ας προσθέσουμε σημεία!\n\nggplot(data = penguins, aes(x = flipper_length_mm, y = body_mass_g)) +\n  geom_point()"
+  },
+  {
+    "objectID": "slides/lecture-07/index.html#άσκηση-1",
+    "href": "slides/lecture-07/index.html#άσκηση-1",
+    "title": "Εισαγωγή στη δημιουργία γραφημάτων με τη βιβλιοθήκη ggplot2",
+    "section": "Άσκηση",
+    "text": "Άσκηση\n\nΓράψτε τον κώδικα για να αναδημιουργήσετε το διάγραμμα διασποράς (scatterplot) από την προηγούμενη διαφάνεια.\nΤροποποιήστε τον κώδικά σας για να βάλετε το bill_length_mm στον άξονα X και το bill_depth_mm στον άξονα Y.\n\n\nΡυθμός Καθηγητή (0:30 - 0:40) Περπατήστε στο εργαστήριο. Βοηθήστε με τυχόν συντακτικά λάθη (typos). Τονίστε τον κανόνα για την τοποθέτηση του συμβόλου +.\nΛύση:\n# 1. \nggplot(data = penguins, aes(x = flipper_length_mm, y = body_mass_g)) +\n  geom_point()\n\n# 2.\nggplot(data = penguins, aes(x = bill_length_mm, y = bill_depth_mm)) +\n  geom_point()"
+  },
+  {
+    "objectID": "slides/lecture-07/index.html#χρωματισμός-του-γραφήματος",
+    "href": "slides/lecture-07/index.html#χρωματισμός-του-γραφήματος",
+    "title": "Εισαγωγή στη δημιουργία γραφημάτων με τη βιβλιοθήκη ggplot2",
+    "section": "Χρωματισμός του γραφήματος",
+    "text": "Χρωματισμός του γραφήματος\nΜπορούμε να αλλάξουμε το χρώμα των σημείων μας.\nΟρισμός (Μέσα στο geom, έξω από την aes): εφαρμόζει ένα χρώμα σε ΟΛΑ.\n\nggplot(data = penguins, aes(x = flipper_length_mm, y = body_mass_g)) +\n  geom_point(color = \"blue\")\n\nΑντιστοίχιση (Μέσα στην aes): αναθέτει χρώματα με βάση μια μεταβλητή των δεδομένων.\n\nggplot(data = penguins, aes(x = flipper_length_mm, y = body_mass_g)) +\n  geom_point(aes(color = species))"
+  },
+  {
+    "objectID": "slides/lecture-07/index.html#άσκηση-2",
+    "href": "slides/lecture-07/index.html#άσκηση-2",
+    "title": "Εισαγωγή στη δημιουργία γραφημάτων με τη βιβλιοθήκη ggplot2",
+    "section": "Άσκηση",
+    "text": "Άσκηση\n\nΦτιάξτε ένα διάγραμμα διασποράς (scatterplot) με το flipper_length_mm (X) και body_mass_g (Y).\nΑντιστοιχίστε το χρώμα (color) των σημείων στη μεταβλητή island.\nΑντιστοιχίστε το σχήμα (shape) των σημείων στη μεταβλητή species.\nBonus: Ορίστε το μέγεθος (size) όλων των σημείων ίσο με 3 (Hint: Το μέγεθος θα είναι mapping στα δεδομένα ή setting για όλα τα σημεία;).\n\n\nΡυθμός Καθηγητή (0:40 - 0:50)\nΛύση:\nggplot(data = penguins, aes(x = flipper_length_mm, y = body_mass_g)) +\n  geom_point(aes(color = island, shape = species), size = 3)"
+  },
+  {
+    "objectID": "slides/lecture-07/index.html#ιστογράμματα",
+    "href": "slides/lecture-07/index.html#ιστογράμματα",
+    "title": "Εισαγωγή στη δημιουργία γραφημάτων με τη βιβλιοθήκη ggplot2",
+    "section": "Ιστογράμματα",
+    "text": "Ιστογράμματα\n\nggplot(data = penguins, aes(x = body_mass_g)) +\n  geom_histogram(binwidth = 200)\n\nΔοκιμάστε να αλλάξετε τη μεταβλητή binwidth μέσα στη geom_histogram().\nΤι παρατηρείτε;"
+  },
+  {
+    "objectID": "slides/lecture-07/index.html#θηκογράμματα-boxplots",
+    "href": "slides/lecture-07/index.html#θηκογράμματα-boxplots",
+    "title": "Εισαγωγή στη δημιουργία γραφημάτων με τη βιβλιοθήκη ggplot2",
+    "section": "Θηκογράμματα (Boxplots)",
+    "text": "Θηκογράμματα (Boxplots)\n\nggplot(data = penguins, aes(x = species, y = body_mass_g)) +\n  geom_boxplot()"
+  },
+  {
+    "objectID": "slides/lecture-07/index.html#άσκηση-3",
+    "href": "slides/lecture-07/index.html#άσκηση-3",
+    "title": "Εισαγωγή στη δημιουργία γραφημάτων με τη βιβλιοθήκη ggplot2",
+    "section": "Άσκηση",
+    "text": "Άσκηση\nΧρόνος: 15 λεπτά\n\nΦτιάξτε ένα ιστόγραμμα (histogram) για το flipper_length_mm. Δοκιμάστε binwidth = 5 και binwidth = 20. Ποιο είναι καλύτερο;\nΦτιάξτε ένα θηκόγραμμα (boxplot) που να δείχνει το bill_length_mm διαχωρισμένο ανά island.\nΔοκιμάστε να προσθέσετε color = species στο θηκόγραμμά σας. Μετά δοκιμάστε fill = species. Ποια είναι η διαφορά μεταξύ τους;\n\n\nΡυθμός Καθηγητή (1:15 - 1:30) Εξηγήστε ότι η ιδιότητα color χρωματίζει το περίγραμμα της γεωμετρίας, ενώ η ιδιότητα fill γεμίζει το εσωτερικό της γεωμετρίας με χρώμα.\nΛύση:\n# 1. \nggplot(data = penguins, aes(x = flipper_length_mm)) +\n  geom_histogram(binwidth = 5) \n\n# 2.\nggplot(data = penguins, aes(x = island, y = bill_length_mm)) +\n  geom_boxplot()\n\n# 3. \n# Με color:\nggplot(data = penguins, aes(x = island, y = bill_length_mm)) +\n  geom_boxplot(aes(color = species))\n\n# Με fill:\nggplot(data = penguins, aes(x = island, y = bill_length_mm)) +\n  geom_boxplot(aes(fill = species))"
+  },
+  {
+    "objectID": "slides/lecture-07/index.html#προσθήκη-επιπέδων-layers",
+    "href": "slides/lecture-07/index.html#προσθήκη-επιπέδων-layers",
+    "title": "Εισαγωγή στη δημιουργία γραφημάτων με τη βιβλιοθήκη ggplot2",
+    "section": "Προσθήκη επιπέδων (layers)",
+    "text": "Προσθήκη επιπέδων (layers)\n\nΗ πραγματική δύναμη της Γραμματικής των Γραφικών είναι η χρήση επιπέδων (layers).\nΜπορείτε να προσθέσετε όσες συναρτήσεις geom_ θέλετε!\n\n\nggplot(data = penguins, aes(x = flipper_length_mm, y = body_mass_g)) +\n  geom_point() +\n  geom_smooth(method = \"lm\") # Προσθέτει μια γραμμική γραμμή τάσης (trend line)\n\n\n\n\nΕπειδή η aes() βρίσκεται μέσα στην κλήση της ggplot(), και οι δύο γεωμετρίες κληρονομούν τους αντίστοιχους άξονες X και Y."
+  },
+  {
+    "objectID": "slides/lecture-07/index.html#άσκηση-4",
+    "href": "slides/lecture-07/index.html#άσκηση-4",
+    "title": "Εισαγωγή στη δημιουργία γραφημάτων με τη βιβλιοθήκη ggplot2",
+    "section": "Άσκηση",
+    "text": "Άσκηση\n\nΔημιουργήστε ένα διάγραμμα διασποράς (flipper_length_mm vs body_mass_g).\nΠροσθέστε το επίπεδο geom_smooth(method = \"lm\").\nΜετακινήστε το aes(color = species) μέσα στην αρχική συνάρτηση ggplot(). Τι συμβαίνει;\nΚατεβάστε το aes(color = species) ΜΟΝΟ μέσα στο geom_point(). Τι συμβαίνει με τις γραμμές τάσης τώρα;\n\n\nΡυθμός Καθηγητή (1:35 - 1:50) Κρίσιμη έννοια! Καθολική Αισθητική (στο ggplot) vs Τοπική Αισθητική (στο geom). Αν το χρώμα είναι καθολικό, το geom_smooth σχεδιάζει 3 γραμμές (μία για κάθε είδος). Αν είναι τοπικό στα σημεία, το geom_smooth σχεδιάζει 1 καθολική γραμμή. Αφήστε τους φοιτητές να πειραματιστούν για να δουν τη διαφορά.\nΛύση:\n# 1 & 2.\nggplot(data = penguins, aes(x = flipper_length_mm, y = body_mass_g)) +\n  geom_point() +\n  geom_smooth(method = \"lm\")\n\n# 3. Η αισθητική χρώματος εφαρμόζεται ΚΑΙ στα σημεία ΚΑΙ στις γραμμές τάσης (3 γραμμές)\nggplot(data = penguins, aes(x = flipper_length_mm, y = body_mass_g, color = species)) +\n  geom_point() +\n  geom_smooth(method = \"lm\")\n\n# 4. Η αισθητική χρώματος εφαρμόζεται ΜΟΝΟ στα σημεία. Η γραμμή τάσης είναι 1 και ενιαία.\nggplot(data = penguins, aes(x = flipper_length_mm, y = body_mass_g)) +\n  geom_point(aes(color = species)) +\n  geom_smooth(method = \"lm\")"
+  },
+  {
+    "objectID": "slides/lecture-07/index.html#διαχωρισμός-faceting",
+    "href": "slides/lecture-07/index.html#διαχωρισμός-faceting",
+    "title": "Εισαγωγή στη δημιουργία γραφημάτων με τη βιβλιοθήκη ggplot2",
+    "section": "Διαχωρισμός (faceting)",
+    "text": "Διαχωρισμός (faceting)\n\nΜερικές φορές το να βάζουμε τα πάντα σε ένα γράφημα δημιουργεί ακαταστασία.\nΗ συνάρτηση facet_wrap() χωρίζει το γράφημά σας σε πολλαπλά μικρότερα γραφήματα με βάση μια κατηγορική μεταβλητή.\n\n\nggplot(data = penguins, aes(x = flipper_length_mm, y = body_mass_g)) +\n  geom_point(aes(color = species)) +\n  facet_wrap(~ island)"
+  },
+  {
+    "objectID": "slides/lecture-07/index.html#άσκηση-5",
+    "href": "slides/lecture-07/index.html#άσκηση-5",
+    "title": "Εισαγωγή στη δημιουργία γραφημάτων με τη βιβλιοθήκη ggplot2",
+    "section": "Άσκηση",
+    "text": "Άσκηση\n\nΦτιάξτε ένα ιστόγραμμα για το body_mass_g με fill = species.\nΠροσθέστε ένα facet_wrap() για να διαχωρίσετε τα ιστογράμματα ανά species.\nΔοκιμάστε το facet_grid(sex ~ species). Πώς διαφέρει το facet_grid από το facet_wrap;\n\n\nΡυθμός Καθηγητή (2:05 - 2:15) Εξηγήστε ότι το facet_wrap “τυλίγει” μια μονοδιάστατη ακολουθία πλαισίων στις δύο διαστάσεις, ενώ το facet_grid σχηματίζει έναν πίνακα με γραμμές ~ στήλες.\nΛύση:\n# 1 & 2.\nggplot(data = penguins, aes(x = body_mass_g, fill = species)) +\n  geom_histogram() +\n  facet_wrap(~ species)\n\n# 3. \nggplot(data = penguins, aes(x = body_mass_g, fill = species)) +\n  geom_histogram() +\n  facet_grid(sex ~ species)"
+  },
+  {
+    "objectID": "slides/lecture-07/index.html#οι-άξονες-του-γραφήματος",
+    "href": "slides/lecture-07/index.html#οι-άξονες-του-γραφήματος",
+    "title": "Εισαγωγή στη δημιουργία γραφημάτων με τη βιβλιοθήκη ggplot2",
+    "section": "Οι άξονες του γραφήματος",
+    "text": "Οι άξονες του γραφήματος\nΧρησιμοποιήστε τη συνάρτηση labs() για να προσθέσετε τίτλους και να “καθαρίσετε” τα ονόματα των αξόνων.\n\nggplot(data = penguins, aes(x = flipper_length_mm, y = body_mass_g)) +\n  geom_point(aes(color = species)) +\n  labs(\n    title = \"Το Μέγεθος των Πιγκουίνων\",\n    subtitle = \"Μήκος πτερυγίου vs Βάρος σώματος\",\n    x = \"Μήκος Πτερυγίου (mm)\",\n    y = \"Βάρος Σώματος (g)\",\n    color = \"Είδος Πιγκουίνου\"\n  )"
+  },
+  {
+    "objectID": "slides/lecture-07/index.html#θέματα-themes",
+    "href": "slides/lecture-07/index.html#θέματα-themes",
+    "title": "Εισαγωγή στη δημιουργία γραφημάτων με τη βιβλιοθήκη ggplot2",
+    "section": "Θέματα (themes)",
+    "text": "Θέματα (themes)\nΤο ggplot2 διαθέτει ενσωματωμένα θέματα (themes) για να αλλάξετε τη συνολική εμφάνιση (φόντο, γραμμές πλέγματος, γραμματοσειρές).\n\nggplot(data = penguins, aes(x = flipper_length_mm, y = body_mass_g)) +\n  geom_point() +\n  theme_minimal() # Καθαρό, λευκό φόντο\n\nΆλλες επιλογές: theme_bw(), theme_classic(), theme_dark()."
+  },
+  {
+    "objectID": "slides/lecture-07/index.html#αποθήκευση-των-γραφημάτων-σας",
+    "href": "slides/lecture-07/index.html#αποθήκευση-των-γραφημάτων-σας",
+    "title": "Εισαγωγή στη δημιουργία γραφημάτων με τη βιβλιοθήκη ggplot2",
+    "section": "Αποθήκευση των γραφημάτων σας",
+    "text": "Αποθήκευση των γραφημάτων σας\n\n# 1. Δημιουργήστε το γράφημά σας\nggplot(penguins, aes(x = flipper_length_mm, y = body_mass_g)) +\n  geom_point()\n\n# 2. Αποθηκεύστε το\nggsave(\"my_penguin_plot.png\", width = 8, height = 6, dpi = 300)\n\nΑπό προεπιλογή, το ggsave() αποθηκεύει το τελευταίο γράφημα που εμφανίστηκε."
+  },
+  {
+    "objectID": "slides/lecture-07/index.html#άσκηση-6",
+    "href": "slides/lecture-07/index.html#άσκηση-6",
+    "title": "Εισαγωγή στη δημιουργία γραφημάτων με τη βιβλιοθήκη ggplot2",
+    "section": "Άσκηση",
+    "text": "Άσκηση\nΔημιουργήστε ένα πλήρες γράφημα:\n\nΆξονας X: bill_length_mm, Άξονας Y: bill_depth_mm.\nΓεωμετρία (Geometry): Σημεία.\nΑντιστοιχίστε το χρώμα (color) και το σχήμα (shape) στη μεταβλητή species.\nΚάντε διαχωρισμό (facet) του γραφήματος ανά island.\nΠροσθέστε μια γραμμική γραμμή τάσης χωρίς το γκρι διάστημα εμπιστοσύνης (geom_smooth(method=\"lm\", se=FALSE)).\nΔώστε έναν περιγραφικό Τίτλο, Υπότιτλο, και καθαρές ετικέτες Αξόνων (στα Ελληνικά).\nΕφαρμόστε το θέμα theme_bw().\nΑποθηκεύστε το ως αρχείο .pdf στον υπολογιστή σας χρησιμοποιώντας το ggsave().\n\n\nΡυθμός Καθηγητή (2:30 - 2:50) Κάντε βόλτες στην αίθουσα, βοηθήστε με την τελική σύνθεση όλων των εννοιών. Ζητήστε από τους φοιτητές να σας δείξουν τα αποθηκευμένα αρχεία PDF τους πριν το τέλος του μαθήματος.\n2:50 - 3:00 Σύνοψη, ανακεφαλαίωση της Γραμματικής των Γραφικών, απαντήσεις σε τελικές απορίες.\nΛύση:\n\n# Δημιουργία γραφήματος\nmy_plot &lt;- ggplot(data = penguins, aes(x = bill_length_mm, y = bill_depth_mm)) +\n  geom_point(aes(color = species, shape = species)) +\n  facet_wrap(~ island) +\n  geom_smooth(method = \"lm\", se = FALSE) +\n  labs(\n    title = \"Σχέση Μήκους και Βάθους Ράμφους\",\n    subtitle = \"Σύγκριση ανά Είδος και Νησί\",\n    x = \"Μήκος Ράμφους (mm)\",\n    y = \"Βάθος Ράμφους (mm)\",\n    color = \"Είδος Πιγκουίνου\",\n    shape = \"Είδος Πιγκουίνου\"\n  ) +\n  theme_bw()\n\n# Αποθήκευση γραφήματος\nggsave(\"final_penguin_plot.pdf\", plot = my_plot, width = 10, height = 6)\n\n```"
   },
   {
     "objectID": "slides/lecture-05/index.html#η-βιβλιοθήκη-dplyr",
@@ -536,7 +683,7 @@
     "href": "slides/lecture-02/index.html#επιλογή-υποσυνόλου",
     "title": "Στατιστικά Προγράμματα II",
     "section": "Επιλογή υποσυνόλου",
-    "text": "Επιλογή υποσυνόλου\n\n# Επιλογή 10 τυχαίων τιμών από την N(0, 1)\nvalues &lt;- rnorm(10)\nvalues\n\n [1]  0.8507915 -1.1545448  0.8302911  1.1351833 -1.2725458 -0.2835277\n [7]  0.6026724 -0.4529556 -0.4290151  0.7523294\n\n\nΜπορούμε να διαλέξουμε τις πρώτες 3 τιμές της μεταβλητής values:\n\nvalues[1:3]\n\n[1]  0.8507915 -1.1545448  0.8302911\n\n\nΜπορούμε να διαλέξουμε την 3η τιμές και την 5η τιμή της μεταβλητής values:\n\nvalues[c(3, 5)]\n\n[1]  0.8302911 -1.2725458"
+    "text": "Επιλογή υποσυνόλου\n\n# Επιλογή 10 τυχαίων τιμών από την N(0, 1)\nvalues &lt;- rnorm(10)\nvalues\n\n [1]  0.1995776 -0.3770059  2.0614561 -1.2700075  0.2979984  1.4137159\n [7]  0.1559114  0.3057357  2.3828701 -1.3281960\n\n\nΜπορούμε να διαλέξουμε τις πρώτες 3 τιμές της μεταβλητής values:\n\nvalues[1:3]\n\n[1]  0.1995776 -0.3770059  2.0614561\n\n\nΜπορούμε να διαλέξουμε την 3η τιμές και την 5η τιμή της μεταβλητής values:\n\nvalues[c(3, 5)]\n\n[1] 2.0614561 0.2979984"
   },
   {
     "objectID": "slides/lecture-02/index.html#επιλογή-υποσυνόλου-1",
