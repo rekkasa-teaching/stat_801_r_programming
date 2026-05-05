@@ -10,8 +10,8 @@
   <meta name="generator" content="quarto-1.9.37">
 
   <meta name="author" content="Αλέξανδρος Ρέκκας">
-  <meta name="dcterms.date" content="2026-05-05">
-  <title>Στατισιτκά Προγράμματα II</title>
+  <meta name="dcterms.date" content="2026-05-06">
+  <title>Επεξεργασία δεδομένων και δημιουργία γραφημάτων</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
@@ -99,7 +99,7 @@
     code span.vs { color: #032f62; } /* VerbatimString */
     code span.wa { color: #ff5555; } /* Warning */
   </style>
-  <link rel="stylesheet" href="../../site_libs/revealjs/dist/theme/quarto-46ffb5e91d00f3df52df4e1ec249e04e.css">
+  <link rel="stylesheet" href="../../site_libs/revealjs/dist/theme/quarto-5be979c32fe944fa9e32aa912702b0be.css">
   <link href="../../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="../../site_libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
   <link href="../../site_libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
@@ -197,8 +197,7 @@
     <div class="slides">
 
 <section id="title-slide" class="quarto-title-block center">
-  <h1 class="title">Στατισιτκά Προγράμματα II</h1>
-  <p class="subtitle"><strong>Μάθημα 1:</strong> Εισαγωγή</p>
+  <h1 class="title">Επεξεργασία δεδομένων και δημιουργία γραφημάτων</h1>
 
 <div class="quarto-title-authors">
 <div class="quarto-title-author">
@@ -208,113 +207,178 @@
 </div>
 </div>
 
-  <p class="date">2026-05-05</p>
+  <p class="date">2026-05-06</p>
 </section>
-<section id="στόχοι-του-μαθήματος" class="slide level2">
-<h2>Στόχοι του Μαθήματος</h2>
-<p>Θα εστιάσουμε σε:</p>
+<section id="στόχος-του-σημερινού-μαθήματος" class="slide level2">
+<h2>Στόχος του σημερινού μαθήματος</h2>
+<p>Μέχρι τώρα μάθαμε:</p>
 <ol type="1">
-<li><strong>Δυνατότητα αναπαραγωγής των αποτελεσμάτων (Reproducibility):</strong> Ο κώδικας να τρέχει παντού, όχι μόνο στο δικό μας μηχάνημα.</li>
-<li><strong>Ροές εργασίας (Workflows):</strong> Αποδοτική διαχείριση projects.</li>
-<li><strong>Μοντέρνες τεχνικές:</strong> <code>tidyverse</code>, <code>purrr</code>, <code>ggplot2</code></li>
-<li><strong>Παρουσίαση:</strong> Δημιουργία αναφορών και παρουσιάσεων υψηλής ποιότητας.</li>
-</ol>
-</section>
-<section id="έλεγχος-προγραμματιστικού-περιβάλλοντος" class="slide level2">
-<h2>Έλεγχος προγραμματιστικού περιβάλλοντος</h2>
-<p>Θα χρησιμοποιήσουμε το πακέτο <code>renv</code> το οποίο:</p>
-<ol type="1">
-<li>Δημιουργεί μια <strong>απομονωμένη βιβλιοθήκη</strong> για κάθε project.</li>
-<li>Καταγράφει τις ακριβείς εκδόσεις στο <code>renv.lock</code>.</li>
+<li>Να καθαρίζουμε και να μετασχηματίζουμε δεδομένα με το <strong><code>dplyr</code></strong>.</li>
+<li>Να φτιάχνουμε επαγγελματικά γραφήματα με το <strong><code>ggplot2</code></strong>.</li>
 </ol>
 <p><br>
 </p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a></a><span class="co"># Ενεργοποίηση στο project</span></span>
-<span id="cb1-2"><a></a>renv<span class="sc">::</span><span class="fu">init</span>()</span>
-<span id="cb1-3"><a></a></span>
-<span id="cb1-4"><a></a><span class="co"># Εγκατάσταση πακέτων</span></span>
-<span id="cb1-5"><a></a></span>
-<span id="cb1-6"><a></a>renv<span class="sc">::</span><span class="fu">install</span>()</span>
-<span id="cb1-7"><a></a></span>
-<span id="cb1-8"><a></a><span class="co"># Αποθήκευση κατάστασης βιβλιοθηκών</span></span>
-<span id="cb1-9"><a></a>renv<span class="sc">::</span><span class="fu">snapshot</span>()</span>
-<span id="cb1-10"><a></a></span>
-<span id="cb1-11"><a></a><span class="co"># Ανάκτηση περιβάλλοντος (σε άλλο υπολογιστή)</span></span>
-<span id="cb1-12"><a></a>renv<span class="sc">::</span><span class="fu">restore</span>()</span></code></pre></div><button title="Αντιγραφή στο πρόχειρο" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Σήμερα θα τα συνδυάσουμε.</p>
+<aside class="notes">
+<p><strong>Ρυθμός Καθηγητή (0:00 - 0:15)</strong> Καλωσορίστε τους φοιτητές. Εξηγήστε ότι σήμερα θα γράψουν πολύ κώδικα. Ζητήστε τους να ανοίξουν ένα νέο R Script και να το ονομάσουν “workshop_storms.R”.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
-<section id="καθαρισμός-και-επεξεργασία-των-δεδομέων" class="slide level2">
-<h2>Καθαρισμός και επεξεργασία των δεδομέων</h2>
-<p>Θα χρησιμοποιήσουμε τη συλλογή βιβλιοθηκών <code>tidyverse</code> που μοιράζονται κοινή φιλοσοφία σχεδιασμού:</p>
-<ul>
-<li><code>dplyr</code>: Γραμματική επεξεργασίας δεδομένων.</li>
-<li><code>tidyr</code>: Αναδιάταξη για “καθαρά” (tidy) δεδομένα.</li>
-<li><code>stringr</code>: Διαχείριση κειμένου.</li>
-</ul>
-<div class="callout callout-note callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<p><strong>Σημείωση</strong></p>
-</div>
-<div class="callout-content">
-<p>Θα χρησιμοποιούμε εκτενώς τον pipe operator |&gt; (και όχι τον %&gt;%) για να γράφουμε ευανάγνωστο κώδικα.</p>
-</div>
-</div>
+<section id="προετοιμασία-φόρτωση-βιβλιοθηκών" class="slide level2">
+<h2>Προετοιμασία: Φόρτωση βιβλιοθηκών</h2>
+<p>Ξεκινήστε φορτώνοντας τις απαραίτητες βιβλιοθήκες.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb1-2"><a></a><span class="fu">library</span>(ggplot2)</span></code></pre></div><button title="Αντιγραφή στο πρόχειρο" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
-<section id="δημιουργία-γραφημάτων" class="slide level2">
-<h2>Δημιουργία γραφημάτων</h2>
-<p><code>ggplot2</code>: The Grammar of Graphics</p>
-<p>Βασικά Συστατικά:</p>
-<ul>
-<li><code>Data</code>: Τα δεδομένα μας.</li>
-<li><code>Aesthetics</code> (aes): Τι βλέπουμε (x, y, color).</li>
-<li><code>Geoms</code>: Το είδος (points, bars).</li>
-</ul>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a></a></span>
-<span id="cb2-2"><a></a>data <span class="sc">|&gt;</span> </span>
-<span id="cb2-3"><a></a>  ggplot2<span class="sc">::</span><span class="fu">ggplot</span>(ggplot2<span class="sc">::</span><span class="fu">aes</span>(<span class="at">x =</span> displ, <span class="at">y =</span> hwy)) <span class="sc">+</span></span>
-<span id="cb2-4"><a></a>  ggplot2<span class="sc">::</span><span class="fu">geom_point</span>(ggplot2<span class="sc">::</span><span class="fu">aes</span>(<span class="at">color =</span> class)) <span class="sc">+</span></span>
-<span id="cb2-5"><a></a>  ggplot2<span class="sc">::</span><span class="fu">geom_smooth</span>() <span class="sc">+</span></span>
-<span id="cb2-6"><a></a>  ggplot2<span class="sc">::</span><span class="fu">theme_minimal</span>()</span></code></pre></div><button title="Αντιγραφή στο πρόχειρο" class="code-copy-button"><i class="bi"></i></button></div>
+<section id="το-dataset-storms" class="slide level2">
+<h2>Το Dataset: storms</h2>
+<p>Το dataset <code>storms</code> περιέχει ιστορικά στοιχεία για τυφώνες και τροπικές καταιγίδες στον Ατλαντικό Ωκεανό.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a></a><span class="co"># Επισκόπηση των δεδομένων μας</span></span>
+<span id="cb2-2"><a></a><span class="fu">glimpse</span>(storms)</span></code></pre></div><button title="Αντιγραφή στο πρόχειρο" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
 </section>
-<section id="συναρτησιακός-προγραμματισμός" class="slide level2">
-<h2>Συναρτησιακός προγραμματισμός</h2>
+<section id="άσκηση" class="slide level2">
+<h2>Άσκηση</h2>
+<p>Γράψτε κώδικα για να απαντήσετε στα παρακάτω ερωτήματα χρησιμοποιώντας το <code>dplyr</code>:</p>
+<ol type="1">
+<li>Πόσες καταγραφές (γραμμές) υπάρχουν για τον καταστροφικό τυφώνα με το όνομα (<code>name</code>) <strong>“Katrina”</strong>;</li>
+<li>Ποια είναι η μέγιστη ταχύτητα ανέμου (<code>wind</code>) σε όλο το dataset; Ταξινομήστε τα δεδομένα με βάση τη στήλη <code>wind</code> (σε φθίνουσα σειρά) για να δείτε τα πιο ακραία φαινόμενα.</li>
+</ol>
+<aside class="notes">
+<p><strong>Ρυθμός Καθηγητή (0:15 - 0:25)</strong> Περπατήστε στο εργαστήριο. Αυτή είναι μια άσκηση “ζεστάματος”.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+
+<section id="άσκηση-1" class="slide level2">
+<h2>Άσκηση</h2>
+<p>Δημιουργήστε ένα νέο dataset με όνομα <code>modern_storms</code> που να ικανοποιεί τα εξής:</p>
+<ol type="1">
+<li>Κρατήστε <strong>μόνο</strong> τις καταιγίδες από το έτος (<code>year</code>) 2000 και μετά.</li>
+<li>Αφαιρέστε όλες τις γραμμές που έχουν ελλιπείς τιμές (<code>NA</code>) στη μεταβλητή <code>ts_diameter</code> (διάμετρος καταιγίδας).</li>
+<li>Δημιουργήστε μια νέα μεταβλητή <code>wind_kmh</code> (Ταχύτητα σε km/h).<br>
+<em>Ο τύπος μετατροπής από κόμβους (knots) σε χλμ/ώρα είναι: <code>wind * 1.852</code></em></li>
+<li>Επιλέξτε μόνο τις στήλες: <code>name</code>, <code>year</code>, <code>status</code>, <code>category</code>, <code>wind_kmh</code>, <code>pressure</code>.</li>
+</ol>
+</section>
+
+<section id="άσκηση-2" class="slide level2">
+<h2>Άσκηση</h2>
+<p>Χρησιμοποιώντας το νέο σας dataset <strong><code>modern_storms</code></strong>:</p>
+<ol type="1">
+<li>Ομαδοποιήστε τα δεδομένα βάσει του σταδίου της καταιγίδας (<code>status</code>).</li>
+<li>Υπολογίστε:
 <ul>
-<li>Το πακέτο <code>purrr</code> για συναρτησιακό προγραμματισμό</li>
-<li>Η R είναι μια συναρτησιακή γλώσσα. Στόχος μας είναι να αποφύγουμε τα περίπλοκα:</li>
-</ul>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a></a>final_data <span class="ot">&lt;-</span> <span class="fu">data.frame</span>()</span>
-<span id="cb3-2"><a></a></span>
-<span id="cb3-3"><a></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="fu">seq_along</span>(files)) {</span>
-<span id="cb3-4"><a></a>  temp <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(files[i])</span>
-<span id="cb3-5"><a></a>  final_data <span class="ot">&lt;-</span> <span class="fu">rbind</span>(final_data, temp) </span>
-<span id="cb3-6"><a></a>}</span></code></pre></div><button title="Αντιγραφή στο πρόχειρο" class="code-copy-button"><i class="bi"></i></button></div>
+<li>Το πλήθος καταγραφών ανά κατηγορία (στήλη <code>count</code>).</li>
+<li>Τη μέση ταχύτητα ανέμου (στήλη <code>avg_wind</code>).</li>
+<li>Τη μέση ατμοσφαιρική πίεση (στήλη <code>avg_pressure</code>).</li>
+</ul></li>
+<li>Ταξινομήστε τα αποτελέσματα ξεκινώντας από την υψηλότερη μέση ταχύτητα ανέμου προς τη χαμηλότερη.</li>
+</ol>
+</section>
+
+<section id="άσκηση-3" class="slide level2">
+<h2>Άσκηση</h2>
+<p>Χρησιμοποιώντας το <code>modern_storms</code>:</p>
+<ol type="1">
+<li>Δημιουργήστε ένα ιστόγραμμα (<code>geom_histogram</code>) που να απεικονίζει την κατανομή της ταχύτητας ανέμου (<code>wind_kmh</code>).</li>
+<li>Δημιουργείστε μπάρες ανά 20 km/h.</li>
+<li>Γεμίστε τις μπάρες με χρώμα της επιλογής σας και βάλτε μαύρο περίγραμμα.</li>
+<li>Προσθέστε περιγραφικούς τίτλους (Τίτλος, Άξονας X, Άξονας Y).</li>
+</ol>
+</section>
+
+<section id="συνδυασμός-του-με-ggplot2" class="slide level2">
+<h2>Συνδυασμός του |&gt; με ggplot2</h2>
+<p>Μέχρι τώρα σώζαμε τα ενδιάμεσα δεδομένα σε μεταβλητές (πχ. <code>modern_storms</code>).</p>
 <p><br>
 </p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a></a>final_data <span class="ot">&lt;-</span> files <span class="sc">|&gt;</span> </span>
-<span id="cb4-2"><a></a>  purrr<span class="sc">::</span><span class="fu">map</span>(readr<span class="sc">::</span>read_csv) <span class="sc">|&gt;</span> </span>
-<span id="cb4-3"><a></a>  purrr<span class="sc">::</span><span class="fu">list_rbind</span>()</span></code></pre></div><button title="Αντιγραφή στο πρόχειρο" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Η λογική του Map: Αντί να γράφουμε λούπες, “χαρτογραφούμε” μια συνάρτηση πάνω σε μια λίστα δεδομένων.</p>
+<p>Μπορούμε όμως να “στείλουμε” (pipe) τα δεδομένα <strong>απευθείας</strong> από το <code>dplyr</code> στο <code>ggplot()</code>.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a></a>storms <span class="sc">|&gt;</span> </span>
+<span id="cb7-2"><a></a>  <span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">2020</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb7-3"><a></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> pressure, <span class="at">y =</span> wind)) <span class="sc">+</span>    <span class="co"># ΠΡΟΣΟΧΗ: Εδώ αλλάζουμε σε συν (+)</span></span>
+<span id="cb7-4"><a></a>  <span class="fu">geom_point</span>()</span></code></pre></div><button title="Αντιγραφή στο πρόχειρο" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
-<section id="δημιουργία-αναφορών" class="slide level2">
-<h2>Δημιουργία αναφορών</h2>
+<section id="άσκηση-4" class="slide level2">
+<h2>Άσκηση</h2>
+<p>Ξεκινώντας απευθείας από το <strong>αρχικό <code>storms</code></strong> και χρησιμοποιώντας το pipe (<code>|&gt;</code>):</p>
+<ol type="1">
+<li>Φιλτράρετε τα δεδομένα ώστε να κρατήσετε <strong>μόνο</strong> τα έτη από το 2010 και μετά.</li>
+<li>Περάστε τα στο <code>ggplot</code> και φτιάξτε ένα διάγραμμα διασποράς (scatterplot) με:
 <ul>
-<li>Το <code>Quarto</code> είναι η εξέλιξη του <code>Rmarkdown</code>:</li>
-<li>Ενοποιεί κείμενο, κώδικα και αποτελέσματα.</li>
-<li>Παράγει: HTML, PDF, Word, e-books και παρουσιάσεις.</li>
-<li>Ο κώδικας και η ανάλυση πρέπει να ζουν μαζί σε ένα ζωντανό έγγραφο.</li>
-</ul>
-
-
+<li>Άξονας X: <code>pressure</code> (Ατμοσφαιρική Πίεση)</li>
+<li>Άξονας Y: <code>wind</code> (Ταχύτητα ανέμου)</li>
+<li>Χρώμα ανάλογα με το <code>status</code> (Στάδιο καταιγίδας)</li>
+</ul></li>
+<li>Προσθέστε περιγραφικούς τίτλους στους άξονες.</li>
+</ol>
+<p><em>Τι παρατηρείτε για τη σχέση μεταξύ πίεσης και ανέμου;</em></p>
 </section>
+
+<section id="άσκηση-5" class="slide level2">
+<h2>Άσκηση</h2>
+<p>Συγκρίνουμε τις τρεις κύριες κατηγορίες: <strong>“hurricane”</strong>, <strong>“tropical storm”</strong>, <strong>“tropical depression”</strong>.</p>
+<ol type="1">
+<li>Ξεκινώντας από το <code>storms</code>, κρατήστε μόνο τις παραπάνω κατηγορίες (<code>status</code>).</li>
+<li>Δημιουργήστε ένα θηκόγραμμα με Άξονα X το <code>status</code> και Άξονα Y το <code>pressure</code>.</li>
+<li>Βάλτε χρώμα ανάλογα με το <code>status</code>.</li>
+<li>(Προαιρετικό) Προσθέστε <code>theme_classic()</code> και απενεργοποιήστε το υπόμνημα βάζοντας <code>show.legend = FALSE</code> μέσα στο <code>geom_boxplot</code>.</li>
+</ol>
+</section>
+
+<section id="άσκηση-6" class="slide level2">
+<h2>Άσκηση</h2>
+<p>Γράψτε ένα <strong>ενιαίο block κώδικα</strong> που κάνει τα εξής (ξεκινώντας από το αρχικό <code>storms</code>):</p>
+<ol type="1">
+<li>Φιλτράρει το dataset κρατώντας <strong>μόνο</strong> τους τυφώνες για τη δεκαετία <strong>2010 έως 2020</strong>.</li>
+<li>Αφαιρεί όσους τυφώνες έχουν <code>NA</code> στην κατηγορία έντασης (<code>category</code>).</li>
+<li>Στέλνει τα δεδομένα απευθείας στο <code>ggplot</code>.</li>
+<li>Φτιάχνει ένα διάγραμμα διασποράς (X = <code>pressure</code>, Y = <code>wind</code>).</li>
+<li>Χρωματίζει τα σημεία με βάση την κατηγορία του τυφώνα.</li>
+<li>Κάνει διαχωρισμό <strong>(facet_wrap)</strong> του γραφήματος ανά έτος.</li>
+<li>Εφαρμόζει κατάλληλους τίτλους.</li>
+</ol>
+<aside class="notes">
+<p><strong>Ρυθμός Καθηγητή (2:20 - 2:50)</strong> Αυτή είναι η τελική δοκιμασία. Ενθαρρύνετε τους φοιτητές να το χτίσουν βήμα-βήμα. Να γράψουν τα φίλτρα του <code>dplyr</code>, να τα τρέξουν για να δουν αν δουλεύουν, και μετά να προσθέσουν το σύμβολο <code>|&gt;</code> για να περάσουν στη <code>ggplot</code>. Διευκρινίστε ότι η χρήση του <code>factor(category)</code> είναι απαραίτητη ώστε τα χρώματα να βγουν διακριτά και όχι σε μια συνεχόμενη παλέτα.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+
     </div>
   <div class="quarto-auto-generated-content" style="display: none;">
 <p><img src="logo.png" class="slide-logo"></p>
 <div class="footer footer-default">
-
+<p>Στατιστικά Προγράμματα II - Μάθημα 8</p>
 </div>
 </div></div>
 
@@ -526,6 +590,44 @@
         ]
       });
     </script>
+    
+    <script>
+      // htmlwidgets need to know to resize themselves when slides are shown/hidden.
+      // Fire the "slideenter" event (handled by htmlwidgets.js) when the current
+      // slide changes (different for each slide format).
+      (function () {
+        // dispatch for htmlwidgets
+        function fireSlideEnter() {
+          const event = window.document.createEvent("Event");
+          event.initEvent("slideenter", true, true);
+          window.document.dispatchEvent(event);
+        }
+
+        function fireSlideChanged(previousSlide, currentSlide) {
+          fireSlideEnter();
+
+          // dispatch for shiny
+          if (window.jQuery) {
+            if (previousSlide) {
+              window.jQuery(previousSlide).trigger("hidden");
+            }
+            if (currentSlide) {
+              window.jQuery(currentSlide).trigger("shown");
+            }
+          }
+        }
+
+        // hookup for slidy
+        if (window.w3c_slidy) {
+          window.w3c_slidy.add_observer(function (slide_num) {
+            // slide_num starts at position 1
+            fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);
+          });
+        }
+
+      })();
+    </script>
+
     <script id="quarto-html-after-body" type="application/javascript">
       window.document.addEventListener("DOMContentLoaded", function (event) {
         const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
