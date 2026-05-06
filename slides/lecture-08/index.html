@@ -270,7 +270,19 @@
           display:block!important;
       }</style></aside>
 </section>
-
+<section id="λύση" class="slide level2">
+<h2>Λύση</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a></a><span class="co"># 1. Καταγραφές για την καταιγίδα "Katrina"</span></span>
+<span id="cb3-2"><a></a>storms <span class="sc">|&gt;</span> </span>
+<span id="cb3-3"><a></a>  <span class="fu">filter</span>(name <span class="sc">==</span> <span class="st">"Katrina"</span>)</span>
+<span id="cb3-4"><a></a></span>
+<span id="cb3-5"><a></a><span class="co"># 2. Τα πιο ακραία φαινόμενα με βάση τον άνεμο</span></span>
+<span id="cb3-6"><a></a>storms <span class="sc">|&gt;</span> </span>
+<span id="cb3-7"><a></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(wind)) <span class="sc">|&gt;</span> </span>
+<span id="cb3-8"><a></a>  <span class="fu">select</span>(name, year, wind, pressure, category)</span></code></pre></div><button title="Αντιγραφή στο πρόχειρο" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
 <section id="άσκηση-1" class="slide level2">
 <h2>Άσκηση</h2>
 <p>Δημιουργήστε ένα νέο dataset με όνομα <code>modern_storms</code> που να ικανοποιεί τα εξής:</p>
@@ -282,7 +294,32 @@
 <li>Επιλέξτε μόνο τις στήλες: <code>name</code>, <code>year</code>, <code>status</code>, <code>category</code>, <code>wind_kmh</code>, <code>pressure</code>.</li>
 </ol>
 </section>
-
+<section id="λύση-1" class="slide level2">
+<h2>Λύση</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a></a>modern_storms <span class="ot">&lt;-</span> storms <span class="sc">|&gt;</span> </span>
+<span id="cb4-2"><a></a>  <span class="fu">filter</span>(year <span class="sc">&gt;=</span> <span class="dv">2000</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb4-3"><a></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(ts_diameter)) <span class="sc">|&gt;</span> </span>
+<span id="cb4-4"><a></a>  <span class="fu">mutate</span>(<span class="at">wind_kmh =</span> wind <span class="sc">*</span> <span class="fl">1.852</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb4-5"><a></a>  <span class="fu">select</span>(name, year, status, category, wind_kmh, pressure)</span>
+<span id="cb4-6"><a></a></span>
+<span id="cb4-7"><a></a><span class="co"># Επαλήθευση</span></span>
+<span id="cb4-8"><a></a><span class="fu">glimpse</span>(modern_storms)</span></code></pre></div><button title="Αντιγραφή στο πρόχειρο" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<aside class="notes">
+<p><strong>Ρυθμός Καθηγητή (0:25 - 0:50)</strong> Ελέγξτε ότι οι φοιτητές κατανοούν πώς η <code>mutate</code> δημιουργεί τη νέα στήλη <code>wind_kmh</code> και ότι με την <code>select</code> απορρίπτουμε πλέον την παλιά στήλη <code>wind</code>.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
 <section id="άσκηση-2" class="slide level2">
 <h2>Άσκηση</h2>
 <p>Χρησιμοποιώντας το νέο σας dataset <strong><code>modern_storms</code></strong>:</p>
@@ -297,7 +334,33 @@
 <li>Ταξινομήστε τα αποτελέσματα ξεκινώντας από την υψηλότερη μέση ταχύτητα ανέμου προς τη χαμηλότερη.</li>
 </ol>
 </section>
-
+<section id="λύση-2" class="slide level2">
+<h2>Λύση</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a></a>modern_storms <span class="sc">|&gt;</span> </span>
+<span id="cb5-2"><a></a>  <span class="fu">group_by</span>(status) <span class="sc">|&gt;</span> </span>
+<span id="cb5-3"><a></a>  <span class="fu">summarise</span>(</span>
+<span id="cb5-4"><a></a>    <span class="at">count =</span> <span class="fu">n</span>(),</span>
+<span id="cb5-5"><a></a>    <span class="at">avg_wind =</span> <span class="fu">mean</span>(wind_kmh),</span>
+<span id="cb5-6"><a></a>    <span class="at">avg_pressure =</span> <span class="fu">mean</span>(pressure),</span>
+<span id="cb5-7"><a></a>    <span class="at">.groups =</span> <span class="st">"drop"</span></span>
+<span id="cb5-8"><a></a>  ) <span class="sc">|&gt;</span> </span>
+<span id="cb5-9"><a></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(avg_wind))</span></code></pre></div><button title="Αντιγραφή στο πρόχειρο" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<aside class="notes">
+<p><strong>Ρυθμός Καθηγητή (0:50 - 1:15)</strong> Συζητήστε το αποτέλεσμα με την τάξη: Πώς ορίζεται ένας τυφώνας (“hurricane”); Φαίνεται ξεκάθαρα από τον μέσο άνεμο ότι το <code>hurricane</code> είναι η πιο ακραία κατηγορία! <em>Προτείνεται μικρό διάλειμμα 15 λεπτών μετά από αυτή τη διαφάνεια.</em></p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
 <section id="άσκηση-3" class="slide level2">
 <h2>Άσκηση</h2>
 <p>Χρησιμοποιώντας το <code>modern_storms</code>:</p>
@@ -308,7 +371,19 @@
 <li>Προσθέστε περιγραφικούς τίτλους (Τίτλος, Άξονας X, Άξονας Y).</li>
 </ol>
 </section>
-
+<section id="λύση-3" class="slide level2">
+<h2>Λύση</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a></a><span class="fu">ggplot</span>(<span class="at">data =</span> modern_storms, <span class="fu">aes</span>(<span class="at">x =</span> wind_kmh)) <span class="sc">+</span></span>
+<span id="cb6-2"><a></a>  <span class="fu">geom_histogram</span>(<span class="at">binwidth =</span> <span class="dv">20</span>, <span class="at">fill =</span> <span class="st">"darkred"</span>, <span class="at">color =</span> <span class="st">"black"</span>) <span class="sc">+</span></span>
+<span id="cb6-3"><a></a>  <span class="fu">labs</span>(</span>
+<span id="cb6-4"><a></a>    <span class="at">title =</span> <span class="st">"Κατανομή Ταχύτητας Ανέμου στις Σύγχρονες Καταιγίδες"</span>,</span>
+<span id="cb6-5"><a></a>    <span class="at">x =</span> <span class="st">"Ταχύτητα Ανέμου (km/h)"</span>,</span>
+<span id="cb6-6"><a></a>    <span class="at">y =</span> <span class="st">"Συχνότητα (Πλήθος Καταγραφών)"</span></span>
+<span id="cb6-7"><a></a>  ) <span class="sc">+</span></span>
+<span id="cb6-8"><a></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div><button title="Αντιγραφή στο πρόχειρο" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
 <section id="συνδυασμός-του-με-ggplot2" class="slide level2">
 <h2>Συνδυασμός του |&gt; με ggplot2</h2>
 <p>Μέχρι τώρα σώζαμε τα ενδιάμεσα δεδομένα σε μεταβλητές (πχ. <code>modern_storms</code>).</p>
@@ -335,7 +410,23 @@
 </ol>
 <p><em>Τι παρατηρείτε για τη σχέση μεταξύ πίεσης και ανέμου;</em></p>
 </section>
-
+<section id="λύση-4" class="slide level2">
+<h2>Λύση</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a></a>storms <span class="sc">|&gt;</span> </span>
+<span id="cb8-2"><a></a>  <span class="fu">filter</span>(year <span class="sc">&gt;=</span> <span class="dv">2010</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb8-3"><a></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> pressure, <span class="at">y =</span> wind, <span class="at">color =</span> status)) <span class="sc">+</span></span>
+<span id="cb8-4"><a></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb8-5"><a></a>  <span class="fu">labs</span>(</span>
+<span id="cb8-6"><a></a>    <span class="at">title =</span> <span class="st">"Η Φυσική των Τυφώνων"</span>,</span>
+<span id="cb8-7"><a></a>    <span class="at">subtitle =</span> <span class="st">"Όσο πέφτει η ατμοσφαιρική πίεση, η ταχύτητα του ανέμου αυξάνεται"</span>,</span>
+<span id="cb8-8"><a></a>    <span class="at">x =</span> <span class="st">"Ατμοσφαιρική Πίεση (millibars)"</span>,</span>
+<span id="cb8-9"><a></a>    <span class="at">y =</span> <span class="st">"Ταχύτητα Ανέμου (knots)"</span>,</span>
+<span id="cb8-10"><a></a>    <span class="at">color =</span> <span class="st">"Κατάσταση"</span></span>
+<span id="cb8-11"><a></a>  ) <span class="sc">+</span></span>
+<span id="cb8-12"><a></a>  <span class="fu">theme_bw</span>()</span></code></pre></div><button title="Αντιγραφή στο πρόχειρο" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
 <section id="άσκηση-5" class="slide level2">
 <h2>Άσκηση</h2>
 <p>Συγκρίνουμε τις τρεις κύριες κατηγορίες: <strong>“hurricane”</strong>, <strong>“tropical storm”</strong>, <strong>“tropical depression”</strong>.</p>
@@ -346,7 +437,21 @@
 <li>(Προαιρετικό) Προσθέστε <code>theme_classic()</code> και απενεργοποιήστε το υπόμνημα βάζοντας <code>show.legend = FALSE</code> μέσα στο <code>geom_boxplot</code>.</li>
 </ol>
 </section>
-
+<section id="λύση-5" class="slide level2">
+<h2>Λύση</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a></a>storms <span class="sc">|&gt;</span> </span>
+<span id="cb9-2"><a></a>  <span class="fu">filter</span>(status <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"hurricane"</span>, <span class="st">"tropical storm"</span>, <span class="st">"tropical depression"</span>)) <span class="sc">|&gt;</span> </span>
+<span id="cb9-3"><a></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> status, <span class="at">y =</span> pressure, <span class="at">fill =</span> status)) <span class="sc">+</span></span>
+<span id="cb9-4"><a></a>  <span class="fu">geom_boxplot</span>(<span class="at">show.legend =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb9-5"><a></a>  <span class="fu">labs</span>(</span>
+<span id="cb9-6"><a></a>    <span class="at">title =</span> <span class="st">"Σύγκριση Ατμοσφαιρικής Πίεσης ανά Κατηγορία"</span>,</span>
+<span id="cb9-7"><a></a>    <span class="at">x =</span> <span class="st">"Κατάσταση Συστήματος"</span>,</span>
+<span id="cb9-8"><a></a>    <span class="at">y =</span> <span class="st">"Πίεση (mb)"</span></span>
+<span id="cb9-9"><a></a>  ) <span class="sc">+</span></span>
+<span id="cb9-10"><a></a>  <span class="fu">theme_classic</span>()</span></code></pre></div><button title="Αντιγραφή στο πρόχειρο" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
 <section id="άσκηση-6" class="slide level2">
 <h2>Άσκηση</h2>
 <p>Γράψτε ένα <strong>ενιαίο block κώδικα</strong> που κάνει τα εξής (ξεκινώντας από το αρχικό <code>storms</code>):</p>
@@ -373,7 +478,27 @@
           display:block!important;
       }</style></aside>
 </section>
+<section id="λύση-6" class="slide level2">
+<h2>Λύση</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a></a>storms <span class="sc">|&gt;</span> </span>
+<span id="cb10-2"><a></a>  <span class="fu">filter</span>(status <span class="sc">==</span> <span class="st">"hurricane"</span>, year <span class="sc">&gt;=</span> <span class="dv">2010</span>, year <span class="sc">&lt;=</span> <span class="dv">2020</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb10-3"><a></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(category)) <span class="sc">|&gt;</span> </span>
+<span id="cb10-4"><a></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> pressure, <span class="at">y =</span> wind, <span class="at">color =</span> <span class="fu">factor</span>(category))) <span class="sc">+</span></span>
+<span id="cb10-5"><a></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">2</span>, <span class="at">alpha =</span> <span class="fl">0.7</span>) <span class="sc">+</span></span>
+<span id="cb10-6"><a></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> year) <span class="sc">+</span></span>
+<span id="cb10-7"><a></a>  <span class="fu">labs</span>(</span>
+<span id="cb10-8"><a></a>    <span class="at">title =</span> <span class="st">"Ανάλυση Τυφώνων στον Ατλαντικό (2010-2020)"</span>,</span>
+<span id="cb10-9"><a></a>    <span class="at">subtitle =</span> <span class="st">"Σχέση πίεσης (X) και ανέμου (Y) ανά έτος"</span>,</span>
+<span id="cb10-10"><a></a>    <span class="at">x =</span> <span class="st">"Ατμοσφαιρική Πίεση (mb)"</span>,</span>
+<span id="cb10-11"><a></a>    <span class="at">y =</span> <span class="st">"Ταχύτητα Ανέμου (knots)"</span>,</span>
+<span id="cb10-12"><a></a>    <span class="at">color =</span> <span class="st">"Κατηγορία</span><span class="sc">\n</span><span class="st">Τυφώνα"</span></span>
+<span id="cb10-13"><a></a>  ) <span class="sc">+</span></span>
+<span id="cb10-14"><a></a>  <span class="fu">theme_bw</span>()</span></code></pre></div><button title="Αντιγραφή στο πρόχειρο" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
 
+
+</section>
     </div>
   <div class="quarto-auto-generated-content" style="display: none;">
 <p><img src="logo.png" class="slide-logo"></p>

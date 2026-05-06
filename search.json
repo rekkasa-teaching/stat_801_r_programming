@@ -245,11 +245,25 @@
     "text": "Άσκηση\nΓράψτε κώδικα για να απαντήσετε στα παρακάτω ερωτήματα χρησιμοποιώντας το dplyr:\n\nΠόσες καταγραφές (γραμμές) υπάρχουν για τον καταστροφικό τυφώνα με το όνομα (name) “Katrina”;\nΠοια είναι η μέγιστη ταχύτητα ανέμου (wind) σε όλο το dataset; Ταξινομήστε τα δεδομένα με βάση τη στήλη wind (σε φθίνουσα σειρά) για να δείτε τα πιο ακραία φαινόμενα.\n\n\nΡυθμός Καθηγητή (0:15 - 0:25) Περπατήστε στο εργαστήριο. Αυτή είναι μια άσκηση “ζεστάματος”."
   },
   {
+    "objectID": "slides/lecture-08/index.html#λύση",
+    "href": "slides/lecture-08/index.html#λύση",
+    "title": "Επεξεργασία δεδομένων και δημιουργία γραφημάτων",
+    "section": "Λύση",
+    "text": "Λύση\n\n# 1. Καταγραφές για την καταιγίδα \"Katrina\"\nstorms |&gt; \n  filter(name == \"Katrina\")\n\n# 2. Τα πιο ακραία φαινόμενα με βάση τον άνεμο\nstorms |&gt; \n  arrange(desc(wind)) |&gt; \n  select(name, year, wind, pressure, category)"
+  },
+  {
     "objectID": "slides/lecture-08/index.html#άσκηση-1",
     "href": "slides/lecture-08/index.html#άσκηση-1",
     "title": "Επεξεργασία δεδομένων και δημιουργία γραφημάτων",
     "section": "Άσκηση",
     "text": "Άσκηση\nΔημιουργήστε ένα νέο dataset με όνομα modern_storms που να ικανοποιεί τα εξής:\n\nΚρατήστε μόνο τις καταιγίδες από το έτος (year) 2000 και μετά.\nΑφαιρέστε όλες τις γραμμές που έχουν ελλιπείς τιμές (NA) στη μεταβλητή ts_diameter (διάμετρος καταιγίδας).\nΔημιουργήστε μια νέα μεταβλητή wind_kmh (Ταχύτητα σε km/h).\nΟ τύπος μετατροπής από κόμβους (knots) σε χλμ/ώρα είναι: wind * 1.852\nΕπιλέξτε μόνο τις στήλες: name, year, status, category, wind_kmh, pressure."
+  },
+  {
+    "objectID": "slides/lecture-08/index.html#λύση-1",
+    "href": "slides/lecture-08/index.html#λύση-1",
+    "title": "Επεξεργασία δεδομένων και δημιουργία γραφημάτων",
+    "section": "Λύση",
+    "text": "Λύση\n\nmodern_storms &lt;- storms |&gt; \n  filter(year &gt;= 2000) |&gt; \n  filter(!is.na(ts_diameter)) |&gt; \n  mutate(wind_kmh = wind * 1.852) |&gt; \n  select(name, year, status, category, wind_kmh, pressure)\n\n# Επαλήθευση\nglimpse(modern_storms)\n\n\nΡυθμός Καθηγητή (0:25 - 0:50) Ελέγξτε ότι οι φοιτητές κατανοούν πώς η mutate δημιουργεί τη νέα στήλη wind_kmh και ότι με την select απορρίπτουμε πλέον την παλιά στήλη wind."
   },
   {
     "objectID": "slides/lecture-08/index.html#άσκηση-2",
@@ -259,11 +273,25 @@
     "text": "Άσκηση\nΧρησιμοποιώντας το νέο σας dataset modern_storms:\n\nΟμαδοποιήστε τα δεδομένα βάσει του σταδίου της καταιγίδας (status).\nΥπολογίστε:\n\nΤο πλήθος καταγραφών ανά κατηγορία (στήλη count).\nΤη μέση ταχύτητα ανέμου (στήλη avg_wind).\nΤη μέση ατμοσφαιρική πίεση (στήλη avg_pressure).\n\nΤαξινομήστε τα αποτελέσματα ξεκινώντας από την υψηλότερη μέση ταχύτητα ανέμου προς τη χαμηλότερη."
   },
   {
+    "objectID": "slides/lecture-08/index.html#λύση-2",
+    "href": "slides/lecture-08/index.html#λύση-2",
+    "title": "Επεξεργασία δεδομένων και δημιουργία γραφημάτων",
+    "section": "Λύση",
+    "text": "Λύση\n\nmodern_storms |&gt; \n  group_by(status) |&gt; \n  summarise(\n    count = n(),\n    avg_wind = mean(wind_kmh),\n    avg_pressure = mean(pressure),\n    .groups = \"drop\"\n  ) |&gt; \n  arrange(desc(avg_wind))\n\n\nΡυθμός Καθηγητή (0:50 - 1:15) Συζητήστε το αποτέλεσμα με την τάξη: Πώς ορίζεται ένας τυφώνας (“hurricane”); Φαίνεται ξεκάθαρα από τον μέσο άνεμο ότι το hurricane είναι η πιο ακραία κατηγορία! Προτείνεται μικρό διάλειμμα 15 λεπτών μετά από αυτή τη διαφάνεια."
+  },
+  {
     "objectID": "slides/lecture-08/index.html#άσκηση-3",
     "href": "slides/lecture-08/index.html#άσκηση-3",
     "title": "Επεξεργασία δεδομένων και δημιουργία γραφημάτων",
     "section": "Άσκηση",
     "text": "Άσκηση\nΧρησιμοποιώντας το modern_storms:\n\nΔημιουργήστε ένα ιστόγραμμα (geom_histogram) που να απεικονίζει την κατανομή της ταχύτητας ανέμου (wind_kmh).\nΔημιουργείστε μπάρες ανά 20 km/h.\nΓεμίστε τις μπάρες με χρώμα της επιλογής σας και βάλτε μαύρο περίγραμμα.\nΠροσθέστε περιγραφικούς τίτλους (Τίτλος, Άξονας X, Άξονας Y)."
+  },
+  {
+    "objectID": "slides/lecture-08/index.html#λύση-3",
+    "href": "slides/lecture-08/index.html#λύση-3",
+    "title": "Επεξεργασία δεδομένων και δημιουργία γραφημάτων",
+    "section": "Λύση",
+    "text": "Λύση\n\nggplot(data = modern_storms, aes(x = wind_kmh)) +\n  geom_histogram(binwidth = 20, fill = \"darkred\", color = \"black\") +\n  labs(\n    title = \"Κατανομή Ταχύτητας Ανέμου στις Σύγχρονες Καταιγίδες\",\n    x = \"Ταχύτητα Ανέμου (km/h)\",\n    y = \"Συχνότητα (Πλήθος Καταγραφών)\"\n  ) +\n  theme_minimal()"
   },
   {
     "objectID": "slides/lecture-08/index.html#συνδυασμός-του-με-ggplot2",
@@ -280,6 +308,13 @@
     "text": "Άσκηση\nΞεκινώντας απευθείας από το αρχικό storms και χρησιμοποιώντας το pipe (|&gt;):\n\nΦιλτράρετε τα δεδομένα ώστε να κρατήσετε μόνο τα έτη από το 2010 και μετά.\nΠεράστε τα στο ggplot και φτιάξτε ένα διάγραμμα διασποράς (scatterplot) με:\n\nΆξονας X: pressure (Ατμοσφαιρική Πίεση)\nΆξονας Y: wind (Ταχύτητα ανέμου)\nΧρώμα ανάλογα με το status (Στάδιο καταιγίδας)\n\nΠροσθέστε περιγραφικούς τίτλους στους άξονες.\n\nΤι παρατηρείτε για τη σχέση μεταξύ πίεσης και ανέμου;"
   },
   {
+    "objectID": "slides/lecture-08/index.html#λύση-4",
+    "href": "slides/lecture-08/index.html#λύση-4",
+    "title": "Επεξεργασία δεδομένων και δημιουργία γραφημάτων",
+    "section": "Λύση",
+    "text": "Λύση\n\nstorms |&gt; \n  filter(year &gt;= 2010) |&gt; \n  ggplot(aes(x = pressure, y = wind, color = status)) +\n  geom_point(alpha = 0.5) +\n  labs(\n    title = \"Η Φυσική των Τυφώνων\",\n    subtitle = \"Όσο πέφτει η ατμοσφαιρική πίεση, η ταχύτητα του ανέμου αυξάνεται\",\n    x = \"Ατμοσφαιρική Πίεση (millibars)\",\n    y = \"Ταχύτητα Ανέμου (knots)\",\n    color = \"Κατάσταση\"\n  ) +\n  theme_bw()"
+  },
+  {
     "objectID": "slides/lecture-08/index.html#άσκηση-5",
     "href": "slides/lecture-08/index.html#άσκηση-5",
     "title": "Επεξεργασία δεδομένων και δημιουργία γραφημάτων",
@@ -287,11 +322,25 @@
     "text": "Άσκηση\nΣυγκρίνουμε τις τρεις κύριες κατηγορίες: “hurricane”, “tropical storm”, “tropical depression”.\n\nΞεκινώντας από το storms, κρατήστε μόνο τις παραπάνω κατηγορίες (status).\nΔημιουργήστε ένα θηκόγραμμα με Άξονα X το status και Άξονα Y το pressure.\nΒάλτε χρώμα ανάλογα με το status.\n(Προαιρετικό) Προσθέστε theme_classic() και απενεργοποιήστε το υπόμνημα βάζοντας show.legend = FALSE μέσα στο geom_boxplot."
   },
   {
+    "objectID": "slides/lecture-08/index.html#λύση-5",
+    "href": "slides/lecture-08/index.html#λύση-5",
+    "title": "Επεξεργασία δεδομένων και δημιουργία γραφημάτων",
+    "section": "Λύση",
+    "text": "Λύση\n\nstorms |&gt; \n  filter(status %in% c(\"hurricane\", \"tropical storm\", \"tropical depression\")) |&gt; \n  ggplot(aes(x = status, y = pressure, fill = status)) +\n  geom_boxplot(show.legend = FALSE) +\n  labs(\n    title = \"Σύγκριση Ατμοσφαιρικής Πίεσης ανά Κατηγορία\",\n    x = \"Κατάσταση Συστήματος\",\n    y = \"Πίεση (mb)\"\n  ) +\n  theme_classic()"
+  },
+  {
     "objectID": "slides/lecture-08/index.html#άσκηση-6",
     "href": "slides/lecture-08/index.html#άσκηση-6",
     "title": "Επεξεργασία δεδομένων και δημιουργία γραφημάτων",
     "section": "Άσκηση",
     "text": "Άσκηση\nΓράψτε ένα ενιαίο block κώδικα που κάνει τα εξής (ξεκινώντας από το αρχικό storms):\n\nΦιλτράρει το dataset κρατώντας μόνο τους τυφώνες για τη δεκαετία 2010 έως 2020.\nΑφαιρεί όσους τυφώνες έχουν NA στην κατηγορία έντασης (category).\nΣτέλνει τα δεδομένα απευθείας στο ggplot.\nΦτιάχνει ένα διάγραμμα διασποράς (X = pressure, Y = wind).\nΧρωματίζει τα σημεία με βάση την κατηγορία του τυφώνα.\nΚάνει διαχωρισμό (facet_wrap) του γραφήματος ανά έτος.\nΕφαρμόζει κατάλληλους τίτλους.\n\n\nΡυθμός Καθηγητή (2:20 - 2:50) Αυτή είναι η τελική δοκιμασία. Ενθαρρύνετε τους φοιτητές να το χτίσουν βήμα-βήμα. Να γράψουν τα φίλτρα του dplyr, να τα τρέξουν για να δουν αν δουλεύουν, και μετά να προσθέσουν το σύμβολο |&gt; για να περάσουν στη ggplot. Διευκρινίστε ότι η χρήση του factor(category) είναι απαραίτητη ώστε τα χρώματα να βγουν διακριτά και όχι σε μια συνεχόμενη παλέτα."
+  },
+  {
+    "objectID": "slides/lecture-08/index.html#λύση-6",
+    "href": "slides/lecture-08/index.html#λύση-6",
+    "title": "Επεξεργασία δεδομένων και δημιουργία γραφημάτων",
+    "section": "Λύση",
+    "text": "Λύση\n\nstorms |&gt; \n  filter(status == \"hurricane\", year &gt;= 2010, year &lt;= 2020) |&gt; \n  filter(!is.na(category)) |&gt; \n  ggplot(aes(x = pressure, y = wind, color = factor(category))) +\n  geom_point(size = 2, alpha = 0.7) +\n  facet_wrap(~ year) +\n  labs(\n    title = \"Ανάλυση Τυφώνων στον Ατλαντικό (2010-2020)\",\n    subtitle = \"Σχέση πίεσης (X) και ανέμου (Y) ανά έτος\",\n    x = \"Ατμοσφαιρική Πίεση (mb)\",\n    y = \"Ταχύτητα Ανέμου (knots)\",\n    color = \"Κατηγορία\\nΤυφώνα\"\n  ) +\n  theme_bw()"
   },
   {
     "objectID": "slides/lecture-01/index.html#στόχοι-του-μαθήματος",
@@ -445,7 +494,7 @@
     "href": "slides/lecture-02/index.html#επιλογή-υποσυνόλου",
     "title": "Στατιστικά Προγράμματα II",
     "section": "Επιλογή υποσυνόλου",
-    "text": "Επιλογή υποσυνόλου\n\n# Επιλογή 10 τυχαίων τιμών από την N(0, 1)\nvalues &lt;- rnorm(10)\nvalues\n\n [1] -0.5832185  0.9201624 -0.3682540 -1.6300843  1.3275667 -1.6004164\n [7] -1.2415715  1.3176611  1.1964795 -0.9900840\n\n\nΜπορούμε να διαλέξουμε τις πρώτες 3 τιμές της μεταβλητής values:\n\nvalues[1:3]\n\n[1] -0.5832185  0.9201624 -0.3682540\n\n\nΜπορούμε να διαλέξουμε την 3η τιμές και την 5η τιμή της μεταβλητής values:\n\nvalues[c(3, 5)]\n\n[1] -0.368254  1.327567"
+    "text": "Επιλογή υποσυνόλου\n\n# Επιλογή 10 τυχαίων τιμών από την N(0, 1)\nvalues &lt;- rnorm(10)\nvalues\n\n [1]  0.52011761  2.20492385  0.24903087 -1.78222004  0.35752258  1.51138800\n [7] -0.63298801 -0.07408179  0.04188161  0.32571856\n\n\nΜπορούμε να διαλέξουμε τις πρώτες 3 τιμές της μεταβλητής values:\n\nvalues[1:3]\n\n[1] 0.5201176 2.2049239 0.2490309\n\n\nΜπορούμε να διαλέξουμε την 3η τιμές και την 5η τιμή της μεταβλητής values:\n\nvalues[c(3, 5)]\n\n[1] 0.2490309 0.3575226"
   },
   {
     "objectID": "slides/lecture-02/index.html#επιλογή-υποσυνόλου-1",
