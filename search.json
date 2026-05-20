@@ -424,7 +424,7 @@
     "href": "slides/lecture-02/index.html#επιλογή-υποσυνόλου",
     "title": "Στατιστικά Προγράμματα II",
     "section": "Επιλογή υποσυνόλου",
-    "text": "Επιλογή υποσυνόλου\n\n# Επιλογή 10 τυχαίων τιμών από την N(0, 1)\nvalues &lt;- rnorm(10)\nvalues\n\n [1] -0.76682816 -0.88098955 -0.46933050  0.07585865  1.21567810 -0.19600962\n [7] -0.32113626  0.68701647  1.20690456 -0.19179336\n\n\nΜπορούμε να διαλέξουμε τις πρώτες 3 τιμές της μεταβλητής values:\n\nvalues[1:3]\n\n[1] -0.7668282 -0.8809895 -0.4693305\n\n\nΜπορούμε να διαλέξουμε την 3η τιμές και την 5η τιμή της μεταβλητής values:\n\nvalues[c(3, 5)]\n\n[1] -0.4693305  1.2156781"
+    "text": "Επιλογή υποσυνόλου\n\n# Επιλογή 10 τυχαίων τιμών από την N(0, 1)\nvalues &lt;- rnorm(10)\nvalues\n\n [1]  0.66469223  0.71886015 -0.86609062 -0.03480831 -0.39181463  0.49442246\n [7] -0.76221785 -1.42153644  0.47091332 -0.24348139\n\n\nΜπορούμε να διαλέξουμε τις πρώτες 3 τιμές της μεταβλητής values:\n\nvalues[1:3]\n\n[1]  0.6646922  0.7188601 -0.8660906\n\n\nΜπορούμε να διαλέξουμε την 3η τιμές και την 5η τιμή της μεταβλητής values:\n\nvalues[c(3, 5)]\n\n[1] -0.8660906 -0.3918146"
   },
   {
     "objectID": "slides/lecture-02/index.html#επιλογή-υποσυνόλου-1",
@@ -784,6 +784,13 @@
     "text": "Άσκηση\n\nΕμφανίστε το γράφημα p2 (το boxplot) στο RStudio.\nΠροσθέστε σε αυτό το theme_minimal().\nΤι παρατηρείτε στο φόντο;\nΤώρα δοκιμάστε να εφαρμόσετε το theme_classic(). Πώς αλλάζει η απεικόνιση του πλέγματος (grid lines);"
   },
   {
+    "objectID": "slides/lecture-09/index.html#λύση",
+    "href": "slides/lecture-09/index.html#λύση",
+    "title": "Επεξεργασία δεδομένων και δημιουργία γραφημάτων",
+    "section": "Λύση",
+    "text": "Λύση\n\n# Με minimal έχουμε ένα καθαρό λευκό φόντο με αχνές γραμμές πλέγματος\np2 + theme_minimal()\n\n# Με classic οι γραμμές πλέγματος (grid lines) εξαφανίζονται εντελώς\n# και μένουν μόνο οι γραμμές των αξόνων X και Y.\np2 + theme_classic()"
+  },
+  {
     "objectID": "slides/lecture-09/index.html#πώς-λειτουργεί-η-συνάρτηση-theme",
     "href": "slides/lecture-09/index.html#πώς-λειτουργεί-η-συνάρτηση-theme",
     "title": "Επεξεργασία δεδομένων και δημιουργία γραφημάτων",
@@ -812,6 +819,13 @@
     "text": "Άσκηση 2: Μορφοποίηση Κειμένου\nΧρησιμοποιώντας το γράφημα p2:\n\nΒάλτε κεντρική στοίχιση στον τίτλο του γραφήματος (hjust = 0.5), κάντε τον έντονο (bold) και με μέγεθος 16.\nΚάντε τους τίτλους και των δύο αξόνων (axis.title) να έχουν μέγεθος 14.\n(Προαιρετικό) Βάλτε ένα ενσωματωμένο θέμα, π.χ. theme_minimal(), ΠΡΙΝ από τη δική σας συνάρτηση theme().\n\n\nΡυθμός Καθηγητή (1:05 - 1:20) Δώστε χρόνο για την άσκηση. Επισημάνετε το σημαντικό λάθος: Αν βάλουν το theme_minimal() ΜΕΤΑ το theme(), θα διαγράψει τις ρυθμίσεις τους! ΜΕΤΑ ΤΗΝ ΑΣΚΗΣΗ: ΚΑΝΤΕ 15 ΛΕΠΤΑ ΔΙΑΛΕΙΜΜΑ (1:20 - 1:35)"
   },
   {
+    "objectID": "slides/lecture-09/index.html#λύση-1",
+    "href": "slides/lecture-09/index.html#λύση-1",
+    "title": "Επεξεργασία δεδομένων και δημιουργία γραφημάτων",
+    "section": "Λύση",
+    "text": "Λύση\n\np2 + \n  theme_minimal() + # Πάντα πρώτα το έτοιμο θέμα!\n  theme(\n    plot.title = element_text(hjust = 0.5, face = \"bold\", size = 16),\n    axis.title = element_text(size = 14) # Το axis.title αλλάζει και το X και το Y\n  )"
+  },
+  {
     "objectID": "slides/lecture-09/index.html#η-θέση-του-υπομνήματος",
     "href": "slides/lecture-09/index.html#η-θέση-του-υπομνήματος",
     "title": "Επεξεργασία δεδομένων και δημιουργία γραφημάτων",
@@ -831,6 +845,13 @@
     "title": "Επεξεργασία δεδομένων και δημιουργία γραφημάτων",
     "section": "Άσκηση",
     "text": "Άσκηση\nΠάρτε το γράφημα p1.\n\nΜετακινήστε το υπόμνημα στο κάτω μέρος του γραφήματος (\"bottom\").\nΑφαιρέστε τον τίτλο του υπομνήματος (“Κατάσταση”) χρησιμοποιώντας legend.title = element_blank(). Η συνάρτηση element_blank() εξαφανίζει οποιοδήποτε στοιχείο της αναθέσουμε!\n\n\nΡυθμός Καθηγητή (1:50 - 2:05) Εδώ εισάγουμε ομαλά το element_blank(). Εξηγήστε ότι είναι ο καλύτερος φίλος τους όταν θέλουν να ξεφορτωθούν κάτι άσχημο από το γράφημα."
+  },
+  {
+    "objectID": "slides/lecture-09/index.html#λύση-2",
+    "href": "slides/lecture-09/index.html#λύση-2",
+    "title": "Επεξεργασία δεδομένων και δημιουργία γραφημάτων",
+    "section": "Λύση",
+    "text": "Λύση\n\np1 + \n  theme(\n    legend.position = \"bottom\",\n    legend.title = element_blank()\n  )"
   },
   {
     "objectID": "slides/lecture-09/index.html#αλλαγή-του-background",
@@ -861,11 +882,25 @@
     "text": "Άσκηση\nΞεκινήστε με το γράφημα p2.\nΠροσθέστε επίπεδα (+) ώστε να:\n\nΕφαρμόσετε το έτοιμο theme_classic().\nΜετακινήσετε το υπόμνημα στο επάνω μέρος (“top”).\nΠροσθέσετε μόνο οριζόντιες γραμμές πλέγματος (panel.grid.major.y) οι οποίες θα είναι διακεκομμένες (linetype = \"dashed\") και με χρώμα ανοιχτό γκρι (\"gray80\").\n\n\nΡυθμός Καθηγητή (2:20 - 2:35) Αυτή η άσκηση δείχνει πώς να δημιουργούν ένα επαγγελματικό γράφημα τύπου The Economist. ΜΕΤΑ ΤΗΝ ΑΣΚΗΣΗ: ΚΑΝΤΕ 10 ΛΕΠΤΑ ΔΙΑΛΕΙΜΜΑ (2:35 - 2:45)"
   },
   {
+    "objectID": "slides/lecture-09/index.html#λύση-3",
+    "href": "slides/lecture-09/index.html#λύση-3",
+    "title": "Επεξεργασία δεδομένων και δημιουργία γραφημάτων",
+    "section": "Λύση",
+    "text": "Λύση\n\np2 + \n  theme_classic() +\n  theme(\n    legend.position = \"top\",\n    panel.grid.major.y = element_line(color = \"gray80\", linetype = \"dashed\")\n  )"
+  },
+  {
     "objectID": "slides/lecture-09/index.html#τελική-άσκηση",
     "href": "slides/lecture-09/index.html#τελική-άσκηση",
     "title": "Επεξεργασία δεδομένων και δημιουργία γραφημάτων",
     "section": "Τελική άσκηση",
     "text": "Τελική άσκηση\nΓράψτε ένα ενιαίο block κώδικα. Αυτή τη φορά δεν θα χρησιμοποιήσετε τα p1/p2, αλλά θα τα συνδέσετε όλα μαζί με pipes (|&gt; και +).\n\nΦιλτράρετε το storms ώστε να κρατήσετε μόνο τυφώνες (“hurricane”) από το 2015.\nΦτιάξτε ένα ιστόγραμμα (geom_histogram) για τη μεταβλητή pressure (fill = “darkblue”, color = “white”, binwidth = 10).\nΒάλτε τους κατάλληλους τίτλους με τη labs().\nΒάλτε βάση το theme_minimal().\nΜε τη theme():\n\nΚάντε τον τίτλο bold, μέγεθος 16, κεντραρισμένο.\nΕξαφανίστε όλες τις γραμμές πλέγματος (panel.grid = element_blank()).\nΑλλάξτε το φόντο των δεδομένων (panel.background) σε “gray95”.\n\n\n\nΡυθμός Καθηγητή (2:45 - 3:00) Αυτή είναι η τελική άσκηση σύνθεσης όλου του μαθήματος. Περπατήστε στο εργαστήριο. Θυμίστε τους τον κανόνα: Δεδομένα -&gt; ggplot -&gt; geom -&gt; labs -&gt; built-in theme -&gt; custom theme."
+  },
+  {
+    "objectID": "slides/lecture-09/index.html#λύση-4",
+    "href": "slides/lecture-09/index.html#λύση-4",
+    "title": "Επεξεργασία δεδομένων και δημιουργία γραφημάτων",
+    "section": "Λύση",
+    "text": "Λύση\n\nstorms |&gt; \n  filter(year == 2015, status == \"hurricane\") |&gt; \n  ggplot(aes(x = pressure)) +\n  geom_histogram(binwidth = 10, fill = \"darkblue\", color = \"white\") +\n  labs(\n    title = \"Κατανομή Ατμοσφαιρικής Πίεσης Τυφώνων (2015)\",\n    x = \"Ατμοσφαιρική Πίεση (mb)\",\n    y = \"Συχνότητα\"\n  ) +\n  theme_minimal() +\n  theme(\n    plot.title = element_text(face = \"bold\", size = 16, hjust = 0.5),\n    panel.grid = element_blank(),\n    panel.background = element_rect(fill = \"gray95\", color = NA)\n  )"
   },
   {
     "objectID": "slides/lecture-05/index.html#η-βιβλιοθήκη-dplyr",
