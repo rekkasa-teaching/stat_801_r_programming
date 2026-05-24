@@ -10,8 +10,8 @@
   <meta name="generator" content="quarto-1.9.37">
 
   <meta name="author" content="Αλέξανδρος Ρέκκας">
-  <meta name="dcterms.date" content="2026-05-24">
-  <title>Στατισιτκά Προγράμματα II</title>
+  <meta name="dcterms.date" content="2026-05-25">
+  <title>Συνενώσεις Δεδομένων (Joins) με το dplyr</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
@@ -99,7 +99,7 @@
     code span.vs { color: #032f62; } /* VerbatimString */
     code span.wa { color: #ff5555; } /* Warning */
   </style>
-  <link rel="stylesheet" href="../../site_libs/revealjs/dist/theme/quarto-46ffb5e91d00f3df52df4e1ec249e04e.css">
+  <link rel="stylesheet" href="../../site_libs/revealjs/dist/theme/quarto-5be979c32fe944fa9e32aa912702b0be.css">
   <link href="../../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="../../site_libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
   <link href="../../site_libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
@@ -197,8 +197,7 @@
     <div class="slides">
 
 <section id="title-slide" class="quarto-title-block center">
-  <h1 class="title">Στατισιτκά Προγράμματα II</h1>
-  <p class="subtitle"><strong>Μάθημα 1:</strong> Εισαγωγή</p>
+  <h1 class="title">Συνενώσεις Δεδομένων (Joins) με το dplyr</h1>
 
 <div class="quarto-title-authors">
 <div class="quarto-title-author">
@@ -208,113 +207,226 @@
 </div>
 </div>
 
-  <p class="date">2026-05-24</p>
+  <p class="date">2026-05-25</p>
 </section>
-<section id="στόχοι-του-μαθήματος" class="slide level2">
-<h2>Στόχοι του Μαθήματος</h2>
-<p>Θα εστιάσουμε σε:</p>
+<section id="στόχος-του-σημερινού-μαθήματος" class="slide level2">
+<h2>Στόχος του σημερινού μαθήματος</h2>
+<p>Μέχρι τώρα μάθαμε:</p>
 <ol type="1">
-<li><strong>Δυνατότητα αναπαραγωγής των αποτελεσμάτων (Reproducibility):</strong> Ο κώδικας να τρέχει παντού, όχι μόνο στο δικό μας μηχάνημα.</li>
-<li><strong>Ροές εργασίας (Workflows):</strong> Αποδοτική διαχείριση projects.</li>
-<li><strong>Μοντέρνες τεχνικές:</strong> <code>tidyverse</code>, <code>purrr</code>, <code>ggplot2</code></li>
-<li><strong>Παρουσίαση:</strong> Δημιουργία αναφορών και παρουσιάσεων υψηλής ποιότητας.</li>
+<li>Να επεξεργαζόμαστε και να φιλτράρουμε ένα <code>dataframe</code> με το <strong><code>dplyr</code></strong>.</li>
+<li>Να ομαδοποιούμε δεδομένα και να υπολογίζουμε στατιστικά στοιχεία (<code>group_by</code>, <code>summarize</code>).</li>
 </ol>
 </section>
-<section id="έλεγχος-προγραμματιστικού-περιβάλλοντος" class="slide level2">
-<h2>Έλεγχος προγραμματιστικού περιβάλλοντος</h2>
-<p>Θα χρησιμοποιήσουμε το πακέτο <code>renv</code> το οποίο:</p>
+<section id="τα-δεδομένα" class="slide level2">
+<h2>Τα δεδομένα</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a></a><span class="fu">library</span>(dplyr)</span></code></pre></div><button title="Αντιγραφή στο πρόχειρο" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a></a><span class="fu">glimpse</span>(band_members)</span>
+<span id="cb2-2"><a></a><span class="fu">glimpse</span>(band_instruments)</span></code></pre></div><button title="Αντιγραφή στο πρόχειρο" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="η-συνάρτηση-inner_join" class="slide level2">
+<h2>Η συνάρτηση <code>inner_join()</code></h2>
+<p>Το <code>inner_join()</code> διατηρεί <strong>ΜΟΝΟ</strong> τις παρατηρήσεις που υπάρχουν <strong>ΚΑΙ ΣΤΟΥΣ ΔΥΟ</strong> πίνακες.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a></a>band_members <span class="sc">|&gt;</span> </span>
+<span id="cb3-2"><a></a>  <span class="fu">inner_join</span>(band_instruments, <span class="fu">join_by</span>(name))</span></code></pre></div><button title="Αντιγραφή στο πρόχειρο" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<ul>
+<li>Τι παρατηρείτε;</li>
+<li>Ο Mick και ο Keith έμειναν, γιατί υπάρχουν και στους δύο πίνακες.</li>
+<li>Ποιοι δεν εμφανίζονται;</li>
+</ul>
+</section>
+<section id="η-συνάρτηση-left_join" class="slide level2">
+<h2>Η συνάρτηση <code>left_join()</code></h2>
+<p>Το <code>left_join()</code> είναι ίσως το πιο συχνά χρησιμοποιούμενο join.</p>
+<p><br>
+</p>
+<p>Διατηρεί <strong>ΟΛΕΣ</strong> τις παρατηρήσεις του αριστερού (πρώτου) πίνακα. Αν δεν βρει ταίρι στον δεξιό πίνακα, βάζει <code>NA</code> (Not Available).</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a></a>band_members <span class="sc">|&gt;</span> </span>
+<span id="cb4-2"><a></a>  <span class="fu">left_join</span>(band_instruments, <span class="fu">join_by</span>(name))</span></code></pre></div><button title="Αντιγραφή στο πρόχειρο" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p><br>
+</p>
+<p><em>Ο John έμεινε. Επειδή όμως δεν ξέρουμε τι όργανο παίζει (δεν υπάρχει στο <code>band_instruments</code>), η στήλη <code>plays</code> παίρνει την τιμή <code>NA</code>.</em></p>
+</section>
+<section id="άσκηση-1-βασικά-joins" class="slide level2">
+<h2>Άσκηση 1: Βασικά Joins</h2>
+<p>Χρησιμοποιήστε τα <code>band_instruments</code> και <code>band_members</code>.</p>
 <ol type="1">
-<li>Δημιουργεί μια <strong>απομονωμένη βιβλιοθήκη</strong> για κάθε project.</li>
-<li>Καταγράφει τις ακριβείς εκδόσεις στο <code>renv.lock</code>.</li>
+<li>Κάντε ένα <code>left_join</code> βάζοντας <strong>πρώτα</strong> το <code>band_instruments</code> και <strong>μετά</strong> το <code>band_members</code>.</li>
+<li>Τι παρατηρείτε; Ποιο μέλος έχει <code>NA</code> και σε ποια στήλη;</li>
+<li>Δοκιμάστε να κάνετε ένα <code>inner_join</code> με την ίδια σειρά. Υπάρχει διαφορά στο τελικό αποτέλεσμα σε σχέση με το <code>inner_join</code> της προηγούμενης διαφάνειας;</li>
 </ol>
+<aside class="notes">
+<p><strong>Ρυθμός Καθηγητή (0:15 - 0:45)</strong> Δώστε χρόνο για την άσκηση. Στόχος είναι να καταλάβουν ότι η σειρά στο <code>left_join</code> έχει σημασία (ποιος είναι ο “αριστερός” πίνακας), ενώ στο <code>inner_join</code> δεν έχει πρακτική διαφορά ως προς το ποιες γραμμές διατηρούνται, παρά μόνο στη σειρά των στηλών. <strong>ΜΕΤΑ ΤΗΝ ΑΣΚΗΣΗ: ΚΑΝΤΕ 15 ΛΕΠΤΑ ΔΙΑΛΕΙΜΜΑ (0:45 - 1:00)</strong></p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+
+<section id="τα-right_join-και-full_join" class="slide level2">
+<h2>Τα <code>right_join()</code> και <code>full_join()</code></h2>
+<ul>
+<li>Το <strong><code>right_join()</code></strong> λειτουργεί ακριβώς όπως το <code>left_join()</code>, αλλά κρατάει όλες τις γραμμές του <strong>δεξιού</strong> πίνακα. Σπάνια χρησιμοποιείται, καθώς συνήθως απλά αναστρέφουμε τη σειρά των πινάκων σε ένα <code>left_join()</code>.</li>
+<li>Το <strong><code>full_join()</code></strong> (ή outer join) κρατάει <strong>ΟΛΕΣ</strong> τις γραμμές και από τους δύο πίνακες.</li>
+</ul>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a></a>band_members <span class="sc">|&gt;</span> </span>
+<span id="cb6-2"><a></a>  <span class="fu">full_join</span>(band_instruments, <span class="fu">join_by</span>(name))</span></code></pre></div><button title="Αντιγραφή στο πρόχειρο" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<ul>
+<li>Εδώ θα δούμε και τον John (<code>NA</code> στο <code>plays</code>) και τον Paul (<code>NA</code> στο <code>band</code>).</li>
+</ul>
+</section>
+<section id="όταν-τα-κλειδιά-έχουν-διαφορετικό-όνομα" class="slide level2">
+<h2>Όταν τα κλειδιά έχουν διαφορετικό όνομα</h2>
+<ul>
+<li>Τι γίνεται αν η κοινή μεταβλητή έχει άλλο όνομα στους δύο πίνακες;</li>
+<li>Το <code>dplyr</code> μας δίνει το <code>band_instruments2</code>, όπου το όνομα του καλλιτέχνη λέγεται <code>artist</code> αντί για <code>name</code>.</li>
+</ul>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a></a><span class="fu">glimpse</span>(band_instruments2)</span></code></pre></div><button title="Αντιγραφή στο πρόχειρο" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Χρησιμοποιούμε τη συνάρτηση <strong><code>join_by()</code></strong>:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a></a>band_members <span class="sc">|&gt;</span> </span>
+<span id="cb8-2"><a></a>  <span class="fu">left_join</span>(band_instruments2, <span class="fu">join_by</span>(name <span class="sc">==</span> artist))</span></code></pre></div><button title="Αντιγραφή στο πρόχειρο" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="άσκηση" class="slide level2">
+<h2>Άσκηση</h2>
+<p>Χρησιμοποιώντας τα <code>band_members</code> και <code>band_instruments2</code>:</p>
+<ol type="1">
+<li>Κάντε ένα <code>full_join</code> μεταξύ των δύο πινάκων.</li>
+<li>Πόσες συνολικά γραμμές έχει το αποτέλεσμα;</li>
+</ol>
+<aside class="notes">
+<p><strong>Ρυθμός Καθηγητή (1:00 - 1:30)</strong> Περάστε από τους υπολογιστές. Ελέγξτε αν χρησιμοποιούν σωστά το <code>join_by(name == artist)</code>. Εξηγήστε ότι το R κρατάει το όνομα της στήλης από τον αριστερό πίνακα (<code>name</code>). <strong>ΜΕΤΑ ΤΗΝ ΑΣΚΗΣΗ: ΚΑΝΤΕ 15 ΛΕΠΤΑ ΔΙΑΛΕΙΜΜΑ (1:30 - 1:45)</strong></p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+
+<section id="filtering-joins" class="slide level2">
+<h2>Filtering Joins</h2>
+<ul>
+<li>Σε αντίθεση με τα Mutating Joins, τα Filtering Joins <strong>ΔΕΝ προσθέτουν νέες στήλες</strong>.</li>
+<li>Απλά φιλτράρουν τις γραμμές του αριστερού πίνακα, με βάση το αν υπάρχει το κλειδί στον δεξιό πίνακα.</li>
+<li>Υπάρχουν δύο είδη:
+<ul>
+<li><strong><code>semi_join()</code></strong>: Κράτα τις γραμμές που <strong>ΥΠΑΡΧΟΥΝ</strong> και στον άλλο πίνακα.</li>
+<li><strong><code>anti_join()</code></strong>: Κράτα τις γραμμές που <strong>ΔΕΝ ΥΠΑΡΧΟΥΝ</strong> στον άλλο πίνακα.</li>
+</ul></li>
+</ul>
+</section>
+<section id="παραδείγματα-filtering-joins" class="slide level2">
+<h2>Παραδείγματα Filtering Joins</h2>
+<p><strong><code>semi_join()</code></strong>: “Ποια μέλη των συγκροτημάτων ξέρουμε τι όργανο παίζουν;”</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a></a>band_members <span class="sc">|&gt;</span> </span>
+<span id="cb10-2"><a></a>  <span class="fu">semi_join</span>(band_instruments, <span class="fu">join_by</span>(name))</span></code></pre></div><button title="Αντιγραφή στο πρόχειρο" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p><em>(Αποτέλεσμα: Μόνο Mick και Keith. Δεν προστέθηκε η στήλη <code>plays</code>)</em></p>
 <p><br>
 </p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a></a><span class="co"># Ενεργοποίηση στο project</span></span>
-<span id="cb1-2"><a></a>renv<span class="sc">::</span><span class="fu">init</span>()</span>
-<span id="cb1-3"><a></a></span>
-<span id="cb1-4"><a></a><span class="co"># Εγκατάσταση πακέτων</span></span>
-<span id="cb1-5"><a></a></span>
-<span id="cb1-6"><a></a>renv<span class="sc">::</span><span class="fu">install</span>()</span>
-<span id="cb1-7"><a></a></span>
-<span id="cb1-8"><a></a><span class="co"># Αποθήκευση κατάστασης βιβλιοθηκών</span></span>
-<span id="cb1-9"><a></a>renv<span class="sc">::</span><span class="fu">snapshot</span>()</span>
-<span id="cb1-10"><a></a></span>
-<span id="cb1-11"><a></a><span class="co"># Ανάκτηση περιβάλλοντος (σε άλλο υπολογιστή)</span></span>
-<span id="cb1-12"><a></a>renv<span class="sc">::</span><span class="fu">restore</span>()</span></code></pre></div><button title="Αντιγραφή στο πρόχειρο" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong><code>anti_join()</code></strong>: “Ποια μέλη των συγκροτημάτων ΔΕΝ ξέρουμε τι όργανο παίζουν;”</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a></a>band_members <span class="sc">|&gt;</span> </span>
+<span id="cb11-2"><a></a>  <span class="fu">anti_join</span>(band_instruments, <span class="fu">join_by</span>(name))</span></code></pre></div><button title="Αντιγραφή στο πρόχειρο" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p><em>(Αποτέλεσμα: Μόνο ο John)</em></p>
 </section>
-<section id="καθαρισμός-και-επεξεργασία-των-δεδομέων" class="slide level2">
-<h2>Καθαρισμός και επεξεργασία των δεδομέων</h2>
-<p>Θα χρησιμοποιήσουμε τη συλλογή βιβλιοθηκών <code>tidyverse</code> που μοιράζονται κοινή φιλοσοφία σχεδιασμού:</p>
-<ul>
-<li><code>dplyr</code>: Γραμματική επεξεργασίας δεδομένων.</li>
-<li><code>tidyr</code>: Αναδιάταξη για “καθαρά” (tidy) δεδομένα.</li>
-<li><code>stringr</code>: Διαχείριση κειμένου.</li>
-</ul>
-<div class="callout callout-note callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<p><strong>Σημείωση</strong></p>
-</div>
-<div class="callout-content">
-<p>Θα χρησιμοποιούμε εκτενώς τον pipe operator |&gt; (και όχι τον %&gt;%) για να γράφουμε ευανάγνωστο κώδικα.</p>
-</div>
-</div>
-</div>
+<section id="άσκηση-1" class="slide level2">
+<h2>Άσκηση</h2>
+<p>Αυτή τη φορά θα χρησιμοποιήσουμε το <code>band_instruments</code> ως τον αριστερό/κύριο πίνακα μας.</p>
+<p>Χρησιμοποιήστε ένα filtering join για να βρείτε: Για ποιους μουσικούς (από το <code>band_instruments</code>) <strong>δεν</strong> γνωρίζουμε σε ποιο συγκρότημα ανήκουν (δηλαδή δεν υπάρχουν στο <code>band_members</code>);</p>
+<aside class="notes">
+<p><strong>Ρυθμός Καθηγητή (1:45 - 2:15)</strong> Αυτή η άσκηση εδραιώνει τη λογική του <code>anti_join</code>. Είναι ίσως το πιο χρήσιμο εργαλείο ελέγχου δεδομένων στην πράξη (π.χ. “Ποιοι πελάτες δεν έχουν κάνει καμία αγορά;”).</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
-<section id="δημιουργία-γραφημάτων" class="slide level2">
-<h2>Δημιουργία γραφημάτων</h2>
-<p><code>ggplot2</code>: The Grammar of Graphics</p>
-<p>Βασικά Συστατικά:</p>
-<ul>
-<li><code>Data</code>: Τα δεδομένα μας.</li>
-<li><code>Aesthetics</code> (aes): Τι βλέπουμε (x, y, color).</li>
-<li><code>Geoms</code>: Το είδος (points, bars).</li>
-</ul>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a></a></span>
-<span id="cb2-2"><a></a>data <span class="sc">|&gt;</span> </span>
-<span id="cb2-3"><a></a>  ggplot2<span class="sc">::</span><span class="fu">ggplot</span>(ggplot2<span class="sc">::</span><span class="fu">aes</span>(<span class="at">x =</span> displ, <span class="at">y =</span> hwy)) <span class="sc">+</span></span>
-<span id="cb2-4"><a></a>  ggplot2<span class="sc">::</span><span class="fu">geom_point</span>(ggplot2<span class="sc">::</span><span class="fu">aes</span>(<span class="at">color =</span> class)) <span class="sc">+</span></span>
-<span id="cb2-5"><a></a>  ggplot2<span class="sc">::</span><span class="fu">geom_smooth</span>() <span class="sc">+</span></span>
-<span id="cb2-6"><a></a>  ggplot2<span class="sc">::</span><span class="fu">theme_minimal</span>()</span></code></pre></div><button title="Αντιγραφή στο πρόχειρο" class="code-copy-button"><i class="bi"></i></button></div>
-</section>
-<section id="συναρτησιακός-προγραμματισμός" class="slide level2">
-<h2>Συναρτησιακός προγραμματισμός</h2>
-<ul>
-<li>Το πακέτο <code>purrr</code> για συναρτησιακό προγραμματισμό</li>
-<li>Η R είναι μια συναρτησιακή γλώσσα. Στόχος μας είναι να αποφύγουμε τα περίπλοκα:</li>
-</ul>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a></a>final_data <span class="ot">&lt;-</span> <span class="fu">data.frame</span>()</span>
-<span id="cb3-2"><a></a></span>
-<span id="cb3-3"><a></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="fu">seq_along</span>(files)) {</span>
-<span id="cb3-4"><a></a>  temp <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(files[i])</span>
-<span id="cb3-5"><a></a>  final_data <span class="ot">&lt;-</span> <span class="fu">rbind</span>(final_data, temp) </span>
-<span id="cb3-6"><a></a>}</span></code></pre></div><button title="Αντιγραφή στο πρόχειρο" class="code-copy-button"><i class="bi"></i></button></div>
-<p><br>
-</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a></a>final_data <span class="ot">&lt;-</span> files <span class="sc">|&gt;</span> </span>
-<span id="cb4-2"><a></a>  purrr<span class="sc">::</span><span class="fu">map</span>(readr<span class="sc">::</span>read_csv) <span class="sc">|&gt;</span> </span>
-<span id="cb4-3"><a></a>  purrr<span class="sc">::</span><span class="fu">list_rbind</span>()</span></code></pre></div><button title="Αντιγραφή στο πρόχειρο" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Η λογική του Map: Αντί να γράφουμε λούπες, “χαρτογραφούμε” μια συνάρτηση πάνω σε μια λίστα δεδομένων.</p>
-</section>
-<section id="δημιουργία-αναφορών" class="slide level2">
-<h2>Δημιουργία αναφορών</h2>
-<ul>
-<li>Το <code>Quarto</code> είναι η εξέλιξη του <code>Rmarkdown</code>:</li>
-<li>Ενοποιεί κείμενο, κώδικα και αποτελέσματα.</li>
-<li>Παράγει: HTML, PDF, Word, e-books και παρουσιάσεις.</li>
-<li>Ο κώδικας και η ανάλυση πρέπει να ζουν μαζί σε ένα ζωντανό έγγραφο.</li>
-</ul>
 
-
+<section id="μια-πιο-ρεαλιστική-χρήση" class="slide level2">
+<h2>Μια πιο ρεαλιστική χρήση</h2>
+<p>Συχνά θέλουμε να υπολογίσουμε κάτι σε έναν πίνακα και μετά να το κολλήσουμε πίσω στα αρχικά μας δεδομένα. Θα χρησιμοποιήσουμε το dataset <strong><code>starwars</code></strong> (ενσωματωμένο στο <code>dplyr</code>).</p>
+<p>Ας υπολογίσουμε το μέσο ύψος ανά είδος (<code>species</code>):</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a></a>species_height <span class="ot">&lt;-</span> starwars <span class="sc">|&gt;</span> </span>
+<span id="cb13-2"><a></a>  <span class="fu">group_by</span>(species) <span class="sc">|&gt;</span> </span>
+<span id="cb13-3"><a></a>  <span class="fu">summarize</span>(<span class="at">avg_height =</span> <span class="fu">mean</span>(height, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb13-4"><a></a></span>
+<span id="cb13-5"><a></a>species_height</span></code></pre></div><button title="Αντιγραφή στο πρόχειρο" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
 </section>
+<section id="ενώνοντας-τον-συνοπτικό-πίνακα" class="slide level2">
+<h2>Ενώνοντας τον συνοπτικό πίνακα</h2>
+<p>Τώρα θέλουμε να προσθέσουμε αυτή την πληροφορία (<code>avg_height</code>) δίπλα σε κάθε χαρακτήρα στον αρχικό πίνακα <code>starwars</code>.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a></a>starwars <span class="sc">|&gt;</span> </span>
+<span id="cb14-2"><a></a>  <span class="fu">left_join</span>(species_height, <span class="fu">join_by</span>(species)) <span class="sc">|&gt;</span> </span>
+<span id="cb14-3"><a></a>  <span class="fu">select</span>(name, species, height, avg_height)</span></code></pre></div><button title="Αντιγραφή στο πρόχειρο" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Έτσι, βλέπουμε το ύψος του χαρακτήρα και ακριβώς δίπλα το μέσο ύψος του είδους του!</p>
+</section>
+<section id="άσκηση-2" class="slide level2">
+<h2>Άσκηση</h2>
+<p>Χρησιμοποιήστε το dataset <code>starwars</code>. Γράψτε ένα ενιαίο block κώδικα με τη χρήση pipes (<code>|&gt;</code>):</p>
+<ol type="1">
+<li>Φτιάξτε ένα προσωρινό tibble με όνομα <code>homeworld_mass</code> το οποίο θα υπολογίζει το μέσο βάρος (<code>mass</code>) για κάθε πλανήτη (<code>homeworld</code>). Χρησιμοποιήστε <code>na.rm = TRUE</code>.</li>
+<li>Πάρτε το αρχικό <code>starwars</code> και ενώστε του (<code>left_join</code>) το <code>homeworld_mass</code>.</li>
+<li>Κρατήστε (<code>select</code>) μόνο τις στήλες: <code>name</code>, <code>homeworld</code>, <code>mass</code>, και τη νέα σας στήλη (π.χ. <code>avg_mass</code>).</li>
+<li>Φιλτράρετε (<code>filter</code>) για να κρατήσετε μόνο τους χαρακτήρες των οποίων το βάρος (<code>mass</code>) είναι <strong>μεγαλύτερο</strong> από τον μέσο όρο του πλανήτη τους.</li>
+</ol>
+<aside class="notes">
+<p><strong>Ρυθμός Καθηγητή (2:15 - 2:45)</strong> Αυτή η άσκηση συνδυάζει όλα όσα έχουν μάθει (group_by, summarize, joins, select, filter). Είναι το αποκορύφωμα της ενότητας “Επεξεργασία Δεδομένων”. Στα τελευταία 15 λεπτά (2:45-3:00) δείξτε τη λύση, κάντε μια ανασκόπηση και απαντήστε σε απορίες.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+
     </div>
   <div class="quarto-auto-generated-content" style="display: none;">
 <p><img src="logo.png" class="slide-logo"></p>
 <div class="footer footer-default">
-
+<p>Στατιστικά Προγράμματα II - Μάθημα 10</p>
 </div>
 </div></div>
 
@@ -526,6 +638,44 @@
         ]
       });
     </script>
+    
+    <script>
+      // htmlwidgets need to know to resize themselves when slides are shown/hidden.
+      // Fire the "slideenter" event (handled by htmlwidgets.js) when the current
+      // slide changes (different for each slide format).
+      (function () {
+        // dispatch for htmlwidgets
+        function fireSlideEnter() {
+          const event = window.document.createEvent("Event");
+          event.initEvent("slideenter", true, true);
+          window.document.dispatchEvent(event);
+        }
+
+        function fireSlideChanged(previousSlide, currentSlide) {
+          fireSlideEnter();
+
+          // dispatch for shiny
+          if (window.jQuery) {
+            if (previousSlide) {
+              window.jQuery(previousSlide).trigger("hidden");
+            }
+            if (currentSlide) {
+              window.jQuery(currentSlide).trigger("shown");
+            }
+          }
+        }
+
+        // hookup for slidy
+        if (window.w3c_slidy) {
+          window.w3c_slidy.add_observer(function (slide_num) {
+            // slide_num starts at position 1
+            fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);
+          });
+        }
+
+      })();
+    </script>
+
     <script id="quarto-html-after-body" type="application/javascript">
       window.document.addEventListener("DOMContentLoaded", function (event) {
         const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
