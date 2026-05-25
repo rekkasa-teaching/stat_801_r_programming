@@ -276,7 +276,22 @@
           display:block!important;
       }</style></aside>
 </section>
-
+<section id="λύση" class="slide level2">
+<h2>Λύση</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a></a><span class="co"># 1. Left join με το band_instruments αριστερά</span></span>
+<span id="cb5-2"><a></a>band_instruments <span class="sc">|&gt;</span> </span>
+<span id="cb5-3"><a></a>  <span class="fu">left_join</span>(band_members, <span class="fu">join_by</span>(name))</span>
+<span id="cb5-4"><a></a><span class="co"># Ο Paul διατηρείται επειδή είναι στον αριστερό πίνακα. </span></span>
+<span id="cb5-5"><a></a><span class="co"># Έχει NA στη στήλη band, αφού δεν υπάρχει στο band_members.</span></span>
+<span id="cb5-6"><a></a></span>
+<span id="cb5-7"><a></a><span class="co"># 3. Inner join </span></span>
+<span id="cb5-8"><a></a>band_instruments <span class="sc">|&gt;</span> </span>
+<span id="cb5-9"><a></a>  <span class="fu">inner_join</span>(band_members, <span class="fu">join_by</span>(name))</span>
+<span id="cb5-10"><a></a><span class="co"># Παραμένουν μόνο ο Mick και ο Keith. Τα δεδομένα είναι ίδια </span></span>
+<span id="cb5-11"><a></a><span class="co"># με πριν, απλά η στήλη `plays` είναι τώρα πριν τη στήλη `band`.</span></span></code></pre></div><button title="Αντιγραφή στο πρόχειρο" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
 <section id="τα-right_join-και-full_join" class="slide level2">
 <h2>Τα <code>right_join()</code> και <code>full_join()</code></h2>
 <ul>
@@ -327,7 +342,16 @@
           display:block!important;
       }</style></aside>
 </section>
-
+<section id="λύση-1" class="slide level2">
+<h2>Λύση</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a></a>band_members <span class="sc">|&gt;</span> </span>
+<span id="cb9-2"><a></a>  <span class="fu">full_join</span>(band_instruments2, <span class="fu">join_by</span>(name <span class="sc">==</span> artist))</span>
+<span id="cb9-3"><a></a></span>
+<span id="cb9-4"><a></a><span class="co"># Το αποτέλεσμα έχει 4 γραμμές (Mick, John, Keith, Paul).</span></span>
+<span id="cb9-5"><a></a><span class="co"># Κρατήθηκαν όλα τα μέλη, με NA όπου έλειπε η πληροφορία.</span></span></code></pre></div><button title="Αντιγραφή στο πρόχειρο" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
 <section id="filtering-joins" class="slide level2">
 <h2>Filtering Joins</h2>
 <ul>
@@ -375,7 +399,16 @@
           display:block!important;
       }</style></aside>
 </section>
-
+<section id="λύση-2" class="slide level2">
+<h2>Λύση</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a></a>band_instruments <span class="sc">|&gt;</span> </span>
+<span id="cb12-2"><a></a>  <span class="fu">anti_join</span>(band_members, <span class="fu">join_by</span>(name))</span>
+<span id="cb12-3"><a></a></span>
+<span id="cb12-4"><a></a><span class="co"># Το αποτέλεσμα θα είναι ο Paul, καθώς παίζει μπάσο,</span></span>
+<span id="cb12-5"><a></a><span class="co"># αλλά δεν βρίσκεται στον πίνακα band_members.</span></span></code></pre></div><button title="Αντιγραφή στο πρόχειρο" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
 <section id="μια-πιο-ρεαλιστική-χρήση" class="slide level2">
 <h2>Μια πιο ρεαλιστική χρήση</h2>
 <p>Συχνά θέλουμε να υπολογίσουμε κάτι σε έναν πίνακα και μετά να το κολλήσουμε πίσω στα αρχικά μας δεδομένα. Θα χρησιμοποιήσουμε το dataset <strong><code>starwars</code></strong> (ενσωματωμένο στο <code>dplyr</code>).</p>
@@ -421,7 +454,23 @@
           display:block!important;
       }</style></aside>
 </section>
+<section id="λύση-3" class="slide level2">
+<h2>Λύση</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a></a><span class="co"># Βήμα 1: Δημιουργία του συνοπτικού πίνακα</span></span>
+<span id="cb15-2"><a></a>homeworld_mass <span class="ot">&lt;-</span> starwars <span class="sc">|&gt;</span> </span>
+<span id="cb15-3"><a></a>  <span class="fu">group_by</span>(homeworld) <span class="sc">|&gt;</span> </span>
+<span id="cb15-4"><a></a>  <span class="fu">summarize</span>(<span class="at">avg_mass =</span> <span class="fu">mean</span>(mass, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb15-5"><a></a></span>
+<span id="cb15-6"><a></a><span class="co"># Βήματα 2-4: Ενσωμάτωση, επιλογή και φιλτράρισμα</span></span>
+<span id="cb15-7"><a></a>starwars <span class="sc">|&gt;</span> </span>
+<span id="cb15-8"><a></a>  <span class="fu">left_join</span>(homeworld_mass, <span class="fu">join_by</span>(homeworld)) <span class="sc">|&gt;</span> </span>
+<span id="cb15-9"><a></a>  <span class="fu">select</span>(name, homeworld, mass, avg_mass) <span class="sc">|&gt;</span> </span>
+<span id="cb15-10"><a></a>  <span class="fu">filter</span>(mass <span class="sc">&gt;</span> avg_mass)</span></code></pre></div><button title="Αντιγραφή στο πρόχειρο" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
 
+
+</section>
     </div>
   <div class="quarto-auto-generated-content" style="display: none;">
 <p><img src="logo.png" class="slide-logo"></p>

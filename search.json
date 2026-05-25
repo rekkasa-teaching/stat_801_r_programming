@@ -648,7 +648,7 @@
     "href": "slides/lecture-02/index.html#επιλογή-υποσυνόλου",
     "title": "Στατιστικά Προγράμματα II",
     "section": "Επιλογή υποσυνόλου",
-    "text": "Επιλογή υποσυνόλου\n\n# Επιλογή 10 τυχαίων τιμών από την N(0, 1)\nvalues &lt;- rnorm(10)\nvalues\n\n [1] -1.29441176  1.49476138  2.66291418  0.50035790 -0.16602941 -0.98524574\n [7]  0.44842762 -1.24326499  0.91961924  0.06628157\n\n\nΜπορούμε να διαλέξουμε τις πρώτες 3 τιμές της μεταβλητής values:\n\nvalues[1:3]\n\n[1] -1.294412  1.494761  2.662914\n\n\nΜπορούμε να διαλέξουμε την 3η τιμές και την 5η τιμή της μεταβλητής values:\n\nvalues[c(3, 5)]\n\n[1]  2.6629142 -0.1660294"
+    "text": "Επιλογή υποσυνόλου\n\n# Επιλογή 10 τυχαίων τιμών από την N(0, 1)\nvalues &lt;- rnorm(10)\nvalues\n\n [1]  0.8676357  0.5006295  0.3668483  0.2500440 -0.8578331 -0.5911107\n [7]  0.0454106 -1.0318542 -1.3315896  0.1544865\n\n\nΜπορούμε να διαλέξουμε τις πρώτες 3 τιμές της μεταβλητής values:\n\nvalues[1:3]\n\n[1] 0.8676357 0.5006295 0.3668483\n\n\nΜπορούμε να διαλέξουμε την 3η τιμές και την 5η τιμή της μεταβλητής values:\n\nvalues[c(3, 5)]\n\n[1]  0.3668483 -0.8578331"
   },
   {
     "objectID": "slides/lecture-02/index.html#επιλογή-υποσυνόλου-1",
@@ -784,6 +784,13 @@
     "text": "Άσκηση 1: Βασικά Joins\nΧρησιμοποιήστε τα band_instruments και band_members.\n\nΚάντε ένα left_join βάζοντας πρώτα το band_instruments και μετά το band_members.\nΤι παρατηρείτε; Ποιο μέλος έχει NA και σε ποια στήλη;\nΔοκιμάστε να κάνετε ένα inner_join με την ίδια σειρά. Υπάρχει διαφορά στο τελικό αποτέλεσμα σε σχέση με το inner_join της προηγούμενης διαφάνειας;\n\n\nΡυθμός Καθηγητή (0:15 - 0:45) Δώστε χρόνο για την άσκηση. Στόχος είναι να καταλάβουν ότι η σειρά στο left_join έχει σημασία (ποιος είναι ο “αριστερός” πίνακας), ενώ στο inner_join δεν έχει πρακτική διαφορά ως προς το ποιες γραμμές διατηρούνται, παρά μόνο στη σειρά των στηλών. ΜΕΤΑ ΤΗΝ ΑΣΚΗΣΗ: ΚΑΝΤΕ 15 ΛΕΠΤΑ ΔΙΑΛΕΙΜΜΑ (0:45 - 1:00)"
   },
   {
+    "objectID": "slides/lecture-10/index.html#λύση",
+    "href": "slides/lecture-10/index.html#λύση",
+    "title": "Συνενώσεις Δεδομένων (Joins) με το dplyr",
+    "section": "Λύση",
+    "text": "Λύση\n\n# 1. Left join με το band_instruments αριστερά\nband_instruments |&gt; \n  left_join(band_members, join_by(name))\n# Ο Paul διατηρείται επειδή είναι στον αριστερό πίνακα. \n# Έχει NA στη στήλη band, αφού δεν υπάρχει στο band_members.\n\n# 3. Inner join \nband_instruments |&gt; \n  inner_join(band_members, join_by(name))\n# Παραμένουν μόνο ο Mick και ο Keith. Τα δεδομένα είναι ίδια \n# με πριν, απλά η στήλη `plays` είναι τώρα πριν τη στήλη `band`."
+  },
+  {
     "objectID": "slides/lecture-10/index.html#τα-right_join-και-full_join",
     "href": "slides/lecture-10/index.html#τα-right_join-και-full_join",
     "title": "Συνενώσεις Δεδομένων (Joins) με το dplyr",
@@ -803,6 +810,13 @@
     "title": "Συνενώσεις Δεδομένων (Joins) με το dplyr",
     "section": "Άσκηση",
     "text": "Άσκηση\nΧρησιμοποιώντας τα band_members και band_instruments2:\n\nΚάντε ένα full_join μεταξύ των δύο πινάκων.\nΠόσες συνολικά γραμμές έχει το αποτέλεσμα;\n\n\nΡυθμός Καθηγητή (1:00 - 1:30) Περάστε από τους υπολογιστές. Ελέγξτε αν χρησιμοποιούν σωστά το join_by(name == artist). Εξηγήστε ότι το R κρατάει το όνομα της στήλης από τον αριστερό πίνακα (name). ΜΕΤΑ ΤΗΝ ΑΣΚΗΣΗ: ΚΑΝΤΕ 15 ΛΕΠΤΑ ΔΙΑΛΕΙΜΜΑ (1:30 - 1:45)"
+  },
+  {
+    "objectID": "slides/lecture-10/index.html#λύση-1",
+    "href": "slides/lecture-10/index.html#λύση-1",
+    "title": "Συνενώσεις Δεδομένων (Joins) με το dplyr",
+    "section": "Λύση",
+    "text": "Λύση\n\nband_members |&gt; \n  full_join(band_instruments2, join_by(name == artist))\n\n# Το αποτέλεσμα έχει 4 γραμμές (Mick, John, Keith, Paul).\n# Κρατήθηκαν όλα τα μέλη, με NA όπου έλειπε η πληροφορία."
   },
   {
     "objectID": "slides/lecture-10/index.html#filtering-joins",
@@ -826,6 +840,13 @@
     "text": "Άσκηση\nΑυτή τη φορά θα χρησιμοποιήσουμε το band_instruments ως τον αριστερό/κύριο πίνακα μας.\nΧρησιμοποιήστε ένα filtering join για να βρείτε: Για ποιους μουσικούς (από το band_instruments) δεν γνωρίζουμε σε ποιο συγκρότημα ανήκουν (δηλαδή δεν υπάρχουν στο band_members);\n\nΡυθμός Καθηγητή (1:45 - 2:15) Αυτή η άσκηση εδραιώνει τη λογική του anti_join. Είναι ίσως το πιο χρήσιμο εργαλείο ελέγχου δεδομένων στην πράξη (π.χ. “Ποιοι πελάτες δεν έχουν κάνει καμία αγορά;”)."
   },
   {
+    "objectID": "slides/lecture-10/index.html#λύση-2",
+    "href": "slides/lecture-10/index.html#λύση-2",
+    "title": "Συνενώσεις Δεδομένων (Joins) με το dplyr",
+    "section": "Λύση",
+    "text": "Λύση\n\nband_instruments |&gt; \n  anti_join(band_members, join_by(name))\n\n# Το αποτέλεσμα θα είναι ο Paul, καθώς παίζει μπάσο,\n# αλλά δεν βρίσκεται στον πίνακα band_members."
+  },
+  {
     "objectID": "slides/lecture-10/index.html#μια-πιο-ρεαλιστική-χρήση",
     "href": "slides/lecture-10/index.html#μια-πιο-ρεαλιστική-χρήση",
     "title": "Συνενώσεις Δεδομένων (Joins) με το dplyr",
@@ -845,6 +866,13 @@
     "title": "Συνενώσεις Δεδομένων (Joins) με το dplyr",
     "section": "Άσκηση",
     "text": "Άσκηση\nΧρησιμοποιήστε το dataset starwars. Γράψτε ένα ενιαίο block κώδικα με τη χρήση pipes (|&gt;):\n\nΦτιάξτε ένα προσωρινό tibble με όνομα homeworld_mass το οποίο θα υπολογίζει το μέσο βάρος (mass) για κάθε πλανήτη (homeworld). Χρησιμοποιήστε na.rm = TRUE.\nΠάρτε το αρχικό starwars και ενώστε του (left_join) το homeworld_mass.\nΚρατήστε (select) μόνο τις στήλες: name, homeworld, mass, και τη νέα σας στήλη (π.χ. avg_mass).\nΦιλτράρετε (filter) για να κρατήσετε μόνο τους χαρακτήρες των οποίων το βάρος (mass) είναι μεγαλύτερο από τον μέσο όρο του πλανήτη τους.\n\n\nΡυθμός Καθηγητή (2:15 - 2:45) Αυτή η άσκηση συνδυάζει όλα όσα έχουν μάθει (group_by, summarize, joins, select, filter). Είναι το αποκορύφωμα της ενότητας “Επεξεργασία Δεδομένων”. Στα τελευταία 15 λεπτά (2:45-3:00) δείξτε τη λύση, κάντε μια ανασκόπηση και απαντήστε σε απορίες."
+  },
+  {
+    "objectID": "slides/lecture-10/index.html#λύση-3",
+    "href": "slides/lecture-10/index.html#λύση-3",
+    "title": "Συνενώσεις Δεδομένων (Joins) με το dplyr",
+    "section": "Λύση",
+    "text": "Λύση\n\n# Βήμα 1: Δημιουργία του συνοπτικού πίνακα\nhomeworld_mass &lt;- starwars |&gt; \n  group_by(homeworld) |&gt; \n  summarize(avg_mass = mean(mass, na.rm = TRUE))\n\n# Βήματα 2-4: Ενσωμάτωση, επιλογή και φιλτράρισμα\nstarwars |&gt; \n  left_join(homeworld_mass, join_by(homeworld)) |&gt; \n  select(name, homeworld, mass, avg_mass) |&gt; \n  filter(mass &gt; avg_mass)"
   },
   {
     "objectID": "slides/lecture-09/index.html#στόχος-του-σημερινού-μαθήματος",
