@@ -1,0 +1,582 @@
+---
+title: "Ολοκληρωμένη Ανάλυση Δεδομένων: dplyr + ggplot2"
+author: "Αλέξανδρος Ρέκκας"
+date: 2026-06-01
+format:
+  revealjs:
+    theme: [default, custom.scss]
+    slide-number: true
+    logo: logo.png
+    footer: "Στατιστικά Προγράμματα II - Μάθημα 11"
+    lang: el
+    incremental: false
+execute:
+  echo: true
+  eval: false
+---
+
+## Στόχος του σημερινού μαθήματος
+
+Έχουμε ολοκληρώσει την ύλη! Μέχρι τώρα μάθαμε:
+
+1. Να **καθαρίζουμε** και να **μετασχηματίζουμε** δεδομένα με το **`dplyr`**.
+2. Να **ομαδοποιούμε** και να υπολογίζουμε σύνοψη (`group_by`, `summarize`).
+3. Να **συνενώνουμε** δεδομένα από πολλαπλούς πίνακες (`*_join`).
+4. Να φτιάχνουμε επαγγελματικά **γραφήματα** με το **`ggplot2`**.
+
+\
+
+Σήμερα θα τα συνδυάσουμε **όλα** σε ένα ολοκληρωμένο workshop ανάλυσης δεδομένων από την αρχή ως το τέλος.
+
+## Σενάριο: Ανάλυση χαρακτήρων του Star Wars
+
+::: {.objectives}
+
+- Θα ξεκινήσουμε από το έτοιμο dataset **`starwars`** του `dplyr`.
+- Θα δημιουργήσουμε **εμείς** μικρούς βοηθητικούς πίνακες με τη `tribble()`.
+- Θα τους **συνενώσουμε**, θα **καθαρίσουμε** τα δεδομένα και θα φτιάξουμε **πολλαπλά γραφήματα**.
+
+:::
+
+\
+
+Στο τέλος του μαθήματος θα έχετε γράψει μια **πλήρη ροή ανάλυσης** που συνδέει τα δεδομένα → τη σύνοψη → τη γραφική παρουσίαση.
+
+::: {.notes}
+**Ρυθμός Καθηγητή (0:00 - 0:10)**
+Καλωσορίστε τους φοιτητές. Εξηγήστε ότι σήμερα δεν θα μάθουν κάτι **καινούργιο** — αυτή είναι η συνθετική διάλεξη. Ζητήστε τους να ανοίξουν RStudio και να φτιάξουν ένα νέο script με όνομα `final_workshop.R`. Πείτε τους ότι ο στόχος είναι να γράψουμε τη ροή βήμα-βήμα ώστε να φύγουν από την αίθουσα με ένα **πλήρες πρόγραμμα** ανάλυσης.
+:::
+
+# Μέρος 1ο: Εξερεύνηση και καθαρισμός
+
+## Προετοιμασία: Φόρτωση βιβλιοθηκών
+
+Ξεκινάμε φορτώνοντας τα δύο βασικά μας πακέτα.
+
+```{r}
+library(dplyr)
+library(ggplot2)
+```
+
+\
+
+::: {.reminder-box}
+Δεν χρειάζεται να φορτώσουμε δεδομένα από αρχείο! Το dataset **`starwars`** είναι ήδη ενσωματωμένο στο `dplyr`.
+:::
+
+## Το dataset `starwars`
+
+Περιέχει πληροφορίες για τους χαρακτήρες της σειράς ταινιών *Star Wars*.
+
+```{r}
+starwars
+```
+
+\
+
+```{r}
+glimpse(starwars)
+```
+
+## Τι στήλες έχουμε;
+
+::: {.concept-boxes}
+
+::: {.concept-box .blue}
+### Αριθμητικές
+- `height` (cm)
+- `mass` (kg)
+- `birth_year` (BBY)
+:::
+
+::: {.concept-box .green}
+### Κατηγορικές
+- `name`, `species`, `homeworld`
+- `sex`, `gender`
+- `hair_color`, `skin_color`, `eye_color`
+:::
+
+:::
+
+\
+
+Υπάρχουν επίσης 3 στήλες **λίστας** (`films`, `vehicles`, `starships`) τις οποίες **δεν θα χρειαστούμε** σήμερα.
+
+## Άσκηση 1: Πρώτη γνωριμία
+
+Χρησιμοποιώντας το `starwars`:
+
+1. Πόσοι χαρακτήρες υπάρχουν συνολικά;
+2. Πόσα διαφορετικά είδη (`species`) εμφανίζονται; (Συμβουλή: `distinct()` + `nrow()`, ή `n_distinct()`).
+3. Πόσοι χαρακτήρες έχουν `NA` στη στήλη `mass`; (Συμβουλή: `filter(is.na(mass))` και μετά `nrow()`).
+4. Ποιοι είναι οι **5 ψηλότεροι** χαρακτήρες; Εμφανίστε τις στήλες `name`, `height`, `species`.
+
+::: {.notes}
+**Ρυθμός Καθηγητή (0:10 - 0:25)**
+Περπατήστε ανάμεσά τους. Το ερώτημα 3 είναι σημαντικό — οι φοιτητές πρέπει να καταλάβουν ότι θα χρειαστούμε καθαρισμό. Το ερώτημα 4 τους θυμίζει `arrange(desc(...))` και `head()`/`slice_head()`.
+:::
+
+## Λύση Άσκησης 1 {visibility="hidden"}
+
+```{r}
+# 1. Πλήθος χαρακτήρων
+nrow(starwars)   # 87
+
+# 2. Πλήθος διακριτών ειδών
+starwars |>
+  summarise(n_species = n_distinct(species))
+
+# 3. Πόσοι έχουν NA στη μάζα
+starwars |>
+  filter(is.na(mass)) |>
+  nrow()
+
+# 4. Οι 5 ψηλότεροι
+starwars |>
+  arrange(desc(height)) |>
+  select(name, height, species) |>
+  head(5)
+```
+
+## Πόσα NA έχουμε σε κάθε στήλη;
+
+Ένα **γρήγορο** τρικ για να μετρήσουμε τα `NA` σε κάθε στήλη:
+
+```{r}
+starwars |>
+  summarise(
+    n_height     = sum(is.na(height)),
+    n_mass       = sum(is.na(mass)),
+    n_birth_year = sum(is.na(birth_year)),
+    n_homeworld  = sum(is.na(homeworld)),
+    n_species    = sum(is.na(species))
+  )
+```
+
+::: {.highlight-box}
+Παρατηρούμε ότι η στήλη `birth_year` έχει **πολλά** NA. Πρέπει να αποφασίσουμε **πώς** θα τα χειριστούμε όταν την χρησιμοποιούμε.
+:::
+
+## Καθαρισμός: Φιλτράρισμα και μετασχηματισμός
+
+Φτιάχνουμε ένα **καθαρό** dataset, το `sw_clean`:
+
+```{r}
+sw_clean <- starwars |>
+  filter(!is.na(height), !is.na(mass)) |>      # κρατάμε όσους έχουν height & mass
+  filter(mass < 500) |>                        # αφαιρούμε ακραίες τιμές (π.χ. Jabba)
+  mutate(
+    height_m = height / 100,                   # μετατροπή σε μέτρα
+    bmi      = mass / (height_m ^ 2)           # δείκτης μάζας σώματος
+  ) |>
+  select(name, species, homeworld, sex, height, mass, height_m, bmi)
+
+glimpse(sw_clean)
+```
+
+::: {.notes}
+**Ρυθμός Καθηγητή (0:25 - 0:35)**
+Εξηγήστε γιατί κάναμε filter για `mass < 500`: ο Jabba ο Hutt (~1358 kg) "σπάει" τη μάζα. Ζητήστε τους να τρέξουν `starwars |> arrange(desc(mass)) |> head(3)` για να το δουν.
+:::
+
+## Άσκηση 2: Δικός σας καθαρισμός
+
+Ξεκινώντας από το **αρχικό `starwars`**, δημιουργήστε ένα νέο tibble με όνομα `sw_adults` που:
+
+1. Κρατάει **μόνο** όσους έχουν γνωστό **`birth_year`** (όχι `NA`).
+2. Δημιουργεί μια νέα στήλη `age_at_yavin` που δείχνει την ηλικία του χαρακτήρα τη χρονιά της Μάχης του Yavin (BBY = 0).
+   *Συμβουλή: το `birth_year` είναι χρόνια πριν τη Μάχη του Yavin, οπότε αυτό είναι και η ηλικία τους.*
+3. Φιλτράρει για **ενήλικες** (ηλικία ≥ 18).
+4. Επιλέγει τις στήλες: `name`, `species`, `homeworld`, `age_at_yavin`.
+5. Ταξινομεί με βάση την ηλικία **φθίνουσα** (από τον πιο γέρο στον νεότερο).
+
+::: {.notes}
+**Ρυθμός Καθηγητή (0:35 - 0:55)**
+Δώστε περίπου 15 λεπτά. Στόχος είναι να εξασκηθούν στη ροή `filter -> mutate -> filter -> select -> arrange`. Επισημάνετε ότι μπορούν να βάλουν δύο `filter` ή ένα με δύο όρους — η ροή θα έχει το ίδιο αποτέλεσμα.
+**ΜΕΤΑ ΤΗΝ ΑΣΚΗΣΗ: ΚΑΝΤΕ 15 ΛΕΠΤΑ ΔΙΑΛΕΙΜΜΑ (0:55 - 1:10)**
+:::
+
+## Λύση Άσκησης 2 {visibility="hidden"}
+
+```{r}
+sw_adults <- starwars |>
+  filter(!is.na(birth_year)) |>
+  mutate(age_at_yavin = birth_year) |>
+  filter(age_at_yavin >= 18) |>
+  select(name, species, homeworld, age_at_yavin) |>
+  arrange(desc(age_at_yavin))
+
+sw_adults
+# Στην κορυφή θα δείτε τον Yoda (~896 ετών).
+```
+
+# Μέρος 2ο: Βοηθητικοί πίνακες και Joins
+
+## Γιατί χρειαζόμαστε επιπλέον πίνακες;
+
+Το `starwars` έχει **πολλά διαφορετικά είδη** (Human, Droid, Wookiee, ...) και **δεκάδες πλανήτες**.
+
+\
+
+Συχνά θέλουμε να ομαδοποιήσουμε σε **μεγαλύτερες κατηγορίες** ή να εμπλουτίσουμε με πληροφορία που δεν υπάρχει στο αρχικό dataset:
+
+- **Κατηγορία είδους** (humanoid / droid / mammal / ...)
+- **Περιοχή του γαλαξία** (Core / Mid Rim / Outer Rim) ανά πλανήτη
+- **Κλίμα** του πλανήτη
+
+\
+
+Αυτές τις πληροφορίες θα τις φτιάξουμε **μόνοι μας** με τη συνάρτηση **`tribble()`**.
+
+## Η συνάρτηση `tribble()`
+
+Η `tribble()` φτιάχνει έναν μικρό `tibble` γράφοντας τις γραμμές **όπως ένα πινακάκι**:
+
+```{r}
+example <- tribble(
+  ~name,    ~grade,
+  "Maria",  9.5,
+  "Yannis", 7.0,
+  "Eleni",  8.5
+)
+
+example
+```
+
+\
+
+::: {.success-box}
+Τα ονόματα των στηλών μπαίνουν με **`~`** μπροστά. Κάθε επόμενη γραμμή είναι μια καινούργια παρατήρηση.
+:::
+
+## Φτιάχνουμε το `species_class`
+
+Ομαδοποιούμε τα είδη σε **κατηγορίες**:
+
+```{r}
+species_class <- tribble(
+  ~species,        ~classification,
+  "Human",         "Humanoid",
+  "Droid",         "Droid",
+  "Wookiee",       "Mammal",
+  "Ewok",          "Mammal",
+  "Gungan",        "Amphibian",
+  "Hutt",          "Reptile",
+  "Rodian",        "Reptile",
+  "Trandoshan",    "Reptile",
+  "Twi'lek",       "Humanoid",
+  "Mon Calamari",  "Amphibian",
+  "Zabrak",        "Humanoid",
+  "Yoda's species","Humanoid",
+  "Kel Dor",       "Humanoid",
+  "Mirialan",      "Humanoid",
+  "Togruta",       "Humanoid",
+  "Cerean",        "Humanoid"
+)
+
+species_class
+```
+
+## Πρώτο join: εμπλουτίζουμε το `sw_clean`
+
+Θέλουμε να προσθέσουμε τη στήλη `classification` δίπλα σε κάθε χαρακτήρα του `sw_clean`.
+
+```{r}
+sw_class <- sw_clean |>
+  left_join(species_class, join_by(species))
+
+glimpse(sw_class)
+```
+
+\
+
+::: {.highlight-box}
+Χρησιμοποιήσαμε **`left_join`** ώστε να κρατήσουμε **όλους** τους χαρακτήρες, ακόμα κι όσοι έχουν είδος για το οποίο δεν φτιάξαμε classification (θα πάρουν `NA`).
+:::
+
+## Άσκηση 3: Σύνοψη ανά classification
+
+Χρησιμοποιώντας το **`sw_class`**:
+
+1. Αφαιρέστε όσους χαρακτήρες έχουν `NA` στο `classification`.
+2. Ομαδοποιήστε ανά `classification`.
+3. Υπολογίστε:
+   - Το **πλήθος** χαρακτήρων (`n_characters`).
+   - Το **μέσο ύψος** σε μέτρα (`avg_height_m`).
+   - Το **μέσο BMI** (`avg_bmi`).
+4. Ταξινομήστε με βάση τον **μέσο BMI** σε **φθίνουσα** σειρά.
+
+::: {.notes}
+**Ρυθμός Καθηγητή (1:10 - 1:30)**
+Πιθανώς θα έχουν αξιοπρόσεκτα αποτελέσματα: τα Mammals (Wookiees, Ewoks) έχουν υψηλό BMI. Σχολιάστε ότι το `na.rm = TRUE` εδώ ΔΕΝ είναι απαραίτητο αφού στο `sw_clean` έχουμε ήδη πετάξει τα NA από `height`/`mass`. Σημείωση: στο `sw_class` η στήλη `species` εξακολουθεί να υπάρχει — απλά έχει προστεθεί και η `classification`.
+:::
+
+## Λύση Άσκησης 3 {visibility="hidden"}
+
+```{r}
+sw_class |>
+  filter(!is.na(classification)) |>
+  group_by(classification) |>
+  summarise(
+    n_characters = n(),
+    avg_height_m = mean(height_m),
+    avg_bmi      = mean(bmi),
+    .groups      = "drop"
+  ) |>
+  arrange(desc(avg_bmi))
+
+# Τα Mammals συνήθως κορυφή — οι Wookiees είναι ψηλοί και βαρείς!
+```
+
+## Φτιάχνουμε το `homeworld_info`
+
+Προσθέτουμε **περιοχή γαλαξία** και **κλίμα** για κάθε πλανήτη:
+
+```{r}
+homeworld_info <- tribble(
+  ~homeworld,      ~galaxy_region,  ~climate,
+  "Tatooine",      "Outer Rim",     "Arid",
+  "Naboo",         "Mid Rim",       "Temperate",
+  "Alderaan",      "Core",          "Temperate",
+  "Stewjon",       "Core",          "Temperate",
+  "Coruscant",     "Core",          "Temperate",
+  "Kashyyyk",      "Mid Rim",       "Tropical",
+  "Corellia",      "Core",          "Temperate",
+  "Rodia",         "Outer Rim",     "Tropical",
+  "Nal Hutta",     "Outer Rim",     "Tropical",
+  "Bestine IV",    "Outer Rim",     "Temperate",
+  "Kamino",        "Outer Rim",     "Aquatic",
+  "Cerea",         "Mid Rim",       "Temperate",
+  "Glee Anselm",   "Mid Rim",       "Aquatic",
+  "Iridonia",      "Mid Rim",       "Arid"
+)
+```
+
+## Δεύτερο join: ενώνουμε **δύο** lookup πίνακες
+
+```{r}
+sw_full <- sw_clean |>
+  left_join(species_class,  join_by(species)) |>
+  left_join(homeworld_info, join_by(homeworld))
+
+glimpse(sw_full)
+```
+
+\
+
+::: {.success-box}
+Τώρα κάθε χαρακτήρας έχει: αρχικά δεδομένα + `classification` + `galaxy_region` + `climate`.
+:::
+
+## Άσκηση 4: Πολλαπλές συνενώσεις
+
+Χρησιμοποιώντας το **`sw_full`**:
+
+1. Αφαιρέστε όσους χαρακτήρες έχουν `NA` στο `galaxy_region`.
+2. Ομαδοποιήστε ανά **`galaxy_region`** και **`classification`**.
+3. Υπολογίστε:
+   - Το πλήθος χαρακτήρων (`n`).
+   - Το μέσο ύψος σε μέτρα (`avg_height_m`).
+4. Ταξινομήστε ανά `galaxy_region` και κατόπιν φθίνον `n`.
+
+::: {.notes}
+**Ρυθμός Καθηγητή (1:35 - 1:55)**
+Εδώ έχουμε **διπλό group_by**. Υπενθυμίστε ότι αν δεν προσθέσουν `.groups = "drop"`, η `summarise` αφήνει τα δεδομένα **ομαδοποιημένα κατά `galaxy_region`** — αυτό μπορεί να επηρεάσει επόμενες πράξεις. Συμβουλέψτε τους να το συνηθίσουν.
+**ΜΕΤΑ ΤΗΝ ΑΣΚΗΣΗ: ΚΑΝΤΕ 15 ΛΕΠΤΑ ΔΙΑΛΕΙΜΜΑ (1:55 - 2:10)**
+:::
+
+## Λύση Άσκησης 4 {visibility="hidden"}
+
+```{r}
+sw_full |>
+  filter(!is.na(galaxy_region)) |>
+  group_by(galaxy_region, classification) |>
+  summarise(
+    n            = n(),
+    avg_height_m = mean(height_m),
+    .groups      = "drop"
+  ) |>
+  arrange(galaxy_region, desc(n))
+
+# Στο Core θα δείτε σχεδόν αποκλειστικά Humanoids.
+# Στο Outer Rim εμφανίζονται και Reptiles (Hutts, Rodians).
+```
+
+# Μέρος 3ο: Σύνθεση και Οπτικοποίηση
+
+## Από τους πίνακες στα γραφήματα
+
+Έχουμε ήδη φτιάξει το **`sw_full`** που περιέχει όλη τη συνδυασμένη πληροφορία.
+
+\
+
+Τώρα θα δούμε **τρία είδη γραφημάτων** που απαντούν σε **τρία διαφορετικά ερωτήματα**:
+
+::: {.objectives}
+
+1. **Bar chart**: Πόσοι χαρακτήρες ανά κατηγορία είδους;
+2. **Boxplot**: Πώς κατανέμεται το ύψος ανά κατηγορία;
+3. **Scatter plot με facets**: Πώς σχετίζεται ύψος ↔ μάζα ανά περιοχή γαλαξία;
+
+:::
+
+## Γράφημα 1ο: Bar chart πλήθους
+
+```{r}
+sw_full |>
+  filter(!is.na(classification)) |>
+  count(classification) |>
+  ggplot(aes(x = reorder(classification, n), y = n, fill = classification)) +
+  geom_col(show.legend = FALSE) +
+  coord_flip() +
+  labs(
+    title = "Πλήθος χαρακτήρων ανά κατηγορία είδους",
+    x = NULL,
+    y = "Αριθμός χαρακτήρων"
+  ) +
+  theme_minimal()
+```
+
+\
+
+::: {.highlight-box}
+Η συνάρτηση **`reorder()`** ταξινομεί τις κατηγορίες ως προς τη μεταβλητή `n` — έτσι οι μπάρες βγαίνουν από τη μικρότερη στη μεγαλύτερη.
+:::
+
+## Γράφημα 2ο: Boxplot υψών ανά classification
+
+```{r}
+sw_full |>
+  filter(!is.na(classification)) |>
+  ggplot(aes(x = classification, y = height_m, fill = classification)) +
+  geom_boxplot(show.legend = FALSE) +
+  labs(
+    title = "Κατανομή υψών ανά κατηγορία είδους",
+    x = "Κατηγορία",
+    y = "Ύψος (m)"
+  ) +
+  theme_classic() +
+  theme(
+    plot.title  = element_text(face = "bold", hjust = 0.5),
+    axis.text.x = element_text(angle = 30, hjust = 1)
+  )
+```
+
+## Άσκηση 5: Δικό σας scatter plot
+
+Χρησιμοποιώντας το **`sw_full`**:
+
+1. Αφαιρέστε όσους έχουν `NA` στο `galaxy_region`.
+2. Φτιάξτε ένα **scatter plot** με:
+   - Άξονας X: `height_m`
+   - Άξονας Y: `mass`
+   - Χρώμα: `classification`
+3. Προσθέστε `geom_point(size = 3, alpha = 0.7)`.
+4. Κάντε `facet_wrap(~ galaxy_region)`.
+5. Προσθέστε κατάλληλους τίτλους με τη `labs()`.
+6. Εφαρμόστε `theme_minimal()` και βάλτε το υπόμνημα στο **κάτω** μέρος.
+
+::: {.notes}
+**Ρυθμός Καθηγητή (2:25 - 2:45)**
+Αυτή η άσκηση συνδυάζει join + filter + ggplot + theme + facet. Είναι σχεδόν αναπαράσταση όλης της ύλης. Αν κάποιοι ψάχνουν για περισσότερη πρόκληση, ζητήστε τους να αλλάξουν τους labels του υπομνήματος (`labs(color = "Κατηγορία")`).
+:::
+
+## Λύση Άσκησης 5 {visibility="hidden"}
+
+```{r}
+sw_full |>
+  filter(!is.na(galaxy_region)) |>
+  ggplot(aes(x = height_m, y = mass, color = classification)) +
+  geom_point(size = 3, alpha = 0.7) +
+  facet_wrap(~ galaxy_region) +
+  labs(
+    title = "Ύψος και μάζα χαρακτήρων ανά περιοχή του γαλαξία",
+    x = "Ύψος (m)",
+    y = "Μάζα (kg)",
+    color = "Κατηγορία"
+  ) +
+  theme_minimal() +
+  theme(legend.position = "bottom")
+```
+
+## Τελική άσκηση: Πλήρης ροή ανάλυσης
+
+Γράψτε ένα **ενιαίο block κώδικα** το οποίο, ξεκινώντας από το **αρχικό `starwars`**:
+
+1. Φιλτράρει όσους έχουν `NA` σε `height` ή `mass`.
+2. Αφαιρεί όποιον έχει `mass > 500`.
+3. Δημιουργεί τη στήλη `height_m = height / 100`.
+4. Κάνει **`left_join`** με το `species_class`.
+5. Κάνει **`left_join`** με το `homeworld_info`.
+6. Φιλτράρει όσους έχουν `NA` στο `climate`.
+7. Στέλνει τα δεδομένα στο `ggplot` και φτιάχνει **boxplot** με:
+   - Άξονας X: `climate`
+   - Άξονας Y: `height_m`
+   - Γέμισμα: `climate`
+8. Προσθέτει κατάλληλους τίτλους.
+9. Εφαρμόζει `theme_minimal()` και αφαιρεί το υπόμνημα (`legend.position = "none"`).
+
+::: {.notes}
+**Ρυθμός Καθηγητή (2:45 - 2:55)**
+Αυτή είναι η τελική σύνθεση. Ενθαρρύνετε τους να γράψουν τη ροή βήμα-βήμα και να ελέγχουν το αποτέλεσμα **μετά από κάθε pipe**. Όταν τελειώσουν, ζητήστε τους να σώσουν το script τους ως **τελικό παραδοτέο** του εξαμήνου. Καλό είναι να γίνει αναφορά στο πώς αυτό είναι ένα τυπικό R workflow για ανάλυση δεδομένων.
+:::
+
+## Λύση τελικής άσκησης {visibility="hidden"}
+
+```{r}
+starwars |>
+  filter(!is.na(height), !is.na(mass)) |>
+  filter(mass < 500) |>
+  mutate(height_m = height / 100) |>
+  left_join(species_class,  join_by(species)) |>
+  left_join(homeworld_info, join_by(homeworld)) |>
+  filter(!is.na(climate)) |>
+  ggplot(aes(x = climate, y = height_m, fill = climate)) +
+  geom_boxplot() +
+  labs(
+    title    = "Κατανομή ύψους χαρακτήρων ανά κλίμα πλανήτη",
+    subtitle = "Δεδομένα από το πακέτο dplyr (starwars)",
+    x        = "Κλίμα πλανήτη",
+    y        = "Ύψος (m)"
+  ) +
+  theme_minimal() +
+  theme(
+    plot.title    = element_text(face = "bold", hjust = 0.5),
+    plot.subtitle = element_text(hjust = 0.5),
+    legend.position = "none"
+  )
+```
+
+## Σύνοψη — τι κάναμε σήμερα
+
+::: {.objectives}
+
+1. Ξεκινήσαμε από ένα **έτοιμο dataset** (`starwars`) και το **εξερευνήσαμε**.
+2. **Καθαρίσαμε** τα δεδομένα (αφαίρεση `NA`, ακραίων τιμών).
+3. **Μετασχηματίσαμε** μεταβλητές (`mutate`).
+4. **Δημιουργήσαμε** δικούς μας βοηθητικούς πίνακες με τη `tribble()`.
+5. **Συνενώσαμε** πίνακες με `left_join` (πολλαπλά joins σε μια ροή).
+6. **Ομαδοποιήσαμε** και υπολογίσαμε σύνοψη ανά κατηγορία.
+7. Φτιάξαμε **τρία διαφορετικά γραφήματα** (bar, boxplot, scatter με facets).
+8. Γράψαμε μια **τελική πλήρη ροή ανάλυσης**.
+
+:::
+
+\
+
+::: {.success-box}
+**Αυτό είναι όλο το R που χρειάζεστε** για τη συντριπτική πλειονότητα των αναλύσεων δεδομένων που θα κάνετε στη συνέχεια των σπουδών σας!
+:::
+
+## Ευχαριστώ!
+
+\
+
+::: {.example-box}
+Καλή πρόοδο σε όλους σας — και καλό καλοκαίρι!
+:::
+
+::: {.notes}
+**Ρυθμός Καθηγητή (2:55 - 3:00)**
+Κλείστε με μια σύντομη ανασκόπηση. Υπενθυμίστε τους ότι το **καλύτερο** που μπορούν να κάνουν είναι να **εφαρμόσουν** όσα έμαθαν σε δικά τους δεδομένα — από εργασίες, από projects, ή ακόμα και από προσωπικά τους δεδομένα (π.χ. βαθμολογίες, αγορές). Απαντήστε σε τυχόν τελευταίες ερωτήσεις.
+:::
