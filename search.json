@@ -571,7 +571,7 @@
     "href": "slides/lecture-02/index.html#επιλογή-υποσυνόλου",
     "title": "Στατιστικά Προγράμματα II",
     "section": "Επιλογή υποσυνόλου",
-    "text": "Επιλογή υποσυνόλου\n\n# Επιλογή 10 τυχαίων τιμών από την N(0, 1)\nvalues &lt;- rnorm(10)\nvalues\n\n [1]  0.26964632 -0.95006692 -0.72797213 -0.19729030 -0.03971045  0.78437242\n [7] -0.15451675  0.64682787 -0.68289134 -1.32572239\n\n\nΜπορούμε να διαλέξουμε τις πρώτες 3 τιμές της μεταβλητής values:\n\nvalues[1:3]\n\n[1]  0.2696463 -0.9500669 -0.7279721\n\n\nΜπορούμε να διαλέξουμε την 3η τιμές και την 5η τιμή της μεταβλητής values:\n\nvalues[c(3, 5)]\n\n[1] -0.72797213 -0.03971045"
+    "text": "Επιλογή υποσυνόλου\n\n# Επιλογή 10 τυχαίων τιμών από την N(0, 1)\nvalues &lt;- rnorm(10)\nvalues\n\n [1] -1.03310780 -0.99281254 -0.18324729 -0.54489294 -1.17796067 -0.57581384\n [7]  0.22091371  0.53054113 -1.29589737 -0.04513213\n\n\nΜπορούμε να διαλέξουμε τις πρώτες 3 τιμές της μεταβλητής values:\n\nvalues[1:3]\n\n[1] -1.0331078 -0.9928125 -0.1832473\n\n\nΜπορούμε να διαλέξουμε την 3η τιμές και την 5η τιμή της μεταβλητής values:\n\nvalues[c(3, 5)]\n\n[1] -0.1832473 -1.1779607"
   },
   {
     "objectID": "slides/lecture-02/index.html#επιλογή-υποσυνόλου-1",
@@ -1155,165 +1155,158 @@
     "text": "Λύση\n\nstorms |&gt; \n  filter(status == \"hurricane\", year &gt;= 2010, year &lt;= 2020) |&gt; \n  filter(!is.na(category)) |&gt; \n  ggplot(aes(x = pressure, y = wind, color = factor(category))) +\n  geom_point(size = 2, alpha = 0.7) +\n  facet_wrap(~ year) +\n  labs(\n    title = \"Ανάλυση Τυφώνων στον Ατλαντικό (2010-2020)\",\n    subtitle = \"Σχέση πίεσης (X) και ανέμου (Y) ανά έτος\",\n    x = \"Ατμοσφαιρική Πίεση (mb)\",\n    y = \"Ταχύτητα Ανέμου (knots)\",\n    color = \"Κατηγορία\\nΤυφώνα\"\n  ) +\n  theme_bw()"
   },
   {
-    "objectID": "slides/lecture-11/index.html#στόχος-του-σημερινού-μαθήματος",
-    "href": "slides/lecture-11/index.html#στόχος-του-σημερινού-μαθήματος",
-    "title": "Ολοκληρωμένη Ανάλυση Δεδομένων: dplyr + ggplot2",
-    "section": "Στόχος του σημερινού μαθήματος",
-    "text": "Στόχος του σημερινού μαθήματος\nΈχουμε ολοκληρώσει την ύλη! Μέχρι τώρα μάθαμε:\n\nΝα καθαρίζουμε και να μετασχηματίζουμε δεδομένα με το dplyr.\nΝα ομαδοποιούμε και να υπολογίζουμε σύνοψη (group_by, summarize).\nΝα συνενώνουμε δεδομένα από πολλαπλούς πίνακες (*_join).\nΝα φτιάχνουμε επαγγελματικά γραφήματα με το ggplot2.\n\n\n\nΣήμερα θα τα συνδυάσουμε όλα σε ένα ολοκληρωμένο workshop ανάλυσης δεδομένων από την αρχή ως το τέλος."
+    "objectID": "slides/lecture-11/index.html#τα-δεδομένα",
+    "href": "slides/lecture-11/index.html#τα-δεδομένα",
+    "title": "Ανασκόπηση",
+    "section": "Τα δεδομένα",
+    "text": "Τα δεδομένα\nΌλες οι ερωτήσεις βασίζονται στο ενσωματωμένο dataset starwars και στους βοηθητικούς πίνακες που φτιάξαμε στα προηγούμενα μαθήματα.\n\nlibrary(dplyr)\nlibrary(ggplot2)\n\n\n\n\nglimpse(starwars)\n\n\nΔεν χρειάζεται φόρτωση αρχείου — το starwars είναι ήδη μέσα στο dplyr."
   },
   {
-    "objectID": "slides/lecture-11/index.html#σενάριο-ανάλυση-χαρακτήρων-του-star-wars",
-    "href": "slides/lecture-11/index.html#σενάριο-ανάλυση-χαρακτήρων-του-star-wars",
-    "title": "Ολοκληρωμένη Ανάλυση Δεδομένων: dplyr + ggplot2",
-    "section": "Σενάριο: Ανάλυση χαρακτήρων του Star Wars",
-    "text": "Σενάριο: Ανάλυση χαρακτήρων του Star Wars\n\n\nΘα ξεκινήσουμε από το έτοιμο dataset starwars του dplyr.\nΘα δημιουργήσουμε εμείς μικρούς βοηθητικούς πίνακες με τη tribble().\nΘα τους συνενώσουμε, θα καθαρίσουμε τα δεδομένα και θα φτιάξουμε πολλαπλά γραφήματα.\n\n\n\n\nΣτο τέλος του μαθήματος θα έχετε γράψει μια πλήρη ροή ανάλυσης που συνδέει τα δεδομένα → τη σύνοψη → τη γραφική παρουσίαση.\n\nΡυθμός Καθηγητή (0:00 - 0:10) Καλωσορίστε τους φοιτητές. Εξηγήστε ότι σήμερα δεν θα μάθουν κάτι καινούργιο — αυτή είναι η συνθετική διάλεξη. Ζητήστε τους να ανοίξουν RStudio και να φτιάξουν ένα νέο script με όνομα final_workshop.R. Πείτε τους ότι ο στόχος είναι να γράψουμε τη ροή βήμα-βήμα ώστε να φύγουν από την αίθουσα με ένα πλήρες πρόγραμμα ανάλυσης."
+    "objectID": "slides/lecture-11/index.html#πολλαπλής-επιλογής",
+    "href": "slides/lecture-11/index.html#πολλαπλής-επιλογής",
+    "title": "Ανασκόπηση",
+    "section": "Πολλαπλής επιλογής",
+    "text": "Πολλαπλής επιλογής\nΕπιλέξτε τη μία σωστή απάντηση.\nΕ1. Ποια συνάρτηση επιστρέφει το πλήθος των διακριτών τιμών μιας στήλης;\n(α) distinct() (β) n_distinct() (γ) count() (δ) nrow()\n\n\nΕ2. Τι διατηρεί το left_join(x, y);\n(α) μόνο τις γραμμές που ταιριάζουν και στους δύο πίνακες\n(β) όλες τις γραμμές του x και ό,τι ταιριάζει από το y\n(γ) όλες τις γραμμές του y και ό,τι ταιριάζει από το x\n(δ) όλες τις γραμμές και των δύο πινάκων"
   },
   {
-    "objectID": "slides/lecture-11/index.html#προετοιμασία-φόρτωση-βιβλιοθηκών",
-    "href": "slides/lecture-11/index.html#προετοιμασία-φόρτωση-βιβλιοθηκών",
-    "title": "Ολοκληρωμένη Ανάλυση Δεδομένων: dplyr + ggplot2",
-    "section": "Προετοιμασία: Φόρτωση βιβλιοθηκών",
-    "text": "Προετοιμασία: Φόρτωση βιβλιοθηκών\nΞεκινάμε φορτώνοντας τα δύο βασικά μας πακέτα.\n\nlibrary(dplyr)\nlibrary(ggplot2)\n\n\n\n\nΔεν χρειάζεται να φορτώσουμε δεδομένα από αρχείο! Το dataset starwars είναι ήδη ενσωματωμένο στο dplyr."
+    "objectID": "slides/lecture-11/index.html#πολλαπλής-επιλογής-συνέχεια",
+    "href": "slides/lecture-11/index.html#πολλαπλής-επιλογής-συνέχεια",
+    "title": "Ανασκόπηση",
+    "section": "Πολλαπλής επιλογής (συνέχεια)",
+    "text": "Πολλαπλής επιλογής (συνέχεια)\nΕ3. Ποιο σύμβολο προσθέτει επίπεδα (layers) σε ένα γράφημα ggplot;\n(α) |&gt; (β) + (γ) %&gt;% (δ) &\n\n\nΕ4. Αν η στήλη mass περιέχει NA, τι θα επιστρέψει το mean(mass);\n(α) αγνοεί αυτόματα τα NA (β) NA (γ) 0 (δ) σφάλμα (error)\n\n\nΕ5. Μετά από group_by(species), το summarise(n = n()) επιστρέφει:\n(α) μία γραμμή συνολικά\n(β) μία γραμμή ανά είδος\n(γ) όλες τις αρχικές γραμμές\n(δ) τις στήλες χωρίς αλλαγή"
   },
   {
-    "objectID": "slides/lecture-11/index.html#το-dataset-starwars",
-    "href": "slides/lecture-11/index.html#το-dataset-starwars",
-    "title": "Ολοκληρωμένη Ανάλυση Δεδομένων: dplyr + ggplot2",
-    "section": "Το dataset starwars",
-    "text": "Το dataset starwars\nΠεριέχει πληροφορίες για τους χαρακτήρες της σειράς ταινιών Star Wars.\n\nstarwars\n\n\n\n\nglimpse(starwars)"
+    "objectID": "slides/lecture-11/index.html#πολλαπλής-επιλογής-περισσότερες",
+    "href": "slides/lecture-11/index.html#πολλαπλής-επιλογής-περισσότερες",
+    "title": "Ανασκόπηση",
+    "section": "Πολλαπλής επιλογής (περισσότερες)",
+    "text": "Πολλαπλής επιλογής (περισσότερες)\nΕ6. Ποια συνάρτηση επιλέγει στήλες από έναν πίνακα;\n(α) filter() (β) select() (γ) arrange() (δ) mutate()\n\n\nΕ7. Το starwars |&gt; count(species) ισοδυναμεί με:\n(α) group_by(species) |&gt; summarise(n = n()) (β) distinct(species) (γ) filter(species) (δ) arrange(species)\n\n\nΕ8. Το filter(species %in% c(\"Human\", \"Droid\")) κρατά τις γραμμές όπου:\n(α) το species είναι και Human και Droid (β) το species είναι Human ή Droid (γ) το species δεν είναι ούτε Human ούτε Droid (δ) όλες οι γραμμές"
   },
   {
-    "objectID": "slides/lecture-11/index.html#άσκηση",
-    "href": "slides/lecture-11/index.html#άσκηση",
-    "title": "Ολοκληρωμένη Ανάλυση Δεδομένων: dplyr + ggplot2",
-    "section": "Άσκηση",
-    "text": "Άσκηση\nΧρησιμοποιώντας το starwars:\n\nΠόσοι χαρακτήρες υπάρχουν συνολικά;\nΠόσα διαφορετικά είδη (species) εμφανίζονται; (Συμβουλή: distinct() + nrow(), ή n_distinct()).\nΠόσοι χαρακτήρες έχουν NA στη στήλη mass; (Συμβουλή: filter(is.na(mass)) και μετά nrow()).\nΠοιοι είναι οι 5 ψηλότεροι χαρακτήρες; Εμφανίστε τις στήλες name, height, species."
+    "objectID": "slides/lecture-11/index.html#πολλαπλής-επιλογής-περισσότερες-2",
+    "href": "slides/lecture-11/index.html#πολλαπλής-επιλογής-περισσότερες-2",
+    "title": "Ανασκόπηση",
+    "section": "Πολλαπλής επιλογής (περισσότερες — 2)",
+    "text": "Πολλαπλής επιλογής (περισσότερες — 2)\nΕ9. Μέσα στο aes() ορίζουμε:\n(α) το θέμα (theme) του γραφήματος (β) τις αντιστοιχίσεις μεταβλητών σε οπτικά χαρακτηριστικά (x, y, χρώμα…) (γ) τους τίτλους (δ) το είδος του geom\n\n\nΕ10. Τι κάνει το facet_wrap(~ galaxy_region);\n(α) χρωματίζει τα σημεία ανά περιοχή (β) φιλτράρει ανά περιοχή (γ) χωρίζει το γράφημα σε υπο-γραφήματα ανά τιμή του galaxy_region (δ) ταξινομεί τις περιοχές\n\n\nΕ11. Το inner_join(x, y) κρατά:\n(α) όλες τις γραμμές του x (β) όλες τις γραμμές του y (γ) μόνο τις γραμμές που ταιριάζουν και στους δύο (δ) όλες τις γραμμές και των δύο"
   },
   {
-    "objectID": "slides/lecture-11/index.html#πόσα-na-έχουμε-σε-κάθε-στήλη",
-    "href": "slides/lecture-11/index.html#πόσα-na-έχουμε-σε-κάθε-στήλη",
-    "title": "Ολοκληρωμένη Ανάλυση Δεδομένων: dplyr + ggplot2",
-    "section": "Πόσα NA έχουμε σε κάθε στήλη;",
-    "text": "Πόσα NA έχουμε σε κάθε στήλη;\n\nstarwars |&gt;\n  summarise(\n    n_height     = sum(is.na(height)),\n    n_mass       = sum(is.na(mass)),\n    n_birth_year = sum(is.na(birth_year)),\n    n_homeworld  = sum(is.na(homeworld)),\n    n_species    = sum(is.na(species))\n  )\n\n\nΠαρατηρούμε ότι η στήλη birth_year έχει πολλά NA. Πρέπει να αποφασίσουμε πώς θα τα χειριστούμε όταν την χρησιμοποιούμε."
+    "objectID": "slides/lecture-11/index.html#συμπλήρωση-κενών-1",
+    "href": "slides/lecture-11/index.html#συμπλήρωση-κενών-1",
+    "title": "Ανασκόπηση",
+    "section": "Συμπλήρωση κενών",
+    "text": "Συμπλήρωση κενών\nΣυμπληρώστε τα κενά (____) ώστε η ροή να: κρατά όσους έχουν γνωστό height & mass, αφαιρεί ακραίες τιμές, ομαδοποιεί ανά είδος, και υπολογίζει πλήθος + μέσο ύψος, ταξινομημένα φθίνουσα ως προς το πλήθος.\n\nsw_summary &lt;- starwars |&gt;\n  ________(!is.na(height), !is.na(mass)) |&gt;    # (1) κρατάμε γνωστά height & mass\n  ________(mass &lt; 500) |&gt;                      # (2) αφαιρούμε ακραίες τιμές\n  mutate(height_m = ______ / ______) |&gt;        # (3) μετατροπή από εκατοστά σε μέτρα\n  ________(species) |&gt;                         # (4) ομαδοποίηση ανά είδος\n  summarise(\n    n          = ____(),                       # (5) πλήθος χαρακτήρων\n    avg_height = mean(________),               # (6) μέσο ύψος σε μέτρα\n    .groups    = \"drop\"\n  ) |&gt;\n  ________(desc(n))                            # (7) ταξινόμηση φθίνουσα\n\nsw_summary"
   },
   {
-    "objectID": "slides/lecture-11/index.html#καθαρισμός-φιλτράρισμα-και-μετασχηματισμός",
-    "href": "slides/lecture-11/index.html#καθαρισμός-φιλτράρισμα-και-μετασχηματισμός",
-    "title": "Ολοκληρωμένη Ανάλυση Δεδομένων: dplyr + ggplot2",
-    "section": "Καθαρισμός: Φιλτράρισμα και μετασχηματισμός",
-    "text": "Καθαρισμός: Φιλτράρισμα και μετασχηματισμός\nΦτιάχνουμε ένα καθαρό dataset, το sw_clean:\n\nsw_clean &lt;- starwars |&gt;\n  filter(!is.na(height), !is.na(mass)) |&gt;      # κρατάμε όσους έχουν height & mass\n  filter(mass &lt; 500) |&gt;                        # αφαιρούμε ακραίες τιμές (π.χ. Jabba)\n  mutate(\n    height_m = height / 100,                   # μετατροπή σε μέτρα\n    bmi      = mass / (height_m ^ 2)           # δείκτης μάζας σώματος\n  ) |&gt;\n  select(name, species, homeworld, sex, height, mass, height_m, bmi)\n\nglimpse(sw_clean)"
+    "objectID": "slides/lecture-11/index.html#συμπλήρωση-κενών-2η",
+    "href": "slides/lecture-11/index.html#συμπλήρωση-κενών-2η",
+    "title": "Ανασκόπηση",
+    "section": "Συμπλήρωση κενών (2η)",
+    "text": "Συμπλήρωση κενών (2η)\nΣυμπληρώστε τα κενά ώστε να μετρηθεί το πλήθος χαρακτήρων ανά περιοχή του γαλαξία και να φτιαχτεί bar chart.\n\nplot_data &lt;- starwars |&gt;\n  ________(homeworld_info, join_by(________)) |&gt;   # (1) ένωση & (2) κλειδί\n  filter(!is.na(galaxy_region)) |&gt;\n  ________(galaxy_region)                          # (3) μέτρημα ανά περιοχή\n\nplot_data |&gt;\n  ggplot(aes(x = galaxy_region, y = ___)) ____     # (4) στήλη πλήθους & (5) σύνδεση\n  geom_____() +                                    # (6) στήλες από έτοιμα νούμερα\n  labs(title = \"Χαρακτήρες ανά περιοχή\", x = \"Περιοχή\", y = \"Πλήθος\")"
   },
   {
-    "objectID": "slides/lecture-11/index.html#άσκηση-1",
-    "href": "slides/lecture-11/index.html#άσκηση-1",
-    "title": "Ολοκληρωμένη Ανάλυση Δεδομένων: dplyr + ggplot2",
-    "section": "Άσκηση",
-    "text": "Άσκηση\nΞεκινώντας από το αρχικό starwars, δημιουργήστε ένα νέο tibble με όνομα sw_adults που:\n\nΚρατάει μόνο όσους έχουν γνωστό birth_year (όχι NA).\nΔημιουργεί μια νέα στήλη age_at_yavin που δείχνει την ηλικία του χαρακτήρα τη χρονιά της Μάχης του Yavin (BBY = 0). Συμβουλή: το birth_year είναι χρόνια πριν τη Μάχη του Yavin, οπότε αυτό είναι και η ηλικία τους.\nΦιλτράρει για ενήλικες (ηλικία ≥ 18).\nΕπιλέγει τις στήλες: name, species, homeworld, age_at_yavin.\nΤαξινομεί με βάση την ηλικία φθίνουσα (από τον πιο γέρο στον νεότερο)."
+    "objectID": "slides/lecture-11/index.html#σωστό-ή-λάθος",
+    "href": "slides/lecture-11/index.html#σωστό-ή-λάθος",
+    "title": "Ανασκόπηση",
+    "section": "Σωστό ή Λάθος;",
+    "text": "Σωστό ή Λάθος;\nΣημειώστε Σ ή Λ για κάθε πρόταση.\n\nΤο filter() επιλέγει στήλες από έναν πίνακα.\nΤο mutate() δημιουργεί ή τροποποιεί στήλες.\nΜετά από group_by() πρέπει πάντα να ακολουθεί summarise().\nΤο arrange(desc(x)) ταξινομεί αύξουσα.\nΟ τελεστής |&gt; περνά το αριστερό αποτέλεσμα ως πρώτο όρισμα της επόμενης συνάρτησης.\nΤο left_join() μπορεί να εισάγει NA σε γραμμές που δεν βρήκαν ταίριασμα.\nΣτο geom_boxplot() ο άξονας X πρέπει να είναι αριθμητικός."
   },
   {
-    "objectID": "slides/lecture-11/index.html#γιατί-χρειαζόμαστε-επιπλέον-πίνακες",
-    "href": "slides/lecture-11/index.html#γιατί-χρειαζόμαστε-επιπλέον-πίνακες",
-    "title": "Ολοκληρωμένη Ανάλυση Δεδομένων: dplyr + ggplot2",
-    "section": "Γιατί χρειαζόμαστε επιπλέον πίνακες;",
-    "text": "Γιατί χρειαζόμαστε επιπλέον πίνακες;\nΤο starwars έχει πολλά διαφορετικά είδη (Human, Droid, Wookiee, …) και δεκάδες πλανήτες.\n\n\nΣυχνά θέλουμε να ομαδοποιήσουμε σε μεγαλύτερες κατηγορίες ή να εμπλουτίσουμε με πληροφορία που δεν υπάρχει στο αρχικό dataset:\n\nΚατηγορία είδους (humanoid / droid / mammal / …)\nΠεριοχή του γαλαξία (Core / Mid Rim / Outer Rim) ανά πλανήτη\nΚλίμα του πλανήτη\n\n\n\nΑυτές τις πληροφορίες θα τις φτιάξουμε μόνοι μας με τη συνάρτηση tribble()."
+    "objectID": "slides/lecture-11/index.html#σωστό-ή-λάθος-συνέχεια",
+    "href": "slides/lecture-11/index.html#σωστό-ή-λάθος-συνέχεια",
+    "title": "Ανασκόπηση",
+    "section": "Σωστό ή Λάθος; (συνέχεια)",
+    "text": "Σωστό ή Λάθος; (συνέχεια)\n\nΤο count(x) επιστρέφει μια στήλη πλήθους με όνομα n.\nΤο select(-name) αφαιρεί τη στήλη name.\nΤο inner_join() κρατά και γραμμές που δεν βρήκαν ταίριασμα.\nΣτο aes() μπορούμε να αντιστοιχίσουμε ένα χρώμα σε μια μεταβλητή.\nΤο mean(c(1, 2, NA), na.rm = TRUE) επιστρέφει NA.\nΤο group_by() αλλάζει τον αριθμό των γραμμών του πίνακα."
   },
   {
-    "objectID": "slides/lecture-11/index.html#η-συνάρτηση-tribble",
-    "href": "slides/lecture-11/index.html#η-συνάρτηση-tribble",
-    "title": "Ολοκληρωμένη Ανάλυση Δεδομένων: dplyr + ggplot2",
-    "section": "Η συνάρτηση tribble()",
-    "text": "Η συνάρτηση tribble()\nΗ tribble() φτιάχνει έναν μικρό tibble γράφοντας τις γραμμές όπως σε ένα πίνακα:\n\nexample &lt;- tribble(\n  ~name,    ~grade,\n  \"Maria\",  9.5,\n  \"John\", 7.0,\n  \"George\",  8.5\n)\n\nexample\n\n\n\n\nΤα ονόματα των στηλών μπαίνουν με ~ μπροστά. Κάθε επόμενη γραμμή είναι μια καινούργια παρατήρηση."
+    "objectID": "slides/lecture-11/index.html#εντοπισμός-λάθους-dplyr",
+    "href": "slides/lecture-11/index.html#εντοπισμός-λάθους-dplyr",
+    "title": "Ανασκόπηση",
+    "section": "Εντοπισμός λάθους (dplyr)",
+    "text": "Εντοπισμός λάθους (dplyr)\nΟ παρακάτω κώδικας έπρεπε να κρατήσει μόνο τους ανθρώπους, αλλά δίνει σφάλμα. Βρείτε και διορθώστε το λάθος.\n\nstarwars |&gt;\n  filter(species = \"Human\")\n\n\n\nΜήνυμα σφάλματος:\nError in `filter()`:\n! We detected a named input.\nℹ This usually means that you've used `=` instead of `==`.\nℹ Did you mean `species == \"Human\"`?"
   },
   {
-    "objectID": "slides/lecture-11/index.html#φτιάχνουμε-το-species_class",
-    "href": "slides/lecture-11/index.html#φτιάχνουμε-το-species_class",
-    "title": "Ολοκληρωμένη Ανάλυση Δεδομένων: dplyr + ggplot2",
-    "section": "Φτιάχνουμε το species_class",
-    "text": "Φτιάχνουμε το species_class\nΟμαδοποιούμε τα είδη σε κατηγορίες:\n\nspecies_class &lt;- tribble(\n  ~species,        ~classification,\n  \"Human\",         \"Humanoid\",\n  \"Droid\",         \"Droid\",\n  \"Wookiee\",       \"Mammal\",\n  \"Ewok\",          \"Mammal\",\n  \"Gungan\",        \"Amphibian\",\n  \"Hutt\",          \"Reptile\",\n  \"Rodian\",        \"Reptile\",\n  \"Trandoshan\",    \"Reptile\",\n  \"Twi'lek\",       \"Humanoid\",\n  \"Mon Calamari\",  \"Amphibian\",\n  \"Zabrak\",        \"Humanoid\",\n  \"Yoda's species\",\"Humanoid\",\n  \"Kel Dor\",       \"Humanoid\",\n  \"Mirialan\",      \"Humanoid\",\n  \"Togruta\",       \"Humanoid\",\n  \"Cerean\",        \"Humanoid\"\n)\n\nspecies_class"
+    "objectID": "slides/lecture-11/index.html#εντοπισμός-λάθους-ggplot2",
+    "href": "slides/lecture-11/index.html#εντοπισμός-λάθους-ggplot2",
+    "title": "Ανασκόπηση",
+    "section": "Εντοπισμός λάθους (ggplot2)",
+    "text": "Εντοπισμός λάθους (ggplot2)\nΟ κώδικας θέλει να φτιάξει scatter plot ύψους–μάζας, αλλά αποτυγχάνει. Βρείτε το λάθος.\n\nggplot(starwars, aes(x = height, y = mass)) |&gt;\n  geom_point()\n\n\n\nΜήνυμα σφάλματος:\nError in `geom_point()`:\n! `data` must be a &lt;data.frame&gt;, or an object coercible by\n  `fortify()`, not an S3 object with class &lt;ggplot&gt;."
   },
   {
-    "objectID": "slides/lecture-11/index.html#πρώτο-join-εμπλουτίζουμε-το-sw_clean",
-    "href": "slides/lecture-11/index.html#πρώτο-join-εμπλουτίζουμε-το-sw_clean",
-    "title": "Ολοκληρωμένη Ανάλυση Δεδομένων: dplyr + ggplot2",
-    "section": "Πρώτο join: εμπλουτίζουμε το sw_clean",
-    "text": "Πρώτο join: εμπλουτίζουμε το sw_clean\nΘέλουμε να προσθέσουμε τη στήλη classification δίπλα σε κάθε χαρακτήρα του sw_clean.\n\nsw_class &lt;- sw_clean |&gt;\n  left_join(species_class, join_by(species))\n\nglimpse(sw_class)\n\n\n\n\nΧρησιμοποιήσαμε left_join ώστε να κρατήσουμε όλους τους χαρακτήρες, ακόμα κι όσοι έχουν είδος για το οποίο δεν φτιάξαμε classification (θα πάρουν NA)."
+    "objectID": "slides/lecture-11/index.html#εντοπισμός-λάθους-στήλη-που-δεν-υπάρχει",
+    "href": "slides/lecture-11/index.html#εντοπισμός-λάθους-στήλη-που-δεν-υπάρχει",
+    "title": "Ανασκόπηση",
+    "section": "Εντοπισμός λάθους (στήλη που δεν υπάρχει)",
+    "text": "Εντοπισμός λάθους (στήλη που δεν υπάρχει)\nΟ κώδικας θέλει να υπολογίσει το μέσο ύψος, αλλά αποτυγχάνει. Βρείτε το λάθος.\n\nstarwars |&gt;\n  summarise(avg_height = mean(heigth, na.rm = TRUE))\n\n\n\nΜήνυμα σφάλματος:\nError in `summarise()`:\nℹ In argument: `avg_height = mean(heigth, na.rm = TRUE)`.\nCaused by error:\n! object 'heigth' not found"
   },
   {
-    "objectID": "slides/lecture-11/index.html#άσκηση-2",
-    "href": "slides/lecture-11/index.html#άσκηση-2",
-    "title": "Ολοκληρωμένη Ανάλυση Δεδομένων: dplyr + ggplot2",
-    "section": "Άσκηση",
-    "text": "Άσκηση\nΧρησιμοποιώντας το sw_class:\n\nΑφαιρέστε όσους χαρακτήρες έχουν NA στο classification.\nΟμαδοποιήστε ανά classification.\nΥπολογίστε:\n\nΤο πλήθος χαρακτήρων (n_characters).\nΤο μέσο ύψος σε μέτρα (avg_height_m).\nΤο μέσο BMI (avg_bmi).\n\nΤαξινομήστε με βάση τον μέσο BMI σε φθίνουσα σειρά.\n\n\nΡυθμός Καθηγητή (1:10 - 1:30) Πιθανώς θα έχουν αξιοπρόσεκτα αποτελέσματα: τα Mammals (Wookiees, Ewoks) έχουν υψηλό BMI. Σχολιάστε ότι το na.rm = TRUE εδώ ΔΕΝ είναι απαραίτητο αφού στο sw_clean έχουμε ήδη πετάξει τα NA από height/mass. Σημείωση: στο sw_class η στήλη species εξακολουθεί να υπάρχει — απλά έχει προστεθεί και η classification."
+    "objectID": "slides/lecture-11/index.html#εντοπισμός-λάθους-λογικό-όχι-σφάλμα",
+    "href": "slides/lecture-11/index.html#εντοπισμός-λάθους-λογικό-όχι-σφάλμα",
+    "title": "Ανασκόπηση",
+    "section": "Εντοπισμός λάθους (λογικό — όχι σφάλμα)",
+    "text": "Εντοπισμός λάθους (λογικό — όχι σφάλμα)\nΟ κώδικας τρέχει χωρίς error, αλλά το αποτέλεσμα είναι NA. Γιατί;\n\nstarwars |&gt;\n  summarise(avg_mass = mean(mass))\n#&gt; avg_mass = NA"
   },
   {
-    "objectID": "slides/lecture-11/index.html#φτιάχνουμε-το-homeworld_info",
-    "href": "slides/lecture-11/index.html#φτιάχνουμε-το-homeworld_info",
-    "title": "Ολοκληρωμένη Ανάλυση Δεδομένων: dplyr + ggplot2",
-    "section": "Φτιάχνουμε το homeworld_info",
-    "text": "Φτιάχνουμε το homeworld_info\nΠροσθέτουμε περιοχή γαλαξία και κλίμα για κάθε πλανήτη:\n\nhomeworld_info &lt;- tribble(\n  ~homeworld,      ~galaxy_region,  ~climate,\n  \"Tatooine\",      \"Outer Rim\",     \"Arid\",\n  \"Naboo\",         \"Mid Rim\",       \"Temperate\",\n  \"Alderaan\",      \"Core\",          \"Temperate\",\n  \"Stewjon\",       \"Core\",          \"Temperate\",\n  \"Coruscant\",     \"Core\",          \"Temperate\",\n  \"Kashyyyk\",      \"Mid Rim\",       \"Tropical\",\n  \"Corellia\",      \"Core\",          \"Temperate\",\n  \"Rodia\",         \"Outer Rim\",     \"Tropical\",\n  \"Nal Hutta\",     \"Outer Rim\",     \"Tropical\",\n  \"Bestine IV\",    \"Outer Rim\",     \"Temperate\",\n  \"Kamino\",        \"Outer Rim\",     \"Aquatic\",\n  \"Cerea\",         \"Mid Rim\",       \"Temperate\",\n  \"Glee Anselm\",   \"Mid Rim\",       \"Aquatic\",\n  \"Iridonia\",      \"Mid Rim\",       \"Arid\"\n)"
+    "objectID": "slides/lecture-11/index.html#αντιστοίχιση-dplyr",
+    "href": "slides/lecture-11/index.html#αντιστοίχιση-dplyr",
+    "title": "Ανασκόπηση",
+    "section": "Αντιστοίχιση (dplyr)",
+    "text": "Αντιστοίχιση (dplyr)\nΑντιστοιχίστε κάθε συνάρτηση dplyr με τη δουλειά της.\n\n\n\nΣυνάρτηση\n#\nΠεριγραφή\n\n\n\n\nfilter()\n1\nΔημιουργεί / τροποποιεί στήλες\n\n\nselect()\n2\nΟμαδοποιεί τις γραμμές\n\n\nmutate()\n3\nΕπιλέγει γραμμές με βάση συνθήκη\n\n\narrange()\n4\nΣυνοψίζει κάθε ομάδα σε μία τιμή\n\n\nsummarise()\n5\nΕπιλέγει στήλες\n\n\ngroup_by()\n6\nΤαξινομεί τις γραμμές"
   },
   {
-    "objectID": "slides/lecture-11/index.html#δεύτερο-join-ενώνουμε-δύο-βοηθητικούς-πίνακες",
-    "href": "slides/lecture-11/index.html#δεύτερο-join-ενώνουμε-δύο-βοηθητικούς-πίνακες",
-    "title": "Ολοκληρωμένη Ανάλυση Δεδομένων: dplyr + ggplot2",
-    "section": "Δεύτερο join: ενώνουμε δύο βοηθητικούς πίνακες",
-    "text": "Δεύτερο join: ενώνουμε δύο βοηθητικούς πίνακες\n\nsw_full &lt;- sw_clean |&gt;\n  left_join(species_class,  join_by(species)) |&gt;\n  left_join(homeworld_info, join_by(homeworld))\n\nglimpse(sw_full)\n\n\n\n\nΤώρα κάθε χαρακτήρας έχει: αρχικά δεδομένα + classification + galaxy_region + climate."
+    "objectID": "slides/lecture-11/index.html#αντιστοίχιση-γραφήματα",
+    "href": "slides/lecture-11/index.html#αντιστοίχιση-γραφήματα",
+    "title": "Ανασκόπηση",
+    "section": "Αντιστοίχιση (γραφήματα)",
+    "text": "Αντιστοίχιση (γραφήματα)\nΑντιστοιχίστε κάθε geom με τον τύπο γραφήματος.\n\n\n\nGeom\n#\nΤύπος γραφήματος\n\n\n\n\ngeom_point()\n1\nΡαβδόγραμμα από έτοιμα νούμερα\n\n\ngeom_col()\n2\nΘηκόγραμμα (boxplot)\n\n\ngeom_boxplot()\n3\nΔιάγραμμα διασποράς (scatter)\n\n\ngeom_histogram()\n4\nΓραμμή / χρονοσειρά\n\n\ngeom_line()\n5\nΙστόγραμμα συχνοτήτων"
   },
   {
-    "objectID": "slides/lecture-11/index.html#άσκηση-3",
-    "href": "slides/lecture-11/index.html#άσκηση-3",
-    "title": "Ολοκληρωμένη Ανάλυση Δεδομένων: dplyr + ggplot2",
-    "section": "Άσκηση",
-    "text": "Άσκηση\nΧρησιμοποιώντας το sw_full:\n\nΑφαιρέστε όσους χαρακτήρες έχουν NA στο galaxy_region.\nΟμαδοποιήστε ανά galaxy_region και classification.\nΥπολογίστε:\n\nΤο πλήθος χαρακτήρων (n).\nΤο μέσο ύψος σε μέτρα (avg_height_m).\n\nΤαξινομήστε ανά galaxy_region και κατόπιν φθίνον n."
+    "objectID": "slides/lecture-11/index.html#πρόβλεψη-αποτελέσματος",
+    "href": "slides/lecture-11/index.html#πρόβλεψη-αποτελέσματος",
+    "title": "Ανασκόπηση",
+    "section": "Πρόβλεψη αποτελέσματος",
+    "text": "Πρόβλεψη αποτελέσματος\nΔίνεται ο πίνακας df:\n# A tibble: 4 × 2\n      a     b\n  &lt;dbl&gt; &lt;dbl&gt;\n1     1    10\n2     2    20\n3     3    30\n4     4    40\nΤι θα τυπώσει ο παρακάτω κώδικας;\n\ndf |&gt;\n  filter(a &gt;= 2) |&gt;\n  summarise(total = sum(b))"
   },
   {
-    "objectID": "slides/lecture-11/index.html#από-τους-πίνακες-στα-γραφήματα",
-    "href": "slides/lecture-11/index.html#από-τους-πίνακες-στα-γραφήματα",
-    "title": "Ολοκληρωμένη Ανάλυση Δεδομένων: dplyr + ggplot2",
-    "section": "Από τους πίνακες στα γραφήματα",
-    "text": "Από τους πίνακες στα γραφήματα\nΈχουμε ήδη φτιάξει το sw_full που περιέχει όλη τη συνδυασμένη πληροφορία.\n\n\nΤώρα θα δούμε τρία είδη γραφημάτων που απαντούν σε τρία διαφορετικά ερωτήματα:\n\n\nBar chart: Πόσοι χαρακτήρες ανά κατηγορία είδους;\nBoxplot: Πώς κατανέμεται το ύψος ανά κατηγορία;\nScatter plot με facets: Πώς σχετίζεται ύψος ↔︎ μάζα ανά περιοχή γαλαξία;"
+    "objectID": "slides/lecture-11/index.html#πρόβλεψη-αποτελέσματος-2η",
+    "href": "slides/lecture-11/index.html#πρόβλεψη-αποτελέσματος-2η",
+    "title": "Ανασκόπηση",
+    "section": "Πρόβλεψη αποτελέσματος (2η)",
+    "text": "Πρόβλεψη αποτελέσματος (2η)\nΔίνεται ο πίνακας df2:\n# A tibble: 4 × 2\n  grp     val\n  &lt;chr&gt; &lt;dbl&gt;\n1 A         5\n2 A        15\n3 B        10\n4 B        30\nΤι θα τυπώσει ο παρακάτω κώδικας;\n\ndf2 |&gt;\n  group_by(grp) |&gt;\n  summarise(m = mean(val))"
   },
   {
-    "objectID": "slides/lecture-11/index.html#γράφημα-1ο-bar-chart-πλήθους",
-    "href": "slides/lecture-11/index.html#γράφημα-1ο-bar-chart-πλήθους",
-    "title": "Ολοκληρωμένη Ανάλυση Δεδομένων: dplyr + ggplot2",
-    "section": "Γράφημα 1ο: Bar chart πλήθους",
-    "text": "Γράφημα 1ο: Bar chart πλήθους\n\nsw_full |&gt;\n  filter(!is.na(classification)) |&gt;\n  count(classification) |&gt;\n  ggplot(aes(x = reorder(classification, n), y = n, fill = classification)) +\n  geom_col(show.legend = FALSE) +\n  coord_flip() +\n  labs(\n    title = \"Πλήθος χαρακτήρων ανά κατηγορία είδους\",\n    x = NULL,\n    y = \"Αριθμός χαρακτήρων\"\n  ) +\n  theme_minimal()"
+    "objectID": "slides/lecture-11/index.html#σειροθέτηση-βημάτων",
+    "href": "slides/lecture-11/index.html#σειροθέτηση-βημάτων",
+    "title": "Ανασκόπηση",
+    "section": "Σειροθέτηση βημάτων",
+    "text": "Σειροθέτηση βημάτων\nΤα παρακάτω βήματα είναι ανακατεμένα. Βάλτε τα στη σωστή σειρά ώστε να υπολογιστεί το μέσο ύψος ανά είδος, ταξινομημένο φθίνουσα.\n(Α)  arrange(desc(avg_h))\n(Β)  starwars |&gt;\n(Γ)  summarise(avg_h = mean(height, na.rm = TRUE), .groups = \"drop\") |&gt;\n(Δ)  group_by(species) |&gt;\n(Ε)  filter(!is.na(height)) |&gt;"
   },
   {
-    "objectID": "slides/lecture-11/index.html#γράφημα-2ο-boxplot-υψών-ανά-classification",
-    "href": "slides/lecture-11/index.html#γράφημα-2ο-boxplot-υψών-ανά-classification",
-    "title": "Ολοκληρωμένη Ανάλυση Δεδομένων: dplyr + ggplot2",
-    "section": "Γράφημα 2ο: Boxplot υψών ανά classification",
-    "text": "Γράφημα 2ο: Boxplot υψών ανά classification\n\nsw_full |&gt;\n  filter(!is.na(classification)) |&gt;\n  ggplot(aes(x = classification, y = height_m, fill = classification)) +\n  geom_boxplot(show.legend = FALSE) +\n  labs(\n    title = \"Κατανομή υψών ανά κατηγορία είδους\",\n    x = \"Κατηγορία\",\n    y = \"Ύψος (m)\"\n  ) +\n  theme_classic() +\n  theme(\n    plot.title  = element_text(face = \"bold\", hjust = 0.5),\n    axis.text.x = element_text(angle = 30, hjust = 1)\n  )"
+    "objectID": "slides/lecture-11/index.html#capstone-συμπλήρωση-κενών-12",
+    "href": "slides/lecture-11/index.html#capstone-συμπλήρωση-κενών-12",
+    "title": "Ανασκόπηση",
+    "section": "Capstone: συμπλήρωση κενών (1/2)",
+    "text": "Capstone: συμπλήρωση κενών (1/2)\nΣυμπληρώστε τα κενά ώστε, ξεκινώντας από το starwars, να φτιαχτεί boxplot ύψους ανά κλίμα πλανήτη, αφού γίνουν δύο joins με τους βοηθητικούς πίνακες species_class και homeworld_info.\n\nsw_full &lt;- starwars |&gt;\n  filter(!is.na(height), !is.na(mass)) |&gt;\n  filter(mass ____ 500) |&gt;                        # (1) αφαίρεση ακραίων\n  mutate(height_m = height / 100) |&gt;\n  left_join(species_class,  join_by(________)) |&gt;  # (2) κλειδί ένωσης\n  left_join(homeworld_info, join_by(________))     # (3) κλειδί ένωσης"
   },
   {
-    "objectID": "slides/lecture-11/index.html#άσκηση-4",
-    "href": "slides/lecture-11/index.html#άσκηση-4",
-    "title": "Ολοκληρωμένη Ανάλυση Δεδομένων: dplyr + ggplot2",
-    "section": "Άσκηση",
-    "text": "Άσκηση\nΧρησιμοποιώντας το sw_full:\n\nΑφαιρέστε όσους έχουν NA στο galaxy_region.\nΦτιάξτε ένα scatter plot με:\n\nΆξονας X: height_m\nΆξονας Y: mass\nΧρώμα: classification\n\nΠροσθέστε geom_point(size = 3, alpha = 0.7).\nΚάντε facet_wrap(~ galaxy_region).\nΠροσθέστε κατάλληλους τίτλους με τη labs().\nΕφαρμόστε theme_minimal() και βάλτε το υπόμνημα στο κάτω μέρος.\n\n\nΡυθμός Καθηγητή (2:25 - 2:45) Αυτή η άσκηση συνδυάζει join + filter + ggplot + theme + facet. Είναι σχεδόν αναπαράσταση όλης της ύλης. Αν κάποιοι ψάχνουν για περισσότερη πρόκληση, ζητήστε τους να αλλάξουν τους labels του υπομνήματος (labs(color = \"Κατηγορία\"))."
+    "objectID": "slides/lecture-11/index.html#capstone-συμπλήρωση-κενών-22",
+    "href": "slides/lecture-11/index.html#capstone-συμπλήρωση-κενών-22",
+    "title": "Ανασκόπηση",
+    "section": "Capstone: συμπλήρωση κενών (2/2)",
+    "text": "Capstone: συμπλήρωση κενών (2/2)\n\nsw_full |&gt;\n  ________(!is.na(climate)) |&gt;                    # (4) μόνο γνωστό κλίμα\n  ggplot(aes(x = climate, y = height_m, fill = climate)) ____  # (5) σύνδεση layers\n  ________() +                                     # (6) geom για boxplot\n  labs(title = \"Ύψος ανά κλίμα πλανήτη\", x = \"Κλίμα\", y = \"Ύψος (m)\") +\n  theme_minimal() +\n  theme(legend.position = \"____\")                  # (7) απόκρυψη υπομνήματος"
   },
   {
-    "objectID": "slides/lecture-11/index.html#τελική-άσκηση-πλήρης-ροή-ανάλυσης",
-    "href": "slides/lecture-11/index.html#τελική-άσκηση-πλήρης-ροή-ανάλυσης",
-    "title": "Ολοκληρωμένη Ανάλυση Δεδομένων: dplyr + ggplot2",
-    "section": "Τελική άσκηση: Πλήρης ροή ανάλυσης",
-    "text": "Τελική άσκηση: Πλήρης ροή ανάλυσης\nΓράψτε ένα ενιαίο block κώδικα το οποίο, ξεκινώντας από το αρχικό starwars:\n\nΦιλτράρει όσους έχουν NA σε height ή mass.\nΑφαιρεί όποιον έχει mass &gt; 500.\nΔημιουργεί τη στήλη height_m = height / 100.\nΚάνει left_join με το species_class."
+    "objectID": "slides/lecture-11/index.html#βοηθητικοί-πίνακες-για-αναφορά",
+    "href": "slides/lecture-11/index.html#βοηθητικοί-πίνακες-για-αναφορά",
+    "title": "Ανασκόπηση",
+    "section": "Βοηθητικοί πίνακες (για αναφορά)",
+    "text": "Βοηθητικοί πίνακες (για αναφορά)\nΟι πίνακες που χρησιμοποιούν οι ασκήσεις — όπως τους φτιάξαμε στα προηγούμενα μαθήματα:\n\nspecies_class &lt;- tribble(\n  ~species, ~classification,\n  \"Human\",  \"Humanoid\",\n  \"Droid\",  \"Droid\",\n  \"Wookiee\",\"Mammal\"\n  # ... (πλήρης πίνακας στο μάθημα 10)\n)\n\nhomeworld_info &lt;- tribble(\n  ~homeworld,  ~galaxy_region, ~climate,\n  \"Tatooine\",  \"Outer Rim\",    \"Arid\",\n  \"Naboo\",     \"Mid Rim\",      \"Temperate\",\n  \"Alderaan\",  \"Core\",         \"Temperate\"\n  # ... (πλήρης πίνακας στο μάθημα 10)\n)"
   },
   {
-    "objectID": "slides/lecture-11/index.html#τελική-άσκηση-πλήρης-ροή-ανάλυσης-1",
-    "href": "slides/lecture-11/index.html#τελική-άσκηση-πλήρης-ροή-ανάλυσης-1",
-    "title": "Ολοκληρωμένη Ανάλυση Δεδομένων: dplyr + ggplot2",
-    "section": "Τελική άσκηση: Πλήρης ροή ανάλυσης",
-    "text": "Τελική άσκηση: Πλήρης ροή ανάλυσης\n\nΚάνει left_join με το homeworld_info.\nΦιλτράρει όσους έχουν NA στο climate.\nΣτέλνει τα δεδομένα στο ggplot και φτιάχνει boxplot με:\n\nΆξονας X: climate\nΆξονας Y: height_m\nΓέμισμα: climate\n\nΠροσθέτει κατάλληλους τίτλους.\nΕφαρμόζει theme_minimal() και αφαιρεί το υπόμνημα (legend.position = \"none\").\n\n\nΡυθμός Καθηγητή (2:45 - 2:55) Αυτή είναι η τελική σύνθεση. Ενθαρρύνετε τους να γράψουν τη ροή βήμα-βήμα και να ελέγχουν το αποτέλεσμα μετά από κάθε pipe. Όταν τελειώσουν, ζητήστε τους να σώσουν το script τους ως τελικό παραδοτέο του εξαμήνου. Καλό είναι να γίνει αναφορά στο πώς αυτό είναι ένα τυπικό R workflow για ανάλυση δεδομένων."
-  },
-  {
-    "objectID": "slides/lecture-11/index.html#ευχαριστώ",
-    "href": "slides/lecture-11/index.html#ευχαριστώ",
-    "title": "Ολοκληρωμένη Ανάλυση Δεδομένων: dplyr + ggplot2",
-    "section": "Ευχαριστώ!",
-    "text": "Ευχαριστώ!\n\n\n\nΚαλή πρόοδο σε όλους σας — και καλό καλοκαίρι!\n\n\nΡυθμός Καθηγητή (2:55 - 3:00) Κλείστε με μια σύντομη ανασκόπηση. Υπενθυμίστε τους ότι το καλύτερο που μπορούν να κάνουν είναι να εφαρμόσουν όσα έμαθαν σε δικά τους δεδομένα — από εργασίες, από projects, ή ακόμα και από προσωπικά τους δεδομένα (π.χ. βαθμολογίες, αγορές). Απαντήστε σε τυχόν τελευταίες ερωτήσεις."
+    "objectID": "slides/lecture-11/index.html#ευχαριστώ-και-καλή-επιτυχία",
+    "href": "slides/lecture-11/index.html#ευχαριστώ-και-καλή-επιτυχία",
+    "title": "Ανασκόπηση",
+    "section": "Ευχαριστώ — και καλή επιτυχία!",
+    "text": "Ευχαριστώ — και καλή επιτυχία!\n\n\n\nΚαλό διάβασμα και καλή επιτυχία στις εξετάσεις — και καλό καλοκαίρι!\n\n\nΡυθμός Καθηγητή (2:55 - 3:00) Κλείστε με μια σύντομη ανασκόπηση των τύπων ερωτήσεων. Υπενθυμίστε ότι στο γραπτό δεν θα γράψουν εκτενή κώδικα — αρκεί να καταλαβαίνουν τη λογική των pipes, των joins και του ggplot2. Συμβουλέψτε τους να εξασκηθούν ξαναγράφοντας με το χέρι τις λύσεις των ασκήσεων από τα προηγούμενα μαθήματα. Απαντήστε σε τυχόν τελευταίες ερωτήσεις."
   },
   {
     "objectID": "notes/print.html",

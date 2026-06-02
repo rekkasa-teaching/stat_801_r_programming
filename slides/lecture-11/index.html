@@ -10,8 +10,8 @@
   <meta name="generator" content="quarto-1.9.38">
 
   <meta name="author" content="Αλέξανδρος Ρέκκας">
-  <meta name="dcterms.date" content="2026-06-01">
-  <title>Ολοκληρωμένη Ανάλυση Δεδομένων: dplyr + ggplot2</title>
+  <meta name="dcterms.date" content="2026-06-02">
+  <title>Ανασκόπηση</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
@@ -197,7 +197,7 @@
     <div class="slides">
 
 <section id="title-slide" class="quarto-title-block center">
-  <h1 class="title">Ολοκληρωμένη Ανάλυση Δεδομένων: dplyr + ggplot2</h1>
+  <h1 class="title">Ανασκόπηση</h1>
 
 <div class="quarto-title-authors">
 <div class="quarto-title-author">
@@ -207,429 +207,416 @@
 </div>
 </div>
 
-  <p class="date">2026-06-01</p>
+  <p class="date">2026-06-02</p>
 </section>
-<section id="στόχος-του-σημερινού-μαθήματος" class="slide level2">
-<h2>Στόχος του σημερινού μαθήματος</h2>
-<p>Έχουμε ολοκληρώσει την ύλη! Μέχρι τώρα μάθαμε:</p>
-<ol type="1">
-<li>Να <strong>καθαρίζουμε</strong> και να <strong>μετασχηματίζουμε</strong> δεδομένα με το <strong><code>dplyr</code></strong>.</li>
-<li>Να <strong>ομαδοποιούμε</strong> και να υπολογίζουμε σύνοψη (<code>group_by</code>, <code>summarize</code>).</li>
-<li>Να <strong>συνενώνουμε</strong> δεδομένα από πολλαπλούς πίνακες (<code>*_join</code>).</li>
-<li>Να φτιάχνουμε επαγγελματικά <strong>γραφήματα</strong> με το <strong><code>ggplot2</code></strong>.</li>
-</ol>
-<p><br>
-</p>
-<p>Σήμερα θα τα συνδυάσουμε <strong>όλα</strong> σε ένα ολοκληρωμένο workshop ανάλυσης δεδομένων από την αρχή ως το τέλος.</p>
-</section>
-<section id="σενάριο-ανάλυση-χαρακτήρων-του-star-wars" class="slide level2">
-<h2>Σενάριο: Ανάλυση χαρακτήρων του Star Wars</h2>
-<div class="objectives">
-<ul>
-<li>Θα ξεκινήσουμε από το έτοιμο dataset <strong><code>starwars</code></strong> του <code>dplyr</code>.</li>
-<li>Θα δημιουργήσουμε <strong>εμείς</strong> μικρούς βοηθητικούς πίνακες με τη <code>tribble()</code>.</li>
-<li>Θα τους <strong>συνενώσουμε</strong>, θα <strong>καθαρίσουμε</strong> τα δεδομένα και θα φτιάξουμε <strong>πολλαπλά γραφήματα</strong>.</li>
-</ul>
-</div>
-<p><br>
-</p>
-<p>Στο τέλος του μαθήματος θα έχετε γράψει μια <strong>πλήρη ροή ανάλυσης</strong> που συνδέει τα δεδομένα → τη σύνοψη → τη γραφική παρουσίαση.</p>
-<aside class="notes">
-<p><strong>Ρυθμός Καθηγητή (0:00 - 0:10)</strong> Καλωσορίστε τους φοιτητές. Εξηγήστε ότι σήμερα δεν θα μάθουν κάτι <strong>καινούργιο</strong> — αυτή είναι η συνθετική διάλεξη. Ζητήστε τους να ανοίξουν RStudio και να φτιάξουν ένα νέο script με όνομα <code>final_workshop.R</code>. Πείτε τους ότι ο στόχος είναι να γράψουμε τη ροή βήμα-βήμα ώστε να φύγουν από την αίθουσα με ένα <strong>πλήρες πρόγραμμα</strong> ανάλυσης.</p>
-<style type="text/css">
-        span.MJX_Assistive_MathML {
-          position:absolute!important;
-          clip: rect(1px, 1px, 1px, 1px);
-          padding: 1px 0 0 0!important;
-          border: 0!important;
-          height: 1px!important;
-          width: 1px!important;
-          overflow: hidden!important;
-          display:block!important;
-      }</style></aside>
-</section>
-<section>
-<section id="μέρος-1ο-εξερεύνηση-και-καθαρισμός" class="title-slide slide level1 center">
-<h1>Μέρος 1ο: Εξερεύνηση και καθαρισμός</h1>
-
-</section>
-<section id="προετοιμασία-φόρτωση-βιβλιοθηκών" class="slide level2">
-<h2>Προετοιμασία: Φόρτωση βιβλιοθηκών</h2>
-<p>Ξεκινάμε φορτώνοντας τα δύο βασικά μας πακέτα.</p>
+<section id="τα-δεδομένα" class="slide level2">
+<h2>Τα δεδομένα</h2>
+<p>Όλες οι ερωτήσεις βασίζονται στο ενσωματωμένο dataset <code>starwars</code> και στους βοηθητικούς πίνακες που φτιάξαμε στα προηγούμενα μαθήματα.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a></a><span class="fu">library</span>(dplyr)</span>
 <span id="cb1-2"><a></a><span class="fu">library</span>(ggplot2)</span></code></pre></div><button title="Αντιγραφή στο πρόχειρο" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p><br>
 </p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a></a><span class="fu">glimpse</span>(starwars)</span></code></pre></div><button title="Αντιγραφή στο πρόχειρο" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
 <div class="reminder-box">
-<p>Δεν χρειάζεται να φορτώσουμε δεδομένα από αρχείο! Το dataset <strong><code>starwars</code></strong> είναι ήδη ενσωματωμένο στο <code>dplyr</code>.</p>
+<p>Δεν χρειάζεται φόρτωση αρχείου — το <code>starwars</code> είναι ήδη μέσα στο <code>dplyr</code>.</p>
 </div>
 </section>
-<section id="το-dataset-starwars" class="slide level2">
-<h2>Το dataset <code>starwars</code></h2>
-<p>Περιέχει πληροφορίες για τους χαρακτήρες της σειράς ταινιών <em>Star Wars</em>.</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a></a>starwars</span></code></pre></div><button title="Αντιγραφή στο πρόχειρο" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
+<section>
+<section id="ερωτήσεις-πολλαπλής-επιλογής" class="title-slide slide level1 center">
+<h1>Ερωτήσεις Πολλαπλής Επιλογής</h1>
+
+</section>
+<section id="πολλαπλής-επιλογής" class="slide level2">
+<h2>Πολλαπλής επιλογής</h2>
+<p>Επιλέξτε τη <strong>μία</strong> σωστή απάντηση.</p>
+<p><strong>Ε1.</strong> Ποια συνάρτηση επιστρέφει το πλήθος των <strong>διακριτών</strong> τιμών μιας στήλης;</p>
+<p>(α) <code>distinct()</code> (β) <code>n_distinct()</code> (γ) <code>count()</code> (δ) <code>nrow()</code></p>
 <p><br>
 </p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a></a><span class="fu">glimpse</span>(starwars)</span></code></pre></div><button title="Αντιγραφή στο πρόχειρο" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
+<p><strong>Ε2.</strong> Τι διατηρεί το <code>left_join(x, y)</code>;</p>
+<p>(α) μόνο τις γραμμές που ταιριάζουν και στους δύο πίνακες<br>
+(β) όλες τις γραμμές του <code>x</code> και ό,τι ταιριάζει από το <code>y</code><br>
+(γ) όλες τις γραμμές του <code>y</code> και ό,τι ταιριάζει από το <code>x</code><br>
+(δ) όλες τις γραμμές και των δύο πινάκων</p>
 </section>
-<section id="άσκηση" class="slide level2">
-<h2>Άσκηση</h2>
-<p>Χρησιμοποιώντας το <code>starwars</code>:</p>
-<ol type="1">
-<li>Πόσοι χαρακτήρες υπάρχουν συνολικά;</li>
-<li>Πόσα διαφορετικά είδη (<code>species</code>) εμφανίζονται; (Συμβουλή: <code>distinct()</code> + <code>nrow()</code>, ή <code>n_distinct()</code>).</li>
-<li>Πόσοι χαρακτήρες έχουν <code>NA</code> στη στήλη <code>mass</code>; (Συμβουλή: <code>filter(is.na(mass))</code> και μετά <code>nrow()</code>).</li>
-<li>Ποιοι είναι οι <strong>5 ψηλότεροι</strong> χαρακτήρες; Εμφανίστε τις στήλες <code>name</code>, <code>height</code>, <code>species</code>.</li>
-</ol>
+<section id="πολλαπλής-επιλογής-συνέχεια" class="slide level2">
+<h2>Πολλαπλής επιλογής (συνέχεια)</h2>
+<p><strong>Ε3.</strong> Ποιο σύμβολο προσθέτει επίπεδα (layers) σε ένα γράφημα <code>ggplot</code>;</p>
+<p>(α) <code>|&gt;</code> (β) <code>+</code> (γ) <code>%&gt;%</code> (δ) <code>&amp;</code></p>
+<p><br>
+</p>
+<p><strong>Ε4.</strong> Αν η στήλη <code>mass</code> περιέχει <code>NA</code>, τι θα επιστρέψει το <code>mean(mass)</code>;</p>
+<p>(α) αγνοεί αυτόματα τα <code>NA</code> (β) <code>NA</code> (γ) <code>0</code> (δ) σφάλμα (error)</p>
+<p><br>
+</p>
+<p><strong>Ε5.</strong> Μετά από <code>group_by(species)</code>, το <code>summarise(n = n())</code> επιστρέφει:</p>
+<p>(α) μία γραμμή συνολικά<br>
+(β) μία γραμμή ανά είδος<br>
+(γ) όλες τις αρχικές γραμμές<br>
+(δ) τις στήλες χωρίς αλλαγή</p>
+</section>
+<section id="πολλαπλής-επιλογής-περισσότερες" class="slide level2">
+<h2>Πολλαπλής επιλογής (περισσότερες)</h2>
+<p><strong>Ε6.</strong> Ποια συνάρτηση επιλέγει <strong>στήλες</strong> από έναν πίνακα;</p>
+<p>(α) <code>filter()</code> (β) <code>select()</code> (γ) <code>arrange()</code> (δ) <code>mutate()</code></p>
+<p><br>
+</p>
+<p><strong>Ε7.</strong> Το <code>starwars |&gt; count(species)</code> ισοδυναμεί με:</p>
+<p>(α) <code>group_by(species) |&gt; summarise(n = n())</code> (β) <code>distinct(species)</code> (γ) <code>filter(species)</code> (δ) <code>arrange(species)</code></p>
+<p><br>
+</p>
+<p><strong>Ε8.</strong> Το <code>filter(species %in% c("Human", "Droid"))</code> κρατά τις γραμμές όπου:</p>
+<p>(α) το <code>species</code> είναι <strong>και</strong> Human <strong>και</strong> Droid (β) το <code>species</code> είναι Human <strong>ή</strong> Droid (γ) το <code>species</code> δεν είναι ούτε Human ούτε Droid (δ) όλες οι γραμμές</p>
+</section>
+<section id="πολλαπλής-επιλογής-περισσότερες-2" class="slide level2">
+<h2>Πολλαπλής επιλογής (περισσότερες — 2)</h2>
+<p><strong>Ε9.</strong> Μέσα στο <code>aes()</code> ορίζουμε:</p>
+<p>(α) το θέμα (theme) του γραφήματος (β) τις <strong>αντιστοιχίσεις</strong> μεταβλητών σε οπτικά χαρακτηριστικά (x, y, χρώμα…) (γ) τους τίτλους (δ) το είδος του geom</p>
+<p><br>
+</p>
+<p><strong>Ε10.</strong> Τι κάνει το <code>facet_wrap(~ galaxy_region)</code>;</p>
+<p>(α) χρωματίζει τα σημεία ανά περιοχή (β) φιλτράρει ανά περιοχή (γ) χωρίζει το γράφημα σε <strong>υπο-γραφήματα</strong> ανά τιμή του <code>galaxy_region</code> (δ) ταξινομεί τις περιοχές</p>
+<p><br>
+</p>
+<p><strong>Ε11.</strong> Το <code>inner_join(x, y)</code> κρατά:</p>
+<p>(α) όλες τις γραμμές του <code>x</code> (β) όλες τις γραμμές του <code>y</code> (γ) <strong>μόνο</strong> τις γραμμές που ταιριάζουν και στους δύο (δ) όλες τις γραμμές και των δύο</p>
+</section>
+</section>
+<section>
+<section id="συμπλήρωση-κενών" class="title-slide slide level1 center">
+<h1>Συμπλήρωση Κενών</h1>
+
+</section>
+<section id="συμπλήρωση-κενών-1" class="slide level2">
+<h2>Συμπλήρωση κενών</h2>
+<p>Συμπληρώστε τα κενά (<code>____</code>) ώστε η ροή να: κρατά όσους έχουν γνωστό <code>height</code> &amp; <code>mass</code>, αφαιρεί ακραίες τιμές, ομαδοποιεί ανά είδος, και υπολογίζει πλήθος + μέσο ύψος, ταξινομημένα φθίνουσα ως προς το πλήθος.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a></a>sw_summary <span class="ot">&lt;-</span> starwars <span class="sc">|&gt;</span></span>
+<span id="cb3-2"><a></a>  <span class="fu">________</span>(<span class="sc">!</span><span class="fu">is.na</span>(height), <span class="sc">!</span><span class="fu">is.na</span>(mass)) <span class="sc">|&gt;</span>    <span class="co"># (1) κρατάμε γνωστά height &amp; mass</span></span>
+<span id="cb3-3"><a></a>  <span class="fu">________</span>(mass <span class="sc">&lt;</span> <span class="dv">500</span>) <span class="sc">|&gt;</span>                      <span class="co"># (2) αφαιρούμε ακραίες τιμές</span></span>
+<span id="cb3-4"><a></a>  <span class="fu">mutate</span>(<span class="at">height_m =</span> ______ <span class="sc">/</span> ______) <span class="sc">|&gt;</span>        <span class="co"># (3) μετατροπή από εκατοστά σε μέτρα</span></span>
+<span id="cb3-5"><a></a>  <span class="fu">________</span>(species) <span class="sc">|&gt;</span>                         <span class="co"># (4) ομαδοποίηση ανά είδος</span></span>
+<span id="cb3-6"><a></a>  <span class="fu">summarise</span>(</span>
+<span id="cb3-7"><a></a>    <span class="at">n          =</span> <span class="fu">____</span>(),                       <span class="co"># (5) πλήθος χαρακτήρων</span></span>
+<span id="cb3-8"><a></a>    <span class="at">avg_height =</span> <span class="fu">mean</span>(________),               <span class="co"># (6) μέσο ύψος σε μέτρα</span></span>
+<span id="cb3-9"><a></a>    <span class="at">.groups    =</span> <span class="st">"drop"</span></span>
+<span id="cb3-10"><a></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb3-11"><a></a>  <span class="fu">________</span>(<span class="fu">desc</span>(n))                            <span class="co"># (7) ταξινόμηση φθίνουσα</span></span>
+<span id="cb3-12"><a></a></span>
+<span id="cb3-13"><a></a>sw_summary</span></code></pre></div><button title="Αντιγραφή στο πρόχειρο" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
 </section>
 
-<section id="πόσα-na-έχουμε-σε-κάθε-στήλη" class="slide level2">
-<h2>Πόσα NA έχουμε σε κάθε στήλη;</h2>
+<section id="συμπλήρωση-κενών-2η" class="slide level2">
+<h2>Συμπλήρωση κενών (2η)</h2>
+<p>Συμπληρώστε τα κενά ώστε να μετρηθεί το πλήθος χαρακτήρων ανά <strong>περιοχή του γαλαξία</strong> και να φτιαχτεί bar chart.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a></a>starwars <span class="sc">|&gt;</span></span>
-<span id="cb5-2"><a></a>  <span class="fu">summarise</span>(</span>
-<span id="cb5-3"><a></a>    <span class="at">n_height     =</span> <span class="fu">sum</span>(<span class="fu">is.na</span>(height)),</span>
-<span id="cb5-4"><a></a>    <span class="at">n_mass       =</span> <span class="fu">sum</span>(<span class="fu">is.na</span>(mass)),</span>
-<span id="cb5-5"><a></a>    <span class="at">n_birth_year =</span> <span class="fu">sum</span>(<span class="fu">is.na</span>(birth_year)),</span>
-<span id="cb5-6"><a></a>    <span class="at">n_homeworld  =</span> <span class="fu">sum</span>(<span class="fu">is.na</span>(homeworld)),</span>
-<span id="cb5-7"><a></a>    <span class="at">n_species    =</span> <span class="fu">sum</span>(<span class="fu">is.na</span>(species))</span>
-<span id="cb5-8"><a></a>  )</span></code></pre></div><button title="Αντιγραφή στο πρόχειρο" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-<div class="highlight-box">
-<p>Παρατηρούμε ότι η στήλη <code>birth_year</code> έχει <strong>πολλά</strong> NA. Πρέπει να αποφασίσουμε <strong>πώς</strong> θα τα χειριστούμε όταν την χρησιμοποιούμε.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a></a>plot_data <span class="ot">&lt;-</span> starwars <span class="sc">|&gt;</span></span>
+<span id="cb5-2"><a></a>  <span class="fu">________</span>(homeworld_info, <span class="fu">join_by</span>(________)) <span class="sc">|&gt;</span>   <span class="co"># (1) ένωση &amp; (2) κλειδί</span></span>
+<span id="cb5-3"><a></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(galaxy_region)) <span class="sc">|&gt;</span></span>
+<span id="cb5-4"><a></a>  <span class="fu">________</span>(galaxy_region)                          <span class="co"># (3) μέτρημα ανά περιοχή</span></span>
+<span id="cb5-5"><a></a></span>
+<span id="cb5-6"><a></a>plot_data <span class="sc">|&gt;</span></span>
+<span id="cb5-7"><a></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> galaxy_region, <span class="at">y =</span> ___)) ____     <span class="co"># (4) στήλη πλήθους &amp; (5) σύνδεση</span></span>
+<span id="cb5-8"><a></a>  <span class="fu">geom_____</span>() <span class="sc">+</span>                                    <span class="co"># (6) στήλες από έτοιμα νούμερα</span></span>
+<span id="cb5-9"><a></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Χαρακτήρες ανά περιοχή"</span>, <span class="at">x =</span> <span class="st">"Περιοχή"</span>, <span class="at">y =</span> <span class="st">"Πλήθος"</span>)</span></code></pre></div><button title="Αντιγραφή στο πρόχειρο" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
-<section id="καθαρισμός-φιλτράρισμα-και-μετασχηματισμός" class="slide level2">
-<h2>Καθαρισμός: Φιλτράρισμα και μετασχηματισμός</h2>
-<p>Φτιάχνουμε ένα <strong>καθαρό</strong> dataset, το <code>sw_clean</code>:</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a></a>sw_clean <span class="ot">&lt;-</span> starwars <span class="sc">|&gt;</span></span>
-<span id="cb6-2"><a></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(height), <span class="sc">!</span><span class="fu">is.na</span>(mass)) <span class="sc">|&gt;</span>      <span class="co"># κρατάμε όσους έχουν height &amp; mass</span></span>
-<span id="cb6-3"><a></a>  <span class="fu">filter</span>(mass <span class="sc">&lt;</span> <span class="dv">500</span>) <span class="sc">|&gt;</span>                        <span class="co"># αφαιρούμε ακραίες τιμές (π.χ. Jabba)</span></span>
-<span id="cb6-4"><a></a>  <span class="fu">mutate</span>(</span>
-<span id="cb6-5"><a></a>    <span class="at">height_m =</span> height <span class="sc">/</span> <span class="dv">100</span>,                   <span class="co"># μετατροπή σε μέτρα</span></span>
-<span id="cb6-6"><a></a>    <span class="at">bmi      =</span> mass <span class="sc">/</span> (height_m <span class="sc">^</span> <span class="dv">2</span>)           <span class="co"># δείκτης μάζας σώματος</span></span>
-<span id="cb6-7"><a></a>  ) <span class="sc">|&gt;</span></span>
-<span id="cb6-8"><a></a>  <span class="fu">select</span>(name, species, homeworld, sex, height, mass, height_m, bmi)</span>
-<span id="cb6-9"><a></a></span>
-<span id="cb6-10"><a></a><span class="fu">glimpse</span>(sw_clean)</span></code></pre></div><button title="Αντιγραφή στο πρόχειρο" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
 </section>
-<section id="άσκηση-1" class="slide level2">
-<h2>Άσκηση</h2>
-<p>Ξεκινώντας από το <strong>αρχικό <code>starwars</code></strong>, δημιουργήστε ένα νέο tibble με όνομα <code>sw_adults</code> που:</p>
+<section>
+<section id="σωστό-λάθος" class="title-slide slide level1 center">
+<h1>Σωστό / Λάθος</h1>
+
+</section>
+<section id="σωστό-ή-λάθος" class="slide level2">
+<h2>Σωστό ή Λάθος;</h2>
+<p>Σημειώστε <strong>Σ</strong> ή <strong>Λ</strong> για κάθε πρόταση.</p>
 <ol type="1">
-<li>Κρατάει <strong>μόνο</strong> όσους έχουν γνωστό <strong><code>birth_year</code></strong> (όχι <code>NA</code>).</li>
-<li>Δημιουργεί μια νέα στήλη <code>age_at_yavin</code> που δείχνει την ηλικία του χαρακτήρα τη χρονιά της Μάχης του Yavin (BBY = 0). <em>Συμβουλή: το <code>birth_year</code> είναι χρόνια πριν τη Μάχη του Yavin, οπότε αυτό είναι και η ηλικία τους.</em></li>
-<li>Φιλτράρει για <strong>ενήλικες</strong> (ηλικία ≥ 18).</li>
-<li>Επιλέγει τις στήλες: <code>name</code>, <code>species</code>, <code>homeworld</code>, <code>age_at_yavin</code>.</li>
-<li>Ταξινομεί με βάση την ηλικία <strong>φθίνουσα</strong> (από τον πιο γέρο στον νεότερο).</li>
+<li>Το <code>filter()</code> επιλέγει <strong>στήλες</strong> από έναν πίνακα.</li>
+<li>Το <code>mutate()</code> δημιουργεί ή τροποποιεί στήλες.</li>
+<li>Μετά από <code>group_by()</code> πρέπει <strong>πάντα</strong> να ακολουθεί <code>summarise()</code>.</li>
+<li>Το <code>arrange(desc(x))</code> ταξινομεί <strong>αύξουσα</strong>.</li>
+<li>Ο τελεστής <code>|&gt;</code> περνά το αριστερό αποτέλεσμα ως <strong>πρώτο</strong> όρισμα της επόμενης συνάρτησης.</li>
+<li>Το <code>left_join()</code> μπορεί να εισάγει <code>NA</code> σε γραμμές που δεν βρήκαν ταίριασμα.</li>
+<li>Στο <code>geom_boxplot()</code> ο άξονας X <strong>πρέπει</strong> να είναι αριθμητικός.</li>
+</ol>
+</section>
+<section id="σωστό-ή-λάθος-συνέχεια" class="slide level2">
+<h2>Σωστό ή Λάθος; (συνέχεια)</h2>
+<ol start="8" type="1">
+<li>Το <code>count(x)</code> επιστρέφει μια στήλη πλήθους με όνομα <code>n</code>.</li>
+<li>Το <code>select(-name)</code> <strong>αφαιρεί</strong> τη στήλη <code>name</code>.</li>
+<li>Το <code>inner_join()</code> κρατά και γραμμές που δεν βρήκαν ταίριασμα.</li>
+<li>Στο <code>aes()</code> μπορούμε να αντιστοιχίσουμε ένα <strong>χρώμα</strong> σε μια μεταβλητή.</li>
+<li>Το <code>mean(c(1, 2, NA), na.rm = TRUE)</code> επιστρέφει <code>NA</code>.</li>
+<li>Το <code>group_by()</code> αλλάζει τον αριθμό των γραμμών του πίνακα.</li>
 </ol>
 </section>
 </section>
 <section>
-<section id="μέρος-2ο-βοηθητικοί-πίνακες-και-joins" class="title-slide slide level1 center">
-<h1>Μέρος 2ο: Βοηθητικοί πίνακες και Joins</h1>
+<section id="εντοπισμός-λάθους" class="title-slide slide level1 center">
+<h1>Εντοπισμός Λάθους</h1>
 
 </section>
-<section id="γιατί-χρειαζόμαστε-επιπλέον-πίνακες" class="slide level2">
-<h2>Γιατί χρειαζόμαστε επιπλέον πίνακες;</h2>
-<p>Το <code>starwars</code> έχει <strong>πολλά διαφορετικά είδη</strong> (Human, Droid, Wookiee, …) και <strong>δεκάδες πλανήτες</strong>.</p>
-<p><br>
-</p>
-<p>Συχνά θέλουμε να ομαδοποιήσουμε σε <strong>μεγαλύτερες κατηγορίες</strong> ή να εμπλουτίσουμε με πληροφορία που δεν υπάρχει στο αρχικό dataset:</p>
-<ul>
-<li><strong>Κατηγορία είδους</strong> (humanoid / droid / mammal / …)</li>
-<li><strong>Περιοχή του γαλαξία</strong> (Core / Mid Rim / Outer Rim) ανά πλανήτη</li>
-<li><strong>Κλίμα</strong> του πλανήτη</li>
-</ul>
-<p><br>
-</p>
-<p>Αυτές τις πληροφορίες θα τις φτιάξουμε <strong>μόνοι μας</strong> με τη συνάρτηση <strong><code>tribble()</code></strong>.</p>
-</section>
-<section id="η-συνάρτηση-tribble" class="slide level2">
-<h2>Η συνάρτηση <code>tribble()</code></h2>
-<p>Η <code>tribble()</code> φτιάχνει έναν μικρό <code>tibble</code> γράφοντας τις γραμμές <strong>όπως σε ένα πίνακα</strong>:</p>
+<section id="εντοπισμός-λάθους-dplyr" class="slide level2">
+<h2>Εντοπισμός λάθους (dplyr)</h2>
+<p>Ο παρακάτω κώδικας έπρεπε να κρατήσει μόνο τους ανθρώπους, αλλά δίνει σφάλμα. <strong>Βρείτε και διορθώστε</strong> το λάθος.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a></a>example <span class="ot">&lt;-</span> <span class="fu">tribble</span>(</span>
-<span id="cb8-2"><a></a>  <span class="sc">~</span>name,    <span class="sc">~</span>grade,</span>
-<span id="cb8-3"><a></a>  <span class="st">"Maria"</span>,  <span class="fl">9.5</span>,</span>
-<span id="cb8-4"><a></a>  <span class="st">"John"</span>, <span class="fl">7.0</span>,</span>
-<span id="cb8-5"><a></a>  <span class="st">"George"</span>,  <span class="fl">8.5</span></span>
-<span id="cb8-6"><a></a>)</span>
-<span id="cb8-7"><a></a></span>
-<span id="cb8-8"><a></a>example</span></code></pre></div><button title="Αντιγραφή στο πρόχειρο" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a></a>starwars <span class="sc">|&gt;</span></span>
+<span id="cb7-2"><a></a>  <span class="fu">filter</span>(<span class="at">species =</span> <span class="st">"Human"</span>)</span></code></pre></div><button title="Αντιγραφή στο πρόχειρο" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p><br>
 </p>
-<div class="success-box">
-<p>Τα ονόματα των στηλών μπαίνουν με <code>~</code> μπροστά. Κάθε επόμενη γραμμή είναι μια καινούργια παρατήρηση.</p>
-</div>
-</section>
-<section id="φτιάχνουμε-το-species_class" class="slide level2">
-<h2>Φτιάχνουμε το <code>species_class</code></h2>
-<p>Ομαδοποιούμε τα είδη σε <strong>κατηγορίες</strong>:</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a></a>species_class <span class="ot">&lt;-</span> <span class="fu">tribble</span>(</span>
-<span id="cb9-2"><a></a>  <span class="sc">~</span>species,        <span class="sc">~</span>classification,</span>
-<span id="cb9-3"><a></a>  <span class="st">"Human"</span>,         <span class="st">"Humanoid"</span>,</span>
-<span id="cb9-4"><a></a>  <span class="st">"Droid"</span>,         <span class="st">"Droid"</span>,</span>
-<span id="cb9-5"><a></a>  <span class="st">"Wookiee"</span>,       <span class="st">"Mammal"</span>,</span>
-<span id="cb9-6"><a></a>  <span class="st">"Ewok"</span>,          <span class="st">"Mammal"</span>,</span>
-<span id="cb9-7"><a></a>  <span class="st">"Gungan"</span>,        <span class="st">"Amphibian"</span>,</span>
-<span id="cb9-8"><a></a>  <span class="st">"Hutt"</span>,          <span class="st">"Reptile"</span>,</span>
-<span id="cb9-9"><a></a>  <span class="st">"Rodian"</span>,        <span class="st">"Reptile"</span>,</span>
-<span id="cb9-10"><a></a>  <span class="st">"Trandoshan"</span>,    <span class="st">"Reptile"</span>,</span>
-<span id="cb9-11"><a></a>  <span class="st">"Twi'lek"</span>,       <span class="st">"Humanoid"</span>,</span>
-<span id="cb9-12"><a></a>  <span class="st">"Mon Calamari"</span>,  <span class="st">"Amphibian"</span>,</span>
-<span id="cb9-13"><a></a>  <span class="st">"Zabrak"</span>,        <span class="st">"Humanoid"</span>,</span>
-<span id="cb9-14"><a></a>  <span class="st">"Yoda's species"</span>,<span class="st">"Humanoid"</span>,</span>
-<span id="cb9-15"><a></a>  <span class="st">"Kel Dor"</span>,       <span class="st">"Humanoid"</span>,</span>
-<span id="cb9-16"><a></a>  <span class="st">"Mirialan"</span>,      <span class="st">"Humanoid"</span>,</span>
-<span id="cb9-17"><a></a>  <span class="st">"Togruta"</span>,       <span class="st">"Humanoid"</span>,</span>
-<span id="cb9-18"><a></a>  <span class="st">"Cerean"</span>,        <span class="st">"Humanoid"</span></span>
-<span id="cb9-19"><a></a>)</span>
-<span id="cb9-20"><a></a></span>
-<span id="cb9-21"><a></a>species_class</span></code></pre></div><button title="Αντιγραφή στο πρόχειρο" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-</section>
-<section id="πρώτο-join-εμπλουτίζουμε-το-sw_clean" class="slide level2">
-<h2>Πρώτο join: εμπλουτίζουμε το <code>sw_clean</code></h2>
-<p>Θέλουμε να προσθέσουμε τη στήλη <code>classification</code> δίπλα σε κάθε χαρακτήρα του <code>sw_clean</code>.</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a></a>sw_class <span class="ot">&lt;-</span> sw_clean <span class="sc">|&gt;</span></span>
-<span id="cb10-2"><a></a>  <span class="fu">left_join</span>(species_class, <span class="fu">join_by</span>(species))</span>
-<span id="cb10-3"><a></a></span>
-<span id="cb10-4"><a></a><span class="fu">glimpse</span>(sw_class)</span></code></pre></div><button title="Αντιγραφή στο πρόχειρο" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-<p><br>
-</p>
-<div class="highlight-box">
-<p>Χρησιμοποιήσαμε <strong><code>left_join</code></strong> ώστε να κρατήσουμε <strong>όλους</strong> τους χαρακτήρες, ακόμα κι όσοι έχουν είδος για το οποίο δεν φτιάξαμε classification (θα πάρουν <code>NA</code>).</p>
-</div>
-</section>
-<section id="άσκηση-2" class="slide level2">
-<h2>Άσκηση</h2>
-<p>Χρησιμοποιώντας το <strong><code>sw_class</code></strong>:</p>
-<ol type="1">
-<li>Αφαιρέστε όσους χαρακτήρες έχουν <code>NA</code> στο <code>classification</code>.</li>
-<li>Ομαδοποιήστε ανά <code>classification</code>.</li>
-<li>Υπολογίστε:
-<ul>
-<li>Το <strong>πλήθος</strong> χαρακτήρων (<code>n_characters</code>).</li>
-<li>Το <strong>μέσο ύψος</strong> σε μέτρα (<code>avg_height_m</code>).</li>
-<li>Το <strong>μέσο BMI</strong> (<code>avg_bmi</code>).</li>
-</ul></li>
-<li>Ταξινομήστε με βάση τον <strong>μέσο BMI</strong> σε <strong>φθίνουσα</strong> σειρά.</li>
-</ol>
-<aside class="notes">
-<p><strong>Ρυθμός Καθηγητή (1:10 - 1:30)</strong> Πιθανώς θα έχουν αξιοπρόσεκτα αποτελέσματα: τα Mammals (Wookiees, Ewoks) έχουν υψηλό BMI. Σχολιάστε ότι το <code>na.rm = TRUE</code> εδώ ΔΕΝ είναι απαραίτητο αφού στο <code>sw_clean</code> έχουμε ήδη πετάξει τα NA από <code>height</code>/<code>mass</code>. Σημείωση: στο <code>sw_class</code> η στήλη <code>species</code> εξακολουθεί να υπάρχει — απλά έχει προστεθεί και η <code>classification</code>.</p>
-<style type="text/css">
-        span.MJX_Assistive_MathML {
-          position:absolute!important;
-          clip: rect(1px, 1px, 1px, 1px);
-          padding: 1px 0 0 0!important;
-          border: 0!important;
-          height: 1px!important;
-          width: 1px!important;
-          overflow: hidden!important;
-          display:block!important;
-      }</style></aside>
+<p>Μήνυμα σφάλματος:</p>
+<pre><code>Error in `filter()`:
+! We detected a named input.
+ℹ This usually means that you've used `=` instead of `==`.
+ℹ Did you mean `species == "Human"`?</code></pre>
 </section>
 
-<section id="φτιάχνουμε-το-homeworld_info" class="slide level2">
-<h2>Φτιάχνουμε το <code>homeworld_info</code></h2>
-<p>Προσθέτουμε <strong>περιοχή γαλαξία</strong> και <strong>κλίμα</strong> για κάθε πλανήτη:</p>
+<section id="εντοπισμός-λάθους-ggplot2" class="slide level2">
+<h2>Εντοπισμός λάθους (ggplot2)</h2>
+<p>Ο κώδικας θέλει να φτιάξει scatter plot ύψους–μάζας, αλλά αποτυγχάνει. <strong>Βρείτε το λάθος.</strong></p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a></a>homeworld_info <span class="ot">&lt;-</span> <span class="fu">tribble</span>(</span>
-<span id="cb12-2"><a></a>  <span class="sc">~</span>homeworld,      <span class="sc">~</span>galaxy_region,  <span class="sc">~</span>climate,</span>
-<span id="cb12-3"><a></a>  <span class="st">"Tatooine"</span>,      <span class="st">"Outer Rim"</span>,     <span class="st">"Arid"</span>,</span>
-<span id="cb12-4"><a></a>  <span class="st">"Naboo"</span>,         <span class="st">"Mid Rim"</span>,       <span class="st">"Temperate"</span>,</span>
-<span id="cb12-5"><a></a>  <span class="st">"Alderaan"</span>,      <span class="st">"Core"</span>,          <span class="st">"Temperate"</span>,</span>
-<span id="cb12-6"><a></a>  <span class="st">"Stewjon"</span>,       <span class="st">"Core"</span>,          <span class="st">"Temperate"</span>,</span>
-<span id="cb12-7"><a></a>  <span class="st">"Coruscant"</span>,     <span class="st">"Core"</span>,          <span class="st">"Temperate"</span>,</span>
-<span id="cb12-8"><a></a>  <span class="st">"Kashyyyk"</span>,      <span class="st">"Mid Rim"</span>,       <span class="st">"Tropical"</span>,</span>
-<span id="cb12-9"><a></a>  <span class="st">"Corellia"</span>,      <span class="st">"Core"</span>,          <span class="st">"Temperate"</span>,</span>
-<span id="cb12-10"><a></a>  <span class="st">"Rodia"</span>,         <span class="st">"Outer Rim"</span>,     <span class="st">"Tropical"</span>,</span>
-<span id="cb12-11"><a></a>  <span class="st">"Nal Hutta"</span>,     <span class="st">"Outer Rim"</span>,     <span class="st">"Tropical"</span>,</span>
-<span id="cb12-12"><a></a>  <span class="st">"Bestine IV"</span>,    <span class="st">"Outer Rim"</span>,     <span class="st">"Temperate"</span>,</span>
-<span id="cb12-13"><a></a>  <span class="st">"Kamino"</span>,        <span class="st">"Outer Rim"</span>,     <span class="st">"Aquatic"</span>,</span>
-<span id="cb12-14"><a></a>  <span class="st">"Cerea"</span>,         <span class="st">"Mid Rim"</span>,       <span class="st">"Temperate"</span>,</span>
-<span id="cb12-15"><a></a>  <span class="st">"Glee Anselm"</span>,   <span class="st">"Mid Rim"</span>,       <span class="st">"Aquatic"</span>,</span>
-<span id="cb12-16"><a></a>  <span class="st">"Iridonia"</span>,      <span class="st">"Mid Rim"</span>,       <span class="st">"Arid"</span></span>
-<span id="cb12-17"><a></a>)</span></code></pre></div><button title="Αντιγραφή στο πρόχειρο" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-</section>
-<section id="δεύτερο-join-ενώνουμε-δύο-βοηθητικούς-πίνακες" class="slide level2">
-<h2>Δεύτερο join: ενώνουμε <strong>δύο</strong> βοηθητικούς πίνακες</h2>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a></a>sw_full <span class="ot">&lt;-</span> sw_clean <span class="sc">|&gt;</span></span>
-<span id="cb13-2"><a></a>  <span class="fu">left_join</span>(species_class,  <span class="fu">join_by</span>(species)) <span class="sc">|&gt;</span></span>
-<span id="cb13-3"><a></a>  <span class="fu">left_join</span>(homeworld_info, <span class="fu">join_by</span>(homeworld))</span>
-<span id="cb13-4"><a></a></span>
-<span id="cb13-5"><a></a><span class="fu">glimpse</span>(sw_full)</span></code></pre></div><button title="Αντιγραφή στο πρόχειρο" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a></a><span class="fu">ggplot</span>(starwars, <span class="fu">aes</span>(<span class="at">x =</span> height, <span class="at">y =</span> mass)) <span class="sc">|&gt;</span></span>
+<span id="cb10-2"><a></a>  <span class="fu">geom_point</span>()</span></code></pre></div><button title="Αντιγραφή στο πρόχειρο" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p><br>
 </p>
-<div class="success-box">
-<p>Τώρα κάθε χαρακτήρας έχει: αρχικά δεδομένα + <code>classification</code> + <code>galaxy_region</code> + <code>climate</code>.</p>
-</div>
+<p>Μήνυμα σφάλματος:</p>
+<pre><code>Error in `geom_point()`:
+! `data` must be a &lt;data.frame&gt;, or an object coercible by
+  `fortify()`, not an S3 object with class &lt;ggplot&gt;.</code></pre>
 </section>
-<section id="άσκηση-3" class="slide level2">
-<h2>Άσκηση</h2>
-<p>Χρησιμοποιώντας το <strong><code>sw_full</code></strong>:</p>
-<ol type="1">
-<li>Αφαιρέστε όσους χαρακτήρες έχουν <code>NA</code> στο <code>galaxy_region</code>.</li>
-<li>Ομαδοποιήστε ανά <strong><code>galaxy_region</code></strong> και <strong><code>classification</code></strong>.</li>
-<li>Υπολογίστε:
-<ul>
-<li>Το πλήθος χαρακτήρων (<code>n</code>).</li>
-<li>Το μέσο ύψος σε μέτρα (<code>avg_height_m</code>).</li>
-</ul></li>
-<li>Ταξινομήστε ανά <code>galaxy_region</code> και κατόπιν φθίνον <code>n</code>.</li>
-</ol>
+
+<section id="εντοπισμός-λάθους-στήλη-που-δεν-υπάρχει" class="slide level2">
+<h2>Εντοπισμός λάθους (στήλη που δεν υπάρχει)</h2>
+<p>Ο κώδικας θέλει να υπολογίσει το μέσο ύψος, αλλά αποτυγχάνει. <strong>Βρείτε το λάθος.</strong></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a></a>starwars <span class="sc">|&gt;</span></span>
+<span id="cb13-2"><a></a>  <span class="fu">summarise</span>(<span class="at">avg_height =</span> <span class="fu">mean</span>(heigth, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span></code></pre></div><button title="Αντιγραφή στο πρόχειρο" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p><br>
+</p>
+<p>Μήνυμα σφάλματος:</p>
+<pre><code>Error in `summarise()`:
+ℹ In argument: `avg_height = mean(heigth, na.rm = TRUE)`.
+Caused by error:
+! object 'heigth' not found</code></pre>
+</section>
+
+<section id="εντοπισμός-λάθους-λογικό-όχι-σφάλμα" class="slide level2">
+<h2>Εντοπισμός λάθους (λογικό — όχι σφάλμα)</h2>
+<p>Ο κώδικας <strong>τρέχει</strong> χωρίς error, αλλά το αποτέλεσμα είναι <code>NA</code>. <strong>Γιατί;</strong></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a></a>starwars <span class="sc">|&gt;</span></span>
+<span id="cb16-2"><a></a>  <span class="fu">summarise</span>(<span class="at">avg_mass =</span> <span class="fu">mean</span>(mass))</span>
+<span id="cb16-3"><a></a><span class="co">#&gt; avg_mass = NA</span></span></code></pre></div><button title="Αντιγραφή στο πρόχειρο" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
 </section>
 </section>
 <section>
-<section id="μέρος-3ο-σύνθεση-και-γραφήματα" class="title-slide slide level1 center">
-<h1>Μέρος 3ο: Σύνθεση και Γραφήματα</h1>
+<section id="bonus-τύποι-ερωτήσεων" class="title-slide slide level1 center">
+<h1>Bonus τύποι ερωτήσεων</h1>
 
 </section>
-<section id="από-τους-πίνακες-στα-γραφήματα" class="slide level2">
-<h2>Από τους πίνακες στα γραφήματα</h2>
-<p>Έχουμε ήδη φτιάξει το <strong><code>sw_full</code></strong> που περιέχει όλη τη συνδυασμένη πληροφορία.</p>
-<p><br>
-</p>
-<p>Τώρα θα δούμε <strong>τρία είδη γραφημάτων</strong> που απαντούν σε <strong>τρία διαφορετικά ερωτήματα</strong>:</p>
-<div class="objectives">
-<ol type="1">
-<li><strong>Bar chart</strong>: Πόσοι χαρακτήρες ανά κατηγορία είδους;</li>
-<li><strong>Boxplot</strong>: Πώς κατανέμεται το ύψος ανά κατηγορία;</li>
-<li><strong>Scatter plot με facets</strong>: Πώς σχετίζεται ύψος ↔︎ μάζα ανά περιοχή γαλαξία;</li>
-</ol>
-</div>
+<section id="αντιστοίχιση-dplyr" class="slide level2">
+<h2>Αντιστοίχιση (dplyr)</h2>
+<p>Αντιστοιχίστε κάθε συνάρτηση <code>dplyr</code> με τη δουλειά της.</p>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th>Συνάρτηση</th>
+<th>#</th>
+<th>Περιγραφή</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>filter()</code></td>
+<td>1</td>
+<td>Δημιουργεί / τροποποιεί στήλες</td>
+</tr>
+<tr class="even">
+<td><code>select()</code></td>
+<td>2</td>
+<td>Ομαδοποιεί τις γραμμές</td>
+</tr>
+<tr class="odd">
+<td><code>mutate()</code></td>
+<td>3</td>
+<td>Επιλέγει <strong>γραμμές</strong> με βάση συνθήκη</td>
+</tr>
+<tr class="even">
+<td><code>arrange()</code></td>
+<td>4</td>
+<td>Συνοψίζει κάθε ομάδα σε μία τιμή</td>
+</tr>
+<tr class="odd">
+<td><code>summarise()</code></td>
+<td>5</td>
+<td>Επιλέγει <strong>στήλες</strong></td>
+</tr>
+<tr class="even">
+<td><code>group_by()</code></td>
+<td>6</td>
+<td>Ταξινομεί τις γραμμές</td>
+</tr>
+</tbody>
+</table>
 </section>
-<section id="γράφημα-1ο-bar-chart-πλήθους" class="slide level2">
-<h2>Γράφημα 1ο: Bar chart πλήθους</h2>
+
+<section id="αντιστοίχιση-γραφήματα" class="slide level2">
+<h2>Αντιστοίχιση (γραφήματα)</h2>
+<p>Αντιστοιχίστε κάθε <code>geom</code> με τον τύπο γραφήματος.</p>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th>Geom</th>
+<th>#</th>
+<th>Τύπος γραφήματος</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>geom_point()</code></td>
+<td>1</td>
+<td>Ραβδόγραμμα από <strong>έτοιμα</strong> νούμερα</td>
+</tr>
+<tr class="even">
+<td><code>geom_col()</code></td>
+<td>2</td>
+<td>Θηκόγραμμα (boxplot)</td>
+</tr>
+<tr class="odd">
+<td><code>geom_boxplot()</code></td>
+<td>3</td>
+<td>Διάγραμμα διασποράς (scatter)</td>
+</tr>
+<tr class="even">
+<td><code>geom_histogram()</code></td>
+<td>4</td>
+<td>Γραμμή / χρονοσειρά</td>
+</tr>
+<tr class="odd">
+<td><code>geom_line()</code></td>
+<td>5</td>
+<td>Ιστόγραμμα συχνοτήτων</td>
+</tr>
+</tbody>
+</table>
+</section>
+
+<section id="πρόβλεψη-αποτελέσματος" class="slide level2">
+<h2>Πρόβλεψη αποτελέσματος</h2>
+<p>Δίνεται ο πίνακας <code>df</code>:</p>
+<pre><code># A tibble: 4 × 2
+      a     b
+  &lt;dbl&gt; &lt;dbl&gt;
+1     1    10
+2     2    20
+3     3    30
+4     4    40</code></pre>
+<p>Τι θα <strong>τυπώσει</strong> ο παρακάτω κώδικας;</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a></a>sw_full <span class="sc">|&gt;</span></span>
-<span id="cb15-2"><a></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(classification)) <span class="sc">|&gt;</span></span>
-<span id="cb15-3"><a></a>  <span class="fu">count</span>(classification) <span class="sc">|&gt;</span></span>
-<span id="cb15-4"><a></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">reorder</span>(classification, n), <span class="at">y =</span> n, <span class="at">fill =</span> classification)) <span class="sc">+</span></span>
-<span id="cb15-5"><a></a>  <span class="fu">geom_col</span>(<span class="at">show.legend =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
-<span id="cb15-6"><a></a>  <span class="fu">coord_flip</span>() <span class="sc">+</span></span>
-<span id="cb15-7"><a></a>  <span class="fu">labs</span>(</span>
-<span id="cb15-8"><a></a>    <span class="at">title =</span> <span class="st">"Πλήθος χαρακτήρων ανά κατηγορία είδους"</span>,</span>
-<span id="cb15-9"><a></a>    <span class="at">x =</span> <span class="cn">NULL</span>,</span>
-<span id="cb15-10"><a></a>    <span class="at">y =</span> <span class="st">"Αριθμός χαρακτήρων"</span></span>
-<span id="cb15-11"><a></a>  ) <span class="sc">+</span></span>
-<span id="cb15-12"><a></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div><button title="Αντιγραφή στο πρόχειρο" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a></a>df <span class="sc">|&gt;</span></span>
+<span id="cb19-2"><a></a>  <span class="fu">filter</span>(a <span class="sc">&gt;=</span> <span class="dv">2</span>) <span class="sc">|&gt;</span></span>
+<span id="cb19-3"><a></a>  <span class="fu">summarise</span>(<span class="at">total =</span> <span class="fu">sum</span>(b))</span></code></pre></div><button title="Αντιγραφή στο πρόχειρο" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
-<section id="γράφημα-2ο-boxplot-υψών-ανά-classification" class="slide level2">
-<h2>Γράφημα 2ο: Boxplot υψών ανά classification</h2>
+
+<section id="πρόβλεψη-αποτελέσματος-2η" class="slide level2">
+<h2>Πρόβλεψη αποτελέσματος (2η)</h2>
+<p>Δίνεται ο πίνακας <code>df2</code>:</p>
+<pre><code># A tibble: 4 × 2
+  grp     val
+  &lt;chr&gt; &lt;dbl&gt;
+1 A         5
+2 A        15
+3 B        10
+4 B        30</code></pre>
+<p>Τι θα <strong>τυπώσει</strong> ο παρακάτω κώδικας;</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a></a>sw_full <span class="sc">|&gt;</span></span>
-<span id="cb16-2"><a></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(classification)) <span class="sc">|&gt;</span></span>
-<span id="cb16-3"><a></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> classification, <span class="at">y =</span> height_m, <span class="at">fill =</span> classification)) <span class="sc">+</span></span>
-<span id="cb16-4"><a></a>  <span class="fu">geom_boxplot</span>(<span class="at">show.legend =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
-<span id="cb16-5"><a></a>  <span class="fu">labs</span>(</span>
-<span id="cb16-6"><a></a>    <span class="at">title =</span> <span class="st">"Κατανομή υψών ανά κατηγορία είδους"</span>,</span>
-<span id="cb16-7"><a></a>    <span class="at">x =</span> <span class="st">"Κατηγορία"</span>,</span>
-<span id="cb16-8"><a></a>    <span class="at">y =</span> <span class="st">"Ύψος (m)"</span></span>
-<span id="cb16-9"><a></a>  ) <span class="sc">+</span></span>
-<span id="cb16-10"><a></a>  <span class="fu">theme_classic</span>() <span class="sc">+</span></span>
-<span id="cb16-11"><a></a>  <span class="fu">theme</span>(</span>
-<span id="cb16-12"><a></a>    <span class="at">plot.title  =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">"bold"</span>, <span class="at">hjust =</span> <span class="fl">0.5</span>),</span>
-<span id="cb16-13"><a></a>    <span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">30</span>, <span class="at">hjust =</span> <span class="dv">1</span>)</span>
-<span id="cb16-14"><a></a>  )</span></code></pre></div><button title="Αντιγραφή στο πρόχειρο" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a></a>df2 <span class="sc">|&gt;</span></span>
+<span id="cb22-2"><a></a>  <span class="fu">group_by</span>(grp) <span class="sc">|&gt;</span></span>
+<span id="cb22-3"><a></a>  <span class="fu">summarise</span>(<span class="at">m =</span> <span class="fu">mean</span>(val))</span></code></pre></div><button title="Αντιγραφή στο πρόχειρο" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
-<section id="άσκηση-4" class="slide level2">
-<h2>Άσκηση</h2>
-<p>Χρησιμοποιώντας το <strong><code>sw_full</code></strong>:</p>
-<ol type="1">
-<li>Αφαιρέστε όσους έχουν <code>NA</code> στο <code>galaxy_region</code>.</li>
-<li>Φτιάξτε ένα <strong>scatter plot</strong> με:
-<ul>
-<li>Άξονας X: <code>height_m</code></li>
-<li>Άξονας Y: <code>mass</code></li>
-<li>Χρώμα: <code>classification</code></li>
-</ul></li>
-<li>Προσθέστε <code>geom_point(size = 3, alpha = 0.7)</code>.</li>
-<li>Κάντε <code>facet_wrap(~ galaxy_region)</code>.</li>
-<li>Προσθέστε κατάλληλους τίτλους με τη <code>labs()</code>.</li>
-<li>Εφαρμόστε <code>theme_minimal()</code> και βάλτε το υπόμνημα στο <strong>κάτω</strong> μέρος.</li>
-</ol>
-<aside class="notes">
-<p><strong>Ρυθμός Καθηγητή (2:25 - 2:45)</strong> Αυτή η άσκηση συνδυάζει join + filter + ggplot + theme + facet. Είναι σχεδόν αναπαράσταση όλης της ύλης. Αν κάποιοι ψάχνουν για περισσότερη πρόκληση, ζητήστε τους να αλλάξουν τους labels του υπομνήματος (<code>labs(color = "Κατηγορία")</code>).</p>
-<style type="text/css">
-        span.MJX_Assistive_MathML {
-          position:absolute!important;
-          clip: rect(1px, 1px, 1px, 1px);
-          padding: 1px 0 0 0!important;
-          border: 0!important;
-          height: 1px!important;
-          width: 1px!important;
-          overflow: hidden!important;
-          display:block!important;
-      }</style></aside>
+
+<section id="σειροθέτηση-βημάτων" class="slide level2">
+<h2>Σειροθέτηση βημάτων</h2>
+<p>Τα παρακάτω βήματα είναι <strong>ανακατεμένα</strong>. Βάλτε τα στη <strong>σωστή σειρά</strong> ώστε να υπολογιστεί το μέσο ύψος ανά είδος, ταξινομημένο φθίνουσα.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb24"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a></a>(Α)  <span class="fu">arrange</span>(<span class="fu">desc</span>(avg_h))</span>
+<span id="cb24-2"><a></a>(Β)  starwars <span class="sc">|&gt;</span></span>
+<span id="cb24-3"><a></a>(Γ)  <span class="fu">summarise</span>(<span class="at">avg_h =</span> <span class="fu">mean</span>(height, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), <span class="at">.groups =</span> <span class="st">"drop"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb24-4"><a></a>(Δ)  <span class="fu">group_by</span>(species) <span class="sc">|&gt;</span></span>
+<span id="cb24-5"><a></a>(Ε)  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(height)) <span class="sc">|&gt;</span></span></code></pre></div><button title="Αντιγραφή στο πρόχειρο" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+</section>
+<section>
+<section id="ολοκληρωμένη-ερώτηση-συμπλήρωσης" class="title-slide slide level1 center">
+<h1>Ολοκληρωμένη ερώτηση συμπλήρωσης</h1>
+
+</section>
+<section id="capstone-συμπλήρωση-κενών-12" class="slide level2">
+<h2>Capstone: συμπλήρωση κενών (1/2)</h2>
+<p>Συμπληρώστε τα κενά ώστε, ξεκινώντας από το <code>starwars</code>, να φτιαχτεί boxplot ύψους ανά <strong>κλίμα πλανήτη</strong>, αφού γίνουν δύο joins με τους βοηθητικούς πίνακες <code>species_class</code> και <code>homeworld_info</code>.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a></a>sw_full <span class="ot">&lt;-</span> starwars <span class="sc">|&gt;</span></span>
+<span id="cb26-2"><a></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(height), <span class="sc">!</span><span class="fu">is.na</span>(mass)) <span class="sc">|&gt;</span></span>
+<span id="cb26-3"><a></a>  <span class="fu">filter</span>(mass ____ <span class="dv">500</span>) <span class="sc">|&gt;</span>                        <span class="co"># (1) αφαίρεση ακραίων</span></span>
+<span id="cb26-4"><a></a>  <span class="fu">mutate</span>(<span class="at">height_m =</span> height <span class="sc">/</span> <span class="dv">100</span>) <span class="sc">|&gt;</span></span>
+<span id="cb26-5"><a></a>  <span class="fu">left_join</span>(species_class,  <span class="fu">join_by</span>(________)) <span class="sc">|&gt;</span>  <span class="co"># (2) κλειδί ένωσης</span></span>
+<span id="cb26-6"><a></a>  <span class="fu">left_join</span>(homeworld_info, <span class="fu">join_by</span>(________))     <span class="co"># (3) κλειδί ένωσης</span></span></code></pre></div><button title="Αντιγραφή στο πρόχειρο" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="capstone-συμπλήρωση-κενών-22" class="slide level2">
+<h2>Capstone: συμπλήρωση κενών (2/2)</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a></a>sw_full <span class="sc">|&gt;</span></span>
+<span id="cb27-2"><a></a>  <span class="fu">________</span>(<span class="sc">!</span><span class="fu">is.na</span>(climate)) <span class="sc">|&gt;</span>                    <span class="co"># (4) μόνο γνωστό κλίμα</span></span>
+<span id="cb27-3"><a></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> climate, <span class="at">y =</span> height_m, <span class="at">fill =</span> climate)) ____  <span class="co"># (5) σύνδεση layers</span></span>
+<span id="cb27-4"><a></a>  <span class="fu">________</span>() <span class="sc">+</span>                                     <span class="co"># (6) geom για boxplot</span></span>
+<span id="cb27-5"><a></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Ύψος ανά κλίμα πλανήτη"</span>, <span class="at">x =</span> <span class="st">"Κλίμα"</span>, <span class="at">y =</span> <span class="st">"Ύψος (m)"</span>) <span class="sc">+</span></span>
+<span id="cb27-6"><a></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb27-7"><a></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"____"</span>)                  <span class="co"># (7) απόκρυψη υπομνήματος</span></span></code></pre></div><button title="Αντιγραφή στο πρόχειρο" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
 </section>
 
-<section id="τελική-άσκηση-πλήρης-ροή-ανάλυσης" class="slide level2">
-<h2>Τελική άσκηση: Πλήρης ροή ανάλυσης</h2>
-<p>Γράψτε ένα <strong>ενιαίο block κώδικα</strong> το οποίο, ξεκινώντας από το <strong>αρχικό <code>starwars</code></strong>:</p>
-<ol type="1">
-<li>Φιλτράρει όσους έχουν <code>NA</code> σε <code>height</code> ή <code>mass</code>.</li>
-<li>Αφαιρεί όποιον έχει <code>mass &gt; 500</code>.</li>
-<li>Δημιουργεί τη στήλη <code>height_m = height / 100</code>.</li>
-<li>Κάνει <strong><code>left_join</code></strong> με το <code>species_class</code>.</li>
-</ol>
+<section id="βοηθητικοί-πίνακες-για-αναφορά" class="slide level2">
+<h2>Βοηθητικοί πίνακες (για αναφορά)</h2>
+<p>Οι πίνακες που χρησιμοποιούν οι ασκήσεις — όπως τους φτιάξαμε στα προηγούμενα μαθήματα:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a></a>species_class <span class="ot">&lt;-</span> <span class="fu">tribble</span>(</span>
+<span id="cb29-2"><a></a>  <span class="sc">~</span>species, <span class="sc">~</span>classification,</span>
+<span id="cb29-3"><a></a>  <span class="st">"Human"</span>,  <span class="st">"Humanoid"</span>,</span>
+<span id="cb29-4"><a></a>  <span class="st">"Droid"</span>,  <span class="st">"Droid"</span>,</span>
+<span id="cb29-5"><a></a>  <span class="st">"Wookiee"</span>,<span class="st">"Mammal"</span></span>
+<span id="cb29-6"><a></a>  <span class="co"># ... (πλήρης πίνακας στο μάθημα 10)</span></span>
+<span id="cb29-7"><a></a>)</span>
+<span id="cb29-8"><a></a></span>
+<span id="cb29-9"><a></a>homeworld_info <span class="ot">&lt;-</span> <span class="fu">tribble</span>(</span>
+<span id="cb29-10"><a></a>  <span class="sc">~</span>homeworld,  <span class="sc">~</span>galaxy_region, <span class="sc">~</span>climate,</span>
+<span id="cb29-11"><a></a>  <span class="st">"Tatooine"</span>,  <span class="st">"Outer Rim"</span>,    <span class="st">"Arid"</span>,</span>
+<span id="cb29-12"><a></a>  <span class="st">"Naboo"</span>,     <span class="st">"Mid Rim"</span>,      <span class="st">"Temperate"</span>,</span>
+<span id="cb29-13"><a></a>  <span class="st">"Alderaan"</span>,  <span class="st">"Core"</span>,         <span class="st">"Temperate"</span></span>
+<span id="cb29-14"><a></a>  <span class="co"># ... (πλήρης πίνακας στο μάθημα 10)</span></span>
+<span id="cb29-15"><a></a>)</span></code></pre></div><button title="Αντιγραφή στο πρόχειρο" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
 </section>
-<section id="τελική-άσκηση-πλήρης-ροή-ανάλυσης-1" class="slide level2">
-<h2>Τελική άσκηση: Πλήρης ροή ανάλυσης</h2>
-<ol start="5" type="1">
-<li>Κάνει <strong><code>left_join</code></strong> με το <code>homeworld_info</code>.</li>
-<li>Φιλτράρει όσους έχουν <code>NA</code> στο <code>climate</code>.</li>
-<li>Στέλνει τα δεδομένα στο <code>ggplot</code> και φτιάχνει <strong>boxplot</strong> με:
-<ul>
-<li>Άξονας X: <code>climate</code></li>
-<li>Άξονας Y: <code>height_m</code></li>
-<li>Γέμισμα: <code>climate</code></li>
-</ul></li>
-<li>Προσθέτει κατάλληλους τίτλους.</li>
-<li>Εφαρμόζει <code>theme_minimal()</code> και αφαιρεί το υπόμνημα (<code>legend.position = "none"</code>).</li>
-</ol>
-<aside class="notes">
-<p><strong>Ρυθμός Καθηγητή (2:45 - 2:55)</strong> Αυτή είναι η τελική σύνθεση. Ενθαρρύνετε τους να γράψουν τη ροή βήμα-βήμα και να ελέγχουν το αποτέλεσμα <strong>μετά από κάθε pipe</strong>. Όταν τελειώσουν, ζητήστε τους να σώσουν το script τους ως <strong>τελικό παραδοτέο</strong> του εξαμήνου. Καλό είναι να γίνει αναφορά στο πώς αυτό είναι ένα τυπικό R workflow για ανάλυση δεδομένων.</p>
-<style type="text/css">
-        span.MJX_Assistive_MathML {
-          position:absolute!important;
-          clip: rect(1px, 1px, 1px, 1px);
-          padding: 1px 0 0 0!important;
-          border: 0!important;
-          height: 1px!important;
-          width: 1px!important;
-          overflow: hidden!important;
-          display:block!important;
-      }</style></aside>
-</section>
-
-<section id="ευχαριστώ" class="slide level2">
-<h2>Ευχαριστώ!</h2>
+<section id="ευχαριστώ-και-καλή-επιτυχία" class="slide level2">
+<h2>Ευχαριστώ — και καλή επιτυχία!</h2>
 <p><br>
 </p>
 <div class="example-box">
-<p>Καλή πρόοδο σε όλους σας — και καλό καλοκαίρι!</p>
+<p>Καλό διάβασμα και καλή επιτυχία στις εξετάσεις — και καλό καλοκαίρι!</p>
 </div>
 <aside class="notes">
-<p><strong>Ρυθμός Καθηγητή (2:55 - 3:00)</strong> Κλείστε με μια σύντομη ανασκόπηση. Υπενθυμίστε τους ότι το <strong>καλύτερο</strong> που μπορούν να κάνουν είναι να <strong>εφαρμόσουν</strong> όσα έμαθαν σε δικά τους δεδομένα — από εργασίες, από projects, ή ακόμα και από προσωπικά τους δεδομένα (π.χ. βαθμολογίες, αγορές). Απαντήστε σε τυχόν τελευταίες ερωτήσεις.</p>
+<p><strong>Ρυθμός Καθηγητή (2:55 - 3:00)</strong> Κλείστε με μια σύντομη ανασκόπηση των <strong>τύπων ερωτήσεων</strong>. Υπενθυμίστε ότι στο γραπτό δεν θα γράψουν εκτενή κώδικα — αρκεί να καταλαβαίνουν τη <strong>λογική</strong> των pipes, των joins και του <code>ggplot2</code>. Συμβουλέψτε τους να εξασκηθούν ξαναγράφοντας με το χέρι τις λύσεις των ασκήσεων από τα προηγούμενα μαθήματα. Απαντήστε σε τυχόν τελευταίες ερωτήσεις.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
