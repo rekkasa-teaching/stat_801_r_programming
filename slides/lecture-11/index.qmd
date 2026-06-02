@@ -1,7 +1,7 @@
 ---
-title: "Ολοκληρωμένη Ανάλυση Δεδομένων: dplyr + ggplot2"
+title: "Ανασκόπηση"
 author: "Αλέξανδρος Ρέκκας"
-date: 2026-06-01
+date: 2026-06-02
 format:
   revealjs:
     theme: [default, custom.scss]
@@ -15,43 +15,10 @@ execute:
   eval: false
 ---
 
-## Στόχος του σημερινού μαθήματος
 
-Έχουμε ολοκληρώσει την ύλη! Μέχρι τώρα μάθαμε:
+## Τα δεδομένα
 
-1. Να **καθαρίζουμε** και να **μετασχηματίζουμε** δεδομένα με το **`dplyr`**.
-2. Να **ομαδοποιούμε** και να υπολογίζουμε σύνοψη (`group_by`, `summarize`).
-3. Να **συνενώνουμε** δεδομένα από πολλαπλούς πίνακες (`*_join`).
-4. Να φτιάχνουμε επαγγελματικά **γραφήματα** με το **`ggplot2`**.
-
-\
-
-Σήμερα θα τα συνδυάσουμε **όλα** σε ένα ολοκληρωμένο workshop ανάλυσης δεδομένων από την αρχή ως το τέλος.
-
-## Σενάριο: Ανάλυση χαρακτήρων του Star Wars
-
-::: {.objectives}
-
-- Θα ξεκινήσουμε από το έτοιμο dataset **`starwars`** του `dplyr`.
-- Θα δημιουργήσουμε **εμείς** μικρούς βοηθητικούς πίνακες με τη `tribble()`.
-- Θα τους **συνενώσουμε**, θα **καθαρίσουμε** τα δεδομένα και θα φτιάξουμε **πολλαπλά γραφήματα**.
-
-:::
-
-\
-
-Στο τέλος του μαθήματος θα έχετε γράψει μια **πλήρη ροή ανάλυσης** που συνδέει τα δεδομένα → τη σύνοψη → τη γραφική παρουσίαση.
-
-::: {.notes}
-**Ρυθμός Καθηγητή (0:00 - 0:10)**
-Καλωσορίστε τους φοιτητές. Εξηγήστε ότι σήμερα δεν θα μάθουν κάτι **καινούργιο** — αυτή είναι η συνθετική διάλεξη. Ζητήστε τους να ανοίξουν RStudio και να φτιάξουν ένα νέο script με όνομα `final_workshop.R`. Πείτε τους ότι ο στόχος είναι να γράψουμε τη ροή βήμα-βήμα ώστε να φύγουν από την αίθουσα με ένα **πλήρες πρόγραμμα** ανάλυσης.
-:::
-
-# Μέρος 1ο: Εξερεύνηση και καθαρισμός
-
-## Προετοιμασία: Φόρτωση βιβλιοθηκών
-
-Ξεκινάμε φορτώνοντας τα δύο βασικά μας πακέτα.
+Όλες οι ερωτήσεις βασίζονται στο ενσωματωμένο dataset `starwars` και στους βοηθητικούς πίνακες που φτιάξαμε στα προηγούμενα μαθήματα.
 
 ```{r}
 library(dplyr)
@@ -60,456 +27,586 @@ library(ggplot2)
 
 \
 
-::: {.reminder-box}
-Δεν χρειάζεται να φορτώσουμε δεδομένα από αρχείο! Το dataset **`starwars`** είναι ήδη ενσωματωμένο στο `dplyr`.
-:::
-
-## Το dataset `starwars`
-
-Περιέχει πληροφορίες για τους χαρακτήρες της σειράς ταινιών *Star Wars*.
-
-```{r}
-starwars
-```
-
-\
-
 ```{r}
 glimpse(starwars)
 ```
 
+::: {.reminder-box}
+Δεν χρειάζεται φόρτωση αρχείου — το `starwars` είναι ήδη μέσα στο `dplyr`.
+:::
 
-## Άσκηση
+# Ερωτήσεις Πολλαπλής Επιλογής
 
-Χρησιμοποιώντας το `starwars`:
+## Πολλαπλής επιλογής
 
-1. Πόσοι χαρακτήρες υπάρχουν συνολικά;
-2. Πόσα διαφορετικά είδη (`species`) εμφανίζονται; (Συμβουλή: `distinct()` + `nrow()`, ή `n_distinct()`).
-3. Πόσοι χαρακτήρες έχουν `NA` στη στήλη `mass`; (Συμβουλή: `filter(is.na(mass))` και μετά `nrow()`).
-4. Ποιοι είναι οι **5 ψηλότεροι** χαρακτήρες; Εμφανίστε τις στήλες `name`, `height`, `species`.
+Επιλέξτε τη **μία** σωστή απάντηση.
 
+**Ε1.** Ποια συνάρτηση επιστρέφει το πλήθος των **διακριτών** τιμών μιας στήλης;
 
-## Λύση Άσκησης 1 {visibility="hidden"}
+(α) `distinct()`  (β) `n_distinct()`  (γ) `count()`  (δ) `nrow()`
+
+\
+
+**Ε2.** Τι διατηρεί το `left_join(x, y)`;
+
+(α) μόνο τις γραμμές που ταιριάζουν και στους δύο πίνακες  
+(β) όλες τις γραμμές του `x` και ό,τι ταιριάζει από το `y`  
+(γ) όλες τις γραμμές του `y` και ό,τι ταιριάζει από το `x`  
+(δ) όλες τις γραμμές και των δύο πινάκων  
+
+## Πολλαπλής επιλογής (συνέχεια)
+
+**Ε3.** Ποιο σύμβολο προσθέτει επίπεδα (layers) σε ένα γράφημα `ggplot`;
+
+(α) `|>`  (β) `+`  (γ) `%>%`  (δ) `&`
+
+\
+
+**Ε4.** Αν η στήλη `mass` περιέχει `NA`, τι θα επιστρέψει το `mean(mass)`;
+
+(α) αγνοεί αυτόματα τα `NA`
+(β) `NA`
+(γ) `0`
+(δ) σφάλμα (error)
+
+\
+
+**Ε5.** Μετά από `group_by(species)`, το `summarise(n = n())` επιστρέφει:
+
+(α) μία γραμμή συνολικά  
+(β) μία γραμμή ανά είδος  
+(γ) όλες τις αρχικές γραμμές  
+(δ) τις στήλες χωρίς αλλαγή  
+
+## Πολλαπλής επιλογής (περισσότερες)
+
+**Ε6.** Ποια συνάρτηση επιλέγει **στήλες** από έναν πίνακα;
+
+(α) `filter()`  (β) `select()`  (γ) `arrange()`  (δ) `mutate()`
+
+\
+
+**Ε7.** Το `starwars |> count(species)` ισοδυναμεί με:
+
+(α) `group_by(species) |> summarise(n = n())`
+(β) `distinct(species)`
+(γ) `filter(species)`
+(δ) `arrange(species)`
+
+\
+
+**Ε8.** Το `filter(species %in% c("Human", "Droid"))` κρατά τις γραμμές όπου:
+
+(α) το `species` είναι **και** Human **και** Droid
+(β) το `species` είναι Human **ή** Droid
+(γ) το `species` δεν είναι ούτε Human ούτε Droid
+(δ) όλες οι γραμμές
+
+## Πολλαπλής επιλογής (περισσότερες — 2)
+
+**Ε9.** Μέσα στο `aes()` ορίζουμε:
+
+(α) το θέμα (theme) του γραφήματος
+(β) τις **αντιστοιχίσεις** μεταβλητών σε οπτικά χαρακτηριστικά (x, y, χρώμα...)
+(γ) τους τίτλους
+(δ) το είδος του geom
+
+\
+
+**Ε10.** Τι κάνει το `facet_wrap(~ galaxy_region)`;
+
+(α) χρωματίζει τα σημεία ανά περιοχή
+(β) φιλτράρει ανά περιοχή
+(γ) χωρίζει το γράφημα σε **υπο-γραφήματα** ανά τιμή του `galaxy_region`
+(δ) ταξινομεί τις περιοχές
+
+\
+
+**Ε11.** Το `inner_join(x, y)` κρατά:
+
+(α) όλες τις γραμμές του `x`
+(β) όλες τις γραμμές του `y`
+(γ) **μόνο** τις γραμμές που ταιριάζουν και στους δύο
+(δ) όλες τις γραμμές και των δύο
+
+## Απαντήσεις πολλαπλής επιλογής {visibility="hidden"}
+
+- **Ε1 → (β)** `n_distinct()`. *(Το `distinct()` επιστρέφει γραμμές, όχι αριθμό.)*
+- **Ε2 → (β)** Κρατάει όλες τις γραμμές του αριστερού πίνακα `x`.
+- **Ε3 → (β)** Στο `ggplot2` τα layers ενώνονται με `+`, όχι με pipe.
+- **Ε4 → (β)** Επιστρέφει `NA`. Χρειάζεται `mean(mass, na.rm = TRUE)`.
+- **Ε5 → (β)** Μία γραμμή σύνοψης για κάθε ομάδα (είδος).
+- **Ε6 → (β)** `select()` για στήλες· `filter()` για γραμμές.
+- **Ε7 → (α)** Το `count()` είναι συντόμευση του `group_by() |> summarise(n = n())`.
+- **Ε8 → (β)** Το `%in%` ελέγχει αν η τιμή ανήκει στο σύνολο (λογικό «ή»).
+- **Ε9 → (β)** Στο `aes()` μπαίνουν οι αντιστοιχίσεις μεταβλητών → αισθητικής.
+- **Ε10 → (γ)** Το `facet_wrap()` σπάει το γράφημα σε panels ανά κατηγορία.
+- **Ε11 → (γ)** Μόνο τα κοινά ζεύγη — όσα δεν ταιριάζουν πετιούνται.
+
+# Συμπλήρωση Κενών
+
+## Συμπλήρωση κενών
+
+Συμπληρώστε τα κενά (`____`) ώστε η ροή να: κρατά όσους έχουν γνωστό `height` & `mass`, αφαιρεί ακραίες τιμές, ομαδοποιεί ανά είδος, και υπολογίζει πλήθος + μέσο ύψος, ταξινομημένα φθίνουσα ως προς το πλήθος.
 
 ```{r}
-# 1. Πλήθος χαρακτήρων
-nrow(starwars)   # 87
+sw_summary <- starwars |>
+  ________(!is.na(height), !is.na(mass)) |>    # (1) κρατάμε γνωστά height & mass
+  ________(mass < 500) |>                      # (2) αφαιρούμε ακραίες τιμές
+  mutate(height_m = ______ / ______) |>        # (3) μετατροπή από εκατοστά σε μέτρα
+  ________(species) |>                         # (4) ομαδοποίηση ανά είδος
+  summarise(
+    n          = ____(),                       # (5) πλήθος χαρακτήρων
+    avg_height = mean(________),               # (6) μέσο ύψος σε μέτρα
+    .groups    = "drop"
+  ) |>
+  ________(desc(n))                            # (7) ταξινόμηση φθίνουσα
 
-# 2. Πλήθος διακριτών ειδών
-starwars |>
-  summarise(n_species = n_distinct(species))
-
-# 3. Πόσοι έχουν NA στη μάζα
-starwars |>
-  filter(is.na(mass)) |>
-  nrow()
-
-# 4. Οι 5 ψηλότεροι
-starwars |>
-  arrange(desc(height)) |>
-  select(name, height, species) |>
-  head(5)
+sw_summary
 ```
 
-## Πόσα NA έχουμε σε κάθε στήλη;
+## Λύση συμπλήρωσης κενών {visibility="hidden"}
+
+```{r}
+sw_summary <- starwars |>
+  filter(!is.na(height), !is.na(mass)) |>   # (1)
+  filter(mass < 500) |>                     # (2)
+  mutate(height_m = height / 100) |>        # (3)
+  group_by(species) |>                      # (4)
+  summarise(
+    n          = n(),                       # (5)
+    avg_height = mean(height_m),            # (6)
+    .groups    = "drop"
+  ) |>
+  arrange(desc(n))                          # (7)
+
+sw_summary
+```
+
+::: {.success-box}
+Κενά: **filter**, **filter**, **height** / **100**, **group_by**, **n**, **height_m**, **arrange**.
+:::
+
+## Συμπλήρωση κενών (2η)
+
+Συμπληρώστε τα κενά ώστε να μετρηθεί το πλήθος χαρακτήρων ανά **περιοχή του γαλαξία** και να φτιαχτεί bar chart.
+
+```{r}
+plot_data <- starwars |>
+  ________(homeworld_info, join_by(________)) |>   # (1) ένωση & (2) κλειδί
+  filter(!is.na(galaxy_region)) |>
+  ________(galaxy_region)                          # (3) μέτρημα ανά περιοχή
+
+plot_data |>
+  ggplot(aes(x = galaxy_region, y = ___)) ____     # (4) στήλη πλήθους & (5) σύνδεση
+  geom_____() +                                    # (6) στήλες από έτοιμα νούμερα
+  labs(title = "Χαρακτήρες ανά περιοχή", x = "Περιοχή", y = "Πλήθος")
+```
+
+## Λύση συμπλήρωσης κενών (2η) {visibility="hidden"}
+
+```{r}
+plot_data <- starwars |>
+  left_join(homeworld_info, join_by(homeworld)) |> # (1) (2)
+  filter(!is.na(galaxy_region)) |>
+  count(galaxy_region)                             # (3)
+
+plot_data |>
+  ggplot(aes(x = galaxy_region, y = n)) +          # (4) (5)
+  geom_col() +                                     # (6)
+  labs(title = "Χαρακτήρες ανά περιοχή", x = "Περιοχή", y = "Πλήθος")
+```
+
+::: {.success-box}
+Κενά: **left_join**, **homeworld**, **count**, **n**, **+**, **col**.  
+Προσοχή: αφού το `count()` δίνει έτοιμη τη στήλη `n`, χρησιμοποιούμε `geom_col()` (όχι `geom_bar()`).
+:::
+
+# Σωστό / Λάθος
+
+## Σωστό ή Λάθος;
+
+Σημειώστε **Σ** ή **Λ** για κάθε πρόταση.
+
+1. Το `filter()` επιλέγει **στήλες** από έναν πίνακα.
+2. Το `mutate()` δημιουργεί ή τροποποιεί στήλες.
+3. Μετά από `group_by()` πρέπει **πάντα** να ακολουθεί `summarise()`.
+4. Το `arrange(desc(x))` ταξινομεί **αύξουσα**.
+5. Ο τελεστής `|>` περνά το αριστερό αποτέλεσμα ως **πρώτο** όρισμα της επόμενης συνάρτησης.
+6. Το `left_join()` μπορεί να εισάγει `NA` σε γραμμές που δεν βρήκαν ταίριασμα.
+7. Στο `geom_boxplot()` ο άξονας X **πρέπει** να είναι αριθμητικός.
+
+## Σωστό ή Λάθος; (συνέχεια)
+
+8. Το `count(x)` επιστρέφει μια στήλη πλήθους με όνομα `n`.
+9. Το `select(-name)` **αφαιρεί** τη στήλη `name`.
+10. Το `inner_join()` κρατά και γραμμές που δεν βρήκαν ταίριασμα.
+11. Στο `aes()` μπορούμε να αντιστοιχίσουμε ένα **χρώμα** σε μια μεταβλητή.
+12. Το `mean(c(1, 2, NA), na.rm = TRUE)` επιστρέφει `NA`.
+13. Το `group_by()` αλλάζει τον αριθμό των γραμμών του πίνακα.
+
+## Λύση Σωστού / Λάθους {visibility="hidden"}
+
+1. **Λ** — το `filter()` επιλέγει **γραμμές**· οι στήλες με `select()`.
+2. **Σ** — ακριβώς αυτή είναι η δουλειά του `mutate()`.
+3. **Λ** — το `group_by()` συνδυάζεται και με `mutate()` ή `filter()` ανά ομάδα.
+4. **Λ** — το `desc()` δίνει **φθίνουσα** σειρά.
+5. **Σ** — αυτή είναι η λογική του pipe.
+6. **Σ** — όσες γραμμές του αριστερού πίνακα δεν ταιριάξουν παίρνουν `NA`.
+7. **Λ** — ο X μπορεί κάλλιστα να είναι **κατηγορικός** (π.χ. `classification`).
+8. **Σ** — προεπιλεγμένο όνομα στήλης το `n`.
+9. **Σ** — το πρόσημο `-` αφαιρεί στήλες στο `select()`.
+10. **Λ** — το `inner_join()` κρατά **μόνο** τα ταιριάσματα.
+11. **Σ** — π.χ. `aes(color = classification)`.
+12. **Λ** — αγνοεί το `NA` και επιστρέφει `1.5`.
+13. **Λ** — απλώς «σημαδεύει» ομάδες· οι γραμμές παραμένουν ίδιες.
+
+# Εντοπισμός Λάθους
+
+## Εντοπισμός λάθους (dplyr)
+
+Ο παρακάτω κώδικας έπρεπε να κρατήσει μόνο τους ανθρώπους, αλλά δίνει σφάλμα. **Βρείτε και διορθώστε** το λάθος.
 
 ```{r}
 starwars |>
-  summarise(
-    n_height     = sum(is.na(height)),
-    n_mass       = sum(is.na(mass)),
-    n_birth_year = sum(is.na(birth_year)),
-    n_homeworld  = sum(is.na(homeworld)),
-    n_species    = sum(is.na(species))
-  )
+  filter(species = "Human")
+```
+
+\
+
+Μήνυμα σφάλματος:
+
+```
+Error in `filter()`:
+! We detected a named input.
+ℹ This usually means that you've used `=` instead of `==`.
+ℹ Did you mean `species == "Human"`?
+```
+
+## Λύση εντοπισμού λάθους (dplyr) {visibility="hidden"}
+
+Το πρόβλημα: χρησιμοποιήθηκε **`=`** (ανάθεση) αντί για **`==`** (σύγκριση ισότητας).
+
+```{r}
+starwars |>
+  filter(species == "Human")
 ```
 
 ::: {.highlight-box}
-Παρατηρούμε ότι η στήλη `birth_year` έχει **πολλά** NA. Πρέπει να αποφασίσουμε **πώς** θα τα χειριστούμε όταν την χρησιμοποιούμε.
+Κανόνας: μέσα στο `filter()` οι συνθήκες ισότητας γράφονται **πάντα** με `==`.
 :::
 
-## Καθαρισμός: Φιλτράρισμα και μετασχηματισμός
+## Εντοπισμός λάθους (ggplot2)
 
-Φτιάχνουμε ένα **καθαρό** dataset, το `sw_clean`:
-
-```{r}
-sw_clean <- starwars |>
-  filter(!is.na(height), !is.na(mass)) |>      # κρατάμε όσους έχουν height & mass
-  filter(mass < 500) |>                        # αφαιρούμε ακραίες τιμές (π.χ. Jabba)
-  mutate(
-    height_m = height / 100,                   # μετατροπή σε μέτρα
-    bmi      = mass / (height_m ^ 2)           # δείκτης μάζας σώματος
-  ) |>
-  select(name, species, homeworld, sex, height, mass, height_m, bmi)
-
-glimpse(sw_clean)
-```
-
-## Άσκηση
-
-Ξεκινώντας από το **αρχικό `starwars`**, δημιουργήστε ένα νέο tibble με όνομα `sw_adults` που:
-
-1. Κρατάει **μόνο** όσους έχουν γνωστό **`birth_year`** (όχι `NA`).
-2. Δημιουργεί μια νέα στήλη `age_at_yavin` που δείχνει την ηλικία του χαρακτήρα τη χρονιά της Μάχης του Yavin (BBY = 0).
-   *Συμβουλή: το `birth_year` είναι χρόνια πριν τη Μάχη του Yavin, οπότε αυτό είναι και η ηλικία τους.*
-3. Φιλτράρει για **ενήλικες** (ηλικία ≥ 18).
-4. Επιλέγει τις στήλες: `name`, `species`, `homeworld`, `age_at_yavin`.
-5. Ταξινομεί με βάση την ηλικία **φθίνουσα** (από τον πιο γέρο στον νεότερο).
-
-
-## Λύση {visibility="hidden"}
+Ο κώδικας θέλει να φτιάξει scatter plot ύψους–μάζας, αλλά αποτυγχάνει. **Βρείτε το λάθος.**
 
 ```{r}
-sw_adults <- starwars |>
-  filter(!is.na(birth_year)) |>
-  mutate(age_at_yavin = birth_year) |>
-  filter(age_at_yavin >= 18) |>
-  select(name, species, homeworld, age_at_yavin) |>
-  arrange(desc(age_at_yavin))
-
-sw_adults
-# Στην κορυφή θα δείτε τον Yoda (~896 ετών).
-```
-
-# Μέρος 2ο: Βοηθητικοί πίνακες και Joins
-
-## Γιατί χρειαζόμαστε επιπλέον πίνακες;
-
-Το `starwars` έχει **πολλά διαφορετικά είδη** (Human, Droid, Wookiee, ...) και **δεκάδες πλανήτες**.
-
-\
-
-Συχνά θέλουμε να ομαδοποιήσουμε σε **μεγαλύτερες κατηγορίες** ή να εμπλουτίσουμε με πληροφορία που δεν υπάρχει στο αρχικό dataset:
-
-- **Κατηγορία είδους** (humanoid / droid / mammal / ...)
-- **Περιοχή του γαλαξία** (Core / Mid Rim / Outer Rim) ανά πλανήτη
-- **Κλίμα** του πλανήτη
-
-\
-
-Αυτές τις πληροφορίες θα τις φτιάξουμε **μόνοι μας** με τη συνάρτηση **`tribble()`**.
-
-## Η συνάρτηση `tribble()`
-
-Η `tribble()` φτιάχνει έναν μικρό `tibble` γράφοντας τις γραμμές **όπως σε ένα πίνακα**:
-
-```{r}
-example <- tribble(
-  ~name,    ~grade,
-  "Maria",  9.5,
-  "John", 7.0,
-  "George",  8.5
-)
-
-example
+ggplot(starwars, aes(x = height, y = mass)) |>
+  geom_point()
 ```
 
 \
+
+Μήνυμα σφάλματος:
+
+```
+Error in `geom_point()`:
+! `data` must be a <data.frame>, or an object coercible by
+  `fortify()`, not an S3 object with class <ggplot>.
+```
+
+## Λύση εντοπισμού λάθους (ggplot2) {visibility="hidden"}
+
+Το πρόβλημα: τα layers του `ggplot2` ενώνονται με **`+`**, όχι με τον pipe **`|>`**.
+
+```{r}
+ggplot(starwars, aes(x = height, y = mass)) +
+  geom_point()
+```
+
+::: {.highlight-box}
+Μνημονικός κανόνας: **δεδομένα → pipe `|>`**, **γράφημα → plus `+`**.
+:::
+
+## Εντοπισμός λάθους (στήλη που δεν υπάρχει)
+
+Ο κώδικας θέλει να υπολογίσει το μέσο ύψος, αλλά αποτυγχάνει. **Βρείτε το λάθος.**
+
+```{r}
+starwars |>
+  summarise(avg_height = mean(heigth, na.rm = TRUE))
+```
+
+\
+
+Μήνυμα σφάλματος:
+
+```
+Error in `summarise()`:
+ℹ In argument: `avg_height = mean(heigth, na.rm = TRUE)`.
+Caused by error:
+! object 'heigth' not found
+```
+
+## Λύση εντοπισμού λάθους (στήλη) {visibility="hidden"}
+
+Το πρόβλημα: **ορθογραφικό λάθος** στο όνομα της στήλης — `heigth` αντί `height`.
+
+```{r}
+starwars |>
+  summarise(avg_height = mean(height, na.rm = TRUE))
+```
+
+::: {.highlight-box}
+Το «object ... not found» σχεδόν πάντα σημαίνει λάθος όνομα στήλης ή μεταβλητής.
+:::
+
+## Εντοπισμός λάθους (λογικό — όχι σφάλμα)
+
+Ο κώδικας **τρέχει** χωρίς error, αλλά το αποτέλεσμα είναι `NA`. **Γιατί;**
+
+```{r}
+starwars |>
+  summarise(avg_mass = mean(mass))
+#> avg_mass = NA
+```
+
+## Λύση εντοπισμού λάθους (λογικό) {visibility="hidden"}
+
+Η στήλη `mass` περιέχει `NA`. Χωρίς `na.rm = TRUE`, η `mean()` επιστρέφει `NA`.
+
+```{r}
+starwars |>
+  summarise(avg_mass = mean(mass, na.rm = TRUE))
+```
+
+::: {.highlight-box}
+Δεν είναι όλα τα λάθη «κόκκινα errors» — ένα `NA` εκεί που περιμένατε αριθμό είναι **λογικό** λάθος.
+:::
+
+# Bonus τύποι ερωτήσεων
+
+## Αντιστοίχιση (dplyr)
+
+Αντιστοιχίστε κάθε συνάρτηση `dplyr` με τη δουλειά της.
+
+| Συνάρτηση      | # | Περιγραφή                                  |
+|----------------|---|--------------------------------------------|
+| `filter()`     | 1 | Δημιουργεί / τροποποιεί στήλες             |
+| `select()`     | 2 | Ομαδοποιεί τις γραμμές                     |
+| `mutate()`     | 3 | Επιλέγει **γραμμές** με βάση συνθήκη       |
+| `arrange()`    | 4 | Συνοψίζει κάθε ομάδα σε μία τιμή           |
+| `summarise()`  | 5 | Επιλέγει **στήλες**                         |
+| `group_by()`   | 6 | Ταξινομεί τις γραμμές                      |
+
+## Λύση αντιστοίχισης (dplyr) {visibility="hidden"}
+
+- `filter()` → **3** (επιλογή γραμμών)
+- `select()` → **5** (επιλογή στηλών)
+- `mutate()` → **1** (δημιουργία/τροποποίηση στηλών)
+- `arrange()` → **6** (ταξινόμηση)
+- `summarise()` → **4** (σύνοψη ανά ομάδα)
+- `group_by()` → **2** (ομαδοποίηση)
+
+## Αντιστοίχιση (γραφήματα)
+
+Αντιστοιχίστε κάθε `geom` με τον τύπο γραφήματος.
+
+| Geom               | # | Τύπος γραφήματος                        |
+|--------------------|---|-----------------------------------------|
+| `geom_point()`     | 1 | Ραβδόγραμμα από **έτοιμα** νούμερα      |
+| `geom_col()`       | 2 | Θηκόγραμμα (boxplot)                    |
+| `geom_boxplot()`   | 3 | Διάγραμμα διασποράς (scatter)           |
+| `geom_histogram()` | 4 | Γραμμή / χρονοσειρά                     |
+| `geom_line()`      | 5 | Ιστόγραμμα συχνοτήτων                   |
+
+## Λύση αντιστοίχισης (γραφήματα) {visibility="hidden"}
+
+- `geom_point()` → **3** (scatter)
+- `geom_col()` → **1** (ράβδοι από έτοιμες τιμές)
+- `geom_boxplot()` → **2** (boxplot)
+- `geom_histogram()` → **5** (ιστόγραμμα)
+- `geom_line()` → **4** (γραμμή)
+
+## Πρόβλεψη αποτελέσματος
+
+Δίνεται ο πίνακας `df`:
+
+```
+# A tibble: 4 × 2
+      a     b
+  <dbl> <dbl>
+1     1    10
+2     2    20
+3     3    30
+4     4    40
+```
+
+Τι θα **τυπώσει** ο παρακάτω κώδικας;
+
+```{r}
+df |>
+  filter(a >= 2) |>
+  summarise(total = sum(b))
+```
+
+## Λύση πρόβλεψης αποτελέσματος {visibility="hidden"}
+
+Το `filter(a >= 2)` κρατά τις γραμμές με `a` = 2, 3, 4 → τιμές `b` = 20, 30, 40.
+
+Το `summarise(total = sum(b))` τις αθροίζει:
+
+```
+# A tibble: 1 × 1
+  total
+  <dbl>
+1    90
+```
 
 ::: {.success-box}
-Τα ονόματα των στηλών μπαίνουν με `~` μπροστά. Κάθε επόμενη γραμμή είναι μια καινούργια παρατήρηση.
+**Αποτέλεσμα: `total = 90`**.
 :::
 
-## Φτιάχνουμε το `species_class`
+## Πρόβλεψη αποτελέσματος (2η)
 
-Ομαδοποιούμε τα είδη σε **κατηγορίες**:
+Δίνεται ο πίνακας `df2`:
+
+```
+# A tibble: 4 × 2
+  grp     val
+  <chr> <dbl>
+1 A         5
+2 A        15
+3 B        10
+4 B        30
+```
+
+Τι θα **τυπώσει** ο παρακάτω κώδικας;
+
+```{r}
+df2 |>
+  group_by(grp) |>
+  summarise(m = mean(val))
+```
+
+## Λύση πρόβλεψης αποτελέσματος (2η) {visibility="hidden"}
+
+Μέσος όρος ανά ομάδα: A = (5 + 15) / 2 = **10**, B = (10 + 30) / 2 = **20**.
+
+```
+# A tibble: 2 × 2
+  grp       m
+  <chr> <dbl>
+1 A        10
+2 B        20
+```
+
+## Σειροθέτηση βημάτων
+
+Τα παρακάτω βήματα είναι **ανακατεμένα**. Βάλτε τα στη **σωστή σειρά** ώστε να υπολογιστεί το μέσο ύψος ανά είδος, ταξινομημένο φθίνουσα.
+
+```r
+(Α)  arrange(desc(avg_h))
+(Β)  starwars |>
+(Γ)  summarise(avg_h = mean(height, na.rm = TRUE), .groups = "drop") |>
+(Δ)  group_by(species) |>
+(Ε)  filter(!is.na(height)) |>
+```
+
+## Λύση σειροθέτησης {visibility="hidden"}
+
+Σωστή σειρά: **Β → Ε → Δ → Γ → Α**
+
+```{r}
+starwars |>                                          # (Β)
+  filter(!is.na(height)) |>                          # (Ε)
+  group_by(species) |>                               # (Δ)
+  summarise(avg_h = mean(height, na.rm = TRUE),      # (Γ)
+            .groups = "drop") |>
+  arrange(desc(avg_h))                               # (Α)
+```
+
+# Ολοκληρωμένη ερώτηση συμπλήρωσης
+
+## Capstone: συμπλήρωση κενών (1/2)
+
+Συμπληρώστε τα κενά ώστε, ξεκινώντας από το `starwars`, να φτιαχτεί boxplot ύψους ανά **κλίμα πλανήτη**, αφού γίνουν δύο joins με τους βοηθητικούς πίνακες `species_class` και `homeworld_info`.
+
+```{r}
+sw_full <- starwars |>
+  filter(!is.na(height), !is.na(mass)) |>
+  filter(mass ____ 500) |>                        # (1) αφαίρεση ακραίων
+  mutate(height_m = height / 100) |>
+  left_join(species_class,  join_by(________)) |>  # (2) κλειδί ένωσης
+  left_join(homeworld_info, join_by(________))     # (3) κλειδί ένωσης
+```
+
+## Capstone: συμπλήρωση κενών (2/2)
+
+```{r}
+sw_full |>
+  ________(!is.na(climate)) |>                    # (4) μόνο γνωστό κλίμα
+  ggplot(aes(x = climate, y = height_m, fill = climate)) ____  # (5) σύνδεση layers
+  ________() +                                     # (6) geom για boxplot
+  labs(title = "Ύψος ανά κλίμα πλανήτη", x = "Κλίμα", y = "Ύψος (m)") +
+  theme_minimal() +
+  theme(legend.position = "____")                  # (7) απόκρυψη υπομνήματος
+```
+
+## Λύση capstone {visibility="hidden"}
+
+```{r}
+sw_full <- starwars |>
+  filter(!is.na(height), !is.na(mass)) |>
+  filter(mass < 500) |>                            # (1)
+  mutate(height_m = height / 100) |>
+  left_join(species_class,  join_by(species)) |>   # (2)
+  left_join(homeworld_info, join_by(homeworld))    # (3)
+
+sw_full |>
+  filter(!is.na(climate)) |>                       # (4)
+  ggplot(aes(x = climate, y = height_m, fill = climate)) +  # (5)
+  geom_boxplot() +                                 # (6)
+  labs(title = "Ύψος ανά κλίμα πλανήτη", x = "Κλίμα", y = "Ύψος (m)") +
+  theme_minimal() +
+  theme(legend.position = "none")                  # (7)
+```
+
+::: {.success-box}
+Κενά: **<**, **species**, **homeworld**, **filter**, **+**, **geom_boxplot**, **none**.
+:::
+
+## Βοηθητικοί πίνακες (για αναφορά)
+
+Οι πίνακες που χρησιμοποιούν οι ασκήσεις — όπως τους φτιάξαμε στα προηγούμενα μαθήματα:
 
 ```{r}
 species_class <- tribble(
-  ~species,        ~classification,
-  "Human",         "Humanoid",
-  "Droid",         "Droid",
-  "Wookiee",       "Mammal",
-  "Ewok",          "Mammal",
-  "Gungan",        "Amphibian",
-  "Hutt",          "Reptile",
-  "Rodian",        "Reptile",
-  "Trandoshan",    "Reptile",
-  "Twi'lek",       "Humanoid",
-  "Mon Calamari",  "Amphibian",
-  "Zabrak",        "Humanoid",
-  "Yoda's species","Humanoid",
-  "Kel Dor",       "Humanoid",
-  "Mirialan",      "Humanoid",
-  "Togruta",       "Humanoid",
-  "Cerean",        "Humanoid"
+  ~species, ~classification,
+  "Human",  "Humanoid",
+  "Droid",  "Droid",
+  "Wookiee","Mammal"
+  # ... (πλήρης πίνακας στο μάθημα 10)
 )
 
-species_class
-```
-
-## Πρώτο join: εμπλουτίζουμε το `sw_clean`
-
-Θέλουμε να προσθέσουμε τη στήλη `classification` δίπλα σε κάθε χαρακτήρα του `sw_clean`.
-
-```{r}
-sw_class <- sw_clean |>
-  left_join(species_class, join_by(species))
-
-glimpse(sw_class)
-```
-
-\
-
-::: {.highlight-box}
-Χρησιμοποιήσαμε **`left_join`** ώστε να κρατήσουμε **όλους** τους χαρακτήρες, ακόμα κι όσοι έχουν είδος για το οποίο δεν φτιάξαμε classification (θα πάρουν `NA`).
-:::
-
-## Άσκηση
-
-Χρησιμοποιώντας το **`sw_class`**:
-
-1. Αφαιρέστε όσους χαρακτήρες έχουν `NA` στο `classification`.
-2. Ομαδοποιήστε ανά `classification`.
-3. Υπολογίστε:
-   - Το **πλήθος** χαρακτήρων (`n_characters`).
-   - Το **μέσο ύψος** σε μέτρα (`avg_height_m`).
-   - Το **μέσο BMI** (`avg_bmi`).
-4. Ταξινομήστε με βάση τον **μέσο BMI** σε **φθίνουσα** σειρά.
-
-::: {.notes}
-**Ρυθμός Καθηγητή (1:10 - 1:30)**
-Πιθανώς θα έχουν αξιοπρόσεκτα αποτελέσματα: τα Mammals (Wookiees, Ewoks) έχουν υψηλό BMI. Σχολιάστε ότι το `na.rm = TRUE` εδώ ΔΕΝ είναι απαραίτητο αφού στο `sw_clean` έχουμε ήδη πετάξει τα NA από `height`/`mass`. Σημείωση: στο `sw_class` η στήλη `species` εξακολουθεί να υπάρχει — απλά έχει προστεθεί και η `classification`.
-:::
-
-## Λύση {visibility="hidden"}
-
-```{r}
-sw_class |>
-  filter(!is.na(classification)) |>
-  group_by(classification) |>
-  summarise(
-    n_characters = n(),
-    avg_height_m = mean(height_m),
-    avg_bmi      = mean(bmi),
-    .groups      = "drop"
-  ) |>
-  arrange(desc(avg_bmi))
-
-# Τα Mammals συνήθως κορυφή — οι Wookiees είναι ψηλοί και βαρείς!
-```
-
-## Φτιάχνουμε το `homeworld_info`
-
-Προσθέτουμε **περιοχή γαλαξία** και **κλίμα** για κάθε πλανήτη:
-
-```{r}
 homeworld_info <- tribble(
-  ~homeworld,      ~galaxy_region,  ~climate,
-  "Tatooine",      "Outer Rim",     "Arid",
-  "Naboo",         "Mid Rim",       "Temperate",
-  "Alderaan",      "Core",          "Temperate",
-  "Stewjon",       "Core",          "Temperate",
-  "Coruscant",     "Core",          "Temperate",
-  "Kashyyyk",      "Mid Rim",       "Tropical",
-  "Corellia",      "Core",          "Temperate",
-  "Rodia",         "Outer Rim",     "Tropical",
-  "Nal Hutta",     "Outer Rim",     "Tropical",
-  "Bestine IV",    "Outer Rim",     "Temperate",
-  "Kamino",        "Outer Rim",     "Aquatic",
-  "Cerea",         "Mid Rim",       "Temperate",
-  "Glee Anselm",   "Mid Rim",       "Aquatic",
-  "Iridonia",      "Mid Rim",       "Arid"
+  ~homeworld,  ~galaxy_region, ~climate,
+  "Tatooine",  "Outer Rim",    "Arid",
+  "Naboo",     "Mid Rim",      "Temperate",
+  "Alderaan",  "Core",         "Temperate"
+  # ... (πλήρης πίνακας στο μάθημα 10)
 )
 ```
 
-## Δεύτερο join: ενώνουμε **δύο** βοηθητικούς πίνακες
-
-```{r}
-sw_full <- sw_clean |>
-  left_join(species_class,  join_by(species)) |>
-  left_join(homeworld_info, join_by(homeworld))
-
-glimpse(sw_full)
-```
-
-\
-
-::: {.success-box}
-Τώρα κάθε χαρακτήρας έχει: αρχικά δεδομένα + `classification` + `galaxy_region` + `climate`.
-:::
-
-## Άσκηση
-
-Χρησιμοποιώντας το **`sw_full`**:
-
-1. Αφαιρέστε όσους χαρακτήρες έχουν `NA` στο `galaxy_region`.
-2. Ομαδοποιήστε ανά **`galaxy_region`** και **`classification`**.
-3. Υπολογίστε:
-   - Το πλήθος χαρακτήρων (`n`).
-   - Το μέσο ύψος σε μέτρα (`avg_height_m`).
-4. Ταξινομήστε ανά `galaxy_region` και κατόπιν φθίνον `n`.
-
-
-## Λύση {visibility="hidden"}
-
-```{r}
-sw_full |>
-  filter(!is.na(galaxy_region)) |>
-  group_by(galaxy_region, classification) |>
-  summarise(
-    n            = n(),
-    avg_height_m = mean(height_m),
-    .groups      = "drop"
-  ) |>
-  arrange(galaxy_region, desc(n))
-
-# Στο Core θα δείτε σχεδόν αποκλειστικά Humanoids.
-# Στο Outer Rim εμφανίζονται και Reptiles (Hutts, Rodians).
-```
-
-# Μέρος 3ο: Σύνθεση και Γραφήματα
-
-## Από τους πίνακες στα γραφήματα
-
-Έχουμε ήδη φτιάξει το **`sw_full`** που περιέχει όλη τη συνδυασμένη πληροφορία.
-
-\
-
-Τώρα θα δούμε **τρία είδη γραφημάτων** που απαντούν σε **τρία διαφορετικά ερωτήματα**:
-
-::: {.objectives}
-
-1. **Bar chart**: Πόσοι χαρακτήρες ανά κατηγορία είδους;
-2. **Boxplot**: Πώς κατανέμεται το ύψος ανά κατηγορία;
-3. **Scatter plot με facets**: Πώς σχετίζεται ύψος ↔ μάζα ανά περιοχή γαλαξία;
-
-:::
-
-## Γράφημα 1ο: Bar chart πλήθους
-
-```{r}
-sw_full |>
-  filter(!is.na(classification)) |>
-  count(classification) |>
-  ggplot(aes(x = reorder(classification, n), y = n, fill = classification)) +
-  geom_col(show.legend = FALSE) +
-  coord_flip() +
-  labs(
-    title = "Πλήθος χαρακτήρων ανά κατηγορία είδους",
-    x = NULL,
-    y = "Αριθμός χαρακτήρων"
-  ) +
-  theme_minimal()
-```
-
-
-## Γράφημα 2ο: Boxplot υψών ανά classification
-
-```{r}
-sw_full |>
-  filter(!is.na(classification)) |>
-  ggplot(aes(x = classification, y = height_m, fill = classification)) +
-  geom_boxplot(show.legend = FALSE) +
-  labs(
-    title = "Κατανομή υψών ανά κατηγορία είδους",
-    x = "Κατηγορία",
-    y = "Ύψος (m)"
-  ) +
-  theme_classic() +
-  theme(
-    plot.title  = element_text(face = "bold", hjust = 0.5),
-    axis.text.x = element_text(angle = 30, hjust = 1)
-  )
-```
-
-## Άσκηση
-
-Χρησιμοποιώντας το **`sw_full`**:
-
-1. Αφαιρέστε όσους έχουν `NA` στο `galaxy_region`.
-2. Φτιάξτε ένα **scatter plot** με:
-   - Άξονας X: `height_m`
-   - Άξονας Y: `mass`
-   - Χρώμα: `classification`
-3. Προσθέστε `geom_point(size = 3, alpha = 0.7)`.
-4. Κάντε `facet_wrap(~ galaxy_region)`.
-5. Προσθέστε κατάλληλους τίτλους με τη `labs()`.
-6. Εφαρμόστε `theme_minimal()` και βάλτε το υπόμνημα στο **κάτω** μέρος.
-
-::: {.notes}
-**Ρυθμός Καθηγητή (2:25 - 2:45)**
-Αυτή η άσκηση συνδυάζει join + filter + ggplot + theme + facet. Είναι σχεδόν αναπαράσταση όλης της ύλης. Αν κάποιοι ψάχνουν για περισσότερη πρόκληση, ζητήστε τους να αλλάξουν τους labels του υπομνήματος (`labs(color = "Κατηγορία")`).
-:::
-
-## Λύση Άσκησης 5 {visibility="hidden"}
-
-```{r}
-sw_full |>
-  filter(!is.na(galaxy_region)) |>
-  ggplot(aes(x = height_m, y = mass, color = classification)) +
-  geom_point(size = 3, alpha = 0.7) +
-  facet_wrap(~ galaxy_region) +
-  labs(
-    title = "Ύψος και μάζα χαρακτήρων ανά περιοχή του γαλαξία",
-    x = "Ύψος (m)",
-    y = "Μάζα (kg)",
-    color = "Κατηγορία"
-  ) +
-  theme_minimal() +
-  theme(legend.position = "bottom")
-```
-
-## Τελική άσκηση: Πλήρης ροή ανάλυσης
-
-Γράψτε ένα **ενιαίο block κώδικα** το οποίο, ξεκινώντας από το **αρχικό `starwars`**:
-
-1. Φιλτράρει όσους έχουν `NA` σε `height` ή `mass`.
-2. Αφαιρεί όποιον έχει `mass > 500`.
-3. Δημιουργεί τη στήλη `height_m = height / 100`.
-4. Κάνει **`left_join`** με το `species_class`.
-
-## Τελική άσκηση: Πλήρης ροή ανάλυσης
-
-5. Κάνει **`left_join`** με το `homeworld_info`.
-6. Φιλτράρει όσους έχουν `NA` στο `climate`.
-7. Στέλνει τα δεδομένα στο `ggplot` και φτιάχνει **boxplot** με:
-   - Άξονας X: `climate`
-   - Άξονας Y: `height_m`
-   - Γέμισμα: `climate`
-8. Προσθέτει κατάλληλους τίτλους.
-9. Εφαρμόζει `theme_minimal()` και αφαιρεί το υπόμνημα (`legend.position = "none"`).
-
-::: {.notes}
-**Ρυθμός Καθηγητή (2:45 - 2:55)**
-Αυτή είναι η τελική σύνθεση. Ενθαρρύνετε τους να γράψουν τη ροή βήμα-βήμα και να ελέγχουν το αποτέλεσμα **μετά από κάθε pipe**. Όταν τελειώσουν, ζητήστε τους να σώσουν το script τους ως **τελικό παραδοτέο** του εξαμήνου. Καλό είναι να γίνει αναφορά στο πώς αυτό είναι ένα τυπικό R workflow για ανάλυση δεδομένων.
-:::
-
-## Λύση τελικής άσκησης {visibility="hidden"}
-
-```{r}
-starwars |>
-  filter(!is.na(height), !is.na(mass)) |>
-  filter(mass < 500) |>
-  mutate(height_m = height / 100) |>
-  left_join(species_class,  join_by(species)) |>
-  left_join(homeworld_info, join_by(homeworld)) |>
-  filter(!is.na(climate)) |>
-  ggplot(aes(x = climate, y = height_m, fill = climate)) +
-  geom_boxplot() +
-  labs(
-    title    = "Κατανομή ύψους χαρακτήρων ανά κλίμα πλανήτη",
-    subtitle = "Δεδομένα από το πακέτο dplyr (starwars)",
-    x        = "Κλίμα πλανήτη",
-    y        = "Ύψος (m)"
-  ) +
-  theme_minimal() +
-  theme(
-    plot.title    = element_text(face = "bold", hjust = 0.5),
-    plot.subtitle = element_text(hjust = 0.5),
-    legend.position = "none"
-  )
-```
-
-## Ευχαριστώ!
+## Ευχαριστώ — και καλή επιτυχία!
 
 \
 
 ::: {.example-box}
-Καλή πρόοδο σε όλους σας — και καλό καλοκαίρι!
+Καλό διάβασμα και καλή επιτυχία στις εξετάσεις — και καλό καλοκαίρι!
 :::
 
 ::: {.notes}
 **Ρυθμός Καθηγητή (2:55 - 3:00)**
-Κλείστε με μια σύντομη ανασκόπηση. Υπενθυμίστε τους ότι το **καλύτερο** που μπορούν να κάνουν είναι να **εφαρμόσουν** όσα έμαθαν σε δικά τους δεδομένα — από εργασίες, από projects, ή ακόμα και από προσωπικά τους δεδομένα (π.χ. βαθμολογίες, αγορές). Απαντήστε σε τυχόν τελευταίες ερωτήσεις.
+Κλείστε με μια σύντομη ανασκόπηση των **τύπων ερωτήσεων**. Υπενθυμίστε ότι στο γραπτό δεν θα γράψουν εκτενή κώδικα — αρκεί να καταλαβαίνουν τη **λογική** των pipes, των joins και του `ggplot2`. Συμβουλέψτε τους να εξασκηθούν ξαναγράφοντας με το χέρι τις λύσεις των ασκήσεων από τα προηγούμενα μαθήματα. Απαντήστε σε τυχόν τελευταίες ερωτήσεις.
 :::
