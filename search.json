@@ -571,7 +571,7 @@
     "href": "slides/lecture-02/index.html#επιλογή-υποσυνόλου",
     "title": "Στατιστικά Προγράμματα II",
     "section": "Επιλογή υποσυνόλου",
-    "text": "Επιλογή υποσυνόλου\n\n# Επιλογή 10 τυχαίων τιμών από την N(0, 1)\nvalues &lt;- rnorm(10)\nvalues\n\n [1] -0.1222377  0.4578290  1.2674440 -1.7456080  0.1082606  2.0771376\n [7]  0.1080740  0.4987533 -1.1400634 -0.5704493\n\n\nΜπορούμε να διαλέξουμε τις πρώτες 3 τιμές της μεταβλητής values:\n\nvalues[1:3]\n\n[1] -0.1222377  0.4578290  1.2674440\n\n\nΜπορούμε να διαλέξουμε την 3η τιμές και την 5η τιμή της μεταβλητής values:\n\nvalues[c(3, 5)]\n\n[1] 1.2674440 0.1082606"
+    "text": "Επιλογή υποσυνόλου\n\n# Επιλογή 10 τυχαίων τιμών από την N(0, 1)\nvalues &lt;- rnorm(10)\nvalues\n\n [1]  0.26964632 -0.95006692 -0.72797213 -0.19729030 -0.03971045  0.78437242\n [7] -0.15451675  0.64682787 -0.68289134 -1.32572239\n\n\nΜπορούμε να διαλέξουμε τις πρώτες 3 τιμές της μεταβλητής values:\n\nvalues[1:3]\n\n[1]  0.2696463 -0.9500669 -0.7279721\n\n\nΜπορούμε να διαλέξουμε την 3η τιμές και την 5η τιμή της μεταβλητής values:\n\nvalues[c(3, 5)]\n\n[1] -0.72797213 -0.03971045"
   },
   {
     "objectID": "slides/lecture-02/index.html#επιλογή-υποσυνόλου-1",
@@ -1183,39 +1183,32 @@
     "text": "Το dataset starwars\nΠεριέχει πληροφορίες για τους χαρακτήρες της σειράς ταινιών Star Wars.\n\nstarwars\n\n\n\n\nglimpse(starwars)"
   },
   {
-    "objectID": "slides/lecture-11/index.html#τι-στήλες-έχουμε",
-    "href": "slides/lecture-11/index.html#τι-στήλες-έχουμε",
+    "objectID": "slides/lecture-11/index.html#άσκηση",
+    "href": "slides/lecture-11/index.html#άσκηση",
     "title": "Ολοκληρωμένη Ανάλυση Δεδομένων: dplyr + ggplot2",
-    "section": "Τι στήλες έχουμε;",
-    "text": "Τι στήλες έχουμε;\n\n\nΑριθμητικές\n\nheight (cm)\nmass (kg)\nbirth_year (BBY)\n\n\n\nΚατηγορικές\n\nname, species, homeworld\nsex, gender\nhair_color, skin_color, eye_color\n\n\n\n\n\nΥπάρχουν επίσης 3 στήλες λίστας (films, vehicles, starships) τις οποίες δεν θα χρειαστούμε σήμερα."
-  },
-  {
-    "objectID": "slides/lecture-11/index.html#άσκηση-1-πρώτη-γνωριμία",
-    "href": "slides/lecture-11/index.html#άσκηση-1-πρώτη-γνωριμία",
-    "title": "Ολοκληρωμένη Ανάλυση Δεδομένων: dplyr + ggplot2",
-    "section": "Άσκηση 1: Πρώτη γνωριμία",
-    "text": "Άσκηση 1: Πρώτη γνωριμία\nΧρησιμοποιώντας το starwars:\n\nΠόσοι χαρακτήρες υπάρχουν συνολικά;\nΠόσα διαφορετικά είδη (species) εμφανίζονται; (Συμβουλή: distinct() + nrow(), ή n_distinct()).\nΠόσοι χαρακτήρες έχουν NA στη στήλη mass; (Συμβουλή: filter(is.na(mass)) και μετά nrow()).\nΠοιοι είναι οι 5 ψηλότεροι χαρακτήρες; Εμφανίστε τις στήλες name, height, species.\n\n\nΡυθμός Καθηγητή (0:10 - 0:25) Περπατήστε ανάμεσά τους. Το ερώτημα 3 είναι σημαντικό — οι φοιτητές πρέπει να καταλάβουν ότι θα χρειαστούμε καθαρισμό. Το ερώτημα 4 τους θυμίζει arrange(desc(...)) και head()/slice_head()."
+    "section": "Άσκηση",
+    "text": "Άσκηση\nΧρησιμοποιώντας το starwars:\n\nΠόσοι χαρακτήρες υπάρχουν συνολικά;\nΠόσα διαφορετικά είδη (species) εμφανίζονται; (Συμβουλή: distinct() + nrow(), ή n_distinct()).\nΠόσοι χαρακτήρες έχουν NA στη στήλη mass; (Συμβουλή: filter(is.na(mass)) και μετά nrow()).\nΠοιοι είναι οι 5 ψηλότεροι χαρακτήρες; Εμφανίστε τις στήλες name, height, species."
   },
   {
     "objectID": "slides/lecture-11/index.html#πόσα-na-έχουμε-σε-κάθε-στήλη",
     "href": "slides/lecture-11/index.html#πόσα-na-έχουμε-σε-κάθε-στήλη",
     "title": "Ολοκληρωμένη Ανάλυση Δεδομένων: dplyr + ggplot2",
     "section": "Πόσα NA έχουμε σε κάθε στήλη;",
-    "text": "Πόσα NA έχουμε σε κάθε στήλη;\nΈνα γρήγορο τρικ για να μετρήσουμε τα NA σε κάθε στήλη:\n\nstarwars |&gt;\n  summarise(\n    n_height     = sum(is.na(height)),\n    n_mass       = sum(is.na(mass)),\n    n_birth_year = sum(is.na(birth_year)),\n    n_homeworld  = sum(is.na(homeworld)),\n    n_species    = sum(is.na(species))\n  )\n\n\nΠαρατηρούμε ότι η στήλη birth_year έχει πολλά NA. Πρέπει να αποφασίσουμε πώς θα τα χειριστούμε όταν την χρησιμοποιούμε."
+    "text": "Πόσα NA έχουμε σε κάθε στήλη;\n\nstarwars |&gt;\n  summarise(\n    n_height     = sum(is.na(height)),\n    n_mass       = sum(is.na(mass)),\n    n_birth_year = sum(is.na(birth_year)),\n    n_homeworld  = sum(is.na(homeworld)),\n    n_species    = sum(is.na(species))\n  )\n\n\nΠαρατηρούμε ότι η στήλη birth_year έχει πολλά NA. Πρέπει να αποφασίσουμε πώς θα τα χειριστούμε όταν την χρησιμοποιούμε."
   },
   {
     "objectID": "slides/lecture-11/index.html#καθαρισμός-φιλτράρισμα-και-μετασχηματισμός",
     "href": "slides/lecture-11/index.html#καθαρισμός-φιλτράρισμα-και-μετασχηματισμός",
     "title": "Ολοκληρωμένη Ανάλυση Δεδομένων: dplyr + ggplot2",
     "section": "Καθαρισμός: Φιλτράρισμα και μετασχηματισμός",
-    "text": "Καθαρισμός: Φιλτράρισμα και μετασχηματισμός\nΦτιάχνουμε ένα καθαρό dataset, το sw_clean:\n\nsw_clean &lt;- starwars |&gt;\n  filter(!is.na(height), !is.na(mass)) |&gt;      # κρατάμε όσους έχουν height & mass\n  filter(mass &lt; 500) |&gt;                        # αφαιρούμε ακραίες τιμές (π.χ. Jabba)\n  mutate(\n    height_m = height / 100,                   # μετατροπή σε μέτρα\n    bmi      = mass / (height_m ^ 2)           # δείκτης μάζας σώματος\n  ) |&gt;\n  select(name, species, homeworld, sex, height, mass, height_m, bmi)\n\nglimpse(sw_clean)\n\n\nΡυθμός Καθηγητή (0:25 - 0:35) Εξηγήστε γιατί κάναμε filter για mass &lt; 500: ο Jabba ο Hutt (~1358 kg) “σπάει” τη μάζα. Ζητήστε τους να τρέξουν starwars |&gt; arrange(desc(mass)) |&gt; head(3) για να το δουν."
+    "text": "Καθαρισμός: Φιλτράρισμα και μετασχηματισμός\nΦτιάχνουμε ένα καθαρό dataset, το sw_clean:\n\nsw_clean &lt;- starwars |&gt;\n  filter(!is.na(height), !is.na(mass)) |&gt;      # κρατάμε όσους έχουν height & mass\n  filter(mass &lt; 500) |&gt;                        # αφαιρούμε ακραίες τιμές (π.χ. Jabba)\n  mutate(\n    height_m = height / 100,                   # μετατροπή σε μέτρα\n    bmi      = mass / (height_m ^ 2)           # δείκτης μάζας σώματος\n  ) |&gt;\n  select(name, species, homeworld, sex, height, mass, height_m, bmi)\n\nglimpse(sw_clean)"
   },
   {
-    "objectID": "slides/lecture-11/index.html#άσκηση-2-δικός-σας-καθαρισμός",
-    "href": "slides/lecture-11/index.html#άσκηση-2-δικός-σας-καθαρισμός",
+    "objectID": "slides/lecture-11/index.html#άσκηση-1",
+    "href": "slides/lecture-11/index.html#άσκηση-1",
     "title": "Ολοκληρωμένη Ανάλυση Δεδομένων: dplyr + ggplot2",
-    "section": "Άσκηση 2: Δικός σας καθαρισμός",
-    "text": "Άσκηση 2: Δικός σας καθαρισμός\nΞεκινώντας από το αρχικό starwars, δημιουργήστε ένα νέο tibble με όνομα sw_adults που:\n\nΚρατάει μόνο όσους έχουν γνωστό birth_year (όχι NA).\nΔημιουργεί μια νέα στήλη age_at_yavin που δείχνει την ηλικία του χαρακτήρα τη χρονιά της Μάχης του Yavin (BBY = 0). Συμβουλή: το birth_year είναι χρόνια πριν τη Μάχη του Yavin, οπότε αυτό είναι και η ηλικία τους.\nΦιλτράρει για ενήλικες (ηλικία ≥ 18).\nΕπιλέγει τις στήλες: name, species, homeworld, age_at_yavin.\nΤαξινομεί με βάση την ηλικία φθίνουσα (από τον πιο γέρο στον νεότερο).\n\n\nΡυθμός Καθηγητή (0:35 - 0:55) Δώστε περίπου 15 λεπτά. Στόχος είναι να εξασκηθούν στη ροή filter -&gt; mutate -&gt; filter -&gt; select -&gt; arrange. Επισημάνετε ότι μπορούν να βάλουν δύο filter ή ένα με δύο όρους — η ροή θα έχει το ίδιο αποτέλεσμα. ΜΕΤΑ ΤΗΝ ΑΣΚΗΣΗ: ΚΑΝΤΕ 15 ΛΕΠΤΑ ΔΙΑΛΕΙΜΜΑ (0:55 - 1:10)"
+    "section": "Άσκηση",
+    "text": "Άσκηση\nΞεκινώντας από το αρχικό starwars, δημιουργήστε ένα νέο tibble με όνομα sw_adults που:\n\nΚρατάει μόνο όσους έχουν γνωστό birth_year (όχι NA).\nΔημιουργεί μια νέα στήλη age_at_yavin που δείχνει την ηλικία του χαρακτήρα τη χρονιά της Μάχης του Yavin (BBY = 0). Συμβουλή: το birth_year είναι χρόνια πριν τη Μάχη του Yavin, οπότε αυτό είναι και η ηλικία τους.\nΦιλτράρει για ενήλικες (ηλικία ≥ 18).\nΕπιλέγει τις στήλες: name, species, homeworld, age_at_yavin.\nΤαξινομεί με βάση την ηλικία φθίνουσα (από τον πιο γέρο στον νεότερο)."
   },
   {
     "objectID": "slides/lecture-11/index.html#γιατί-χρειαζόμαστε-επιπλέον-πίνακες",
@@ -1229,7 +1222,7 @@
     "href": "slides/lecture-11/index.html#η-συνάρτηση-tribble",
     "title": "Ολοκληρωμένη Ανάλυση Δεδομένων: dplyr + ggplot2",
     "section": "Η συνάρτηση tribble()",
-    "text": "Η συνάρτηση tribble()\nΗ tribble() φτιάχνει έναν μικρό tibble γράφοντας τις γραμμές όπως ένα πινακάκι:\n\nexample &lt;- tribble(\n  ~name,    ~grade,\n  \"Maria\",  9.5,\n  \"Yannis\", 7.0,\n  \"Eleni\",  8.5\n)\n\nexample\n\n\n\n\nΤα ονόματα των στηλών μπαίνουν με ~ μπροστά. Κάθε επόμενη γραμμή είναι μια καινούργια παρατήρηση."
+    "text": "Η συνάρτηση tribble()\nΗ tribble() φτιάχνει έναν μικρό tibble γράφοντας τις γραμμές όπως σε ένα πίνακα:\n\nexample &lt;- tribble(\n  ~name,    ~grade,\n  \"Maria\",  9.5,\n  \"John\", 7.0,\n  \"George\",  8.5\n)\n\nexample\n\n\n\n\nΤα ονόματα των στηλών μπαίνουν με ~ μπροστά. Κάθε επόμενη γραμμή είναι μια καινούργια παρατήρηση."
   },
   {
     "objectID": "slides/lecture-11/index.html#φτιάχνουμε-το-species_class",
@@ -1246,11 +1239,11 @@
     "text": "Πρώτο join: εμπλουτίζουμε το sw_clean\nΘέλουμε να προσθέσουμε τη στήλη classification δίπλα σε κάθε χαρακτήρα του sw_clean.\n\nsw_class &lt;- sw_clean |&gt;\n  left_join(species_class, join_by(species))\n\nglimpse(sw_class)\n\n\n\n\nΧρησιμοποιήσαμε left_join ώστε να κρατήσουμε όλους τους χαρακτήρες, ακόμα κι όσοι έχουν είδος για το οποίο δεν φτιάξαμε classification (θα πάρουν NA)."
   },
   {
-    "objectID": "slides/lecture-11/index.html#άσκηση-3-σύνοψη-ανά-classification",
-    "href": "slides/lecture-11/index.html#άσκηση-3-σύνοψη-ανά-classification",
+    "objectID": "slides/lecture-11/index.html#άσκηση-2",
+    "href": "slides/lecture-11/index.html#άσκηση-2",
     "title": "Ολοκληρωμένη Ανάλυση Δεδομένων: dplyr + ggplot2",
-    "section": "Άσκηση 3: Σύνοψη ανά classification",
-    "text": "Άσκηση 3: Σύνοψη ανά classification\nΧρησιμοποιώντας το sw_class:\n\nΑφαιρέστε όσους χαρακτήρες έχουν NA στο classification.\nΟμαδοποιήστε ανά classification.\nΥπολογίστε:\n\nΤο πλήθος χαρακτήρων (n_characters).\nΤο μέσο ύψος σε μέτρα (avg_height_m).\nΤο μέσο BMI (avg_bmi).\n\nΤαξινομήστε με βάση τον μέσο BMI σε φθίνουσα σειρά.\n\n\nΡυθμός Καθηγητή (1:10 - 1:30) Πιθανώς θα έχουν αξιοπρόσεκτα αποτελέσματα: τα Mammals (Wookiees, Ewoks) έχουν υψηλό BMI. Σχολιάστε ότι το na.rm = TRUE εδώ ΔΕΝ είναι απαραίτητο αφού στο sw_clean έχουμε ήδη πετάξει τα NA από height/mass. Σημείωση: στο sw_class η στήλη species εξακολουθεί να υπάρχει — απλά έχει προστεθεί και η classification."
+    "section": "Άσκηση",
+    "text": "Άσκηση\nΧρησιμοποιώντας το sw_class:\n\nΑφαιρέστε όσους χαρακτήρες έχουν NA στο classification.\nΟμαδοποιήστε ανά classification.\nΥπολογίστε:\n\nΤο πλήθος χαρακτήρων (n_characters).\nΤο μέσο ύψος σε μέτρα (avg_height_m).\nΤο μέσο BMI (avg_bmi).\n\nΤαξινομήστε με βάση τον μέσο BMI σε φθίνουσα σειρά.\n\n\nΡυθμός Καθηγητή (1:10 - 1:30) Πιθανώς θα έχουν αξιοπρόσεκτα αποτελέσματα: τα Mammals (Wookiees, Ewoks) έχουν υψηλό BMI. Σχολιάστε ότι το na.rm = TRUE εδώ ΔΕΝ είναι απαραίτητο αφού στο sw_clean έχουμε ήδη πετάξει τα NA από height/mass. Σημείωση: στο sw_class η στήλη species εξακολουθεί να υπάρχει — απλά έχει προστεθεί και η classification."
   },
   {
     "objectID": "slides/lecture-11/index.html#φτιάχνουμε-το-homeworld_info",
@@ -1260,18 +1253,18 @@
     "text": "Φτιάχνουμε το homeworld_info\nΠροσθέτουμε περιοχή γαλαξία και κλίμα για κάθε πλανήτη:\n\nhomeworld_info &lt;- tribble(\n  ~homeworld,      ~galaxy_region,  ~climate,\n  \"Tatooine\",      \"Outer Rim\",     \"Arid\",\n  \"Naboo\",         \"Mid Rim\",       \"Temperate\",\n  \"Alderaan\",      \"Core\",          \"Temperate\",\n  \"Stewjon\",       \"Core\",          \"Temperate\",\n  \"Coruscant\",     \"Core\",          \"Temperate\",\n  \"Kashyyyk\",      \"Mid Rim\",       \"Tropical\",\n  \"Corellia\",      \"Core\",          \"Temperate\",\n  \"Rodia\",         \"Outer Rim\",     \"Tropical\",\n  \"Nal Hutta\",     \"Outer Rim\",     \"Tropical\",\n  \"Bestine IV\",    \"Outer Rim\",     \"Temperate\",\n  \"Kamino\",        \"Outer Rim\",     \"Aquatic\",\n  \"Cerea\",         \"Mid Rim\",       \"Temperate\",\n  \"Glee Anselm\",   \"Mid Rim\",       \"Aquatic\",\n  \"Iridonia\",      \"Mid Rim\",       \"Arid\"\n)"
   },
   {
-    "objectID": "slides/lecture-11/index.html#δεύτερο-join-ενώνουμε-δύο-lookup-πίνακες",
-    "href": "slides/lecture-11/index.html#δεύτερο-join-ενώνουμε-δύο-lookup-πίνακες",
+    "objectID": "slides/lecture-11/index.html#δεύτερο-join-ενώνουμε-δύο-βοηθητικούς-πίνακες",
+    "href": "slides/lecture-11/index.html#δεύτερο-join-ενώνουμε-δύο-βοηθητικούς-πίνακες",
     "title": "Ολοκληρωμένη Ανάλυση Δεδομένων: dplyr + ggplot2",
-    "section": "Δεύτερο join: ενώνουμε δύο lookup πίνακες",
-    "text": "Δεύτερο join: ενώνουμε δύο lookup πίνακες\n\nsw_full &lt;- sw_clean |&gt;\n  left_join(species_class,  join_by(species)) |&gt;\n  left_join(homeworld_info, join_by(homeworld))\n\nglimpse(sw_full)\n\n\n\n\nΤώρα κάθε χαρακτήρας έχει: αρχικά δεδομένα + classification + galaxy_region + climate."
+    "section": "Δεύτερο join: ενώνουμε δύο βοηθητικούς πίνακες",
+    "text": "Δεύτερο join: ενώνουμε δύο βοηθητικούς πίνακες\n\nsw_full &lt;- sw_clean |&gt;\n  left_join(species_class,  join_by(species)) |&gt;\n  left_join(homeworld_info, join_by(homeworld))\n\nglimpse(sw_full)\n\n\n\n\nΤώρα κάθε χαρακτήρας έχει: αρχικά δεδομένα + classification + galaxy_region + climate."
   },
   {
-    "objectID": "slides/lecture-11/index.html#άσκηση-4-πολλαπλές-συνενώσεις",
-    "href": "slides/lecture-11/index.html#άσκηση-4-πολλαπλές-συνενώσεις",
+    "objectID": "slides/lecture-11/index.html#άσκηση-3",
+    "href": "slides/lecture-11/index.html#άσκηση-3",
     "title": "Ολοκληρωμένη Ανάλυση Δεδομένων: dplyr + ggplot2",
-    "section": "Άσκηση 4: Πολλαπλές συνενώσεις",
-    "text": "Άσκηση 4: Πολλαπλές συνενώσεις\nΧρησιμοποιώντας το sw_full:\n\nΑφαιρέστε όσους χαρακτήρες έχουν NA στο galaxy_region.\nΟμαδοποιήστε ανά galaxy_region και classification.\nΥπολογίστε:\n\nΤο πλήθος χαρακτήρων (n).\nΤο μέσο ύψος σε μέτρα (avg_height_m).\n\nΤαξινομήστε ανά galaxy_region και κατόπιν φθίνον n.\n\n\nΡυθμός Καθηγητή (1:35 - 1:55) Εδώ έχουμε διπλό group_by. Υπενθυμίστε ότι αν δεν προσθέσουν .groups = \"drop\", η summarise αφήνει τα δεδομένα ομαδοποιημένα κατά galaxy_region — αυτό μπορεί να επηρεάσει επόμενες πράξεις. Συμβουλέψτε τους να το συνηθίσουν. ΜΕΤΑ ΤΗΝ ΑΣΚΗΣΗ: ΚΑΝΤΕ 15 ΛΕΠΤΑ ΔΙΑΛΕΙΜΜΑ (1:55 - 2:10)"
+    "section": "Άσκηση",
+    "text": "Άσκηση\nΧρησιμοποιώντας το sw_full:\n\nΑφαιρέστε όσους χαρακτήρες έχουν NA στο galaxy_region.\nΟμαδοποιήστε ανά galaxy_region και classification.\nΥπολογίστε:\n\nΤο πλήθος χαρακτήρων (n).\nΤο μέσο ύψος σε μέτρα (avg_height_m).\n\nΤαξινομήστε ανά galaxy_region και κατόπιν φθίνον n."
   },
   {
     "objectID": "slides/lecture-11/index.html#από-τους-πίνακες-στα-γραφήματα",
@@ -1285,7 +1278,7 @@
     "href": "slides/lecture-11/index.html#γράφημα-1ο-bar-chart-πλήθους",
     "title": "Ολοκληρωμένη Ανάλυση Δεδομένων: dplyr + ggplot2",
     "section": "Γράφημα 1ο: Bar chart πλήθους",
-    "text": "Γράφημα 1ο: Bar chart πλήθους\n\nsw_full |&gt;\n  filter(!is.na(classification)) |&gt;\n  count(classification) |&gt;\n  ggplot(aes(x = reorder(classification, n), y = n, fill = classification)) +\n  geom_col(show.legend = FALSE) +\n  coord_flip() +\n  labs(\n    title = \"Πλήθος χαρακτήρων ανά κατηγορία είδους\",\n    x = NULL,\n    y = \"Αριθμός χαρακτήρων\"\n  ) +\n  theme_minimal()\n\n\n\n\nΗ συνάρτηση reorder() ταξινομεί τις κατηγορίες ως προς τη μεταβλητή n — έτσι οι μπάρες βγαίνουν από τη μικρότερη στη μεγαλύτερη."
+    "text": "Γράφημα 1ο: Bar chart πλήθους\n\nsw_full |&gt;\n  filter(!is.na(classification)) |&gt;\n  count(classification) |&gt;\n  ggplot(aes(x = reorder(classification, n), y = n, fill = classification)) +\n  geom_col(show.legend = FALSE) +\n  coord_flip() +\n  labs(\n    title = \"Πλήθος χαρακτήρων ανά κατηγορία είδους\",\n    x = NULL,\n    y = \"Αριθμός χαρακτήρων\"\n  ) +\n  theme_minimal()"
   },
   {
     "objectID": "slides/lecture-11/index.html#γράφημα-2ο-boxplot-υψών-ανά-classification",
@@ -1295,25 +1288,25 @@
     "text": "Γράφημα 2ο: Boxplot υψών ανά classification\n\nsw_full |&gt;\n  filter(!is.na(classification)) |&gt;\n  ggplot(aes(x = classification, y = height_m, fill = classification)) +\n  geom_boxplot(show.legend = FALSE) +\n  labs(\n    title = \"Κατανομή υψών ανά κατηγορία είδους\",\n    x = \"Κατηγορία\",\n    y = \"Ύψος (m)\"\n  ) +\n  theme_classic() +\n  theme(\n    plot.title  = element_text(face = \"bold\", hjust = 0.5),\n    axis.text.x = element_text(angle = 30, hjust = 1)\n  )"
   },
   {
-    "objectID": "slides/lecture-11/index.html#άσκηση-5-δικό-σας-scatter-plot",
-    "href": "slides/lecture-11/index.html#άσκηση-5-δικό-σας-scatter-plot",
+    "objectID": "slides/lecture-11/index.html#άσκηση-4",
+    "href": "slides/lecture-11/index.html#άσκηση-4",
     "title": "Ολοκληρωμένη Ανάλυση Δεδομένων: dplyr + ggplot2",
-    "section": "Άσκηση 5: Δικό σας scatter plot",
-    "text": "Άσκηση 5: Δικό σας scatter plot\nΧρησιμοποιώντας το sw_full:\n\nΑφαιρέστε όσους έχουν NA στο galaxy_region.\nΦτιάξτε ένα scatter plot με:\n\nΆξονας X: height_m\nΆξονας Y: mass\nΧρώμα: classification\n\nΠροσθέστε geom_point(size = 3, alpha = 0.7).\nΚάντε facet_wrap(~ galaxy_region).\nΠροσθέστε κατάλληλους τίτλους με τη labs().\nΕφαρμόστε theme_minimal() και βάλτε το υπόμνημα στο κάτω μέρος.\n\n\nΡυθμός Καθηγητή (2:25 - 2:45) Αυτή η άσκηση συνδυάζει join + filter + ggplot + theme + facet. Είναι σχεδόν αναπαράσταση όλης της ύλης. Αν κάποιοι ψάχνουν για περισσότερη πρόκληση, ζητήστε τους να αλλάξουν τους labels του υπομνήματος (labs(color = \"Κατηγορία\"))."
+    "section": "Άσκηση",
+    "text": "Άσκηση\nΧρησιμοποιώντας το sw_full:\n\nΑφαιρέστε όσους έχουν NA στο galaxy_region.\nΦτιάξτε ένα scatter plot με:\n\nΆξονας X: height_m\nΆξονας Y: mass\nΧρώμα: classification\n\nΠροσθέστε geom_point(size = 3, alpha = 0.7).\nΚάντε facet_wrap(~ galaxy_region).\nΠροσθέστε κατάλληλους τίτλους με τη labs().\nΕφαρμόστε theme_minimal() και βάλτε το υπόμνημα στο κάτω μέρος.\n\n\nΡυθμός Καθηγητή (2:25 - 2:45) Αυτή η άσκηση συνδυάζει join + filter + ggplot + theme + facet. Είναι σχεδόν αναπαράσταση όλης της ύλης. Αν κάποιοι ψάχνουν για περισσότερη πρόκληση, ζητήστε τους να αλλάξουν τους labels του υπομνήματος (labs(color = \"Κατηγορία\"))."
   },
   {
     "objectID": "slides/lecture-11/index.html#τελική-άσκηση-πλήρης-ροή-ανάλυσης",
     "href": "slides/lecture-11/index.html#τελική-άσκηση-πλήρης-ροή-ανάλυσης",
     "title": "Ολοκληρωμένη Ανάλυση Δεδομένων: dplyr + ggplot2",
     "section": "Τελική άσκηση: Πλήρης ροή ανάλυσης",
-    "text": "Τελική άσκηση: Πλήρης ροή ανάλυσης\nΓράψτε ένα ενιαίο block κώδικα το οποίο, ξεκινώντας από το αρχικό starwars:\n\nΦιλτράρει όσους έχουν NA σε height ή mass.\nΑφαιρεί όποιον έχει mass &gt; 500.\nΔημιουργεί τη στήλη height_m = height / 100.\nΚάνει left_join με το species_class.\nΚάνει left_join με το homeworld_info.\nΦιλτράρει όσους έχουν NA στο climate.\nΣτέλνει τα δεδομένα στο ggplot και φτιάχνει boxplot με:\n\nΆξονας X: climate\nΆξονας Y: height_m\nΓέμισμα: climate\n\nΠροσθέτει κατάλληλους τίτλους.\nΕφαρμόζει theme_minimal() και αφαιρεί το υπόμνημα (legend.position = \"none\").\n\n\nΡυθμός Καθηγητή (2:45 - 2:55) Αυτή είναι η τελική σύνθεση. Ενθαρρύνετε τους να γράψουν τη ροή βήμα-βήμα και να ελέγχουν το αποτέλεσμα μετά από κάθε pipe. Όταν τελειώσουν, ζητήστε τους να σώσουν το script τους ως τελικό παραδοτέο του εξαμήνου. Καλό είναι να γίνει αναφορά στο πώς αυτό είναι ένα τυπικό R workflow για ανάλυση δεδομένων."
+    "text": "Τελική άσκηση: Πλήρης ροή ανάλυσης\nΓράψτε ένα ενιαίο block κώδικα το οποίο, ξεκινώντας από το αρχικό starwars:\n\nΦιλτράρει όσους έχουν NA σε height ή mass.\nΑφαιρεί όποιον έχει mass &gt; 500.\nΔημιουργεί τη στήλη height_m = height / 100.\nΚάνει left_join με το species_class."
   },
   {
-    "objectID": "slides/lecture-11/index.html#σύνοψη-τι-κάναμε-σήμερα",
-    "href": "slides/lecture-11/index.html#σύνοψη-τι-κάναμε-σήμερα",
+    "objectID": "slides/lecture-11/index.html#τελική-άσκηση-πλήρης-ροή-ανάλυσης-1",
+    "href": "slides/lecture-11/index.html#τελική-άσκηση-πλήρης-ροή-ανάλυσης-1",
     "title": "Ολοκληρωμένη Ανάλυση Δεδομένων: dplyr + ggplot2",
-    "section": "Σύνοψη — τι κάναμε σήμερα",
-    "text": "Σύνοψη — τι κάναμε σήμερα\n\n\nΞεκινήσαμε από ένα έτοιμο dataset (starwars) και το εξερευνήσαμε.\nΚαθαρίσαμε τα δεδομένα (αφαίρεση NA, ακραίων τιμών).\nΜετασχηματίσαμε μεταβλητές (mutate).\nΔημιουργήσαμε δικούς μας βοηθητικούς πίνακες με τη tribble().\nΣυνενώσαμε πίνακες με left_join (πολλαπλά joins σε μια ροή).\nΟμαδοποιήσαμε και υπολογίσαμε σύνοψη ανά κατηγορία.\nΦτιάξαμε τρία διαφορετικά γραφήματα (bar, boxplot, scatter με facets).\nΓράψαμε μια τελική πλήρη ροή ανάλυσης.\n\n\n\n\n\nΑυτό είναι όλο το R που χρειάζεστε για τη συντριπτική πλειονότητα των αναλύσεων δεδομένων που θα κάνετε στη συνέχεια των σπουδών σας!"
+    "section": "Τελική άσκηση: Πλήρης ροή ανάλυσης",
+    "text": "Τελική άσκηση: Πλήρης ροή ανάλυσης\n\nΚάνει left_join με το homeworld_info.\nΦιλτράρει όσους έχουν NA στο climate.\nΣτέλνει τα δεδομένα στο ggplot και φτιάχνει boxplot με:\n\nΆξονας X: climate\nΆξονας Y: height_m\nΓέμισμα: climate\n\nΠροσθέτει κατάλληλους τίτλους.\nΕφαρμόζει theme_minimal() και αφαιρεί το υπόμνημα (legend.position = \"none\").\n\n\nΡυθμός Καθηγητή (2:45 - 2:55) Αυτή είναι η τελική σύνθεση. Ενθαρρύνετε τους να γράψουν τη ροή βήμα-βήμα και να ελέγχουν το αποτέλεσμα μετά από κάθε pipe. Όταν τελειώσουν, ζητήστε τους να σώσουν το script τους ως τελικό παραδοτέο του εξαμήνου. Καλό είναι να γίνει αναφορά στο πώς αυτό είναι ένα τυπικό R workflow για ανάλυση δεδομένων."
   },
   {
     "objectID": "slides/lecture-11/index.html#ευχαριστώ",

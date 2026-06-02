@@ -278,32 +278,8 @@
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a></a><span class="fu">glimpse</span>(starwars)</span></code></pre></div><button title="Αντιγραφή στο πρόχειρο" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
-<section id="τι-στήλες-έχουμε" class="slide level2">
-<h2>Τι στήλες έχουμε;</h2>
-<div class="concept-boxes">
-<section id="αριθμητικές" class="concept-box blue">
-<h3>Αριθμητικές</h3>
-<ul>
-<li><code>height</code> (cm)</li>
-<li><code>mass</code> (kg)</li>
-<li><code>birth_year</code> (BBY)</li>
-</ul>
-</section>
-<section id="κατηγορικές" class="concept-box green">
-<h3>Κατηγορικές</h3>
-<ul>
-<li><code>name</code>, <code>species</code>, <code>homeworld</code></li>
-<li><code>sex</code>, <code>gender</code></li>
-<li><code>hair_color</code>, <code>skin_color</code>, <code>eye_color</code></li>
-</ul>
-</section>
-</div>
-<p><br>
-</p>
-<p>Υπάρχουν επίσης 3 στήλες <strong>λίστας</strong> (<code>films</code>, <code>vehicles</code>, <code>starships</code>) τις οποίες <strong>δεν θα χρειαστούμε</strong> σήμερα.</p>
-</section>
-<section id="άσκηση-1-πρώτη-γνωριμία" class="slide level2">
-<h2>Άσκηση 1: Πρώτη γνωριμία</h2>
+<section id="άσκηση" class="slide level2">
+<h2>Άσκηση</h2>
 <p>Χρησιμοποιώντας το <code>starwars</code>:</p>
 <ol type="1">
 <li>Πόσοι χαρακτήρες υπάρχουν συνολικά;</li>
@@ -311,24 +287,10 @@
 <li>Πόσοι χαρακτήρες έχουν <code>NA</code> στη στήλη <code>mass</code>; (Συμβουλή: <code>filter(is.na(mass))</code> και μετά <code>nrow()</code>).</li>
 <li>Ποιοι είναι οι <strong>5 ψηλότεροι</strong> χαρακτήρες; Εμφανίστε τις στήλες <code>name</code>, <code>height</code>, <code>species</code>.</li>
 </ol>
-<aside class="notes">
-<p><strong>Ρυθμός Καθηγητή (0:10 - 0:25)</strong> Περπατήστε ανάμεσά τους. Το ερώτημα 3 είναι σημαντικό — οι φοιτητές πρέπει να καταλάβουν ότι θα χρειαστούμε καθαρισμό. Το ερώτημα 4 τους θυμίζει <code>arrange(desc(...))</code> και <code>head()</code>/<code>slice_head()</code>.</p>
-<style type="text/css">
-        span.MJX_Assistive_MathML {
-          position:absolute!important;
-          clip: rect(1px, 1px, 1px, 1px);
-          padding: 1px 0 0 0!important;
-          border: 0!important;
-          height: 1px!important;
-          width: 1px!important;
-          overflow: hidden!important;
-          display:block!important;
-      }</style></aside>
 </section>
 
 <section id="πόσα-na-έχουμε-σε-κάθε-στήλη" class="slide level2">
 <h2>Πόσα NA έχουμε σε κάθε στήλη;</h2>
-<p>Ένα <strong>γρήγορο</strong> τρικ για να μετρήσουμε τα <code>NA</code> σε κάθε στήλη:</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a></a>starwars <span class="sc">|&gt;</span></span>
 <span id="cb5-2"><a></a>  <span class="fu">summarise</span>(</span>
@@ -358,22 +320,9 @@
 <span id="cb6-9"><a></a></span>
 <span id="cb6-10"><a></a><span class="fu">glimpse</span>(sw_clean)</span></code></pre></div><button title="Αντιγραφή στο πρόχειρο" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<aside class="notes">
-<p><strong>Ρυθμός Καθηγητή (0:25 - 0:35)</strong> Εξηγήστε γιατί κάναμε filter για <code>mass &lt; 500</code>: ο Jabba ο Hutt (~1358 kg) “σπάει” τη μάζα. Ζητήστε τους να τρέξουν <code>starwars |&gt; arrange(desc(mass)) |&gt; head(3)</code> για να το δουν.</p>
-<style type="text/css">
-        span.MJX_Assistive_MathML {
-          position:absolute!important;
-          clip: rect(1px, 1px, 1px, 1px);
-          padding: 1px 0 0 0!important;
-          border: 0!important;
-          height: 1px!important;
-          width: 1px!important;
-          overflow: hidden!important;
-          display:block!important;
-      }</style></aside>
 </section>
-<section id="άσκηση-2-δικός-σας-καθαρισμός" class="slide level2">
-<h2>Άσκηση 2: Δικός σας καθαρισμός</h2>
+<section id="άσκηση-1" class="slide level2">
+<h2>Άσκηση</h2>
 <p>Ξεκινώντας από το <strong>αρχικό <code>starwars</code></strong>, δημιουργήστε ένα νέο tibble με όνομα <code>sw_adults</code> που:</p>
 <ol type="1">
 <li>Κρατάει <strong>μόνο</strong> όσους έχουν γνωστό <strong><code>birth_year</code></strong> (όχι <code>NA</code>).</li>
@@ -382,19 +331,6 @@
 <li>Επιλέγει τις στήλες: <code>name</code>, <code>species</code>, <code>homeworld</code>, <code>age_at_yavin</code>.</li>
 <li>Ταξινομεί με βάση την ηλικία <strong>φθίνουσα</strong> (από τον πιο γέρο στον νεότερο).</li>
 </ol>
-<aside class="notes">
-<p><strong>Ρυθμός Καθηγητή (0:35 - 0:55)</strong> Δώστε περίπου 15 λεπτά. Στόχος είναι να εξασκηθούν στη ροή <code>filter -&gt; mutate -&gt; filter -&gt; select -&gt; arrange</code>. Επισημάνετε ότι μπορούν να βάλουν δύο <code>filter</code> ή ένα με δύο όρους — η ροή θα έχει το ίδιο αποτέλεσμα. <strong>ΜΕΤΑ ΤΗΝ ΑΣΚΗΣΗ: ΚΑΝΤΕ 15 ΛΕΠΤΑ ΔΙΑΛΕΙΜΜΑ (0:55 - 1:10)</strong></p>
-<style type="text/css">
-        span.MJX_Assistive_MathML {
-          position:absolute!important;
-          clip: rect(1px, 1px, 1px, 1px);
-          padding: 1px 0 0 0!important;
-          border: 0!important;
-          height: 1px!important;
-          width: 1px!important;
-          overflow: hidden!important;
-          display:block!important;
-      }</style></aside>
 </section>
 </section>
 <section>
@@ -419,13 +355,13 @@
 </section>
 <section id="η-συνάρτηση-tribble" class="slide level2">
 <h2>Η συνάρτηση <code>tribble()</code></h2>
-<p>Η <code>tribble()</code> φτιάχνει έναν μικρό <code>tibble</code> γράφοντας τις γραμμές <strong>όπως ένα πινακάκι</strong>:</p>
+<p>Η <code>tribble()</code> φτιάχνει έναν μικρό <code>tibble</code> γράφοντας τις γραμμές <strong>όπως σε ένα πίνακα</strong>:</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a></a>example <span class="ot">&lt;-</span> <span class="fu">tribble</span>(</span>
 <span id="cb8-2"><a></a>  <span class="sc">~</span>name,    <span class="sc">~</span>grade,</span>
 <span id="cb8-3"><a></a>  <span class="st">"Maria"</span>,  <span class="fl">9.5</span>,</span>
-<span id="cb8-4"><a></a>  <span class="st">"Yannis"</span>, <span class="fl">7.0</span>,</span>
-<span id="cb8-5"><a></a>  <span class="st">"Eleni"</span>,  <span class="fl">8.5</span></span>
+<span id="cb8-4"><a></a>  <span class="st">"John"</span>, <span class="fl">7.0</span>,</span>
+<span id="cb8-5"><a></a>  <span class="st">"George"</span>,  <span class="fl">8.5</span></span>
 <span id="cb8-6"><a></a>)</span>
 <span id="cb8-7"><a></a></span>
 <span id="cb8-8"><a></a>example</span></code></pre></div><button title="Αντιγραφή στο πρόχειρο" class="code-copy-button"><i class="bi"></i></button></div>
@@ -433,7 +369,7 @@
 <p><br>
 </p>
 <div class="success-box">
-<p>Τα ονόματα των στηλών μπαίνουν με <strong><code>~</code></strong> μπροστά. Κάθε επόμενη γραμμή είναι μια καινούργια παρατήρηση.</p>
+<p>Τα ονόματα των στηλών μπαίνουν με <code>~</code> μπροστά. Κάθε επόμενη γραμμή είναι μια καινούργια παρατήρηση.</p>
 </div>
 </section>
 <section id="φτιάχνουμε-το-species_class" class="slide level2">
@@ -478,8 +414,8 @@
 <p>Χρησιμοποιήσαμε <strong><code>left_join</code></strong> ώστε να κρατήσουμε <strong>όλους</strong> τους χαρακτήρες, ακόμα κι όσοι έχουν είδος για το οποίο δεν φτιάξαμε classification (θα πάρουν <code>NA</code>).</p>
 </div>
 </section>
-<section id="άσκηση-3-σύνοψη-ανά-classification" class="slide level2">
-<h2>Άσκηση 3: Σύνοψη ανά classification</h2>
+<section id="άσκηση-2" class="slide level2">
+<h2>Άσκηση</h2>
 <p>Χρησιμοποιώντας το <strong><code>sw_class</code></strong>:</p>
 <ol type="1">
 <li>Αφαιρέστε όσους χαρακτήρες έχουν <code>NA</code> στο <code>classification</code>.</li>
@@ -530,8 +466,8 @@
 <span id="cb12-17"><a></a>)</span></code></pre></div><button title="Αντιγραφή στο πρόχειρο" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
-<section id="δεύτερο-join-ενώνουμε-δύο-lookup-πίνακες" class="slide level2">
-<h2>Δεύτερο join: ενώνουμε <strong>δύο</strong> lookup πίνακες</h2>
+<section id="δεύτερο-join-ενώνουμε-δύο-βοηθητικούς-πίνακες" class="slide level2">
+<h2>Δεύτερο join: ενώνουμε <strong>δύο</strong> βοηθητικούς πίνακες</h2>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a></a>sw_full <span class="ot">&lt;-</span> sw_clean <span class="sc">|&gt;</span></span>
 <span id="cb13-2"><a></a>  <span class="fu">left_join</span>(species_class,  <span class="fu">join_by</span>(species)) <span class="sc">|&gt;</span></span>
@@ -545,8 +481,8 @@
 <p>Τώρα κάθε χαρακτήρας έχει: αρχικά δεδομένα + <code>classification</code> + <code>galaxy_region</code> + <code>climate</code>.</p>
 </div>
 </section>
-<section id="άσκηση-4-πολλαπλές-συνενώσεις" class="slide level2">
-<h2>Άσκηση 4: Πολλαπλές συνενώσεις</h2>
+<section id="άσκηση-3" class="slide level2">
+<h2>Άσκηση</h2>
 <p>Χρησιμοποιώντας το <strong><code>sw_full</code></strong>:</p>
 <ol type="1">
 <li>Αφαιρέστε όσους χαρακτήρες έχουν <code>NA</code> στο <code>galaxy_region</code>.</li>
@@ -558,24 +494,11 @@
 </ul></li>
 <li>Ταξινομήστε ανά <code>galaxy_region</code> και κατόπιν φθίνον <code>n</code>.</li>
 </ol>
-<aside class="notes">
-<p><strong>Ρυθμός Καθηγητή (1:35 - 1:55)</strong> Εδώ έχουμε <strong>διπλό group_by</strong>. Υπενθυμίστε ότι αν δεν προσθέσουν <code>.groups = "drop"</code>, η <code>summarise</code> αφήνει τα δεδομένα <strong>ομαδοποιημένα κατά <code>galaxy_region</code></strong> — αυτό μπορεί να επηρεάσει επόμενες πράξεις. Συμβουλέψτε τους να το συνηθίσουν. <strong>ΜΕΤΑ ΤΗΝ ΑΣΚΗΣΗ: ΚΑΝΤΕ 15 ΛΕΠΤΑ ΔΙΑΛΕΙΜΜΑ (1:55 - 2:10)</strong></p>
-<style type="text/css">
-        span.MJX_Assistive_MathML {
-          position:absolute!important;
-          clip: rect(1px, 1px, 1px, 1px);
-          padding: 1px 0 0 0!important;
-          border: 0!important;
-          height: 1px!important;
-          width: 1px!important;
-          overflow: hidden!important;
-          display:block!important;
-      }</style></aside>
 </section>
 </section>
 <section>
-<section id="μέρος-3ο-σύνθεση-και-οπτικοποίηση" class="title-slide slide level1 center">
-<h1>Μέρος 3ο: Σύνθεση και Οπτικοποίηση</h1>
+<section id="μέρος-3ο-σύνθεση-και-γραφήματα" class="title-slide slide level1 center">
+<h1>Μέρος 3ο: Σύνθεση και Γραφήματα</h1>
 
 </section>
 <section id="από-τους-πίνακες-στα-γραφήματα" class="slide level2">
@@ -608,11 +531,6 @@
 <span id="cb15-11"><a></a>  ) <span class="sc">+</span></span>
 <span id="cb15-12"><a></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div><button title="Αντιγραφή στο πρόχειρο" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<p><br>
-</p>
-<div class="highlight-box">
-<p>Η συνάρτηση <strong><code>reorder()</code></strong> ταξινομεί τις κατηγορίες ως προς τη μεταβλητή <code>n</code> — έτσι οι μπάρες βγαίνουν από τη μικρότερη στη μεγαλύτερη.</p>
-</div>
 </section>
 <section id="γράφημα-2ο-boxplot-υψών-ανά-classification" class="slide level2">
 <h2>Γράφημα 2ο: Boxplot υψών ανά classification</h2>
@@ -633,8 +551,8 @@
 <span id="cb16-14"><a></a>  )</span></code></pre></div><button title="Αντιγραφή στο πρόχειρο" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
-<section id="άσκηση-5-δικό-σας-scatter-plot" class="slide level2">
-<h2>Άσκηση 5: Δικό σας scatter plot</h2>
+<section id="άσκηση-4" class="slide level2">
+<h2>Άσκηση</h2>
 <p>Χρησιμοποιώντας το <strong><code>sw_full</code></strong>:</p>
 <ol type="1">
 <li>Αφαιρέστε όσους έχουν <code>NA</code> στο <code>galaxy_region</code>.</li>
@@ -672,6 +590,11 @@
 <li>Αφαιρεί όποιον έχει <code>mass &gt; 500</code>.</li>
 <li>Δημιουργεί τη στήλη <code>height_m = height / 100</code>.</li>
 <li>Κάνει <strong><code>left_join</code></strong> με το <code>species_class</code>.</li>
+</ol>
+</section>
+<section id="τελική-άσκηση-πλήρης-ροή-ανάλυσης-1" class="slide level2">
+<h2>Τελική άσκηση: Πλήρης ροή ανάλυσης</h2>
+<ol start="5" type="1">
 <li>Κάνει <strong><code>left_join</code></strong> με το <code>homeworld_info</code>.</li>
 <li>Φιλτράρει όσους έχουν <code>NA</code> στο <code>climate</code>.</li>
 <li>Στέλνει τα δεδομένα στο <code>ggplot</code> και φτιάχνει <strong>boxplot</strong> με:
@@ -698,26 +621,6 @@
       }</style></aside>
 </section>
 
-<section id="σύνοψη-τι-κάναμε-σήμερα" class="slide level2">
-<h2>Σύνοψη — τι κάναμε σήμερα</h2>
-<div class="objectives">
-<ol type="1">
-<li>Ξεκινήσαμε από ένα <strong>έτοιμο dataset</strong> (<code>starwars</code>) και το <strong>εξερευνήσαμε</strong>.</li>
-<li><strong>Καθαρίσαμε</strong> τα δεδομένα (αφαίρεση <code>NA</code>, ακραίων τιμών).</li>
-<li><strong>Μετασχηματίσαμε</strong> μεταβλητές (<code>mutate</code>).</li>
-<li><strong>Δημιουργήσαμε</strong> δικούς μας βοηθητικούς πίνακες με τη <code>tribble()</code>.</li>
-<li><strong>Συνενώσαμε</strong> πίνακες με <code>left_join</code> (πολλαπλά joins σε μια ροή).</li>
-<li><strong>Ομαδοποιήσαμε</strong> και υπολογίσαμε σύνοψη ανά κατηγορία.</li>
-<li>Φτιάξαμε <strong>τρία διαφορετικά γραφήματα</strong> (bar, boxplot, scatter με facets).</li>
-<li>Γράψαμε μια <strong>τελική πλήρη ροή ανάλυσης</strong>.</li>
-</ol>
-</div>
-<p><br>
-</p>
-<div class="success-box">
-<p><strong>Αυτό είναι όλο το R που χρειάζεστε</strong> για τη συντριπτική πλειονότητα των αναλύσεων δεδομένων που θα κάνετε στη συνέχεια των σπουδών σας!</p>
-</div>
-</section>
 <section id="ευχαριστώ" class="slide level2">
 <h2>Ευχαριστώ!</h2>
 <p><br>
