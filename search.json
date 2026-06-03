@@ -571,7 +571,7 @@
     "href": "slides/lecture-02/index.html#επιλογή-υποσυνόλου",
     "title": "Στατιστικά Προγράμματα II",
     "section": "Επιλογή υποσυνόλου",
-    "text": "Επιλογή υποσυνόλου\n\n# Επιλογή 10 τυχαίων τιμών από την N(0, 1)\nvalues &lt;- rnorm(10)\nvalues\n\n [1] -1.03310780 -0.99281254 -0.18324729 -0.54489294 -1.17796067 -0.57581384\n [7]  0.22091371  0.53054113 -1.29589737 -0.04513213\n\n\nΜπορούμε να διαλέξουμε τις πρώτες 3 τιμές της μεταβλητής values:\n\nvalues[1:3]\n\n[1] -1.0331078 -0.9928125 -0.1832473\n\n\nΜπορούμε να διαλέξουμε την 3η τιμές και την 5η τιμή της μεταβλητής values:\n\nvalues[c(3, 5)]\n\n[1] -0.1832473 -1.1779607"
+    "text": "Επιλογή υποσυνόλου\n\n# Επιλογή 10 τυχαίων τιμών από την N(0, 1)\nvalues &lt;- rnorm(10)\nvalues\n\n [1] -0.91658032  0.29950099 -0.01179029  0.35005176  1.34231848 -0.31371053\n [7] -2.41782990 -1.97640854  1.60846896 -1.49608911\n\n\nΜπορούμε να διαλέξουμε τις πρώτες 3 τιμές της μεταβλητής values:\n\nvalues[1:3]\n\n[1] -0.91658032  0.29950099 -0.01179029\n\n\nΜπορούμε να διαλέξουμε την 3η τιμές και την 5η τιμή της μεταβλητής values:\n\nvalues[c(3, 5)]\n\n[1] -0.01179029  1.34231848"
   },
   {
     "objectID": "slides/lecture-02/index.html#επιλογή-υποσυνόλου-1",
@@ -1155,13 +1155,6 @@
     "text": "Λύση\n\nstorms |&gt; \n  filter(status == \"hurricane\", year &gt;= 2010, year &lt;= 2020) |&gt; \n  filter(!is.na(category)) |&gt; \n  ggplot(aes(x = pressure, y = wind, color = factor(category))) +\n  geom_point(size = 2, alpha = 0.7) +\n  facet_wrap(~ year) +\n  labs(\n    title = \"Ανάλυση Τυφώνων στον Ατλαντικό (2010-2020)\",\n    subtitle = \"Σχέση πίεσης (X) και ανέμου (Y) ανά έτος\",\n    x = \"Ατμοσφαιρική Πίεση (mb)\",\n    y = \"Ταχύτητα Ανέμου (knots)\",\n    color = \"Κατηγορία\\nΤυφώνα\"\n  ) +\n  theme_bw()"
   },
   {
-    "objectID": "slides/lecture-11/index.html#τα-δεδομένα",
-    "href": "slides/lecture-11/index.html#τα-δεδομένα",
-    "title": "Ανασκόπηση",
-    "section": "Τα δεδομένα",
-    "text": "Τα δεδομένα\nΌλες οι ερωτήσεις βασίζονται στο ενσωματωμένο dataset starwars και στους βοηθητικούς πίνακες που φτιάξαμε στα προηγούμενα μαθήματα.\n\nlibrary(dplyr)\nlibrary(ggplot2)\n\n\n\n\nglimpse(starwars)\n\n\nΔεν χρειάζεται φόρτωση αρχείου — το starwars είναι ήδη μέσα στο dplyr."
-  },
-  {
     "objectID": "slides/lecture-11/index.html#πολλαπλής-επιλογής",
     "href": "slides/lecture-11/index.html#πολλαπλής-επιλογής",
     "title": "Ανασκόπηση",
@@ -1190,6 +1183,13 @@
     "text": "Πολλαπλής επιλογής (περισσότερες — 2)\nΕ9. Μέσα στο aes() ορίζουμε:\n(α) το θέμα (theme) του γραφήματος (β) τις αντιστοιχίσεις μεταβλητών σε οπτικά χαρακτηριστικά (x, y, χρώμα…) (γ) τους τίτλους (δ) το είδος του geom\n\n\nΕ10. Τι κάνει το facet_wrap(~ galaxy_region);\n(α) χρωματίζει τα σημεία ανά περιοχή (β) φιλτράρει ανά περιοχή (γ) χωρίζει το γράφημα σε υπο-γραφήματα ανά τιμή του galaxy_region (δ) ταξινομεί τις περιοχές\n\n\nΕ11. Το inner_join(x, y) κρατά:\n(α) όλες τις γραμμές του x (β) όλες τις γραμμές του y (γ) μόνο τις γραμμές που ταιριάζουν και στους δύο (δ) όλες τις γραμμές και των δύο"
   },
   {
+    "objectID": "slides/lecture-11/index.html#απαντήσεις-πολλαπλής-επιλογής",
+    "href": "slides/lecture-11/index.html#απαντήσεις-πολλαπλής-επιλογής",
+    "title": "Ανασκόπηση",
+    "section": "Απαντήσεις πολλαπλής επιλογής",
+    "text": "Απαντήσεις πολλαπλής επιλογής\n\nΕ1 → (β) n_distinct(). (Το distinct() επιστρέφει γραμμές, όχι αριθμό.)\nΕ2 → (β) Κρατάει όλες τις γραμμές του αριστερού πίνακα x.\nΕ3 → (β) Στο ggplot2 τα layers ενώνονται με +, όχι με pipe.\nΕ4 → (β) Επιστρέφει NA. Χρειάζεται mean(mass, na.rm = TRUE).\nΕ5 → (β) Μία γραμμή σύνοψης για κάθε ομάδα (είδος).\nΕ6 → (β) select() για στήλες· filter() για γραμμές.\nΕ7 → (α) Το count() είναι συντόμευση του group_by() |&gt; summarise(n = n()).\nΕ8 → (β) Το %in% ελέγχει αν η τιμή ανήκει στο σύνολο (λογικό «ή»).\nΕ9 → (β) Στο aes() μπαίνουν οι αντιστοιχίσεις μεταβλητών → αισθητικής.\nΕ10 → (γ) Το facet_wrap() σπάει το γράφημα σε panels ανά κατηγορία.\nΕ11 → (γ) Μόνο τα κοινά ζεύγη. Όσα δεν ταιριάζουν πετιούνται."
+  },
+  {
     "objectID": "slides/lecture-11/index.html#συμπλήρωση-κενών-1",
     "href": "slides/lecture-11/index.html#συμπλήρωση-κενών-1",
     "title": "Ανασκόπηση",
@@ -1197,11 +1197,11 @@
     "text": "Συμπλήρωση κενών\nΣυμπληρώστε τα κενά (____) ώστε η ροή να: κρατά όσους έχουν γνωστό height & mass, αφαιρεί ακραίες τιμές, ομαδοποιεί ανά είδος, και υπολογίζει πλήθος + μέσο ύψος, ταξινομημένα φθίνουσα ως προς το πλήθος.\n\nsw_summary &lt;- starwars |&gt;\n  ________(!is.na(height), !is.na(mass)) |&gt;    # (1) κρατάμε γνωστά height & mass\n  ________(mass &lt; 500) |&gt;                      # (2) αφαιρούμε ακραίες τιμές\n  mutate(height_m = ______ / ______) |&gt;        # (3) μετατροπή από εκατοστά σε μέτρα\n  ________(species) |&gt;                         # (4) ομαδοποίηση ανά είδος\n  summarise(\n    n          = ____(),                       # (5) πλήθος χαρακτήρων\n    avg_height = mean(________),               # (6) μέσο ύψος σε μέτρα\n    .groups    = \"drop\"\n  ) |&gt;\n  ________(desc(n))                            # (7) ταξινόμηση φθίνουσα\n\nsw_summary"
   },
   {
-    "objectID": "slides/lecture-11/index.html#συμπλήρωση-κενών-2η",
-    "href": "slides/lecture-11/index.html#συμπλήρωση-κενών-2η",
+    "objectID": "slides/lecture-11/index.html#λύση",
+    "href": "slides/lecture-11/index.html#λύση",
     "title": "Ανασκόπηση",
-    "section": "Συμπλήρωση κενών (2η)",
-    "text": "Συμπλήρωση κενών (2η)\nΣυμπληρώστε τα κενά ώστε να μετρηθεί το πλήθος χαρακτήρων ανά περιοχή του γαλαξία και να φτιαχτεί bar chart.\n\nplot_data &lt;- starwars |&gt;\n  ________(homeworld_info, join_by(________)) |&gt;   # (1) ένωση & (2) κλειδί\n  filter(!is.na(galaxy_region)) |&gt;\n  ________(galaxy_region)                          # (3) μέτρημα ανά περιοχή\n\nplot_data |&gt;\n  ggplot(aes(x = galaxy_region, y = ___)) ____     # (4) στήλη πλήθους & (5) σύνδεση\n  geom_____() +                                    # (6) στήλες από έτοιμα νούμερα\n  labs(title = \"Χαρακτήρες ανά περιοχή\", x = \"Περιοχή\", y = \"Πλήθος\")"
+    "section": "Λύση",
+    "text": "Λύση\n\nsw_summary &lt;- starwars |&gt;\n  filter(!is.na(height), !is.na(mass)) |&gt;   # (1)\n  filter(mass &lt; 500) |&gt;                     # (2)\n  mutate(height_m = height / 100) |&gt;        # (3)\n  group_by(species) |&gt;                      # (4)\n  summarise(\n    n          = n(),                       # (5)\n    avg_height = mean(height_m),            # (6)\n    .groups    = \"drop\"\n  ) |&gt;\n  arrange(desc(n))                          # (7)\n\nsw_summary\n\n\nΚενά: filter, filter, height / 100, group_by, n, height_m, arrange."
   },
   {
     "objectID": "slides/lecture-11/index.html#σωστό-ή-λάθος",
@@ -1218,6 +1218,13 @@
     "text": "Σωστό ή Λάθος; (συνέχεια)\n\nΤο count(x) επιστρέφει μια στήλη πλήθους με όνομα n.\nΤο select(-name) αφαιρεί τη στήλη name.\nΤο inner_join() κρατά και γραμμές που δεν βρήκαν ταίριασμα.\nΣτο aes() μπορούμε να αντιστοιχίσουμε ένα χρώμα σε μια μεταβλητή.\nΤο mean(c(1, 2, NA), na.rm = TRUE) επιστρέφει NA.\nΤο group_by() αλλάζει τον αριθμό των γραμμών του πίνακα."
   },
   {
+    "objectID": "slides/lecture-11/index.html#λύση-1",
+    "href": "slides/lecture-11/index.html#λύση-1",
+    "title": "Ανασκόπηση",
+    "section": "Λύση",
+    "text": "Λύση\n\nΛ — το filter() επιλέγει γραμμές· οι στήλες με select().\nΣ — ακριβώς αυτή είναι η δουλειά του mutate().\nΛ — το group_by() συνδυάζεται και με mutate() ή filter() ανά ομάδα.\nΛ — το desc() δίνει φθίνουσα σειρά.\nΣ — αυτή είναι η λογική του pipe.\nΣ — όσες γραμμές του αριστερού πίνακα δεν ταιριάξουν παίρνουν NA.\nΛ — ο X μπορεί κάλλιστα να είναι κατηγορικός (π.χ. classification).\nΣ — προεπιλεγμένο όνομα στήλης το n.\nΣ — το πρόσημο - αφαιρεί στήλες στο select().\nΛ — το inner_join() κρατά μόνο τα ταιριάσματα.\nΣ — π.χ. aes(color = classification).\nΛ — αγνοεί το NA και επιστρέφει 1.5.\nΛ — απλώς «σημαδεύει» ομάδες· οι γραμμές παραμένουν ίδιες."
+  },
+  {
     "objectID": "slides/lecture-11/index.html#εντοπισμός-λάθους-dplyr",
     "href": "slides/lecture-11/index.html#εντοπισμός-λάθους-dplyr",
     "title": "Ανασκόπηση",
@@ -1225,25 +1232,53 @@
     "text": "Εντοπισμός λάθους (dplyr)\nΟ παρακάτω κώδικας έπρεπε να κρατήσει μόνο τους ανθρώπους, αλλά δίνει σφάλμα. Βρείτε και διορθώστε το λάθος.\n\nstarwars |&gt;\n  filter(species = \"Human\")\n\n\n\nΜήνυμα σφάλματος:\nError in `filter()`:\n! We detected a named input.\nℹ This usually means that you've used `=` instead of `==`.\nℹ Did you mean `species == \"Human\"`?"
   },
   {
-    "objectID": "slides/lecture-11/index.html#εντοπισμός-λάθους-ggplot2",
-    "href": "slides/lecture-11/index.html#εντοπισμός-λάθους-ggplot2",
+    "objectID": "slides/lecture-11/index.html#λύση-2",
+    "href": "slides/lecture-11/index.html#λύση-2",
     "title": "Ανασκόπηση",
-    "section": "Εντοπισμός λάθους (ggplot2)",
-    "text": "Εντοπισμός λάθους (ggplot2)\nΟ κώδικας θέλει να φτιάξει scatter plot ύψους–μάζας, αλλά αποτυγχάνει. Βρείτε το λάθος.\n\nggplot(starwars, aes(x = height, y = mass)) |&gt;\n  geom_point()\n\n\n\nΜήνυμα σφάλματος:\nError in `geom_point()`:\n! `data` must be a &lt;data.frame&gt;, or an object coercible by\n  `fortify()`, not an S3 object with class &lt;ggplot&gt;."
+    "section": "Λύση",
+    "text": "Λύση\nΤο πρόβλημα: χρησιμοποιήθηκε = (ανάθεση) αντί για == (σύγκριση ισότητας).\n\nstarwars |&gt;\n  filter(species == \"Human\")\n\n\nΚανόνας: μέσα στο filter() οι συνθήκες ισότητας γράφονται πάντα με ==."
   },
   {
-    "objectID": "slides/lecture-11/index.html#εντοπισμός-λάθους-στήλη-που-δεν-υπάρχει",
-    "href": "slides/lecture-11/index.html#εντοπισμός-λάθους-στήλη-που-δεν-υπάρχει",
+    "objectID": "slides/lecture-11/index.html#εντοπισμός-σφάλματος",
+    "href": "slides/lecture-11/index.html#εντοπισμός-σφάλματος",
     "title": "Ανασκόπηση",
-    "section": "Εντοπισμός λάθους (στήλη που δεν υπάρχει)",
-    "text": "Εντοπισμός λάθους (στήλη που δεν υπάρχει)\nΟ κώδικας θέλει να υπολογίσει το μέσο ύψος, αλλά αποτυγχάνει. Βρείτε το λάθος.\n\nstarwars |&gt;\n  summarise(avg_height = mean(heigth, na.rm = TRUE))\n\n\n\nΜήνυμα σφάλματος:\nError in `summarise()`:\nℹ In argument: `avg_height = mean(heigth, na.rm = TRUE)`.\nCaused by error:\n! object 'heigth' not found"
+    "section": "Εντοπισμός σφάλματος",
+    "text": "Εντοπισμός σφάλματος\nΟ κώδικας θέλει να φτιάξει scatter plot ύψους–μάζας, αλλά αποτυγχάνει. Βρείτε το λάθος.\n\nggplot(starwars, aes(x = height, y = mass)) |&gt;\n  geom_point()\n\n\n\nΜήνυμα σφάλματος:\nError in `geom_point()`:\n! `data` must be a &lt;data.frame&gt;, or an object coercible by\n  `fortify()`, not an S3 object with class &lt;ggplot&gt;."
   },
   {
-    "objectID": "slides/lecture-11/index.html#εντοπισμός-λάθους-λογικό-όχι-σφάλμα",
-    "href": "slides/lecture-11/index.html#εντοπισμός-λάθους-λογικό-όχι-σφάλμα",
+    "objectID": "slides/lecture-11/index.html#λύση-3",
+    "href": "slides/lecture-11/index.html#λύση-3",
     "title": "Ανασκόπηση",
-    "section": "Εντοπισμός λάθους (λογικό — όχι σφάλμα)",
-    "text": "Εντοπισμός λάθους (λογικό — όχι σφάλμα)\nΟ κώδικας τρέχει χωρίς error, αλλά το αποτέλεσμα είναι NA. Γιατί;\n\nstarwars |&gt;\n  summarise(avg_mass = mean(mass))\n#&gt; avg_mass = NA"
+    "section": "Λύση",
+    "text": "Λύση\nΤο πρόβλημα: τα layers του ggplot2 ενώνονται με +, όχι με τον pipe |&gt;.\n\nggplot(starwars, aes(x = height, y = mass)) +\n  geom_point()\n\n\nΜνημονικός κανόνας: δεδομένα → pipe |&gt;, γράφημα → plus +."
+  },
+  {
+    "objectID": "slides/lecture-11/index.html#εντοπισμός-σφάλματος-1",
+    "href": "slides/lecture-11/index.html#εντοπισμός-σφάλματος-1",
+    "title": "Ανασκόπηση",
+    "section": "Εντοπισμός σφάλματος",
+    "text": "Εντοπισμός σφάλματος\nΟ κώδικας θέλει να υπολογίσει το μέσο ύψος, αλλά αποτυγχάνει. Βρείτε το λάθος.\n\nstarwars |&gt;\n  summarise(avg_height = mean(heigth, na.rm = TRUE))\n\n\n\nΜήνυμα σφάλματος:\nError in `summarise()`:\nℹ In argument: `avg_height = mean(heigth, na.rm = TRUE)`.\nCaused by error:\n! object 'heigth' not found"
+  },
+  {
+    "objectID": "slides/lecture-11/index.html#λύση-4",
+    "href": "slides/lecture-11/index.html#λύση-4",
+    "title": "Ανασκόπηση",
+    "section": "Λύση",
+    "text": "Λύση\nΤο πρόβλημα: ορθογραφικό λάθος στο όνομα της στήλης — heigth αντί height.\n\nstarwars |&gt;\n  summarise(avg_height = mean(height, na.rm = TRUE))\n\n\nΤο «object … not found» σχεδόν πάντα σημαίνει λάθος όνομα στήλης ή μεταβλητής."
+  },
+  {
+    "objectID": "slides/lecture-11/index.html#εντοπισμός-σφάλματος-2",
+    "href": "slides/lecture-11/index.html#εντοπισμός-σφάλματος-2",
+    "title": "Ανασκόπηση",
+    "section": "Εντοπισμός σφάλματος",
+    "text": "Εντοπισμός σφάλματος\nΟ κώδικας τρέχει χωρίς error, αλλά το αποτέλεσμα είναι NA. Γιατί;\n\nstarwars |&gt;\n  summarise(avg_mass = mean(mass))\n#&gt; avg_mass = NA"
+  },
+  {
+    "objectID": "slides/lecture-11/index.html#λύση-5",
+    "href": "slides/lecture-11/index.html#λύση-5",
+    "title": "Ανασκόπηση",
+    "section": "Λύση",
+    "text": "Λύση\nΗ στήλη mass περιέχει NA. Χωρίς na.rm = TRUE, η mean() επιστρέφει NA.\n\nstarwars |&gt;\n  summarise(avg_mass = mean(mass, na.rm = TRUE))\n\n\nΔεν είναι όλα τα λάθη «κόκκινα errors» — ένα NA εκεί που περιμένατε αριθμό είναι λογικό λάθος."
   },
   {
     "objectID": "slides/lecture-11/index.html#αντιστοίχιση-dplyr",
@@ -1253,11 +1288,25 @@
     "text": "Αντιστοίχιση (dplyr)\nΑντιστοιχίστε κάθε συνάρτηση dplyr με τη δουλειά της.\n\n\n\nΣυνάρτηση\n#\nΠεριγραφή\n\n\n\n\nfilter()\n1\nΔημιουργεί / τροποποιεί στήλες\n\n\nselect()\n2\nΟμαδοποιεί τις γραμμές\n\n\nmutate()\n3\nΕπιλέγει γραμμές με βάση συνθήκη\n\n\narrange()\n4\nΣυνοψίζει κάθε ομάδα σε μία τιμή\n\n\nsummarise()\n5\nΕπιλέγει στήλες\n\n\ngroup_by()\n6\nΤαξινομεί τις γραμμές"
   },
   {
+    "objectID": "slides/lecture-11/index.html#λύση-6",
+    "href": "slides/lecture-11/index.html#λύση-6",
+    "title": "Ανασκόπηση",
+    "section": "Λύση",
+    "text": "Λύση\n\nfilter() → 3 (επιλογή γραμμών)\nselect() → 5 (επιλογή στηλών)\nmutate() → 1 (δημιουργία/τροποποίηση στηλών)\narrange() → 6 (ταξινόμηση)\nsummarise() → 4 (σύνοψη ανά ομάδα)\ngroup_by() → 2 (ομαδοποίηση)"
+  },
+  {
     "objectID": "slides/lecture-11/index.html#αντιστοίχιση-γραφήματα",
     "href": "slides/lecture-11/index.html#αντιστοίχιση-γραφήματα",
     "title": "Ανασκόπηση",
     "section": "Αντιστοίχιση (γραφήματα)",
-    "text": "Αντιστοίχιση (γραφήματα)\nΑντιστοιχίστε κάθε geom με τον τύπο γραφήματος.\n\n\n\nGeom\n#\nΤύπος γραφήματος\n\n\n\n\ngeom_point()\n1\nΡαβδόγραμμα από έτοιμα νούμερα\n\n\ngeom_col()\n2\nΘηκόγραμμα (boxplot)\n\n\ngeom_boxplot()\n3\nΔιάγραμμα διασποράς (scatter)\n\n\ngeom_histogram()\n4\nΓραμμή / χρονοσειρά\n\n\ngeom_line()\n5\nΙστόγραμμα συχνοτήτων"
+    "text": "Αντιστοίχιση (γραφήματα)\nΑντιστοιχίστε κάθε geom με τον τύπο γραφήματος.\n\n\n\nGeom\n#\nΤύπος γραφήματος\n\n\n\n\ngeom_point()\n1\nΡαβδόγραμμα από έτοιμα νούμερα\n\n\ngeom_col()\n2\nΘηκόγραμμα\n\n\ngeom_boxplot()\n3\nΔιάγραμμα διασποράς\n\n\ngeom_histogram()\n4\nΓραμμή / χρονοσειρά\n\n\ngeom_line()\n5\nΙστόγραμμα συχνοτήτων"
+  },
+  {
+    "objectID": "slides/lecture-11/index.html#λύση-7",
+    "href": "slides/lecture-11/index.html#λύση-7",
+    "title": "Ανασκόπηση",
+    "section": "Λύση",
+    "text": "Λύση\n\ngeom_point() → 3 (scatter)\ngeom_col() → 1 (ράβδοι από έτοιμες τιμές)\ngeom_boxplot() → 2 (boxplot)\ngeom_histogram() → 5 (ιστόγραμμα)\ngeom_line() → 4 (γραμμή)"
   },
   {
     "objectID": "slides/lecture-11/index.html#πρόβλεψη-αποτελέσματος",
@@ -1267,6 +1316,13 @@
     "text": "Πρόβλεψη αποτελέσματος\nΔίνεται ο πίνακας df:\n# A tibble: 4 × 2\n      a     b\n  &lt;dbl&gt; &lt;dbl&gt;\n1     1    10\n2     2    20\n3     3    30\n4     4    40\nΤι θα τυπώσει ο παρακάτω κώδικας;\n\ndf |&gt;\n  filter(a &gt;= 2) |&gt;\n  summarise(total = sum(b))"
   },
   {
+    "objectID": "slides/lecture-11/index.html#λύση-πρόβλεψης-αποτελέσματος",
+    "href": "slides/lecture-11/index.html#λύση-πρόβλεψης-αποτελέσματος",
+    "title": "Ανασκόπηση",
+    "section": "Λύση πρόβλεψης αποτελέσματος",
+    "text": "Λύση πρόβλεψης αποτελέσματος\nΤο filter(a &gt;= 2) κρατά τις γραμμές με a = 2, 3, 4 → τιμές b = 20, 30, 40.\nΤο summarise(total = sum(b)) τις αθροίζει:\n# A tibble: 1 × 1\n  total\n  &lt;dbl&gt;\n1    90\n\nΑποτέλεσμα: total = 90."
+  },
+  {
     "objectID": "slides/lecture-11/index.html#πρόβλεψη-αποτελέσματος-2η",
     "href": "slides/lecture-11/index.html#πρόβλεψη-αποτελέσματος-2η",
     "title": "Ανασκόπηση",
@@ -1274,39 +1330,25 @@
     "text": "Πρόβλεψη αποτελέσματος (2η)\nΔίνεται ο πίνακας df2:\n# A tibble: 4 × 2\n  grp     val\n  &lt;chr&gt; &lt;dbl&gt;\n1 A         5\n2 A        15\n3 B        10\n4 B        30\nΤι θα τυπώσει ο παρακάτω κώδικας;\n\ndf2 |&gt;\n  group_by(grp) |&gt;\n  summarise(m = mean(val))"
   },
   {
-    "objectID": "slides/lecture-11/index.html#σειροθέτηση-βημάτων",
-    "href": "slides/lecture-11/index.html#σειροθέτηση-βημάτων",
+    "objectID": "slides/lecture-11/index.html#λύση-8",
+    "href": "slides/lecture-11/index.html#λύση-8",
     "title": "Ανασκόπηση",
-    "section": "Σειροθέτηση βημάτων",
-    "text": "Σειροθέτηση βημάτων\nΤα παρακάτω βήματα είναι ανακατεμένα. Βάλτε τα στη σωστή σειρά ώστε να υπολογιστεί το μέσο ύψος ανά είδος, ταξινομημένο φθίνουσα.\n(Α)  arrange(desc(avg_h))\n(Β)  starwars |&gt;\n(Γ)  summarise(avg_h = mean(height, na.rm = TRUE), .groups = \"drop\") |&gt;\n(Δ)  group_by(species) |&gt;\n(Ε)  filter(!is.na(height)) |&gt;"
+    "section": "Λύση",
+    "text": "Λύση\nΜέσος όρος ανά ομάδα: A = (5 + 15) / 2 = 10, B = (10 + 30) / 2 = 20.\n# A tibble: 2 × 2\n  grp       m\n  &lt;chr&gt; &lt;dbl&gt;\n1 A        10\n2 B        20"
   },
   {
-    "objectID": "slides/lecture-11/index.html#capstone-συμπλήρωση-κενών-12",
-    "href": "slides/lecture-11/index.html#capstone-συμπλήρωση-κενών-12",
+    "objectID": "slides/lecture-11/index.html#ταξινόμηση-βημάτων-σε-σειρά",
+    "href": "slides/lecture-11/index.html#ταξινόμηση-βημάτων-σε-σειρά",
     "title": "Ανασκόπηση",
-    "section": "Capstone: συμπλήρωση κενών (1/2)",
-    "text": "Capstone: συμπλήρωση κενών (1/2)\nΣυμπληρώστε τα κενά ώστε, ξεκινώντας από το starwars, να φτιαχτεί boxplot ύψους ανά κλίμα πλανήτη, αφού γίνουν δύο joins με τους βοηθητικούς πίνακες species_class και homeworld_info.\n\nsw_full &lt;- starwars |&gt;\n  filter(!is.na(height), !is.na(mass)) |&gt;\n  filter(mass ____ 500) |&gt;                        # (1) αφαίρεση ακραίων\n  mutate(height_m = height / 100) |&gt;\n  left_join(species_class,  join_by(________)) |&gt;  # (2) κλειδί ένωσης\n  left_join(homeworld_info, join_by(________))     # (3) κλειδί ένωσης"
+    "section": "Ταξινόμηση βημάτων σε σειρά",
+    "text": "Ταξινόμηση βημάτων σε σειρά\nΤα παρακάτω βήματα είναι ανακατεμένα. Βάλτε τα στη σωστή σειρά ώστε να υπολογιστεί το μέσο ύψος ανά είδος, ταξινομημένο φθίνουσα.\n(Α)  arrange(desc(avg_h))\n(Β)  starwars |&gt;\n(Γ)  summarise(avg_h = mean(height, na.rm = TRUE), .groups = \"drop\") |&gt;\n(Δ)  group_by(species) |&gt;\n(Ε)  filter(!is.na(height)) |&gt;"
   },
   {
-    "objectID": "slides/lecture-11/index.html#capstone-συμπλήρωση-κενών-22",
-    "href": "slides/lecture-11/index.html#capstone-συμπλήρωση-κενών-22",
+    "objectID": "slides/lecture-11/index.html#λύση-9",
+    "href": "slides/lecture-11/index.html#λύση-9",
     "title": "Ανασκόπηση",
-    "section": "Capstone: συμπλήρωση κενών (2/2)",
-    "text": "Capstone: συμπλήρωση κενών (2/2)\n\nsw_full |&gt;\n  ________(!is.na(climate)) |&gt;                    # (4) μόνο γνωστό κλίμα\n  ggplot(aes(x = climate, y = height_m, fill = climate)) ____  # (5) σύνδεση layers\n  ________() +                                     # (6) geom για boxplot\n  labs(title = \"Ύψος ανά κλίμα πλανήτη\", x = \"Κλίμα\", y = \"Ύψος (m)\") +\n  theme_minimal() +\n  theme(legend.position = \"____\")                  # (7) απόκρυψη υπομνήματος"
-  },
-  {
-    "objectID": "slides/lecture-11/index.html#βοηθητικοί-πίνακες-για-αναφορά",
-    "href": "slides/lecture-11/index.html#βοηθητικοί-πίνακες-για-αναφορά",
-    "title": "Ανασκόπηση",
-    "section": "Βοηθητικοί πίνακες (για αναφορά)",
-    "text": "Βοηθητικοί πίνακες (για αναφορά)\nΟι πίνακες που χρησιμοποιούν οι ασκήσεις — όπως τους φτιάξαμε στα προηγούμενα μαθήματα:\n\nspecies_class &lt;- tribble(\n  ~species, ~classification,\n  \"Human\",  \"Humanoid\",\n  \"Droid\",  \"Droid\",\n  \"Wookiee\",\"Mammal\"\n  # ... (πλήρης πίνακας στο μάθημα 10)\n)\n\nhomeworld_info &lt;- tribble(\n  ~homeworld,  ~galaxy_region, ~climate,\n  \"Tatooine\",  \"Outer Rim\",    \"Arid\",\n  \"Naboo\",     \"Mid Rim\",      \"Temperate\",\n  \"Alderaan\",  \"Core\",         \"Temperate\"\n  # ... (πλήρης πίνακας στο μάθημα 10)\n)"
-  },
-  {
-    "objectID": "slides/lecture-11/index.html#ευχαριστώ-και-καλή-επιτυχία",
-    "href": "slides/lecture-11/index.html#ευχαριστώ-και-καλή-επιτυχία",
-    "title": "Ανασκόπηση",
-    "section": "Ευχαριστώ — και καλή επιτυχία!",
-    "text": "Ευχαριστώ — και καλή επιτυχία!\n\n\n\nΚαλό διάβασμα και καλή επιτυχία στις εξετάσεις — και καλό καλοκαίρι!\n\n\nΡυθμός Καθηγητή (2:55 - 3:00) Κλείστε με μια σύντομη ανασκόπηση των τύπων ερωτήσεων. Υπενθυμίστε ότι στο γραπτό δεν θα γράψουν εκτενή κώδικα — αρκεί να καταλαβαίνουν τη λογική των pipes, των joins και του ggplot2. Συμβουλέψτε τους να εξασκηθούν ξαναγράφοντας με το χέρι τις λύσεις των ασκήσεων από τα προηγούμενα μαθήματα. Απαντήστε σε τυχόν τελευταίες ερωτήσεις."
+    "section": "Λύση",
+    "text": "Λύση\nΣωστή σειρά: Β → Ε → Δ → Γ → Α\n\nstarwars |&gt;                                          # (Β)\n  filter(!is.na(height)) |&gt;                          # (Ε)\n  group_by(species) |&gt;                               # (Δ)\n  summarise(avg_h = mean(height, na.rm = TRUE),      # (Γ)\n            .groups = \"drop\") |&gt;\n  arrange(desc(avg_h))                               # (Α)"
   },
   {
     "objectID": "notes/print.html",

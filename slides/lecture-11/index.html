@@ -209,22 +209,6 @@
 
   <p class="date">2026-06-02</p>
 </section>
-<section id="τα-δεδομένα" class="slide level2">
-<h2>Τα δεδομένα</h2>
-<p>Όλες οι ερωτήσεις βασίζονται στο ενσωματωμένο dataset <code>starwars</code> και στους βοηθητικούς πίνακες που φτιάξαμε στα προηγούμενα μαθήματα.</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a></a><span class="fu">library</span>(dplyr)</span>
-<span id="cb1-2"><a></a><span class="fu">library</span>(ggplot2)</span></code></pre></div><button title="Αντιγραφή στο πρόχειρο" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-<p><br>
-</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a></a><span class="fu">glimpse</span>(starwars)</span></code></pre></div><button title="Αντιγραφή στο πρόχειρο" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-<div class="reminder-box">
-<p>Δεν χρειάζεται φόρτωση αρχείου — το <code>starwars</code> είναι ήδη μέσα στο <code>dplyr</code>.</p>
-</div>
-</section>
 <section>
 <section id="ερωτήσεις-πολλαπλής-επιλογής" class="title-slide slide level1 center">
 <h1>Ερωτήσεις Πολλαπλής Επιλογής</h1>
@@ -285,7 +269,22 @@
 <p><strong>Ε11.</strong> Το <code>inner_join(x, y)</code> κρατά:</p>
 <p>(α) όλες τις γραμμές του <code>x</code> (β) όλες τις γραμμές του <code>y</code> (γ) <strong>μόνο</strong> τις γραμμές που ταιριάζουν και στους δύο (δ) όλες τις γραμμές και των δύο</p>
 </section>
-</section>
+<section id="απαντήσεις-πολλαπλής-επιλογής" class="slide level2">
+<h2>Απαντήσεις πολλαπλής επιλογής</h2>
+<ul>
+<li><strong>Ε1 → (β)</strong> <code>n_distinct()</code>. <em>(Το <code>distinct()</code> επιστρέφει γραμμές, όχι αριθμό.)</em></li>
+<li><strong>Ε2 → (β)</strong> Κρατάει όλες τις γραμμές του αριστερού πίνακα <code>x</code>.</li>
+<li><strong>Ε3 → (β)</strong> Στο <code>ggplot2</code> τα layers ενώνονται με <code>+</code>, όχι με pipe.</li>
+<li><strong>Ε4 → (β)</strong> Επιστρέφει <code>NA</code>. Χρειάζεται <code>mean(mass, na.rm = TRUE)</code>.</li>
+<li><strong>Ε5 → (β)</strong> Μία γραμμή σύνοψης για κάθε ομάδα (είδος).</li>
+<li><strong>Ε6 → (β)</strong> <code>select()</code> για στήλες· <code>filter()</code> για γραμμές.</li>
+<li><strong>Ε7 → (α)</strong> Το <code>count()</code> είναι συντόμευση του <code>group_by() |&gt; summarise(n = n())</code>.</li>
+<li><strong>Ε8 → (β)</strong> Το <code>%in%</code> ελέγχει αν η τιμή ανήκει στο σύνολο (λογικό «ή»).</li>
+<li><strong>Ε9 → (β)</strong> Στο <code>aes()</code> μπαίνουν οι αντιστοιχίσεις μεταβλητών → αισθητικής.</li>
+<li><strong>Ε10 → (γ)</strong> Το <code>facet_wrap()</code> σπάει το γράφημα σε panels ανά κατηγορία.</li>
+<li><strong>Ε11 → (γ)</strong> Μόνο τα κοινά ζεύγη. Όσα δεν ταιριάζουν πετιούνται.</li>
+</ul>
+</section></section>
 <section>
 <section id="συμπλήρωση-κενών" class="title-slide slide level1 center">
 <h1>Συμπλήρωση Κενών</h1>
@@ -295,38 +294,42 @@
 <h2>Συμπλήρωση κενών</h2>
 <p>Συμπληρώστε τα κενά (<code>____</code>) ώστε η ροή να: κρατά όσους έχουν γνωστό <code>height</code> &amp; <code>mass</code>, αφαιρεί ακραίες τιμές, ομαδοποιεί ανά είδος, και υπολογίζει πλήθος + μέσο ύψος, ταξινομημένα φθίνουσα ως προς το πλήθος.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a></a>sw_summary <span class="ot">&lt;-</span> starwars <span class="sc">|&gt;</span></span>
-<span id="cb3-2"><a></a>  <span class="fu">________</span>(<span class="sc">!</span><span class="fu">is.na</span>(height), <span class="sc">!</span><span class="fu">is.na</span>(mass)) <span class="sc">|&gt;</span>    <span class="co"># (1) κρατάμε γνωστά height &amp; mass</span></span>
-<span id="cb3-3"><a></a>  <span class="fu">________</span>(mass <span class="sc">&lt;</span> <span class="dv">500</span>) <span class="sc">|&gt;</span>                      <span class="co"># (2) αφαιρούμε ακραίες τιμές</span></span>
-<span id="cb3-4"><a></a>  <span class="fu">mutate</span>(<span class="at">height_m =</span> ______ <span class="sc">/</span> ______) <span class="sc">|&gt;</span>        <span class="co"># (3) μετατροπή από εκατοστά σε μέτρα</span></span>
-<span id="cb3-5"><a></a>  <span class="fu">________</span>(species) <span class="sc">|&gt;</span>                         <span class="co"># (4) ομαδοποίηση ανά είδος</span></span>
-<span id="cb3-6"><a></a>  <span class="fu">summarise</span>(</span>
-<span id="cb3-7"><a></a>    <span class="at">n          =</span> <span class="fu">____</span>(),                       <span class="co"># (5) πλήθος χαρακτήρων</span></span>
-<span id="cb3-8"><a></a>    <span class="at">avg_height =</span> <span class="fu">mean</span>(________),               <span class="co"># (6) μέσο ύψος σε μέτρα</span></span>
-<span id="cb3-9"><a></a>    <span class="at">.groups    =</span> <span class="st">"drop"</span></span>
-<span id="cb3-10"><a></a>  ) <span class="sc">|&gt;</span></span>
-<span id="cb3-11"><a></a>  <span class="fu">________</span>(<span class="fu">desc</span>(n))                            <span class="co"># (7) ταξινόμηση φθίνουσα</span></span>
-<span id="cb3-12"><a></a></span>
-<span id="cb3-13"><a></a>sw_summary</span></code></pre></div><button title="Αντιγραφή στο πρόχειρο" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a></a>sw_summary <span class="ot">&lt;-</span> starwars <span class="sc">|&gt;</span></span>
+<span id="cb1-2"><a></a>  <span class="fu">________</span>(<span class="sc">!</span><span class="fu">is.na</span>(height), <span class="sc">!</span><span class="fu">is.na</span>(mass)) <span class="sc">|&gt;</span>    <span class="co"># (1) κρατάμε γνωστά height &amp; mass</span></span>
+<span id="cb1-3"><a></a>  <span class="fu">________</span>(mass <span class="sc">&lt;</span> <span class="dv">500</span>) <span class="sc">|&gt;</span>                      <span class="co"># (2) αφαιρούμε ακραίες τιμές</span></span>
+<span id="cb1-4"><a></a>  <span class="fu">mutate</span>(<span class="at">height_m =</span> ______ <span class="sc">/</span> ______) <span class="sc">|&gt;</span>        <span class="co"># (3) μετατροπή από εκατοστά σε μέτρα</span></span>
+<span id="cb1-5"><a></a>  <span class="fu">________</span>(species) <span class="sc">|&gt;</span>                         <span class="co"># (4) ομαδοποίηση ανά είδος</span></span>
+<span id="cb1-6"><a></a>  <span class="fu">summarise</span>(</span>
+<span id="cb1-7"><a></a>    <span class="at">n          =</span> <span class="fu">____</span>(),                       <span class="co"># (5) πλήθος χαρακτήρων</span></span>
+<span id="cb1-8"><a></a>    <span class="at">avg_height =</span> <span class="fu">mean</span>(________),               <span class="co"># (6) μέσο ύψος σε μέτρα</span></span>
+<span id="cb1-9"><a></a>    <span class="at">.groups    =</span> <span class="st">"drop"</span></span>
+<span id="cb1-10"><a></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb1-11"><a></a>  <span class="fu">________</span>(<span class="fu">desc</span>(n))                            <span class="co"># (7) ταξινόμηση φθίνουσα</span></span>
+<span id="cb1-12"><a></a></span>
+<span id="cb1-13"><a></a>sw_summary</span></code></pre></div><button title="Αντιγραφή στο πρόχειρο" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
-
-<section id="συμπλήρωση-κενών-2η" class="slide level2">
-<h2>Συμπλήρωση κενών (2η)</h2>
-<p>Συμπληρώστε τα κενά ώστε να μετρηθεί το πλήθος χαρακτήρων ανά <strong>περιοχή του γαλαξία</strong> και να φτιαχτεί bar chart.</p>
+<section id="λύση" class="slide level2">
+<h2>Λύση</h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a></a>plot_data <span class="ot">&lt;-</span> starwars <span class="sc">|&gt;</span></span>
-<span id="cb5-2"><a></a>  <span class="fu">________</span>(homeworld_info, <span class="fu">join_by</span>(________)) <span class="sc">|&gt;</span>   <span class="co"># (1) ένωση &amp; (2) κλειδί</span></span>
-<span id="cb5-3"><a></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(galaxy_region)) <span class="sc">|&gt;</span></span>
-<span id="cb5-4"><a></a>  <span class="fu">________</span>(galaxy_region)                          <span class="co"># (3) μέτρημα ανά περιοχή</span></span>
-<span id="cb5-5"><a></a></span>
-<span id="cb5-6"><a></a>plot_data <span class="sc">|&gt;</span></span>
-<span id="cb5-7"><a></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> galaxy_region, <span class="at">y =</span> ___)) ____     <span class="co"># (4) στήλη πλήθους &amp; (5) σύνδεση</span></span>
-<span id="cb5-8"><a></a>  <span class="fu">geom_____</span>() <span class="sc">+</span>                                    <span class="co"># (6) στήλες από έτοιμα νούμερα</span></span>
-<span id="cb5-9"><a></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Χαρακτήρες ανά περιοχή"</span>, <span class="at">x =</span> <span class="st">"Περιοχή"</span>, <span class="at">y =</span> <span class="st">"Πλήθος"</span>)</span></code></pre></div><button title="Αντιγραφή στο πρόχειρο" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a></a>sw_summary <span class="ot">&lt;-</span> starwars <span class="sc">|&gt;</span></span>
+<span id="cb2-2"><a></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(height), <span class="sc">!</span><span class="fu">is.na</span>(mass)) <span class="sc">|&gt;</span>   <span class="co"># (1)</span></span>
+<span id="cb2-3"><a></a>  <span class="fu">filter</span>(mass <span class="sc">&lt;</span> <span class="dv">500</span>) <span class="sc">|&gt;</span>                     <span class="co"># (2)</span></span>
+<span id="cb2-4"><a></a>  <span class="fu">mutate</span>(<span class="at">height_m =</span> height <span class="sc">/</span> <span class="dv">100</span>) <span class="sc">|&gt;</span>        <span class="co"># (3)</span></span>
+<span id="cb2-5"><a></a>  <span class="fu">group_by</span>(species) <span class="sc">|&gt;</span>                      <span class="co"># (4)</span></span>
+<span id="cb2-6"><a></a>  <span class="fu">summarise</span>(</span>
+<span id="cb2-7"><a></a>    <span class="at">n          =</span> <span class="fu">n</span>(),                       <span class="co"># (5)</span></span>
+<span id="cb2-8"><a></a>    <span class="at">avg_height =</span> <span class="fu">mean</span>(height_m),            <span class="co"># (6)</span></span>
+<span id="cb2-9"><a></a>    <span class="at">.groups    =</span> <span class="st">"drop"</span></span>
+<span id="cb2-10"><a></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb2-11"><a></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(n))                          <span class="co"># (7)</span></span>
+<span id="cb2-12"><a></a></span>
+<span id="cb2-13"><a></a>sw_summary</span></code></pre></div><button title="Αντιγραφή στο πρόχειρο" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-</section>
-</section>
+<div class="success-box">
+<p>Κενά: <strong>filter</strong>, <strong>filter</strong>, <strong>height</strong> / <strong>100</strong>, <strong>group_by</strong>, <strong>n</strong>, <strong>height_m</strong>, <strong>arrange</strong>.</p>
+</div>
+</section></section>
 <section>
 <section id="σωστό-λάθος" class="title-slide slide level1 center">
 <h1>Σωστό / Λάθος</h1>
@@ -356,7 +359,24 @@
 <li>Το <code>group_by()</code> αλλάζει τον αριθμό των γραμμών του πίνακα.</li>
 </ol>
 </section>
-</section>
+<section id="λύση-1" class="slide level2">
+<h2>Λύση</h2>
+<ol type="1">
+<li><strong>Λ</strong> — το <code>filter()</code> επιλέγει <strong>γραμμές</strong>· οι στήλες με <code>select()</code>.</li>
+<li><strong>Σ</strong> — ακριβώς αυτή είναι η δουλειά του <code>mutate()</code>.</li>
+<li><strong>Λ</strong> — το <code>group_by()</code> συνδυάζεται και με <code>mutate()</code> ή <code>filter()</code> ανά ομάδα.</li>
+<li><strong>Λ</strong> — το <code>desc()</code> δίνει <strong>φθίνουσα</strong> σειρά.</li>
+<li><strong>Σ</strong> — αυτή είναι η λογική του pipe.</li>
+<li><strong>Σ</strong> — όσες γραμμές του αριστερού πίνακα δεν ταιριάξουν παίρνουν <code>NA</code>.</li>
+<li><strong>Λ</strong> — ο X μπορεί κάλλιστα να είναι <strong>κατηγορικός</strong> (π.χ. <code>classification</code>).</li>
+<li><strong>Σ</strong> — προεπιλεγμένο όνομα στήλης το <code>n</code>.</li>
+<li><strong>Σ</strong> — το πρόσημο <code>-</code> αφαιρεί στήλες στο <code>select()</code>.</li>
+<li><strong>Λ</strong> — το <code>inner_join()</code> κρατά <strong>μόνο</strong> τα ταιριάσματα.</li>
+<li><strong>Σ</strong> — π.χ. <code>aes(color = classification)</code>.</li>
+<li><strong>Λ</strong> — αγνοεί το <code>NA</code> και επιστρέφει <code>1.5</code>.</li>
+<li><strong>Λ</strong> — απλώς «σημαδεύει» ομάδες· οι γραμμές παραμένουν ίδιες.</li>
+</ol>
+</section></section>
 <section>
 <section id="εντοπισμός-λάθους" class="title-slide slide level1 center">
 <h1>Εντοπισμός Λάθους</h1>
@@ -366,8 +386,8 @@
 <h2>Εντοπισμός λάθους (dplyr)</h2>
 <p>Ο παρακάτω κώδικας έπρεπε να κρατήσει μόνο τους ανθρώπους, αλλά δίνει σφάλμα. <strong>Βρείτε και διορθώστε</strong> το λάθος.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a></a>starwars <span class="sc">|&gt;</span></span>
-<span id="cb7-2"><a></a>  <span class="fu">filter</span>(<span class="at">species =</span> <span class="st">"Human"</span>)</span></code></pre></div><button title="Αντιγραφή στο πρόχειρο" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a></a>starwars <span class="sc">|&gt;</span></span>
+<span id="cb3-2"><a></a>  <span class="fu">filter</span>(<span class="at">species =</span> <span class="st">"Human"</span>)</span></code></pre></div><button title="Αντιγραφή στο πρόχειρο" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p><br>
 </p>
@@ -377,13 +397,23 @@
 ℹ This usually means that you've used `=` instead of `==`.
 ℹ Did you mean `species == "Human"`?</code></pre>
 </section>
-
-<section id="εντοπισμός-λάθους-ggplot2" class="slide level2">
-<h2>Εντοπισμός λάθους (ggplot2)</h2>
+<section id="λύση-2" class="slide level2">
+<h2>Λύση</h2>
+<p>Το πρόβλημα: χρησιμοποιήθηκε <strong><code>=</code></strong> (ανάθεση) αντί για <strong><code>==</code></strong> (σύγκριση ισότητας).</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a></a>starwars <span class="sc">|&gt;</span></span>
+<span id="cb5-2"><a></a>  <span class="fu">filter</span>(species <span class="sc">==</span> <span class="st">"Human"</span>)</span></code></pre></div><button title="Αντιγραφή στο πρόχειρο" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="highlight-box">
+<p>Κανόνας: μέσα στο <code>filter()</code> οι συνθήκες ισότητας γράφονται <strong>πάντα</strong> με <code>==</code>.</p>
+</div>
+</section>
+<section id="εντοπισμός-σφάλματος" class="slide level2">
+<h2>Εντοπισμός σφάλματος</h2>
 <p>Ο κώδικας θέλει να φτιάξει scatter plot ύψους–μάζας, αλλά αποτυγχάνει. <strong>Βρείτε το λάθος.</strong></p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a></a><span class="fu">ggplot</span>(starwars, <span class="fu">aes</span>(<span class="at">x =</span> height, <span class="at">y =</span> mass)) <span class="sc">|&gt;</span></span>
-<span id="cb10-2"><a></a>  <span class="fu">geom_point</span>()</span></code></pre></div><button title="Αντιγραφή στο πρόχειρο" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a></a><span class="fu">ggplot</span>(starwars, <span class="fu">aes</span>(<span class="at">x =</span> height, <span class="at">y =</span> mass)) <span class="sc">|&gt;</span></span>
+<span id="cb6-2"><a></a>  <span class="fu">geom_point</span>()</span></code></pre></div><button title="Αντιγραφή στο πρόχειρο" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p><br>
 </p>
@@ -392,13 +422,23 @@
 ! `data` must be a &lt;data.frame&gt;, or an object coercible by
   `fortify()`, not an S3 object with class &lt;ggplot&gt;.</code></pre>
 </section>
-
-<section id="εντοπισμός-λάθους-στήλη-που-δεν-υπάρχει" class="slide level2">
-<h2>Εντοπισμός λάθους (στήλη που δεν υπάρχει)</h2>
+<section id="λύση-3" class="slide level2">
+<h2>Λύση</h2>
+<p>Το πρόβλημα: τα layers του <code>ggplot2</code> ενώνονται με <strong><code>+</code></strong>, όχι με τον pipe <strong><code>|&gt;</code></strong>.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a></a><span class="fu">ggplot</span>(starwars, <span class="fu">aes</span>(<span class="at">x =</span> height, <span class="at">y =</span> mass)) <span class="sc">+</span></span>
+<span id="cb8-2"><a></a>  <span class="fu">geom_point</span>()</span></code></pre></div><button title="Αντιγραφή στο πρόχειρο" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="highlight-box">
+<p>Μνημονικός κανόνας: <strong>δεδομένα → pipe <code>|&gt;</code></strong>, <strong>γράφημα → plus <code>+</code></strong>.</p>
+</div>
+</section>
+<section id="εντοπισμός-σφάλματος-1" class="slide level2">
+<h2>Εντοπισμός σφάλματος</h2>
 <p>Ο κώδικας θέλει να υπολογίσει το μέσο ύψος, αλλά αποτυγχάνει. <strong>Βρείτε το λάθος.</strong></p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a></a>starwars <span class="sc">|&gt;</span></span>
-<span id="cb13-2"><a></a>  <span class="fu">summarise</span>(<span class="at">avg_height =</span> <span class="fu">mean</span>(heigth, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span></code></pre></div><button title="Αντιγραφή στο πρόχειρο" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a></a>starwars <span class="sc">|&gt;</span></span>
+<span id="cb9-2"><a></a>  <span class="fu">summarise</span>(<span class="at">avg_height =</span> <span class="fu">mean</span>(heigth, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span></code></pre></div><button title="Αντιγραφή στο πρόχειρο" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p><br>
 </p>
@@ -408,21 +448,36 @@
 Caused by error:
 ! object 'heigth' not found</code></pre>
 </section>
-
-<section id="εντοπισμός-λάθους-λογικό-όχι-σφάλμα" class="slide level2">
-<h2>Εντοπισμός λάθους (λογικό — όχι σφάλμα)</h2>
-<p>Ο κώδικας <strong>τρέχει</strong> χωρίς error, αλλά το αποτέλεσμα είναι <code>NA</code>. <strong>Γιατί;</strong></p>
+<section id="λύση-4" class="slide level2">
+<h2>Λύση</h2>
+<p>Το πρόβλημα: <strong>ορθογραφικό λάθος</strong> στο όνομα της στήλης — <code>heigth</code> αντί <code>height</code>.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a></a>starwars <span class="sc">|&gt;</span></span>
-<span id="cb16-2"><a></a>  <span class="fu">summarise</span>(<span class="at">avg_mass =</span> <span class="fu">mean</span>(mass))</span>
-<span id="cb16-3"><a></a><span class="co">#&gt; avg_mass = NA</span></span></code></pre></div><button title="Αντιγραφή στο πρόχειρο" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a></a>starwars <span class="sc">|&gt;</span></span>
+<span id="cb11-2"><a></a>  <span class="fu">summarise</span>(<span class="at">avg_height =</span> <span class="fu">mean</span>(height, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span></code></pre></div><button title="Αντιγραφή στο πρόχειρο" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="highlight-box">
+<p>Το «object … not found» σχεδόν πάντα σημαίνει λάθος όνομα στήλης ή μεταβλητής.</p>
 </div>
 </section>
+<section id="εντοπισμός-σφάλματος-2" class="slide level2">
+<h2>Εντοπισμός σφάλματος</h2>
+<p>Ο κώδικας <strong>τρέχει</strong> χωρίς error, αλλά το αποτέλεσμα είναι <code>NA</code>. <strong>Γιατί;</strong></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a></a>starwars <span class="sc">|&gt;</span></span>
+<span id="cb12-2"><a></a>  <span class="fu">summarise</span>(<span class="at">avg_mass =</span> <span class="fu">mean</span>(mass))</span>
+<span id="cb12-3"><a></a><span class="co">#&gt; avg_mass = NA</span></span></code></pre></div><button title="Αντιγραφή στο πρόχειρο" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
 </section>
-<section>
-<section id="bonus-τύποι-ερωτήσεων" class="title-slide slide level1 center">
-<h1>Bonus τύποι ερωτήσεων</h1>
-
+<section id="λύση-5" class="slide level2">
+<h2>Λύση</h2>
+<p>Η στήλη <code>mass</code> περιέχει <code>NA</code>. Χωρίς <code>na.rm = TRUE</code>, η <code>mean()</code> επιστρέφει <code>NA</code>.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a></a>starwars <span class="sc">|&gt;</span></span>
+<span id="cb13-2"><a></a>  <span class="fu">summarise</span>(<span class="at">avg_mass =</span> <span class="fu">mean</span>(mass, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span></code></pre></div><button title="Αντιγραφή στο πρόχειρο" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="highlight-box">
+<p>Δεν είναι όλα τα λάθη «κόκκινα errors» — ένα <code>NA</code> εκεί που περιμένατε αριθμό είναι <strong>λογικό</strong> λάθος.</p>
+</div>
 </section>
 <section id="αντιστοίχιση-dplyr" class="slide level2">
 <h2>Αντιστοίχιση (dplyr)</h2>
@@ -469,7 +524,17 @@ Caused by error:
 </tbody>
 </table>
 </section>
-
+<section id="λύση-6" class="slide level2">
+<h2>Λύση</h2>
+<ul>
+<li><code>filter()</code> → <strong>3</strong> (επιλογή γραμμών)</li>
+<li><code>select()</code> → <strong>5</strong> (επιλογή στηλών)</li>
+<li><code>mutate()</code> → <strong>1</strong> (δημιουργία/τροποποίηση στηλών)</li>
+<li><code>arrange()</code> → <strong>6</strong> (ταξινόμηση)</li>
+<li><code>summarise()</code> → <strong>4</strong> (σύνοψη ανά ομάδα)</li>
+<li><code>group_by()</code> → <strong>2</strong> (ομαδοποίηση)</li>
+</ul>
+</section>
 <section id="αντιστοίχιση-γραφήματα" class="slide level2">
 <h2>Αντιστοίχιση (γραφήματα)</h2>
 <p>Αντιστοιχίστε κάθε <code>geom</code> με τον τύπο γραφήματος.</p>
@@ -490,12 +555,12 @@ Caused by error:
 <tr class="even">
 <td><code>geom_col()</code></td>
 <td>2</td>
-<td>Θηκόγραμμα (boxplot)</td>
+<td>Θηκόγραμμα</td>
 </tr>
 <tr class="odd">
 <td><code>geom_boxplot()</code></td>
 <td>3</td>
-<td>Διάγραμμα διασποράς (scatter)</td>
+<td>Διάγραμμα διασποράς</td>
 </tr>
 <tr class="even">
 <td><code>geom_histogram()</code></td>
@@ -510,7 +575,16 @@ Caused by error:
 </tbody>
 </table>
 </section>
-
+<section id="λύση-7" class="slide level2">
+<h2>Λύση</h2>
+<ul>
+<li><code>geom_point()</code> → <strong>3</strong> (scatter)</li>
+<li><code>geom_col()</code> → <strong>1</strong> (ράβδοι από έτοιμες τιμές)</li>
+<li><code>geom_boxplot()</code> → <strong>2</strong> (boxplot)</li>
+<li><code>geom_histogram()</code> → <strong>5</strong> (ιστόγραμμα)</li>
+<li><code>geom_line()</code> → <strong>4</strong> (γραμμή)</li>
+</ul>
+</section>
 <section id="πρόβλεψη-αποτελέσματος" class="slide level2">
 <h2>Πρόβλεψη αποτελέσματος</h2>
 <p>Δίνεται ο πίνακας <code>df</code>:</p>
@@ -523,12 +597,23 @@ Caused by error:
 4     4    40</code></pre>
 <p>Τι θα <strong>τυπώσει</strong> ο παρακάτω κώδικας;</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a></a>df <span class="sc">|&gt;</span></span>
-<span id="cb19-2"><a></a>  <span class="fu">filter</span>(a <span class="sc">&gt;=</span> <span class="dv">2</span>) <span class="sc">|&gt;</span></span>
-<span id="cb19-3"><a></a>  <span class="fu">summarise</span>(<span class="at">total =</span> <span class="fu">sum</span>(b))</span></code></pre></div><button title="Αντιγραφή στο πρόχειρο" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a></a>df <span class="sc">|&gt;</span></span>
+<span id="cb15-2"><a></a>  <span class="fu">filter</span>(a <span class="sc">&gt;=</span> <span class="dv">2</span>) <span class="sc">|&gt;</span></span>
+<span id="cb15-3"><a></a>  <span class="fu">summarise</span>(<span class="at">total =</span> <span class="fu">sum</span>(b))</span></code></pre></div><button title="Αντιγραφή στο πρόχειρο" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
-
+<section id="λύση-πρόβλεψης-αποτελέσματος" class="slide level2">
+<h2>Λύση πρόβλεψης αποτελέσματος</h2>
+<p>Το <code>filter(a &gt;= 2)</code> κρατά τις γραμμές με <code>a</code> = 2, 3, 4 → τιμές <code>b</code> = 20, 30, 40.</p>
+<p>Το <code>summarise(total = sum(b))</code> τις αθροίζει:</p>
+<pre><code># A tibble: 1 × 1
+  total
+  &lt;dbl&gt;
+1    90</code></pre>
+<div class="success-box">
+<p><strong>Αποτέλεσμα: <code>total = 90</code></strong>.</p>
+</div>
+</section>
 <section id="πρόβλεψη-αποτελέσματος-2η" class="slide level2">
 <h2>Πρόβλεψη αποτελέσματος (2η)</h2>
 <p>Δίνεται ο πίνακας <code>df2</code>:</p>
@@ -541,96 +626,46 @@ Caused by error:
 4 B        30</code></pre>
 <p>Τι θα <strong>τυπώσει</strong> ο παρακάτω κώδικας;</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a></a>df2 <span class="sc">|&gt;</span></span>
-<span id="cb22-2"><a></a>  <span class="fu">group_by</span>(grp) <span class="sc">|&gt;</span></span>
-<span id="cb22-3"><a></a>  <span class="fu">summarise</span>(<span class="at">m =</span> <span class="fu">mean</span>(val))</span></code></pre></div><button title="Αντιγραφή στο πρόχειρο" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a></a>df2 <span class="sc">|&gt;</span></span>
+<span id="cb18-2"><a></a>  <span class="fu">group_by</span>(grp) <span class="sc">|&gt;</span></span>
+<span id="cb18-3"><a></a>  <span class="fu">summarise</span>(<span class="at">m =</span> <span class="fu">mean</span>(val))</span></code></pre></div><button title="Αντιγραφή στο πρόχειρο" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
-
-<section id="σειροθέτηση-βημάτων" class="slide level2">
-<h2>Σειροθέτηση βημάτων</h2>
+<section id="λύση-8" class="slide level2">
+<h2>Λύση</h2>
+<p>Μέσος όρος ανά ομάδα: A = (5 + 15) / 2 = <strong>10</strong>, B = (10 + 30) / 2 = <strong>20</strong>.</p>
+<pre><code># A tibble: 2 × 2
+  grp       m
+  &lt;chr&gt; &lt;dbl&gt;
+1 A        10
+2 B        20</code></pre>
+</section>
+<section id="ταξινόμηση-βημάτων-σε-σειρά" class="slide level2">
+<h2>Ταξινόμηση βημάτων σε σειρά</h2>
 <p>Τα παρακάτω βήματα είναι <strong>ανακατεμένα</strong>. Βάλτε τα στη <strong>σωστή σειρά</strong> ώστε να υπολογιστεί το μέσο ύψος ανά είδος, ταξινομημένο φθίνουσα.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb24"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a></a>(Α)  <span class="fu">arrange</span>(<span class="fu">desc</span>(avg_h))</span>
-<span id="cb24-2"><a></a>(Β)  starwars <span class="sc">|&gt;</span></span>
-<span id="cb24-3"><a></a>(Γ)  <span class="fu">summarise</span>(<span class="at">avg_h =</span> <span class="fu">mean</span>(height, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), <span class="at">.groups =</span> <span class="st">"drop"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb24-4"><a></a>(Δ)  <span class="fu">group_by</span>(species) <span class="sc">|&gt;</span></span>
-<span id="cb24-5"><a></a>(Ε)  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(height)) <span class="sc">|&gt;</span></span></code></pre></div><button title="Αντιγραφή στο πρόχειρο" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a></a>(Α)  <span class="fu">arrange</span>(<span class="fu">desc</span>(avg_h))</span>
+<span id="cb20-2"><a></a>(Β)  starwars <span class="sc">|&gt;</span></span>
+<span id="cb20-3"><a></a>(Γ)  <span class="fu">summarise</span>(<span class="at">avg_h =</span> <span class="fu">mean</span>(height, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), <span class="at">.groups =</span> <span class="st">"drop"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb20-4"><a></a>(Δ)  <span class="fu">group_by</span>(species) <span class="sc">|&gt;</span></span>
+<span id="cb20-5"><a></a>(Ε)  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(height)) <span class="sc">|&gt;</span></span></code></pre></div><button title="Αντιγραφή στο πρόχειρο" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
-</section>
-<section>
-<section id="ολοκληρωμένη-ερώτηση-συμπλήρωσης" class="title-slide slide level1 center">
-<h1>Ολοκληρωμένη ερώτηση συμπλήρωσης</h1>
-
-</section>
-<section id="capstone-συμπλήρωση-κενών-12" class="slide level2">
-<h2>Capstone: συμπλήρωση κενών (1/2)</h2>
-<p>Συμπληρώστε τα κενά ώστε, ξεκινώντας από το <code>starwars</code>, να φτιαχτεί boxplot ύψους ανά <strong>κλίμα πλανήτη</strong>, αφού γίνουν δύο joins με τους βοηθητικούς πίνακες <code>species_class</code> και <code>homeworld_info</code>.</p>
+<section id="λύση-9" class="slide level2">
+<h2>Λύση</h2>
+<p>Σωστή σειρά: <strong>Β → Ε → Δ → Γ → Α</strong></p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a></a>sw_full <span class="ot">&lt;-</span> starwars <span class="sc">|&gt;</span></span>
-<span id="cb26-2"><a></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(height), <span class="sc">!</span><span class="fu">is.na</span>(mass)) <span class="sc">|&gt;</span></span>
-<span id="cb26-3"><a></a>  <span class="fu">filter</span>(mass ____ <span class="dv">500</span>) <span class="sc">|&gt;</span>                        <span class="co"># (1) αφαίρεση ακραίων</span></span>
-<span id="cb26-4"><a></a>  <span class="fu">mutate</span>(<span class="at">height_m =</span> height <span class="sc">/</span> <span class="dv">100</span>) <span class="sc">|&gt;</span></span>
-<span id="cb26-5"><a></a>  <span class="fu">left_join</span>(species_class,  <span class="fu">join_by</span>(________)) <span class="sc">|&gt;</span>  <span class="co"># (2) κλειδί ένωσης</span></span>
-<span id="cb26-6"><a></a>  <span class="fu">left_join</span>(homeworld_info, <span class="fu">join_by</span>(________))     <span class="co"># (3) κλειδί ένωσης</span></span></code></pre></div><button title="Αντιγραφή στο πρόχειρο" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a></a>starwars <span class="sc">|&gt;</span>                                          <span class="co"># (Β)</span></span>
+<span id="cb21-2"><a></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(height)) <span class="sc">|&gt;</span>                          <span class="co"># (Ε)</span></span>
+<span id="cb21-3"><a></a>  <span class="fu">group_by</span>(species) <span class="sc">|&gt;</span>                               <span class="co"># (Δ)</span></span>
+<span id="cb21-4"><a></a>  <span class="fu">summarise</span>(<span class="at">avg_h =</span> <span class="fu">mean</span>(height, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),      <span class="co"># (Γ)</span></span>
+<span id="cb21-5"><a></a>            <span class="at">.groups =</span> <span class="st">"drop"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb21-6"><a></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(avg_h))                               <span class="co"># (Α)</span></span></code></pre></div><button title="Αντιγραφή στο πρόχειρο" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-</section>
-<section id="capstone-συμπλήρωση-κενών-22" class="slide level2">
-<h2>Capstone: συμπλήρωση κενών (2/2)</h2>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a></a>sw_full <span class="sc">|&gt;</span></span>
-<span id="cb27-2"><a></a>  <span class="fu">________</span>(<span class="sc">!</span><span class="fu">is.na</span>(climate)) <span class="sc">|&gt;</span>                    <span class="co"># (4) μόνο γνωστό κλίμα</span></span>
-<span id="cb27-3"><a></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> climate, <span class="at">y =</span> height_m, <span class="at">fill =</span> climate)) ____  <span class="co"># (5) σύνδεση layers</span></span>
-<span id="cb27-4"><a></a>  <span class="fu">________</span>() <span class="sc">+</span>                                     <span class="co"># (6) geom για boxplot</span></span>
-<span id="cb27-5"><a></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Ύψος ανά κλίμα πλανήτη"</span>, <span class="at">x =</span> <span class="st">"Κλίμα"</span>, <span class="at">y =</span> <span class="st">"Ύψος (m)"</span>) <span class="sc">+</span></span>
-<span id="cb27-6"><a></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
-<span id="cb27-7"><a></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"____"</span>)                  <span class="co"># (7) απόκρυψη υπομνήματος</span></span></code></pre></div><button title="Αντιγραφή στο πρόχειρο" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-</section>
-
-<section id="βοηθητικοί-πίνακες-για-αναφορά" class="slide level2">
-<h2>Βοηθητικοί πίνακες (για αναφορά)</h2>
-<p>Οι πίνακες που χρησιμοποιούν οι ασκήσεις — όπως τους φτιάξαμε στα προηγούμενα μαθήματα:</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a></a>species_class <span class="ot">&lt;-</span> <span class="fu">tribble</span>(</span>
-<span id="cb29-2"><a></a>  <span class="sc">~</span>species, <span class="sc">~</span>classification,</span>
-<span id="cb29-3"><a></a>  <span class="st">"Human"</span>,  <span class="st">"Humanoid"</span>,</span>
-<span id="cb29-4"><a></a>  <span class="st">"Droid"</span>,  <span class="st">"Droid"</span>,</span>
-<span id="cb29-5"><a></a>  <span class="st">"Wookiee"</span>,<span class="st">"Mammal"</span></span>
-<span id="cb29-6"><a></a>  <span class="co"># ... (πλήρης πίνακας στο μάθημα 10)</span></span>
-<span id="cb29-7"><a></a>)</span>
-<span id="cb29-8"><a></a></span>
-<span id="cb29-9"><a></a>homeworld_info <span class="ot">&lt;-</span> <span class="fu">tribble</span>(</span>
-<span id="cb29-10"><a></a>  <span class="sc">~</span>homeworld,  <span class="sc">~</span>galaxy_region, <span class="sc">~</span>climate,</span>
-<span id="cb29-11"><a></a>  <span class="st">"Tatooine"</span>,  <span class="st">"Outer Rim"</span>,    <span class="st">"Arid"</span>,</span>
-<span id="cb29-12"><a></a>  <span class="st">"Naboo"</span>,     <span class="st">"Mid Rim"</span>,      <span class="st">"Temperate"</span>,</span>
-<span id="cb29-13"><a></a>  <span class="st">"Alderaan"</span>,  <span class="st">"Core"</span>,         <span class="st">"Temperate"</span></span>
-<span id="cb29-14"><a></a>  <span class="co"># ... (πλήρης πίνακας στο μάθημα 10)</span></span>
-<span id="cb29-15"><a></a>)</span></code></pre></div><button title="Αντιγραφή στο πρόχειρο" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-</section>
-<section id="ευχαριστώ-και-καλή-επιτυχία" class="slide level2">
-<h2>Ευχαριστώ — και καλή επιτυχία!</h2>
-<p><br>
-</p>
-<div class="example-box">
-<p>Καλό διάβασμα και καλή επιτυχία στις εξετάσεις — και καλό καλοκαίρι!</p>
-</div>
-<aside class="notes">
-<p><strong>Ρυθμός Καθηγητή (2:55 - 3:00)</strong> Κλείστε με μια σύντομη ανασκόπηση των <strong>τύπων ερωτήσεων</strong>. Υπενθυμίστε ότι στο γραπτό δεν θα γράψουν εκτενή κώδικα — αρκεί να καταλαβαίνουν τη <strong>λογική</strong> των pipes, των joins και του <code>ggplot2</code>. Συμβουλέψτε τους να εξασκηθούν ξαναγράφοντας με το χέρι τις λύσεις των ασκήσεων από τα προηγούμενα μαθήματα. Απαντήστε σε τυχόν τελευταίες ερωτήσεις.</p>
-<style type="text/css">
-        span.MJX_Assistive_MathML {
-          position:absolute!important;
-          clip: rect(1px, 1px, 1px, 1px);
-          padding: 1px 0 0 0!important;
-          border: 0!important;
-          height: 1px!important;
-          width: 1px!important;
-          overflow: hidden!important;
-          display:block!important;
-      }</style></aside>
-
-
 </section></section>
+<section id="ευχαριστώ---και-καλή-επιτυχία" class="title-slide slide level1 center">
+<h1>Ευχαριστώ - και καλή επιτυχία!</h1>
+
+
+</section>
     </div>
   <div class="quarto-auto-generated-content" style="display: none;">
 <p><img src="logo.png" class="slide-logo"></p>
